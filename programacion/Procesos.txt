@@ -556,16 +556,215 @@ proceso 3
 	
 	escribir "la media es " media/5, "la mas alta es ", top , " y la mas baja es ", low;
 FinProceso
+
+Proceso3Pag37 YO
+
+	Definir notas, mayor, menor, todas como Real;
+	Definir i como Entero;
+	Dimension notas[5];
+	mayor <- 0;
+	menor <- 10;
+	todas <- 0;
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Repetir
+
+			Escribir "Dime la nota ", i + 1;
+			Leer notas[i];
+			Si notas[i] < 0 o notas[i] > 10 entonces
+				Escribir "bro entre 0 y 10";
+			FinSi
+
+		Hasta que notas[i] >= 0 y notas[i] <= 10 
+
+		todas <- todas + notas[i];
+		Si notas[i] > mayor entonces
+			mayor <- notas[i];
+		FinSi
+		Si notas[i] < menor entonces
+			menor <- notas[i];
+		FinSi
+	FinPara
 	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "La nota ", i, " es "notas[i];
+	FinPara
+	Escribir "La nota más alta es ", mayor, ". La más baja es ", menor, ". Y la media de todas es " todas / 5;
+FinProceso
+
 Proceso4Pag37
+	Definir num, numeros como Real;
+	Definir i como Entero;
+	i <- 0;
+	Dimension numeros[10];
+	Repetir
+		Escribir "Dime numeros";
+		Leer num;
+		Si num >= 0 entonces
+			numeros[i] <- num;
+		SiNo
+			Escribir "Has parado de rellenar";
+		FinSi
+		i <- i + 1;
+	Hasta que i = 10 o num < 0
+
+	Para i <- 0 hasta 9 con paso 1 hacer
+		Escribir "Numero ", i+1, ":", numeros[i];
+	FinPara
+FinProceso
+
+Proceso5Pag37
+	Definir numeros, temporal como Real;
+	Definir cambio como logico
+	cambio <- falso;
+	Dimension numeros[10];
+	Para i <- 0 hasta 9 con paso 1 hacer
+		numeros[i] <- aleatorio(0,10);
+	FinPara
+
+	Repetir
+
+		Para i <- 0 hasta 9 con paso 1 hacer
+			cambio <- falso;
+			Si numeros[i+1] < numeros[i] entonces
+
+				temporal <- numeros[i];
+				numeros[i] <- numeros[i+1];
+				numeros[i+1] <- temporal;
+				cambio <- verdadero;
+
+			FinSi
+		FinPara
+
+	Hasta que cambio <- falso;
+
+	Para i <- 0 hasta 0 con paso 1 hacer
+		Escribir numeros[i];
+	FinPara
+FinProceso
+
+Proceso6Pag38 // En la solución lo hace con dos arrays pero yo solo uso 1, toma geroma
+	Definir Nmes, i como Entero;
+	Definir mes como Cadena;
+	Dimension mes[12];
+	Repetir
+		Escribir "Dime el número del mes";
+		Leer Nmes;
+		Si Nmes < 1 o Nmes > 12 entonces
+			Escribir "Tiene que ser un número comprendido entre 1 y 12";
+		FinSi
+
+	Hasta que Nmes >= 1 y Nmes <= 12
+
+	Para i <- 0 hasta 11 con paso 1 hacer
+		mes[i] <- "";
+	 	Segun i hacer
+			0:
+				mes[i] <- concatenar(mes[i], "Enero");
+			1:
+				mes[i] <- concatenar(mes[i], "Febrero");
+			2:
+				mes[i] <- concatenar(mes[i], "Marzo");
+			3:
+				mes[i] <- concatenar(mes[i], "Abril");
+			4:
+				mes[i] <- concatenar(mes[i], "Mayo");
+			5:
+				mes[i] <- concatenar(mes[i], "Junio");
+			6:
+				mes[i] <- concatenar(mes[i], "Julio");
+			7:
+				mes[i] <- concatenar(mes[i], "Agosto");
+			8:
+				mes[i] <- concatenar(mes[i], "Septiembre");
+			9:
+				mes[i] <- concatenar(mes[i], "Octubre");
+			10:
+				mes[i] <- concatenar(mes[i], "Noviembre");
+			11:
+				mes[i] <- concatenar(mes[i], "Diciembre");
+		FinSegun
+		Segun i hacer
+			0,2,4,6,7,9,11: 
+				mes[i] <- concatenar(mes[i], " y tiene 31 Días");
 			
-		
-		
+			3,5,8,10:
+				mes[i] <- concatenar(mes[i], " y tiene 30 Días");
+			1:
+				mes[i] <- concatenar(mes[i], " y tiene 28 Días");
+
+		FinSegun
+	FinPara
+	Escribir "El mes", Nmes, " es ", mes[Nmes-1];
+FinProceso
+
+Proceso7Pag38
+	Definir vector1, vector2, vector3, i como Entero;
+	Dimension vector1[5];
+	Dimension vector2[5];
+	Dimension vector3[5];
+	total <- 0;
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "Dime numeros para rellenar el vector 1";
+		Leer vector1[i];
+	FinPara
+
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "Dime numeros para rellenar el vector 2";
+		Leer vector2[i];
+	FinPara
+
+	// Ni hace falta el vector 3 pero bueno, lo pide el enunciado asi que lo pongo
+	Escribir "La suma de los dos vectores es: "
+	Para i <- 0 hasta 4 con paso 1 hacer
+		vector3[i] <- vector1[i] + vector2[i];
+		Escribir vector3[i];
+	FinPara
+FinProceso
+
+Proceso8Pag38
+	Definir nom, nombres como Cadena;
+	Definir edades, cantidad, i, max, contador como Entero;
+	Dimension nombres[200];
+	Dimension edades[200];
+	i <- 0;
+	max <- 0;
+	Repetir
+		Escribir "Dime el nombre y la edad del alumno ", i+1;
+		Leer nom;
+		Si nom != "*" entonces
+			nombres[i] <- nom;
+			Leer edades[i];
+			contador <- contador + 1;
+		FinSi
+		i <- i + 1;
+	Hasta que nom = "*"
+
+	Escribir "Los alumnos mayores de edad son:"
+	Para i <- 0 hasta contador-1 con paso 1 hacer
+		Si edades[i] >=18 entonces
+			Escribir nombres[i];
+		FinSi
+
+		// Reciclo un para
+		Si edades[i] > max entonces
+			max <- edades[i];
+		FinSi
+	FinPara
+
+	Escribir "Los alumnos con más edad, tienen ", max, " y son:";
+	Para i <- 0 hasta contador-1 con paso 1 hacer
+		Si edades[i] = max entonces
+			Escribir nombres[i];
+		FinSi
+	FinPara
+FinProceso
+
+
+
+
+
+
+
 	
-
-
-
-
-
 
 	
