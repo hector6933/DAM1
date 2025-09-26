@@ -760,11 +760,176 @@ Proceso8Pag38
 FinProceso
 
 
+Proceso9Pag38
+	Definir temp, total, tempMin, tempMax como Real;
+	Definir i, j como Entero;
+	Definir hay como logico;
+	hay <- falso;
+	Dimensión temp[5,3];
+	tempmin <- 200;
+	j <- 1;
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Repetir		
+		Escribir "Dime la temperatura minima y maximapara el día ", i+1;
+		temp[i,0] <- i+1;
+		Leer temp[i,j];
+		Leer temp[i,j+1];
+			Si temp[i,j] < temp[i,j+1] entonces
+				Escribir "La primera temperatura tiene que ser la mínima y la segunda la máxima";
+			FinSi
+		Hasta que temp temp[i,j] < temp[i,j+1]
+
+	FinPara
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		
+		Escribir "La temperatura media del día", i+1, " es de " (temp[i,j] + temp[i,j+1]) / 2;
+	
+	FinPara
+
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Si temp[i,j] < tempmin entonces
+			tempmin <- temp[i,j];
+		FinSi
+	FinPara
+
+	Escribir "Los dias con menos temperatura son: "	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Si temp[i,j] = tempmin entonces
+			Escribir "Día ", i+1;
+		FinSi
+	FinPara
+
+	Escribir "Dime una temperatura maxima";
+	Leer tempMax;
+	Escribir "Los dias que cuya temperatura máxima coincide con esa son: "
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Si tempmax = temp[i,j+1] entonces
+			Escribir "Día ", i+1;
+			hay <- verdadero;
+		FinSi
+	FinPara
+	Si hay = falso entonces
+		Escribir "Ninguna temperatura máxima de ningún día coincide con esa temperatura";
+	FinSi
+FinProceso
+
+Proceso10Pag38
+	Definir matriz, i, j, total como Entero;
+	Dimension matriz[5,5];
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			matriz[i,j] <- aleatorio(1,10);
+		FinPara
+	FinPara
+	
+	Escribir "Suma filas:";
+	Para i <- 0 hasta 4 con paso 1 hacer
+		total <- 0;
+		Para j <- 0 hasta 4 con paso 1 hacer
+			total <- total + matriz[i,j];
+		FinPara
+		Escribir "La suma de la fila", i+1, " es:", total;
+	FinPara
+	Escribir "Suma columnas:";
+	Para j <- 0 hasta 4 con paso 1 hacer
+		total <- 0;
+		Para i <- 0 hasta 4 con paso 1 hacer
+			total <- total + matriz[i,j];
+		FinPara
+		Escribir "La suma de las columna," j+1, " es: ", total;
+	FinPara
+FinProceso
+
+Proceso11Pag38
+	Definir diagonal, i, j, contador como Entero;
+	dimension diagonal[5,5];
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			diagonal[i,j] <- 0;
+		FinPara
+	FinPara
+
+	i <- 0;
+	j <- 0;
+	Para contador <- 0 hasta 4 con paso 1 hacer
+
+		diagonal[contador,contador] <- 1;
+
+	FinPara
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 con paso 1 hacer
+			Escribir sin saltar diagonal[i,j];
+		FinPara
+		Escribir "";
+	FinPara
+FinProceso
+
+Proceso12Pag38
+	Definir marco, i, j como Entero;
+	Dimension marco[5,15];
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 14 con paso 1 hacer
+			marco[i,j] <- 0;
+			Si i = 0 o i = 4 entonces
+				marco[i,j] <- 1;
+			FinSi
+			Si j = 0 o j = 14 entonces
+				marco[i,j] <- 1;
+			FinSi
+		FinPara
+	FinPara
+
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 14 con paso 1 hacer
+			Escribir sin saltar marco[5,15];
+		FinPara
+		Escribir "";
+	FinPara
+FinProceso
+
+Proceso13Pag39
+	Definir Nconductores, i, j como Entero;
+	Definir nombres como Cadena;
+	Definir totalK, Ktotales, total como Real;
+	Escribir "Cuantos conductores tienes";
+	Leer Nconductores;
+	Dimension nombres[Nconductores];
+	Dimension totalK[Nconductores,7];
+	Dimension Ktotales[Nconductores];
+
+	Para i <- 0 hasta Nconductores - 1 con paso 1 hacer
+		Escribir "Cual es el nombre del conductor", i+1;
+		Leer nombres[i];
+	FinPara
+	Para i <- 0 hasta Nconductores - 1 con paso 1 hacer
+		Para j <- 0 hasta 6 con paso 1 hacer
+			Escribir "Cuántos kilómetros ha hecho el conductor ", nombres[i], " 				  el día", i+1;
+			Leer totalK[i,j];
+		FinPara
+	FinPara
+
+	Para i <- 0 hasta Nconductores - 1 con paso 1 hacer
+		total <- 0;
+		Para j <- 0 hasta 6 con paso 1 hacer
+			total <- total + totalK[i,j];
+		FinPara
+		Ktotales[i] <- total;
+		Escribir "El conductor ", nombres[i], " ha hecho un total de ", Ktotales[i], 			 " kilómetros";
+	FinPara
+FinProceso				
+
+
+
+
 
 
 
 
 
 	
-
+	
 	
