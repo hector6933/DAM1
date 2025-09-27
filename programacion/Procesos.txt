@@ -487,7 +487,7 @@ Proceso10Pag33
 	FinSi
 FinProceso
 
-Arrays ------------------------------------------------------------------
+ARRAYS -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 Proceso1Pag37
 	Definir vector, i, como Entero;
@@ -922,14 +922,261 @@ Proceso13Pag39
 	FinPara
 FinProceso				
 
+Proceso14Pag39
+	Definir articulos, ventas, totalA, recaudacion, max como Real;
+	Definir i, j, N como Entero;
+	Dimension articulos[5];
+	Dimension ventas[4,5];
+	Dimension recaudacion[4];
+	max <- 0;
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "Cual es el precio del artículo", i+1;
+		Leer articulos[i];
+	FinPara
 
+	Para i <- 0 hasta 3 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			Escribir "Cuánto ha vendido la surcursal " , i+1, " con el artículo ", j+1;
+			Leer ventas[i,j];
+		FinPara
+	FinPara
 
+	Escribir "Cantidades totales vendidas por cada artículo:";
+	Para j <- 0 hasta 4 con paso 1 hacer
+			totalA <- 0;
+			Para i <- 0 hasta 3 con paso 1 hacer
+				totalA <- totalA + ventas[i,j];
+			FinPara
+			Escribir "El artículo ", j+1, " ha vendido un total de ", totalA;
+	FinPara
+	Escribir "Total de ventas en la sucursal 2";
+	totalA <- 0;
+	Para j <- 0 hasta 4 con paso 1 hacer 
+		totalA <- totalA + ventas[1,j];
+	FinPara
 
+	Escribir "La venta del artículo 3 en la sucursal 1 es de: ", ventas[0,2];
 
+	Para i <- 0 hasta 3 con paso 1 hacer
+		totalA <- 0;
+		Para j <- 0 hasta 4 con paso 1 hacer
+			totalA <- totalA + ventas[i,j];
+			recaudacion[i];
+		FinPara
+		Escribir "La sucursal ", i+1, " ha recaudado un total de ", totalA;
+	FinPara
+	
+	totalA <- 0;
+	Para i <- 0 hasta 3 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			totalA <- totalA + ventas[i,j];
+		FinPara
+	FinPara
+	Escribir "La recaudación total de la empresa es de: ", totalA;
+	
+	Para i <- 0 hasta 3 con paso 1 hacer
+		Si recaudacion[i] > max entonces
+			max <- recaudacion[i];
+			N <- i;
+		FinSi
+	FinPara
 
+	Escribir "La sucursal con mas recaudacion ha sido la ", N, " con un total de ", max;
+FinProceso
 
+Proceso15Pag39
+	Definir equipos como Cadena;
+	Definir resultados, i, como Entero;
+	Dimension equipos[15,2];
+	Dimension resultados[15,2];
+	
+	Para i <- 0 hasta 14 con paso 1 hacer
 
+		Escribir "Dime el nombre de los equipos del partido ", i+1;
+		Leer equipos[i,0];
+		Leer equipos[i,1];
+		Escribir "Y los goles:";
+		Leer resultados[i,0];
+		Leer resultados[i,1];
 
+	FinPara
+
+	Para i <- 0 hasta 14 con paso 1 hacer
+		Escribir "El resultado de los equipos ", equipos[i,0], " y ", equipos[i,1], " es de ", resultados[i,0], "-", resultados[i,1];
+	FinPara
+FinProceso
+
+FUNCIONES --------------------------------------------------------------------------------------------------------------------------------------------------
+
+- 1 Pag 44:
+Funcion EscribirCentrado(palabra)
+
+	Definir i, espacios como Entero;
+	espacios <- 40 - (longitud(palabra)/2);
+	Para i <- 0 hasta espacios - 1 con paso 1 hacer
+		Escribir sin saltar " ";
+	FinPara
+	Escribir palabra;
+	Para i <- 0 hasta espacios - 1 con paso 1 hacer
+		Escribir sin saltar " ";
+	FinPara
+	Para i <- 0 hasta longitud(palabra) - 1 con paso 1 hacer
+		Escribir sin saltar "=";
+	FinPara
+	Escribir "";
+
+FinFuncion
+
+Proceso1Pag44
+	Definir texto como Cadena;	
+	Escribir "Dime un texto y te lo centro";
+	Leer texto;
+	EscribirCentrado(texto);
+FinProceso
+
+- 2 Pag 44:
+Funcion esMulti <- EsMultiplo(num1,num2)
+	Definir esMulti como Cadena;
+	Si num1 % num2 = 0 entonces
+		esMulti <- "El numero 1 es múltiplo del segundo";
+	SiNo
+		esMulti <- "El número 1 NO es múltiplo del segundo";
+	FinSi
+FinFuncion
+
+Proceso2Pag44
+	Definir numero1, numero2 como Entero;
+	Escribir "Dime dos numeros";
+	Leer numero1, numero2;
+	Escribir EsMultiplo(numero1,numero2);
+FinProceso
+
+- 3 Pag 44:
+Funcion TempMedia(temp1,temp2)
+	Escribir "La temperatura media del día es de ", (temp1 + temp2) / 2;
+FinFuncion
+
+Proceso3Pag44
+	Definir NDias, i como Entero;
+	Definir tempMax, TempMin como Real;
+	Escribir "Cuántos días quieres";
+	Leer NDias;
+
+	Para i <- 0 hasta NDias - 1 con paso 1 hacer
+		Escribir "Dime la temperatura maxima del dia ", i+1;
+		Leer tempMax;
+		Escribir "Dime la temperatura minima del dia ", i+1;
+		Leer tempMin;
+		TempMedia(tempMax,tempMin);
+	FinPara
+FinProceso
+
+- 4 Pag 44:
+Funcion Pfinal <- ConvertirEspaciado(palabra)
+	Definir Pfinal como Cadena;
+	Definir i como Entero;
+	Pfinal <- "";
+	Para i <- 0 hasta longitud(palabra) - 1 con paso 1 hacer
+		Pfinal <- concatenar(Pfinal,subcadena(palabra,i,i));
+		Pfinal <- concatenar(Pfinal," ");
+	FinPara
+FinFuncion
+
+Proceso4Pag44
+	Definir palabrita como Cadena;
+	Escribir "Dime una palabrita";
+	Leer palabrita;
+	Escribir "La palabrita espaciada: ", ConvertirEspaciado(palabrita);
+FinProceso
+
+- 5 Pag 44:
+Funcion calcularMaxMin(vector,tam, max por Referencia, min por Referencia)
+	Definir i como Entero;
+	max <- vector[0];
+	min <- vector[0];
+	Para i <- 0 hasta tam - 1 con paso 1 hacer
+		Si vector[i] > max entonces
+			max <- vector[i];
+		FinSi
+		Si vector[i] < min entonces
+			min <- vector[i];
+		FinSi
+	FinPara
+FinFuncion
+
+Proceso5Pag44
+	Definir numeros, i, mayor, menor como Real;
+	Definir size como Entero;
+	Dimension numeros[10];
+	size <- 10;
+	Para i <- 0 hasta 9 con paso 1 hacer
+		Escribir "Dime numeros";
+		Leer numeros[i];
+	FinPara
+	calcularMaxMin(numeros,size,mayor,menor);
+	Escribir "El número más grande es ", mayor;
+	Escribir "El número más pequeño es", menor;
+FinProceso
+
+- 6 Pag 44:
+Funcion AreaYPerimetro(R)
+	Escribir "El área es de: " 3.14 * (R^2);
+	Escribir "El perímetro es de: " 2 * 3.14 * R;
+FinFuncion
+
+Proceso6Pag44
+	Definir Radio como Real;
+	Escribir "Dime el radio de la circunferencia y te digo su área y su perímetro";
+	Leer Radio;
+	AreaYPerimetro(Radio);
+FinProceso
+
+7 Pag 44:
+Funcion acceso <- login(usu,pass,trys por Referencia)
+	Definir acceso como Logico;
+	trys <- 0;
+	Si usu = "usuario1" y pass = "asdasd" entonces
+		acceso <- verdadero;
+	SiNo
+		acceso <- falso;
+		trys <- trys + 1;
+	FinSi
+FinFuncion
+
+Proceso7Pag44
+	Definir usuario, clave como Cadena;
+	Definir intentos como Entero;
+	Definir entrado como Logico;
+	Repetir
+		Escribir "Introduzca el usuario y la clave";
+		Leer usuario, clave;
+		entrado <- login(usuario,clave,intentos);
+
+	Hasta que entrado o intentos = 3
+	Si login = verdadero entonces
+		Escribir "Has entrado en el sistema, con ", intentos, " intentos";
+	SiNo
+		Escribir "Has llegado al límite de intentos";
+	FinSi
+FinProceso
+
+8 Pag 44:
+Funcion resultado <- CalcFactorial(num)
+	Definir resultado como Entero;
+	Si num = 0 o num = 1 entonces
+		resultado <- 1;
+	SiNo
+		resultado <- resultado * CalcFactorial(num-1);
+	FinSi
+FinFuncion
+
+Proceso8Pag44
+	Definir numero;
+	Escribir "Dime un número y te digo su factorial";
+	Leer numero;
+	Escribir "El factorial de ", numero, " es ", CalcFactorial(numero);
+FinProceso
 	
 	
 	
