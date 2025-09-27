@@ -885,7 +885,7 @@ Proceso12Pag38
 
 	Para i <- 0 hasta 4 con paso 1 hacer
 		Para j <- 0 hasta 14 con paso 1 hacer
-			Escribir sin saltar marco[5,15];
+			Escribir sin saltar marco[i,j];
 		FinPara
 		Escribir "";
 	FinPara
