@@ -1154,7 +1154,7 @@ Proceso7Pag44
 		entrado <- login(usuario,clave,intentos);
 
 	Hasta que entrado o intentos = 3
-	Si login = verdadero entonces
+	Si entrado entonces
 		Escribir "Has entrado en el sistema, con ", intentos, " intentos";
 	SiNo
 		Escribir "Has llegado al límite de intentos";
