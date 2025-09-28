@@ -1177,6 +1177,430 @@ Proceso8Pag44
 	Leer numero;
 	Escribir "El factorial de ", numero, " es ", CalcFactorial(numero);
 FinProceso
+
+9 Pag 45:
+Funcion intercambiar(mayor por referncia, menor por referencia)
+	Definir a como Real;
+	Si menor > mayor entonces
+		a <- mayor;
+		mayor <- menor;
+		menor <- a;
+	FinSi
+FinFuncion
+
+Funcion MCD <- CalcularMCD(num1,num2)
+	Definir MCD, resto como Real;
+	intercambiar(num1,num2);
+	resto <- num1 % num2;
+	Si num1 % num2 = 0 entonces
+		MCD <- num2;
+	SiNo
+		MCD <- CalcularMCD(num2,resto);
+	FinSi
+FinFuncion
+
+Proceso9Pag45
+	Definir numero1, numero2 como Real;
+	Escribir "Dime dos numeros y te digo su MCD";
+	Leer numero1, numero2;
+	Escribir "Su MCD es: " CalcularMCD(numero1,numero2);
+FinProceso
+
+10 Pag 45:
+
+Funcion seg <- calcularSegundos(horas,minutos,segundos)
+	Definir seg como Real;
+	seg <- (horas / 3600) + (minutos / 60) + segundos;
+FinFuncion
+
+Funcion convertirHMS(segundos)
+	Definir horas, minutos, seg como Real;
+	horas <- trunc(segundos / 3600);
+	minutos <- trunc(segundos % 3600 / 60);
+	segundos <- segundos % 3600 % 60;
+	Escribir "La conversion es ", horas, " horas", minutos, " minutos", segundos, " segundos";
+FinFuncion
+	Definir horas, minutos, segundos como Entero;
+	Definir opcion como Entero;
+	Escribir "Eliga una opción, convertir de segundos a HHMMSS o convertir HHMMSS a segundos (1/2/0 para salir)";
+	Leer opción;
+	Segun opcion hacer
+		1:
+			Escribir "Dime los segundos";
+			Leer segundos;
+			convertirHMS(segundos);
+		2: 
+			Escribir "Dime las horas minutos y segundos";
+			Leer horas, minutos, segundos;
+			calcularSegundos(horas,minutos,segundos);
+		0:
+			Escribir "Adios";
+		De otro modo:
+			Escribir "Esa NO es una opcion válida";
+	FinSegun
+FinProceso
+	
+11 Pag 45
+
+Funcion fecha(a con referencia,m con referencia ,d con referencia)
+	Escribir "Dime el año";
+	Leer a;
+	Escribir "Dime el mes";
+	Leer m;
+	Escribir "Dime el dia";
+	Leer d;
+FinFuncion	
+
+Funcion dias <- DiasDelMes(año,mes)
+	Definir dias como Entero;
+	Segun mes hacer
+		1,3,5,7,8,10,12:
+			dias <- 31;
+		4,6,9,11:
+			dias <- 30;
+		2:
+			Si (año % 4 = 0 y (año % 100 != 0)) o año % 400 = 0 entonces
+				dias <- 29;
+			SiNo
+				dias <- 28;
+			FinSi
+	FinSegun
+FinFuncion
+
+Funcion diaJu <- calcularDiaJuliano(dia,mes,año)
+	Definir diaJu, i como Entero;
+	diaJu <- 0;
+	Para i <- 1 hasta mes - 1 con paso 1 hacer
+		diaJu <- diaJu + DiasDelMes(i,año);
+	FinPara
+	diaJu <- diaJu + dia;
+FinFuncion
+
+Proceso11Pag45
+	Definir año,mes,dia como Entero;
+	fecha(año,mes,dia);
+	Escribir "El día juliano es: ", calcularDiaJuliano(dia,mes,año);
+FinProceso
+
+12 Pag 45
+
+Funcion fecha(a con referencia,m con referencia ,d con referencia)
+	Escribir "Dime el año";
+	Leer a;
+	Escribir "Dime el mes";
+	Leer m;
+	Escribir "Dime el dia";
+	Leer d;
+FinFuncion	
+
+Funcion dias <- DiasDelMes(año,mes)
+	Definir dias como Entero;
+	Segun mes hacer
+		1,3,5,7,8,10,12:
+			dias <- 31;
+		4,6,9,11:
+			dias <- 30;
+		2:
+			Si (año % 4 = 0 y (año % 100 != 0)) o año % 400 = 0 entonces
+				dias <- 29;
+			SiNo
+				dias <- 28;
+			FinSi
+	FinSegun
+FinFuncion
+
+Funcion diaJu <- calcularDiaJuliano(dia,mes,año)
+	Definir diaJu, i como Entero;
+	diaJu <- 0;
+	Para i <- 1 hasta mes - 1 con paso 1 hacer
+		diaJu <- diaJu + DiasDelMes(i,año);
+	FinPara
+	diaJu <- diaJu + dia;
+FinFuncion
+
+Funcion escorrecta validarFecha(año,mes,dia)
+	Definir escorrecta como logico;
+	escorrecta <- verdadero;
+	Si dia < 0 o mes < 0 o mes > 12 o dia > diasDelMes(año,mes) entonces
+		escorrecta <- falso;
+	SiNo
+		escorrecta <- verdadero;
+	FinSi
+FinFuncion
+
+Proceso12Pag45
+	Definir año,mes,dia como Entero;
+	fecha(año,mes,dia);
+	Si validarFecha(año,mes,dia) entonces 
+		Escribir "El día juliano es: ", calcularDiaJuliano(dia,mes,año);
+	SiNo
+		Escribir "Fecha invalida";
+	FinSi
+FinProceso
+
+13 Pag 46:
+
+Funcion MCD <- calcularMCD(num1,num2)
+	Definir MCD, a como Entero;
+	Definir resto como Real;
+	Si num2 > num1 entonces
+		a <- num1;
+		num2 <- num1;
+		num1 <- num2;
+	FinSi
+	Resto <- num1 % num2;
+	Si resto = 0 entonces
+		MCD <- num2;
+	SiNo
+		MCD <- calcularMCD(num2,resto);
+	FinSi
+FinFuncion
+
+Funcion simplificarFraccion(numerador por referencia, denominador por referencia)
+	numerador <- numerador / calcularMCD(numerador,denominador);
+	denominador <- denominador / calcularMCD(numerador,denominador);
+FinFuncion
+
+Funcion LeerFraccion(numerador por referncia,denominador por referencia)
+	Escribir "Dime el numerador";
+	Leer numerador;
+	Escribir "Dime el denominador";
+	Leer denominador;
+	simplificarFraccion(numerador,denominador);
+FinFuncion
+
+Funcion EscribirFraccion(numerador,denominador)
+	Si denominador = 1 entonces
+		Escribir "numerador";
+	SiNo
+		Escribir numerador;
+		Escribir "-"
+		Escribir denominador;
+	FinSi
+FinFuncion
+
+Funcion sumarFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*d2 + d1*n2;
+	resD <- d1*d2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Funcion RestarFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*d2 - d1*n2;
+	resD <- d1*d2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Funcion multiplicarFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*n2;
+	resD <- d1*d2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Funcion dividirFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*d2;
+	resD <- d1*n2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Proceso13Pag45
+	Definir numerador1, denominador1, numerador2, denominador2, opcion como Entero;
+	LeerFraccion(numerador1,denominador1);
+	LeerFraccion(numerador2,denominador2);
+	Escribir "Que quieres hacer, 1 sumar, 2 restar, 3 multiplicar, 4 dividir, 5 salir";
+	Leer opcion;
+	Segun opcion hacer
+		1:
+			Escribir "La suma de esas dos fracciones es:";
+			sumarFracciones(numerador1,denominador1,numerador2,denominador2);
+		2:
+			Escribir "La resta de esas dos fracciones es:";
+			RestarFracciones(numerador1,denominador1,numerador2,denominador2);
+		3:
+
+			Escribir "La multiplicacion de esas dos fracciones es:";
+			multiplicarFracciones(numerador1,denominador1,numerador2,denominador2);
+		4:
+
+			Escribir "La división de esas dos fracciones es:";
+			dividirFracciones(numerador1,denominador1,numerador2,denominador2);
+		5: 
+			Escribir "Adios";
+	FinSegun
+FinProceso
+
+14 Pag 46:
+Funcion IniPila(vector por referencia, size)
+	Definir i como Entero;
+	Para i <- 0 hasta size - 1 con paso 1 hacer
+		vector[i] <- "*";
+	FinPara	
+FinFuncion
+
+Funcion i <- longitudPila(vector, size)
+	Definir i como entero;
+	i <- 0;
+	Mientras i < size Y vector[i] != "*" hacer
+		i <- i + 1;
+	FinMientras
+FinFuncion
+
+Funcion esta <- estaVaciaPila(vector, size)
+	Definir esta como logico;
+	Si longitudPila(vector,size) = 0 entonces
+		esta <- verdadero;
+	SiNo
+		esta <- falso;
+	FinSi
+FinFuncion
+
+Funcion esta <- estaLlena(vector,size)
+	Definir esta como logico;
+	Si longitudPila(vector,size) = size entonces
+		esta <- verdadero;
+	SiNo
+		esta <- falso;
+	FinSi
+FinFuncion
+
+Funcion AddPila(vector por referencia, size, cadena)
+	Definir i como Entero;
+	Definir salir como logico;
+	salir <- falso;
+	Si estaLlena(vector,size) entonces
+		Escribir "Error, la pila esta llena";
+	SiNo
+		i <- 0;
+		Repetir
+			Si vector[i] = * entonces
+				vector[i] <- cadena;
+				salir <- verdadero;
+			FinSi
+			i <- i + 1;
+		hasta que salir
+	FinSi
+FinFuncion
+
+Funcion resultado <- SacarDeLaPila(vector por referencia, size)
+	Si estaVaciaPila(vector,size) entonces
+		Escribir "Error la pila esta vacia";
+		resultado <- "";
+	SiNo
+		resultado <- vector[longitud(vector,size)-1];
+		vector[longitud(vector,size)-1] <- "*";
+	FinSi
+FinFuncion
+
+Funcion escribirPila(vector, size)
+	Definir i como entero;
+	i <- 0;
+	Mientras i < size Y vector[i] != "*" entonces
+		Escribir sin saltar vector[i];
+		i <- i + 1;
+	FinMientras
+	Escribir "";
+FinFuncion
+
+Proceso14Pag46
+	Definir pila, cad como cadena;
+	Definir size, opcion como Entero;
+	Dimension pila[10];
+	size <- 10;
+	Repetir
+		Escribir "Elige una de estas opciones:";	
+		Escribir "1: Añadir elemento a la pila";
+		Escribir "2: Sacar elemento de la pila";
+		Escribir "3: Longitud de la pila";
+		Escribir "4: Mostrar pila";
+		Escribir "5: Salir";
+		Leer opcion;
+		Segun opcion hacer
+			1: 
+				Escribir "Dime una cadena";
+				Leer cad;
+				AddPila(pila,size,cad);
+			2:
+				Escribir "Elemento sacado:";
+				SacarDeLaPila(pila,size);
+			3:
+				Escribir "La longitud es de:", longitudPila(pila,size);
+			4:
+				Escribir "La pila se ve tal que así:";
+				escribirPila(pila,size);
+			5:
+				Escribir "Adios, y no vuelvas";
+			De otro modo
+				Escribir "Elige una opcion valida cabeza de chorlito";
+		FinSegun
+	Hasta que opcion = 5
+FinProceso
+
+15 Pag 47:
+// Reciclo todas las funciones de la pila excepto esta
+Funcion resultado <- SacarDeLaCOLA(vector por referencia, size)
+	Definir i como Entero;
+	Si estaVaciaPila(vector,size) entonces
+		Escribir "Error la pila esta vacia";
+		resultado <- "";
+	SiNo
+		resultado <- vector[0]
+		Para i <- 0 hasta size - 2 con paso 1 hacer
+			vector[i] <- vector[i+1];
+		FinPara
+		vector[longitudPila(vector,size)-1] <- "*";
+		
+	FinSi
+FinFuncion
+
+
+Proceso15Pag46
+	Definir cola, cad como cadena;
+	Definir size, opcion como Entero;
+	Dimension cola[10];
+	size <- 10;
+	Repetir
+		Escribir "Elige una de estas opciones:";	
+		Escribir "1: Añadir elemento a la cola";
+		Escribir "2: Sacar elemento de la cola";
+		Escribir "3: Longitud de la cola";
+		Escribir "4: Mostrar cola";
+		Escribir "5: Salir";
+		Leer opcion;
+		Segun opcion hacer
+			1: 
+				Escribir "Dime una cadena";
+				Leer cad;
+				AddPila(cola,size,cad);
+			2:
+				Escribir "Elemento sacado:";
+				SacarDeLaCOLA(cola,size);
+			3:
+				Escribir "La longitud es de:", longitudPila(cola,size);
+			4:
+				Escribir "La pila se ve tal que así:";
+				escribirPila(cola,size);
+			5:
+				Escribir "Adios, y no vuelvas";
+			De otro modo
+				Escribir "Elige una opcion valida cabeza de chorlito";
+		FinSegun
+	Hasta que opcion = 5
+FinProceso
+
+
+
+
+
+
+
 	
 	
 	
