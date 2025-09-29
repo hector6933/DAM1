@@ -728,6 +728,7 @@ Proceso8Pag38
 	Dimension edades[200];
 	i <- 0;
 	max <- 0;
+	contador <- 0;
 	Repetir
 		Escribir "Dime el nombre y la edad del alumno ", i+1;
 		Leer nom;
