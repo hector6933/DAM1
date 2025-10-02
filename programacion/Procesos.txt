@@ -1,4 +1,1614 @@
+<<<<<<< HEAD
 @echo off
 :funcion
  start notepad
 goto funcion
+=======
+REPETITIVAS -------------------------------------------------------------------------------------------------
+
+DefinirEj6Pag31
+	Definir num1, num2 como Entero;
+	
+	Escribir "Dime dos números y te digo los pares entre ellos";
+	Leer num1, num2;
+	Si num1 % 2 = 1 entonces
+		Escribir num1;
+		num1 <- num1 + 1;
+	FinSi
+	Para i <- num1 hasta num2 con paso 2 hacer
+		Escribir num1;
+	FinSi
+FinProceso
+
+DefinirEj7Pag31
+	Definir numero, i como Entero;
+	
+	Repetir
+	Escribir "Dime un número y te digo su tabla de multiplicar";
+	Leer numero;
+		Si numero <= 0 entonces
+			Escribir "Dime un número mayor que 0";
+		FinSi
+	Hasta que numero > 0
+
+	Para i <- 1 hasta 9 con paso 1 hacer
+		Escribir i, "*", numero, "=", i*numero;
+	FinPara
+FinProceso 
+
+DefinirEj8Pag31
+	Definir Imayor, Imenor, i, contador como Entero;
+	Definir numero, suma como Real;
+	Definir igualI como lógico;
+	IgualI <- falso;
+	contador <- 0;
+	Repetir
+	Escribir "Dime un intervalo menor y un intervalo mayor";
+	Leer Imenor, Imayor;
+		Si Imenor > Imayor entonces
+			Escribir "El intervalo menor tiene que ser menor que el intervalo mayor";
+		FinSi
+	Hasta que Imayor > Imenor
+
+	Repetir
+		Escribir "Dime un numero";
+		Leer numero;
+		Si numero > Imenor y numero < Imayor entonces
+			suma <- suma + numero;
+		Sino
+			Si numero = Imenor o numero = Imayor entonces
+	
+				igualI <- verdadero;
+			Sino
+				Si numero < Imenor
+
+					contador <- contador + 1;
+				FinSi
+			FinSi
+	
+		FinSi				 
+	Hasta que numero = 0
+
+	Escribir sin saltar "La suma de todos los números en el intervalo es de: ", suma, " Y has metido ", contador, " números fuera del intervalo."
+	Si igualI entonces
+		Escribir "Y has metido por lo menos un número igual al intervalo";
+	Sino
+		Escribir "Y NO has metido ningún número igual al intervalo";
+	FinSi
+FinProceso
+
+ProcesoEj9Pag31
+	Definir base, exponente, total, i como Entero;
+	Escribir "Dime una base y un exponente";
+	Leer base, exponente;
+	total <- base;
+	Para i <- 1 hasta exponente con paso 1 hacer
+		total <- total * base;
+	FinPara
+FinProceso
+
+ProcesoEj10Pag31
+	Definir i, f como Entero;
+	Para i <- 1 hasta 5 con paso 1 hacer
+		Escribir "Tabla del ", i;
+		Para f <- 1 hasta 9 con paso 1 hacer
+			Escribir i, "*", f "=", i*f;		
+		FinPara
+	FinPara
+FinProceso
+
+ProcesoEj11Pag32
+	Definir num como Entero;
+	Repetir
+	Escribir "Dime un número y te digo si es primo";
+	Leer num;
+		Si num <= 0 entonces
+			Escribir "Dime un número mayor que 0";
+		FinSi
+	Hasta que num > 0
+		
+	Para i <- 1 hasta raíz(num) con paso 1 hacer
+		Si num % i = 0 entonces
+			Escribir "El número NO es primo";
+		Sino
+			Escribir "El número ES primo";
+		FinSi
+	FinPara
+FinProceso
+
+Proceso12Pag32
+	Definir mes, total como Real;
+	total <- 0;
+	Para i <- 1 hasta 12 con paso 1 hacer
+		Escribir "Introduce cuánto has ahorrado en el mes", i;
+		Leer mes;
+		total <- total + mes;
+		Escribir "Llevas ahorrado", total;
+	FinPara
+
+	Escribir "En total has ahorrado", total;
+FinProceso
+
+Proceso13Pag32
+	Definir horasD, horasT como entero;
+	Definir sueldo, cobroH como Real;
+	horasT <- 0;
+	Escribir "Cuánto cobra por hora";
+	Leer cobroH;
+	Para i <- 1 hasta 6 con paso 1 hacer
+		Escribir "Cuántas horas ha trabajado el día," i;
+		Leer horasD;
+		horasT <- horasT + horasD;
+	FinPara
+	Escribir "Ha trabajado un total de ", horasT, " horas";
+	Escribir "Y cobra un total de ", horasT * cobro;
+FinProceso
+
+Proceso14Pag32
+	Escribir "Los coches se encontraría en el kilómetro", ((150 - 70) / 2) + 70;
+FinProceso
+
+Proceso15Pag32
+	Definir i, total, pago como Real;
+	total <- 0;
+	pago <- 10;
+	Para i <- 1 hasta 20 con paso 1 hacer
+
+		total <- total + pago;
+		Escribir "En el mes", i, "pagas", pago
+		pago <- pago * 2;
+
+	FinPara
+	Escribir "En total, después de los 20 meses habrás pagado", total;
+FinProceso
+
+Proceso16Pag32
+	Definir empleados, horasS, i como Entero;
+	Definir pagoH, pagoT, PagoSemanal como Real;
+
+	Escribir "Cuánto pagan por hora a los empleados"
+	Leer pagoH;
+	Escribir "Cuántos empleados tienen";
+	Leer empleados;
+	pagoT <- 0;
+	Para i <- 1 hasta empleados con paso 1 hacer
+		Escribir "Cuántas horas ha trabajado el trabajador ", i;
+		Leer horasS;
+		PagoSemanal <- horasS * pagoH;
+		pagoT <- PagoSemanal + pagoT;
+		Escribir "El trabajador", i, " tendrá un sueldo semanal de ", PagoSemanal;	
+	FinPara
+	Escribir "La empresa pagará a todos los empleados un total de ", pagoT;
+FinProceso
+
+Proceso17Pag32
+	Definir horas, dias, trabajadores, i, dias, f, horasD, horasAcum como Entero
+	Definir pagoT, pagoH, pagoS como Real;
+	pagoT <- 0;
+	horasAcum <- 0;
+	pagoS <- 0;
+	Escribir "Cuántos trabajdores tiene";
+	Leer trabajadores;
+	Escribir "Cuánto paga por hora";
+	Leer pagoH;
+	Para i <- 1 hasta trabajadores con paso 1 hacer
+		horasAcum <- 0;
+		Escribir "Cuántos días ha trabajado en trabajador", i;
+		Leer dias;
+		Para f <- 1 hasta dias con paso 1 hacer
+			Escribir "Cuántas horas ha trabajado en el dia", f;
+			Leer horasD;
+			horasAcum <- horasAcum + horasD;
+		FinPara
+		pagoS <- horasAcum * pagoH;
+		Escribir "El trabajdor", i, " tendrá un sueldo de ", pagoS;
+		pagoT <- pagoT + pagoS;
+	FinPara
+	Escribir "En total la empresa pagará ", pagoT;
+FinProceso
+
+Proceso18Pag32
+	Definir horas, minutos, segundos como Entero;
+	Para horas <- 0 hasta 23 con paso 1 hacer
+		Para minutos <- 0 hasta 59 con paso 1 hacer
+			Para segundos <- 0 hasta 59 con paso 1 hacer
+				Escribir horas, ":", minutos, ":", segundos;
+				Esperar 1 segundo;
+			FinPara
+		FinPara
+	FinPara
+FinProceso
+
+Proceso19Pag32
+	Definir opciones;
+	Repetir
+		Escribir "Elige una opcion 1,2,3,4,5, 0 = salir";
+		Leer opciones;
+		Segun opciones hacer
+			1: Escribir "Opcion 1";
+			2: Escribir "Opcion 2";
+			3: Escribir "Opcion 3";
+			4: Escribir "Opcion 4";
+			5: Escribir "Opcion 5";
+			0: Escribir "Has salido del programa";
+			De otro modo:
+				Escribir "Escoge una opción válida"	;
+		FinSegun
+	Hasta que opciones = 0
+FinProceso
+
+Proceso20Pag32
+	Definir cantidad, i, num, contadorP como Entero;
+	Definir esprimo como logico;
+	Repetir
+	Escribir "Cuántos números primos quieres";
+	Leer cantidad;
+		Si cantidad <= 0 entonces
+			Escribir "Pon una cantidad mayor que 0";
+		FinSi
+	Hasta que cantidad > 0
+
+	Si cantidad = 1 entonces
+		Escribir "1: 1";
+	SiNo
+		Si cantidad = 2 entonces
+			Escribir "1: 1";
+			Escribir "2: 2";
+		SiNo
+		contadorP <- 2;
+		num <- 3;
+		Repetir
+			esprimo <- verdadero;
+			Para i <- 3 hasta raiz(num) con paso 2
+				Si num % i = 0 entonces
+					esprimo <- falso;
+				FinSi
+			FinPara
+			Si esprimo entonces
+				contadorP <- contadorP + 1;
+				Escribir contadorP ," : ", num;
+			FinSi
+			num <- num + 2;
+
+		Hasta que contadorP = cantidad
+
+		FinSi
+	FinSi
+FinProceso
+
+CADENAS DE CARACTERES -------------------------------------------------------------------------------------------------
+
+
+Proceso1Pag33
+	Definir cadena como cadena;
+	Definir i como entero;
+	Escribir "Dime una palabra"
+	Leer cadena;
+	Para i <- 0 hasta longitud(cadena)-1 con paso 1 hacer
+		Escribir subcadena(cadena,i,i);
+	FinPara
+FinProceso
+
+Proceso2Pag33
+	Definir palabra, subpalabra como cadena;
+	Escribir "Dime una palabra y una subpalabra";
+	Leer palabra, subpalabra;
+	Si subcadena(palabra,0,longitud(subpalabra)-1) = subpalabra entonces
+		Escribir "La palabra comienza por la subpalabra";
+	SiNo
+		Escribir "La palabra NO comienza por la subpalabra";
+	FinSi
+FinProceso
+
+Proceso3Pag33
+	Definir palabra como cadena;
+	Definir letra como caracter;
+	Definir correcto como logico;
+	Definir i, contador como Entero;
+	contador <- 0;
+	correcto <- falso;
+	Escribir "Dime una palabra"
+	Leer palabra;
+	Repetir
+		Escribir "Dime UNA sola letra";
+		Leer letra;
+		Si longitud(letra) = 1 entonces
+			correcto <- verdadero;
+		SiNo
+			Escribir "Te he dicho UNA sola letra, vuelve a intentarlo anda";
+		FinSi
+	hasta que correcto
+
+	Para i <- 0 hasta longitud(palabra)-1 con paso 1 hacer
+		Si subcadena(palabra,i,i) = letra entonces
+			contador <- contador + 1;
+		FinSi
+	FinPara
+	Escribir "La letra ha coincidido un total de ", contador, " veces";
+FinProceso
+
+Proceso4Pag33 IMPORTANTE SABERLO 
+
+	Definir palabras como Cadena;
+	Definir i, contadorP como entero;
+	Escribir "Dime palabras separadas por espacios";
+	Leer palabras;
+	i <- 0;
+	contadorP <- 0;
+	Mientras subcadena(palabras,i,i) = " " hacer
+		i <- i + 1;
+	FinMientras
+
+	Para i <- i hasta longitud(palabras)-1 con paso 1 hacer
+		Si subcadena(palabras,i,i) = " " entonces
+			contadorP <- contadorP + 1;
+			Mientras subcadena(palabras,i,i) = " " Y i < longitud(palabras) hacer
+				i <- i + 1;
+			FinMientras
+		FinSi
+	FinPara
+	
+	Si subcadena(palabras, longitud(palabras)-1, longitud(palabras)-1) != " " entonces
+		contadorP <- contadorP + 1;
+	FinSi
+	Escribir "habían", contadorP, " palabras";
+FinProceso
+
+Proceso5pag33
+	Definir Ncompleto, Iniciales como Cadena;
+	Definir i como Entero;
+	i <- 0;
+	Escribir "Dime tu nombre completo con espacios";
+	Leer Ncompleto;
+	Mientras subcadena(Ncompleto,i,i) = " " entonces
+		i <- i + 1;
+	FinMientras
+	Iniciales <- subcadena(Ncompleto,i,i);
+	Para i <- i hasta longitud(Ncompleto)-1 con paso 1 hacer
+		Si subcadena(Ncompleto,i,i) = " " entonces
+			Mientras subcadena(Ncompleto,i,i) = " " Y i < longitud(Ncompleto) hacer
+				i <- i + 1;
+			FinMientras
+			Si subcadena(Ncompleto,i,i) != " " entonces
+				Iniciales <- concatenar(Iniciales,subcadena(Ncompleto,i,i));
+			FinSi
+		FinSi
+	FinPara
+	Escribir "Tus iniciales son ", Mayusculas(Iniciales);
+FinProceso
+	
+Proceso6Pag33
+	Definir cadena1, cadena2, como Cadena;
+	Definir i, como Entero;
+	Escribir "Dime una palabra";
+	Leer cadena1;
+	cadena2 <- "";
+	Para i <- 0 hasta longitud(palabra)-1 con paso 1 hacer
+		cadena2 <- concatenar(cadena2,subcadena(cadena1,(longitud(palabra)-1)- i, (longitud(palabra)-1)- i));
+	FinPara
+FinProceso
+
+Proceso7Pag33
+	Definir palabra, palabraFinal como Cadena;
+	Definir letra1, letra2 como Carácter;
+	Definir i como Entero;
+	palabraFinal <- "";
+	Escribir "Dime una palabra";
+	Leer palabra;
+
+	Repetir
+		Escribir "Dime la letra que quieres sustituir";
+		Leer letra1;
+		Si longitud(letra1) > 1 entonces
+			Escribir "Escribe únicamente un carácter";
+		FinSi
+
+	Hasta que longitud(letra1) = 1
+
+	Repetir
+		Escribir "Dime la letra por la que vas a sustituir";
+		Leer letra2;
+		Si longitud(letra1) > 1 entonces
+			Escribir "Escribe únicamente un carácter";
+		FinSi
+
+	Hasta que longitud(letra2) = 1
+
+	Para i <- 0 hasta longitud(palabra)-1 con paso 1 hacer
+
+		Si subcadena(palabra,i,i) = letra1 entonces
+	
+			palabraFinal <- concatenar(palabraFinal,letra2);
+		SiNo
+		
+			palabraFinal <- concatenar(palabraFinal, subcadena(palabra,i,i));
+
+		FinSi
+	FinPara
+
+	Escribir "La palabra final es", palabraFinal;
+FinProceso
+
+
+Proceso8Pag33
+	Definir palabra, palabraFinal como Cadena;
+	Definir i como Entero;
+	Escribir "Dime una palabra";
+	Leer palabra;
+	palabraFinal <- "";
+	Para i <- 0 hasta longitud(palabra) - 1 con paso 1 hacer
+
+		Si subcadena(palabra,i,i) = mayusculas(subcadena(palabra,i,i)) entonces
+
+			palabraFinal <- concatenar(palabraFinal,minusculas(subcadena(palabra,i,i)));
+		SiNo
+	
+			Si subcadena(palabra,i,i) = minusculas(subcadena(palabra,i,i)) entonces
+			
+				palabraFinal <- concatenar(palabraFinal,mayusculas(subcadena(palabra,i,i)));
+			FinSi
+		FinSi
+	FinPara
+	
+	Escribir "La palabra final es", palabraFinal;
+FinProceso
+
+Proceso9Pag33
+	Definir palabra, subPalabra como cadena;
+	Definir i como Entero;
+
+	Escribir "Dime una palabrita";
+	Leer palabra;
+
+	Escribir "Pasame la cadenita";
+	Leer subPalabra;
+
+	Para i <- 0 hasta longitud(palabra) - 1 con paso 1 hacer
+		
+		Si subcadena(palabra,i,i + (longitud(subPalabra) -1)) = subPalabra entonces
+
+			Escribir "La subcadena esta en la cadena";
+		SiNo
+
+			Escribir "La subcadena NO está en cadena";
+		FinSi
+	FinPara
+FinProceso
+
+Proceso10Pag33
+	Definir palabra, cosa como cadena;
+	Definir i como Entero;
+	Escribir "Dime una palabrita magina";
+	Leer palabra;
+	cosa <- "";
+	Para i <- longitud(palabra) - 1 hasta 0 con paso -1 hacer
+
+		cosa <- concatenar(cosa,subcadena(palabra,i,i));
+	FinPara
+
+	Si cosa = palabra entonces 
+		Escribir "Es una palindroma";
+	SiNo
+		Escribir "NO es una palabra palindroma";
+	FinSi
+FinProceso
+
+ARRAYS -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Proceso1Pag37
+	Definir vector, i, como Entero;
+	dimension vector[10];
+
+	Para i <- 0 hasta 9 con paso 1 hacer
+
+		vector[i] <- aleatorio(1,10);
+	FinPara
+
+	Para i <- 0 hasta 9 con paso 1 hacer
+
+		Escribir vector[i], " = " vector[i] ^2, vector[i] ^3;
+	FinPara
+FinProceso
+
+Proceso2Pag37
+	Definir vector, palabra, vector2 como Cadena;
+	Definir i como Entero;
+	Dimension vector[5];
+	Dimension vector2[5];
+	Para i <- 0 hasta 4 con paso 1 hacer
+
+		Escribir "Dime una palabra";
+		Leer palabra;
+		vector[i] <- palabra;
+		vector2[4-i] <- palabra;
+
+	FinPara
+
+	Para i <- 0 hasta 4 con paso 1 hacer
+
+		Escribir vector2[i];
+	FinPara
+FinProceso
+
+Pablo:
+proceso 3
+	definir notas, media, top, low, i como enteros, ;
+	dimension notas[5];
+	media <- 0;
+	top <- 0;
+	low <- 10;
+	
+
+	para i <- 0 hasta 4 con paso 1 hacer
+		Repetir
+		escribir "pasa la nota ", i + 1;
+		leer notas[i];
+		media <- media + notas[i];
+			Si notas[i] < 0 o notas[i] > 10
+				Escribir "Eres puto retrasao";
+			FinSi
+		Hasta que notas[i] => 0 y notas[i] <= 10
+	FinPara
+	
+	para i <- 0 hasta 4 con paso 1 hacer
+		escribir "la nota ", i+1, "es", notas[i];
+		si notas[i] > top entonces
+			top <- notas[i];
+		FinSi
+		si notas[i] < low entonces
+			low <- notas[i];
+		FinSi
+	FinPara
+	
+	escribir "la media es " media/5, "la mas alta es ", top , " y la mas baja es ", low;
+FinProceso
+
+Proceso3Pag37 YO
+
+	Definir notas, mayor, menor, todas como Real;
+	Definir i como Entero;
+	Dimension notas[5];
+	mayor <- 0;
+	menor <- 10;
+	todas <- 0;
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Repetir
+
+			Escribir "Dime la nota ", i + 1;
+			Leer notas[i];
+			Si notas[i] < 0 o notas[i] > 10 entonces
+				Escribir "bro entre 0 y 10";
+			FinSi
+
+		Hasta que notas[i] >= 0 y notas[i] <= 10 
+
+		todas <- todas + notas[i];
+		Si notas[i] > mayor entonces
+			mayor <- notas[i];
+		FinSi
+		Si notas[i] < menor entonces
+			menor <- notas[i];
+		FinSi
+	FinPara
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "La nota ", i, " es "notas[i];
+	FinPara
+	Escribir "La nota más alta es ", mayor, ". La más baja es ", menor, ". Y la media de todas es " todas / 5;
+FinProceso
+
+Proceso4Pag37
+	Definir num, numeros como Real;
+	Definir i como Entero;
+	i <- 0;
+	Dimension numeros[10];
+	Repetir
+		Escribir "Dime numeros";
+		Leer num;
+		Si num >= 0 entonces
+			numeros[i] <- num;
+		SiNo
+			Escribir "Has parado de rellenar";
+		FinSi
+		i <- i + 1;
+	Hasta que i = 10 o num < 0
+
+	Para i <- 0 hasta 9 con paso 1 hacer
+		Escribir "Numero ", i+1, ":", numeros[i];
+	FinPara
+FinProceso
+
+Proceso5Pag37
+	Definir numeros, temporal como Real;
+	Definir cambio como logico
+	cambio <- falso;
+	Dimension numeros[10];
+	Para i <- 0 hasta 9 con paso 1 hacer
+		numeros[i] <- aleatorio(0,10);
+	FinPara
+
+	Repetir
+
+		Para i <- 0 hasta 9 con paso 1 hacer
+			cambio <- falso;
+			Si numeros[i+1] < numeros[i] entonces
+
+				temporal <- numeros[i];
+				numeros[i] <- numeros[i+1];
+				numeros[i+1] <- temporal;
+				cambio <- verdadero;
+
+			FinSi
+		FinPara
+
+	Hasta que cambio <- falso;
+
+	Para i <- 0 hasta 0 con paso 1 hacer
+		Escribir numeros[i];
+	FinPara
+FinProceso
+
+Proceso6Pag38 // En la solución lo hace con dos arrays pero yo solo uso 1, toma geroma
+	Definir Nmes, i como Entero;
+	Definir mes como Cadena;
+	Dimension mes[12];
+	Repetir
+		Escribir "Dime el número del mes";
+		Leer Nmes;
+		Si Nmes < 1 o Nmes > 12 entonces
+			Escribir "Tiene que ser un número comprendido entre 1 y 12";
+		FinSi
+
+	Hasta que Nmes >= 1 y Nmes <= 12
+
+	Para i <- 0 hasta 11 con paso 1 hacer
+		mes[i] <- "";
+	 	Segun i hacer
+			0:
+				mes[i] <- concatenar(mes[i], "Enero");
+			1:
+				mes[i] <- concatenar(mes[i], "Febrero");
+			2:
+				mes[i] <- concatenar(mes[i], "Marzo");
+			3:
+				mes[i] <- concatenar(mes[i], "Abril");
+			4:
+				mes[i] <- concatenar(mes[i], "Mayo");
+			5:
+				mes[i] <- concatenar(mes[i], "Junio");
+			6:
+				mes[i] <- concatenar(mes[i], "Julio");
+			7:
+				mes[i] <- concatenar(mes[i], "Agosto");
+			8:
+				mes[i] <- concatenar(mes[i], "Septiembre");
+			9:
+				mes[i] <- concatenar(mes[i], "Octubre");
+			10:
+				mes[i] <- concatenar(mes[i], "Noviembre");
+			11:
+				mes[i] <- concatenar(mes[i], "Diciembre");
+		FinSegun
+		Segun i hacer
+			0,2,4,6,7,9,11: 
+				mes[i] <- concatenar(mes[i], " y tiene 31 Días");
+			
+			3,5,8,10:
+				mes[i] <- concatenar(mes[i], " y tiene 30 Días");
+			1:
+				mes[i] <- concatenar(mes[i], " y tiene 28 Días");
+
+		FinSegun
+	FinPara
+	Escribir "El mes", Nmes, " es ", mes[Nmes-1];
+FinProceso
+
+Proceso7Pag38
+	Definir vector1, vector2, vector3, i como Entero;
+	Dimension vector1[5];
+	Dimension vector2[5];
+	Dimension vector3[5];
+	total <- 0;
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "Dime numeros para rellenar el vector 1";
+		Leer vector1[i];
+	FinPara
+
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "Dime numeros para rellenar el vector 2";
+		Leer vector2[i];
+	FinPara
+
+	// Ni hace falta el vector 3 pero bueno, lo pide el enunciado asi que lo pongo
+	Escribir "La suma de los dos vectores es: "
+	Para i <- 0 hasta 4 con paso 1 hacer
+		vector3[i] <- vector1[i] + vector2[i];
+		Escribir vector3[i];
+	FinPara
+FinProceso
+
+Proceso8Pag38
+	Definir nom, nombres como Cadena;
+	Definir edades, cantidad, i, max, contador como Entero;
+	Dimension nombres[200];
+	Dimension edades[200];
+	i <- 0;
+	max <- 0;
+	contador <- 0;
+	Repetir
+		Escribir "Dime el nombre y la edad del alumno ", i+1;
+		Leer nom;
+		Si nom != "*" entonces
+			nombres[i] <- nom;
+			Leer edades[i];
+			contador <- contador + 1;
+		FinSi
+		i <- i + 1;
+	Hasta que nom = "*"
+
+	Escribir "Los alumnos mayores de edad son:"
+	Para i <- 0 hasta contador-1 con paso 1 hacer
+		Si edades[i] >=18 entonces
+			Escribir nombres[i];
+		FinSi
+
+		// Reciclo un para
+		Si edades[i] > max entonces
+			max <- edades[i];
+		FinSi
+	FinPara
+
+	Escribir "Los alumnos con más edad, tienen ", max, " y son:";
+	Para i <- 0 hasta contador-1 con paso 1 hacer
+		Si edades[i] = max entonces
+			Escribir nombres[i];
+		FinSi
+	FinPara
+FinProceso
+
+
+Proceso9Pag38
+	Definir temp, total, tempMin, tempMax como Real;
+	Definir i, j como Entero;
+	Definir hay como logico;
+	hay <- falso;
+	Dimensión temp[5,3];
+	tempmin <- 200;
+	j <- 1;
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Repetir		
+		Escribir "Dime la temperatura minima y maximapara el día ", i+1;
+		temp[i,0] <- i+1;
+		Leer temp[i,j];
+		Leer temp[i,j+1];
+			Si temp[i,j] < temp[i,j+1] entonces
+				Escribir "La primera temperatura tiene que ser la mínima y la segunda la máxima";
+			FinSi
+		Hasta que temp temp[i,j] < temp[i,j+1]
+
+	FinPara
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		
+		Escribir "La temperatura media del día", i+1, " es de " (temp[i,j] + temp[i,j+1]) / 2;
+	
+	FinPara
+
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Si temp[i,j] < tempmin entonces
+			tempmin <- temp[i,j];
+		FinSi
+	FinPara
+
+	Escribir "Los dias con menos temperatura son: "	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Si temp[i,j] = tempmin entonces
+			Escribir "Día ", i+1;
+		FinSi
+	FinPara
+
+	Escribir "Dime una temperatura maxima";
+	Leer tempMax;
+	Escribir "Los dias que cuya temperatura máxima coincide con esa son: "
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Si tempmax = temp[i,j+1] entonces
+			Escribir "Día ", i+1;
+			hay <- verdadero;
+		FinSi
+	FinPara
+	Si hay = falso entonces
+		Escribir "Ninguna temperatura máxima de ningún día coincide con esa temperatura";
+	FinSi
+FinProceso
+
+Proceso10Pag38
+	Definir matriz, i, j, total como Entero;
+	Dimension matriz[5,5];
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			matriz[i,j] <- aleatorio(1,10);
+		FinPara
+	FinPara
+	
+	Escribir "Suma filas:";
+	Para i <- 0 hasta 4 con paso 1 hacer
+		total <- 0;
+		Para j <- 0 hasta 4 con paso 1 hacer
+			total <- total + matriz[i,j];
+		FinPara
+		Escribir "La suma de la fila", i+1, " es:", total;
+	FinPara
+	Escribir "Suma columnas:";
+	Para j <- 0 hasta 4 con paso 1 hacer
+		total <- 0;
+		Para i <- 0 hasta 4 con paso 1 hacer
+			total <- total + matriz[i,j];
+		FinPara
+		Escribir "La suma de las columna," j+1, " es: ", total;
+	FinPara
+FinProceso
+
+Proceso11Pag38
+	Definir diagonal, i, j, contador como Entero;
+	dimension diagonal[5,5];
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			diagonal[i,j] <- 0;
+		FinPara
+	FinPara
+
+	i <- 0;
+	j <- 0;
+	Para contador <- 0 hasta 4 con paso 1 hacer
+
+		diagonal[contador,contador] <- 1;
+
+	FinPara
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 con paso 1 hacer
+			Escribir sin saltar diagonal[i,j];
+		FinPara
+		Escribir "";
+	FinPara
+FinProceso
+
+Proceso12Pag38
+	Definir marco, i, j como Entero;
+	Dimension marco[5,15];
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 14 con paso 1 hacer
+			marco[i,j] <- 0;
+			Si i = 0 o i = 4 entonces
+				marco[i,j] <- 1;
+			FinSi
+			Si j = 0 o j = 14 entonces
+				marco[i,j] <- 1;
+			FinSi
+		FinPara
+	FinPara
+
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Para j <- 0 hasta 14 con paso 1 hacer
+			Escribir sin saltar marco[i,j];
+		FinPara
+		Escribir "";
+	FinPara
+FinProceso
+
+Proceso13Pag39
+	Definir Nconductores, i, j como Entero;
+	Definir nombres como Cadena;
+	Definir totalK, Ktotales, total como Real;
+	Escribir "Cuantos conductores tienes";
+	Leer Nconductores;
+	Dimension nombres[Nconductores];
+	Dimension totalK[Nconductores,7];
+	Dimension Ktotales[Nconductores];
+
+	Para i <- 0 hasta Nconductores - 1 con paso 1 hacer
+		Escribir "Cual es el nombre del conductor", i+1;
+		Leer nombres[i];
+	FinPara
+	Para i <- 0 hasta Nconductores - 1 con paso 1 hacer
+		Para j <- 0 hasta 6 con paso 1 hacer
+			Escribir "Cuántos kilómetros ha hecho el conductor ", nombres[i], " 				  el día", i+1;
+			Leer totalK[i,j];
+		FinPara
+	FinPara
+
+	Para i <- 0 hasta Nconductores - 1 con paso 1 hacer
+		total <- 0;
+		Para j <- 0 hasta 6 con paso 1 hacer
+			total <- total + totalK[i,j];
+		FinPara
+		Ktotales[i] <- total;
+		Escribir "El conductor ", nombres[i], " ha hecho un total de ", Ktotales[i], 			 " kilómetros";
+	FinPara
+FinProceso				
+
+Proceso14Pag39
+	Definir articulos, ventas, totalA, recaudacion, max como Real;
+	Definir i, j, N como Entero;
+	Dimension articulos[5];
+	Dimension ventas[4,5];
+	Dimension recaudacion[4];
+	max <- 0;
+	
+	Para i <- 0 hasta 4 con paso 1 hacer
+		Escribir "Cual es el precio del artículo", i+1;
+		Leer articulos[i];
+	FinPara
+
+	Para i <- 0 hasta 3 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			Escribir "Cuánto ha vendido la surcursal " , i+1, " con el artículo ", j+1;
+			Leer ventas[i,j];
+		FinPara
+	FinPara
+
+	Escribir "Cantidades totales vendidas por cada artículo:";
+	Para j <- 0 hasta 4 con paso 1 hacer
+			totalA <- 0;
+			Para i <- 0 hasta 3 con paso 1 hacer
+				totalA <- totalA + ventas[i,j];
+			FinPara
+			Escribir "El artículo ", j+1, " ha vendido un total de ", totalA;
+	FinPara
+	Escribir "Total de ventas en la sucursal 2";
+	totalA <- 0;
+	Para j <- 0 hasta 4 con paso 1 hacer 
+		totalA <- totalA + ventas[1,j];
+	FinPara
+
+	Escribir "La venta del artículo 3 en la sucursal 1 es de: ", ventas[0,2];
+
+	Para i <- 0 hasta 3 con paso 1 hacer
+		totalA <- 0;
+		Para j <- 0 hasta 4 con paso 1 hacer
+			totalA <- totalA + ventas[i,j];
+			recaudacion[i];
+		FinPara
+		Escribir "La sucursal ", i+1, " ha recaudado un total de ", totalA;
+	FinPara
+	
+	totalA <- 0;
+	Para i <- 0 hasta 3 con paso 1 hacer
+		Para j <- 0 hasta 4 con paso 1 hacer
+			totalA <- totalA + ventas[i,j];
+		FinPara
+	FinPara
+	Escribir "La recaudación total de la empresa es de: ", totalA;
+	
+	Para i <- 0 hasta 3 con paso 1 hacer
+		Si recaudacion[i] > max entonces
+			max <- recaudacion[i];
+			N <- i;
+		FinSi
+	FinPara
+
+	Escribir "La sucursal con mas recaudacion ha sido la ", N, " con un total de ", max;
+FinProceso
+
+Proceso15Pag39
+	Definir equipos como Cadena;
+	Definir resultados, i, como Entero;
+	Dimension equipos[15,2];
+	Dimension resultados[15,2];
+	
+	Para i <- 0 hasta 14 con paso 1 hacer
+
+		Escribir "Dime el nombre de los equipos del partido ", i+1;
+		Leer equipos[i,0];
+		Leer equipos[i,1];
+		Escribir "Y los goles:";
+		Leer resultados[i,0];
+		Leer resultados[i,1];
+
+	FinPara
+
+	Para i <- 0 hasta 14 con paso 1 hacer
+		Escribir "El resultado de los equipos ", equipos[i,0], " y ", equipos[i,1], " es de ", resultados[i,0], "-", resultados[i,1];
+	FinPara
+FinProceso
+
+FUNCIONES --------------------------------------------------------------------------------------------------------------------------------------------------
+
+- 1 Pag 44:
+Funcion EscribirCentrado(palabra)
+
+	Definir i, espacios como Entero;
+	espacios <- 40 - (longitud(palabra)/2);
+	Para i <- 0 hasta espacios - 1 con paso 1 hacer
+		Escribir sin saltar " ";
+	FinPara
+	Escribir palabra;
+	Para i <- 0 hasta espacios - 1 con paso 1 hacer
+		Escribir sin saltar " ";
+	FinPara
+	Para i <- 0 hasta longitud(palabra) - 1 con paso 1 hacer
+		Escribir sin saltar "=";
+	FinPara
+	Escribir "";
+
+FinFuncion
+
+Proceso1Pag44
+	Definir texto como Cadena;	
+	Escribir "Dime un texto y te lo centro";
+	Leer texto;
+	EscribirCentrado(texto);
+FinProceso
+
+- 2 Pag 44:
+Funcion esMulti <- EsMultiplo(num1,num2)
+	Definir esMulti como Cadena;
+	Si num1 % num2 = 0 entonces
+		esMulti <- "El numero 1 es múltiplo del segundo";
+	SiNo
+		esMulti <- "El número 1 NO es múltiplo del segundo";
+	FinSi
+FinFuncion
+
+Proceso2Pag44
+	Definir numero1, numero2 como Entero;
+	Escribir "Dime dos numeros";
+	Leer numero1, numero2;
+	Escribir EsMultiplo(numero1,numero2);
+FinProceso
+
+- 3 Pag 44:
+Funcion TempMedia(temp1,temp2)
+	Escribir "La temperatura media del día es de ", (temp1 + temp2) / 2;
+FinFuncion
+
+Proceso3Pag44
+	Definir NDias, i como Entero;
+	Definir tempMax, TempMin como Real;
+	Escribir "Cuántos días quieres";
+	Leer NDias;
+
+	Para i <- 0 hasta NDias - 1 con paso 1 hacer
+		Escribir "Dime la temperatura maxima del dia ", i+1;
+		Leer tempMax;
+		Escribir "Dime la temperatura minima del dia ", i+1;
+		Leer tempMin;
+		TempMedia(tempMax,tempMin);
+	FinPara
+FinProceso
+
+- 4 Pag 44:
+Funcion Pfinal <- ConvertirEspaciado(palabra)
+	Definir Pfinal como Cadena;
+	Definir i como Entero;
+	Pfinal <- "";
+	Para i <- 0 hasta longitud(palabra) - 1 con paso 1 hacer
+		Pfinal <- concatenar(Pfinal,subcadena(palabra,i,i));
+		Pfinal <- concatenar(Pfinal," ");
+	FinPara
+FinFuncion
+
+Proceso4Pag44
+	Definir palabrita como Cadena;
+	Escribir "Dime una palabrita";
+	Leer palabrita;
+	Escribir "La palabrita espaciada: ", ConvertirEspaciado(palabrita);
+FinProceso
+
+- 5 Pag 44:
+Funcion calcularMaxMin(vector,tam, max por Referencia, min por Referencia)
+	Definir i como Entero;
+	max <- vector[0];
+	min <- vector[0];
+	Para i <- 0 hasta tam - 1 con paso 1 hacer
+		Si vector[i] > max entonces
+			max <- vector[i];
+		FinSi
+		Si vector[i] < min entonces
+			min <- vector[i];
+		FinSi
+	FinPara
+FinFuncion
+
+Proceso5Pag44
+	Definir numeros, i, mayor, menor como Real;
+	Definir size como Entero;
+	Dimension numeros[10];
+	size <- 10;
+	Para i <- 0 hasta 9 con paso 1 hacer
+		Escribir "Dime numeros";
+		Leer numeros[i];
+	FinPara
+	calcularMaxMin(numeros,size,mayor,menor);
+	Escribir "El número más grande es ", mayor;
+	Escribir "El número más pequeño es", menor;
+FinProceso
+
+- 6 Pag 44:
+Funcion AreaYPerimetro(R)
+	Escribir "El área es de: " 3.14 * (R^2);
+	Escribir "El perímetro es de: " 2 * 3.14 * R;
+FinFuncion
+
+Proceso6Pag44
+	Definir Radio como Real;
+	Escribir "Dime el radio de la circunferencia y te digo su área y su perímetro";
+	Leer Radio;
+	AreaYPerimetro(Radio);
+FinProceso
+
+7 Pag 44:
+Funcion acceso <- login(usu,pass,trys por Referencia)
+	Definir acceso como Logico;
+	trys <- 0;
+	Si usu = "usuario1" y pass = "asdasd" entonces
+		acceso <- verdadero;
+	SiNo
+		acceso <- falso;
+		trys <- trys + 1;
+	FinSi
+FinFuncion
+
+Proceso7Pag44
+	Definir usuario, clave como Cadena;
+	Definir intentos como Entero;
+	Definir entrado como Logico;
+	Repetir
+		Escribir "Introduzca el usuario y la clave";
+		Leer usuario, clave;
+		entrado <- login(usuario,clave,intentos);
+
+	Hasta que entrado o intentos = 3
+	Si entrado entonces
+		Escribir "Has entrado en el sistema, con ", intentos, " intentos";
+	SiNo
+		Escribir "Has llegado al límite de intentos";
+	FinSi
+FinProceso
+
+8 Pag 44:
+Funcion resultado <- CalcFactorial(num)
+	Definir resultado como Entero;
+	Si num = 0 o num = 1 entonces
+		resultado <- 1;
+	SiNo
+		resultado <- resultado * CalcFactorial(num-1);
+	FinSi
+FinFuncion
+
+Proceso8Pag44
+	Definir numero;
+	Escribir "Dime un número y te digo su factorial";
+	Leer numero;
+	Escribir "El factorial de ", numero, " es ", CalcFactorial(numero);
+FinProceso
+
+9 Pag 45:
+Funcion intercambiar(mayor por referncia, menor por referencia)
+	Definir a como Real;
+	Si menor > mayor entonces
+		a <- mayor;
+		mayor <- menor;
+		menor <- a;
+	FinSi
+FinFuncion
+
+Funcion MCD <- CalcularMCD(num1,num2)
+	Definir MCD, resto como Real;
+	intercambiar(num1,num2);
+	resto <- num1 % num2;
+	Si num1 % num2 = 0 entonces
+		MCD <- num2;
+	SiNo
+		MCD <- CalcularMCD(num2,resto);
+	FinSi
+FinFuncion
+
+Proceso9Pag45
+	Definir numero1, numero2 como Real;
+	Escribir "Dime dos numeros y te digo su MCD";
+	Leer numero1, numero2;
+	Escribir "Su MCD es: " CalcularMCD(numero1,numero2);
+FinProceso
+
+10 Pag 45:
+
+Funcion seg <- calcularSegundos(horas,minutos,segundos)
+	Definir seg como Real;
+	seg <- (horas / 3600) + (minutos / 60) + segundos;
+FinFuncion
+
+Funcion convertirHMS(segundos)
+	Definir horas, minutos, seg como Real;
+	horas <- trunc(segundos / 3600);
+	minutos <- trunc(segundos % 3600 / 60);
+	segundos <- segundos % 3600 % 60;
+	Escribir "La conversion es ", horas, " horas", minutos, " minutos", segundos, " segundos";
+FinFuncion
+	Definir horas, minutos, segundos como Entero;
+	Definir opcion como Entero;
+	Escribir "Eliga una opción, convertir de segundos a HHMMSS o convertir HHMMSS a segundos (1/2/0 para salir)";
+	Leer opción;
+	Segun opcion hacer
+		1:
+			Escribir "Dime los segundos";
+			Leer segundos;
+			convertirHMS(segundos);
+		2: 
+			Escribir "Dime las horas minutos y segundos";
+			Leer horas, minutos, segundos;
+			calcularSegundos(horas,minutos,segundos);
+		0:
+			Escribir "Adios";
+		De otro modo:
+			Escribir "Esa NO es una opcion válida";
+	FinSegun
+FinProceso
+	
+11 Pag 45
+
+Funcion fecha(a con referencia,m con referencia ,d con referencia)
+	Escribir "Dime el año";
+	Leer a;
+	Escribir "Dime el mes";
+	Leer m;
+	Escribir "Dime el dia";
+	Leer d;
+FinFuncion	
+
+Funcion dias <- DiasDelMes(año,mes)
+	Definir dias como Entero;
+	Segun mes hacer
+		1,3,5,7,8,10,12:
+			dias <- 31;
+		4,6,9,11:
+			dias <- 30;
+		2:
+			Si (año % 4 = 0 y (año % 100 != 0)) o año % 400 = 0 entonces
+				dias <- 29;
+			SiNo
+				dias <- 28;
+			FinSi
+	FinSegun
+FinFuncion
+
+Funcion diaJu <- calcularDiaJuliano(dia,mes,año)
+	Definir diaJu, i como Entero;
+	diaJu <- 0;
+	Para i <- 1 hasta mes - 1 con paso 1 hacer
+		diaJu <- diaJu + DiasDelMes(i,año);
+	FinPara
+	diaJu <- diaJu + dia;
+FinFuncion
+
+Proceso11Pag45
+	Definir año,mes,dia como Entero;
+	fecha(año,mes,dia);
+	Escribir "El día juliano es: ", calcularDiaJuliano(dia,mes,año);
+FinProceso
+
+12 Pag 45
+
+Funcion fecha(a con referencia,m con referencia ,d con referencia)
+	Escribir "Dime el año";
+	Leer a;
+	Escribir "Dime el mes";
+	Leer m;
+	Escribir "Dime el dia";
+	Leer d;
+FinFuncion	
+
+Funcion dias <- DiasDelMes(año,mes)
+	Definir dias como Entero;
+	Segun mes hacer
+		1,3,5,7,8,10,12:
+			dias <- 31;
+		4,6,9,11:
+			dias <- 30;
+		2:
+			Si (año % 4 = 0 y (año % 100 != 0)) o año % 400 = 0 entonces
+				dias <- 29;
+			SiNo
+				dias <- 28;
+			FinSi
+	FinSegun
+FinFuncion
+
+Funcion diaJu <- calcularDiaJuliano(dia,mes,año)
+	Definir diaJu, i como Entero;
+	diaJu <- 0;
+	Para i <- 1 hasta mes - 1 con paso 1 hacer
+		diaJu <- diaJu + DiasDelMes(i,año);
+	FinPara
+	diaJu <- diaJu + dia;
+FinFuncion
+
+Funcion escorrecta validarFecha(año,mes,dia)
+	Definir escorrecta como logico;
+	escorrecta <- verdadero;
+	Si dia < 0 o mes < 0 o mes > 12 o dia > diasDelMes(año,mes) entonces
+		escorrecta <- falso;
+	SiNo
+		escorrecta <- verdadero;
+	FinSi
+FinFuncion
+
+Proceso12Pag45
+	Definir año,mes,dia como Entero;
+	fecha(año,mes,dia);
+	Si validarFecha(año,mes,dia) entonces 
+		Escribir "El día juliano es: ", calcularDiaJuliano(dia,mes,año);
+	SiNo
+		Escribir "Fecha invalida";
+	FinSi
+FinProceso
+
+13 Pag 46:
+
+Funcion MCD <- calcularMCD(num1,num2)
+	Definir MCD, a como Entero;
+	Definir resto como Real;
+	Si num2 > num1 entonces
+		a <- num1;
+		num2 <- num1;
+		num1 <- num2;
+	FinSi
+	Resto <- num1 % num2;
+	Si resto = 0 entonces
+		MCD <- num2;
+	SiNo
+		MCD <- calcularMCD(num2,resto);
+	FinSi
+FinFuncion
+
+Funcion simplificarFraccion(numerador por referencia, denominador por referencia)
+	numerador <- numerador / calcularMCD(numerador,denominador);
+	denominador <- denominador / calcularMCD(numerador,denominador);
+FinFuncion
+
+Funcion LeerFraccion(numerador por referncia,denominador por referencia)
+	Escribir "Dime el numerador";
+	Leer numerador;
+	Escribir "Dime el denominador";
+	Leer denominador;
+	simplificarFraccion(numerador,denominador);
+FinFuncion
+
+Funcion EscribirFraccion(numerador,denominador)
+	Si denominador = 1 entonces
+		Escribir "numerador";
+	SiNo
+		Escribir numerador;
+		Escribir "-"
+		Escribir denominador;
+	FinSi
+FinFuncion
+
+Funcion sumarFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*d2 + d1*n2;
+	resD <- d1*d2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Funcion RestarFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*d2 - d1*n2;
+	resD <- d1*d2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Funcion multiplicarFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*n2;
+	resD <- d1*d2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Funcion dividirFracciones(n1,d1,n2,d2)
+	Definir resN, resD como Entero;
+	resN <- n1*d2;
+	resD <- d1*n2;
+	simplificarFraccion(resN,resD);
+	EscribirFraccion(resN,resD);
+FinFuncion
+
+Proceso13Pag45
+	Definir numerador1, denominador1, numerador2, denominador2, opcion como Entero;
+	LeerFraccion(numerador1,denominador1);
+	LeerFraccion(numerador2,denominador2);
+	Escribir "Que quieres hacer, 1 sumar, 2 restar, 3 multiplicar, 4 dividir, 5 salir";
+	Leer opcion;
+	Segun opcion hacer
+		1:
+			Escribir "La suma de esas dos fracciones es:";
+			sumarFracciones(numerador1,denominador1,numerador2,denominador2);
+		2:
+			Escribir "La resta de esas dos fracciones es:";
+			RestarFracciones(numerador1,denominador1,numerador2,denominador2);
+		3:
+
+			Escribir "La multiplicacion de esas dos fracciones es:";
+			multiplicarFracciones(numerador1,denominador1,numerador2,denominador2);
+		4:
+
+			Escribir "La división de esas dos fracciones es:";
+			dividirFracciones(numerador1,denominador1,numerador2,denominador2);
+		5: 
+			Escribir "Adios";
+	FinSegun
+FinProceso
+
+14 Pag 46:
+Funcion IniPila(vector por referencia, size)
+	Definir i como Entero;
+	Para i <- 0 hasta size - 1 con paso 1 hacer
+		vector[i] <- "*";
+	FinPara	
+FinFuncion
+
+Funcion i <- longitudPila(vector, size)
+	Definir i como entero;
+	i <- 0;
+	Mientras i < size Y vector[i] != "*" hacer
+		i <- i + 1;
+	FinMientras
+FinFuncion
+
+Funcion esta <- estaVaciaPila(vector, size)
+	Definir esta como logico;
+	Si longitudPila(vector,size) = 0 entonces
+		esta <- verdadero;
+	SiNo
+		esta <- falso;
+	FinSi
+FinFuncion
+
+Funcion esta <- estaLlena(vector,size)
+	Definir esta como logico;
+	Si longitudPila(vector,size) = size entonces
+		esta <- verdadero;
+	SiNo
+		esta <- falso;
+	FinSi
+FinFuncion
+
+Funcion AddPila(vector por referencia, size, cadena)
+	Definir i como Entero;
+	Definir salir como logico;
+	salir <- falso;
+	Si estaLlena(vector,size) entonces
+		Escribir "Error, la pila esta llena";
+	SiNo
+		i <- 0;
+		Repetir
+			Si vector[i] = * entonces
+				vector[i] <- cadena;
+				salir <- verdadero;
+			FinSi
+			i <- i + 1;
+		hasta que salir
+	FinSi
+FinFuncion
+
+Funcion resultado <- SacarDeLaPila(vector por referencia, size)
+	Si estaVaciaPila(vector,size) entonces
+		Escribir "Error la pila esta vacia";
+		resultado <- "";
+	SiNo
+		resultado <- vector[longitud(vector,size)-1];
+		vector[longitud(vector,size)-1] <- "*";
+	FinSi
+FinFuncion
+
+Funcion escribirPila(vector, size)
+	Definir i como entero;
+	i <- 0;
+	Mientras i < size Y vector[i] != "*" entonces
+		Escribir sin saltar vector[i];
+		i <- i + 1;
+	FinMientras
+	Escribir "";
+FinFuncion
+
+Proceso14Pag46
+	Definir pila, cad como cadena;
+	Definir size, opcion como Entero;
+	Dimension pila[10];
+	size <- 10;
+	Repetir
+		Escribir "Elige una de estas opciones:";	
+		Escribir "1: Añadir elemento a la pila";
+		Escribir "2: Sacar elemento de la pila";
+		Escribir "3: Longitud de la pila";
+		Escribir "4: Mostrar pila";
+		Escribir "5: Salir";
+		Leer opcion;
+		Segun opcion hacer
+			1: 
+				Escribir "Dime una cadena";
+				Leer cad;
+				AddPila(pila,size,cad);
+			2:
+				Escribir "Elemento sacado:";
+				SacarDeLaPila(pila,size);
+			3:
+				Escribir "La longitud es de:", longitudPila(pila,size);
+			4:
+				Escribir "La pila se ve tal que así:";
+				escribirPila(pila,size);
+			5:
+				Escribir "Adios, y no vuelvas";
+			De otro modo
+				Escribir "Elige una opcion valida cabeza de chorlito";
+		FinSegun
+	Hasta que opcion = 5
+FinProceso
+
+15 Pag 47:
+// Reciclo todas las funciones de la pila excepto esta
+Funcion resultado <- SacarDeLaCOLA(vector por referencia, size)
+	Definir i como Entero;
+	Si estaVaciaPila(vector,size) entonces
+		Escribir "Error la pila esta vacia";
+		resultado <- "";
+	SiNo
+		resultado <- vector[0]
+		Para i <- 0 hasta size - 2 con paso 1 hacer
+			vector[i] <- vector[i+1];
+		FinPara
+		vector[longitudPila(vector,size)-1] <- "*";
+		
+	FinSi
+FinFuncion
+
+
+Proceso15Pag46
+	Definir cola, cad como cadena;
+	Definir size, opcion como Entero;
+	Dimension cola[10];
+	size <- 10;
+	Repetir
+		Escribir "Elige una de estas opciones:";	
+		Escribir "1: Añadir elemento a la cola";
+		Escribir "2: Sacar elemento de la cola";
+		Escribir "3: Longitud de la cola";
+		Escribir "4: Mostrar cola";
+		Escribir "5: Salir";
+		Leer opcion;
+		Segun opcion hacer
+			1: 
+				Escribir "Dime una cadena";
+				Leer cad;
+				AddPila(cola,size,cad);
+			2:
+				Escribir "Elemento sacado:";
+				SacarDeLaCOLA(cola,size);
+			3:
+				Escribir "La longitud es de:", longitudPila(cola,size);
+			4:
+				Escribir "La pila se ve tal que así:";
+				escribirPila(cola,size);
+			5:
+				Escribir "Adios, y no vuelvas";
+			De otro modo
+				Escribir "Elige una opcion valida cabeza de chorlito";
+		FinSegun
+	Hasta que opcion = 5
+FinProceso
+
+
+
+
+
+
+
+	
+	
+	
+>>>>>>> e2523d4c9f355463d788e321bdf85d30ea2c1abd
