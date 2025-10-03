@@ -1,0 +1,80 @@
+body {
+
+    font-family: sans-serif;
+
+}
+nav {
+
+    justify-self: center;
+
+}
+nav li {
+
+    display: inline-block;
+
+}
+
+nav a {
+
+    text-decoration: none;
+
+}
+.texto-principal {
+
+    font-family: sans-serif;
+    text-decoration: underline;
+    font-family: Consolas, 'Courier New', monospace;
+    transition: all 0.4s;
+}
+.texto-principal:hover {
+
+    font-size: large;
+
+}
+.hr-gradient{
+    
+    display: inline-block;
+    border: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, red, white);
+    width: 300px;
+    
+}
+.voton {
+
+    background-color: white;
+    color: red;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.5s;
+    margin-left: 50px;
+
+}
+.voton:hover {
+
+    transform: scale(1.4);
+    color: white;
+    background-color: red;
+}
+.titulo-h1{
+
+    transition: all 0.3s;
+}
+.titulo-font {
+
+    font-family: Consolas, 'Courier New', monospace;
+    
+}
+a:active {
+
+    color: blue;
+    
+}
+/*a:visited {
+
+    
+    
+}*/
+

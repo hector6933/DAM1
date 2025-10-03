@@ -1,4 +1,4 @@
-package programacion;
+package Programacion;
 import java.util.*;
 public class nose {
     
@@ -18,7 +18,7 @@ public class nose {
 
    
     Scanner leer = new Scanner(System.in);
-    Int b = leer.nextInt();
+    int b = leer.nextInt();
 
  }
 
