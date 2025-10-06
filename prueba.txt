@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 HOLAHOLAdañasdnfjnjasnfdknasfjdnjaskdnfksnafknakfsnasfnskdnfasknfaskdfnksafknfsk
 ldnasldaldnasldnaldnaldnaldnañnsdl
 kbisdabidabidabo
+=======
+modificacion de la rama2
+>>>>>>> rama2
