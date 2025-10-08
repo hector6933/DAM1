@@ -1,0 +1,53 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Ejercicio7",
+            "request": "launch",
+            "mainClass": "ejercicios1.Ejercicio7",
+            "projectName": "DAM1_e1a46383"
+        },
+        {
+            "type": "java",
+            "name": "Ejercicio5",
+            "request": "launch",
+            "mainClass": "ejercicios1.Ejercicio5",
+            "projectName": "DAM1_e1a46383"
+        },
+        {
+            "type": "java",
+            "name": "Ejercicio2",
+            "request": "launch",
+            "mainClass": "ejercicios1.Ejercicio2",
+            "projectName": "DAM1_e1a46383"
+        },
+        {
+            "type": "java",
+            "name": "prueba",
+            "request": "launch",
+            "mainClass": "ejercicios1.prueba",
+            "projectName": "DAM1_e1a46383"
+        },
+        {
+            "type": "java",
+            "name": "ejercicio3",
+            "request": "launch",
+            "mainClass": "ejercicios1.ejercicio3",
+            "projectName": "DAM1_e1a46383"
+        },
+        {
+            "type": "java",
+            "name": "Ejercicio3",
+            "request": "launch",
+            "mainClass": "Ejercicios1.Ejercicio3",
+            "projectName": "DAM1_e1a46383"
+        },
+        {
+            "type": "java",
+            "name": "Ejercicio1",
+            "request": "launch",
+            "mainClass": "Ejercicios1.Ejercicio1",
+            "projectName": "DAM1_e1a46383"
+        }
+    ]
+}
