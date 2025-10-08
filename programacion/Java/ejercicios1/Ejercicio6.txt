@@ -1,0 +1,4 @@
+A. No, ya que no puedes almacenar un caracter en una variable entera
+B. No, no se puede almacenar un numero con decimales en una variable entera
+C. No, los decimales se ponen con puntos y NO comas
+D. Si que funciona

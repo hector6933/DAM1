@@ -10,7 +10,8 @@ public class hola {
 
         System.out.println(hector);
         System.out.println(pablo);
-
+        System.out.println(andres);
+        
     }
 
 }
