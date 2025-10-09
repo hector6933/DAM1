@@ -49,7 +49,9 @@ nav a {
     border: none;
     border-radius: 5px;
     transition: all 0.5s;
-    margin-left: 50px;
+    margin-left: 15px;
+    border: 1px solid black;
+    
 
 }
 .voton:hover {
@@ -72,9 +74,57 @@ a:active {
     color: blue;
     
 }
-/*a:visited {
 
-    
-    
-}*/
+a:visited {
 
+    color: blue;
+
+}
+
+.espazico{
+        margin: 25px 0;
+}
+
+td:hover, th:hover{
+    background-color: aquamarine;
+    transition: all 100ms;
+    transform: scale(1.1);
+    cursor:pointer
+}
+
+td:focus, th:focus{
+    background-color: rgb(74, 82, 79);
+    
+}
+
+th {
+    background-color: gray;
+}
+
+.actual {
+
+    text-decoration: underline;
+    font-weight: bold;
+
+}
+
+.voton-verde {
+
+    background-color: white;
+    color:black;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.5s;
+    margin-left: 15px;
+    border: 1px solid black;
+    
+
+}
+.voton-verde:hover {
+
+    transform: scale(1.4);
+    color: white;
+    background-color: lime;
+}
