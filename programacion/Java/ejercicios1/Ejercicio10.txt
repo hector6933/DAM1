@@ -1,0 +1,2 @@
+No hay ; en "int numero=2,"
+Cuad no está inicializado y número NO debería de llevar tilde
