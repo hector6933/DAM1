@@ -1,0 +1,31 @@
+Primera subred:
+	27 = 128 me caben 80
+	8-7 =1 24+1= /25
+	192.168.0.0 DRed
+	192.168.0.127 DBroadcast
+Segunda subred:
+	
+	/27
+	192.168.0.128 DRed
+	192.168.0.159 DBroadcast
+Tercera subred:
+
+	/27
+	192.168.0.160 DRed
+	192.168.0.191 DRed
+Cuarta subred:
+
+	/30
+	192.168.0.192 DRed
+	192.168.0.195 DBroadcast
+Quinta subred:
+
+	/30
+	192.168.0.196 DRed
+	192.168.0.199 DBroadcast
+
+Sexta subred
+
+	/30
+	192.168.0.200 DRed
+	192.168.0.193 DBroadcast
