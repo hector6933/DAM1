@@ -1,11 +1,9 @@
-package Programacion;
+package ejercicios1;
 
-public class prueba {
+public class Ejercicio11 {
     
     public static void main(String[] args) {
         
-        
-
     }
 
 }
