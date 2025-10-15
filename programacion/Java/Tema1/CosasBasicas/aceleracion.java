@@ -1,4 +1,4 @@
-package CosasBasicas;
+package programacion.Java.Tema1.CosasBasicas;
 public class aceleracion {
 
     public static void main(String[] args) {

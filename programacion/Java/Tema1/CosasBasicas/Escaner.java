@@ -1,4 +1,4 @@
-package CosasBasicas;
+package programacion.Java.Tema1.CosasBasicas;
 import java.util.Scanner;
 
 public class Escaner {
