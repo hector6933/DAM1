@@ -1,4 +1,4 @@
-package ejercicios1;
+package programacion.Java.Tema1.ejercicios1;
 
 public class Ejercicio4 {
   

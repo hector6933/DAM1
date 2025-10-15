@@ -1,13 +1,12 @@
-package ejercicios1;
+package programacion.Java.Tema1.CosasBasicas;
+
 
 public class prueba {
     
     public static void main(String[] args) {
         
-        int i = 0x100;
-        i += i;
-        System.out.println(i);
         
+
     }
 
 }

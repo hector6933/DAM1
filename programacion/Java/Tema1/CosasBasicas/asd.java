@@ -1,4 +1,4 @@
-package CosasBasicas;
+package programacion.Java.Tema1.CosasBasicas;
 import java.util.*;
 public class asd {
     
