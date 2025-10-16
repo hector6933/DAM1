@@ -128,3 +128,24 @@ th {
     color: white;
     background-color: lime;
 }
+
+.voton-negro {
+
+    background-color: white;
+    color:black;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.5s;
+    margin-left: 15px;
+    border: 1px solid black;
+
+}
+
+.voton-negro:hover {
+
+    transform: scale(1.4);
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+}
