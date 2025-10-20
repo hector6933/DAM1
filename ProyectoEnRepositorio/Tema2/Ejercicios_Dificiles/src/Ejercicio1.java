@@ -7,7 +7,7 @@ public class Ejercicio1 {
 
         int min = 1;
         int max = 100;
-        int guess;
+        int guess = 0;
         int intentos = 1;
         boolean salir = false;
         String opcion;
@@ -18,8 +18,32 @@ public class Ejercicio1 {
 
             // System.out.println("Como testeo, el número random es " + random);
 
-            System.out.print("Intenta adivinar el número entre 1 y 100: ");
-            guess = leer.nextInt();
+            do {
+
+                System.out.print("Intenta adivinar el número entre 1 y 100: ");
+                if (!leer.hasNextInt()) {
+
+                    System.out.println("Por favor introduce un número entero válido");
+                    leer.nextLine();
+
+                } else {
+
+                    guess = leer.nextInt();
+                    leer.nextLine();
+                    if (guess < 0 || guess > 100) {
+
+                        System.out.println("El número debe de estar comprendido entre 0 y 100");
+
+                    } else {
+
+                        correcto = true;
+
+                    }
+
+                }
+            } while (!correcto);
+
+            correcto = false;
 
             if (guess > random) {
 
