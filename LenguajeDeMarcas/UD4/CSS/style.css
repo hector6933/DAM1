@@ -149,3 +149,36 @@ th {
     color: rgb(255, 255, 255);
     background-color: rgb(0, 0, 0);
 }
+
+mark {
+
+
+    background-color:  yellow;
+
+}
+
+article > section > h2 {
+
+    color: rgb(163, 0, 0);
+
+}
+
+article > section > aside p {
+
+    color: blue;
+
+}
+
+/* Esto apunta directamente aun p que especificamente tenga un h2 detrás*/
+article > section h2 + p {
+
+    color: green;
+
+}
+
+/* Esto apunta a un p que tenga al lado un h2*/
+article > section h2 ~ p {
+
+    color: green;
+    
+}

@@ -10,7 +10,6 @@ public class Ejercicio3 {
 
             System.out.println("Has introducido un número real");
 
-
         } else if (leer.hasNextInt()) {
 
             System.out.println("Has introducido un número entero");
