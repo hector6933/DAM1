@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Tema2/Cositas/Cositas.iml" filepath="$PROJECT_DIR$/Tema2/Cositas/Cositas.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tema2/Ejercicios/Ejercicios.iml" filepath="$PROJECT_DIR$/Tema2/Ejercicios/Ejercicios.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tema2/Ejercicios_Dificiles/Ejercicios_Dificiles.iml" filepath="$PROJECT_DIR$/Tema2/Ejercicios_Dificiles/Ejercicios_Dificiles.iml" />
       <module fileurl="file://$PROJECT_DIR$/Proecto-Intellij.iml" filepath="$PROJECT_DIR$/Proecto-Intellij.iml" />
