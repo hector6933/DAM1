@@ -98,6 +98,7 @@ public class pruebaFuncion {
         String opcion;
         boolean salir;
         do {
+
             salir = false;
 
 
