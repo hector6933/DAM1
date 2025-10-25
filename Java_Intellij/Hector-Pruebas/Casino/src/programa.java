@@ -18,7 +18,7 @@ public class programa {
 
     }
 
-    public static String getSaldo (double saldo) {
+    public static String redondear (double saldo) {
 
         if (saldo == Math.floor(saldo)) {
 
@@ -34,10 +34,37 @@ public class programa {
 
     public static int ruletaRojoNegro() {
 
+        boolean salir = false;
         int min = 0;
-        int max = 100;
+        int max = 99;
+        int random;
+        int contador = 0;
+        double i = 0.1;
+        System.out.println("Girando la ruleta...");
+        do {
 
-        int random = (int) (Math.random() * (max - min) + min);
+            random = (int) (Math.random() * (max - min) + min);
+
+            if (random >= 1 && random <= 49) {
+
+                System.out.println("Rojo");
+
+            } else if (random >= 50 && random <= 99) {
+
+                System.out.println("Negro");
+
+            } else if (random == 0) {
+
+                System.out.println("VERDE");
+
+            }
+            i = (i + 0.15);
+            esperar(i);
+            contador +=1;
+
+        } while (contador != 10);
+
+
         if (random >= 1 && random <= 49) {
 
             return 0;
@@ -56,32 +83,159 @@ public class programa {
 
     }
 
-    public static void ruleta(double saldo) {
+    public static double apuesta(double saldo) {
 
-        boolean salir = false;
+        boolean salir;
+        boolean salir2;
+        double apuesta;
+        String opcion;
+        do {
+
+            salir = false;
+            salir2 = false;
+            System.out.println("¿Cuánto desea apostar? (0 - Salir)");
+            if (leer.hasNextDouble()) {
+
+                apuesta = leer.nextDouble();
+                leer.nextLine();
+                if (apuesta == 0) {
+
+                    salir = true;
+
+                } else {
+
+                    do {
+
+                        System.out.println("¿Está seguro? (S/N)");
+                        opcion = leer.next();
+                        leer.nextLine();
+                        switch (opcion) {
+
+                            case "S","s":
+                                if (apuesta > saldo) {
+
+                                    System.out.println("No dispone de fondos suficientes para hacer la apuesta");
+                                    salir2 = true;
+
+                                } else {
+
+                                    salir2 = true;
+                                    salir = true;
+                                    return apuesta;
+
+                                }
+
+                            case "N","n":
+                                salir2 = true;
+                                break;
+                            default:
+                                System.out.println("Opción NO válida");
+                                break;
+
+                        }
+
+                    } while (!salir2);
+
+                }
+
+            } else {
+
+                System.out.println("¡ Introduzca una cantidad válida !");
+                leer.nextLine();
+
+            }
+
+        } while (!salir);
+        return 0;
+
+    }
+
+    public static double ruleta(double saldo) {
+
+        boolean salir;
+        double apuesta;
+        int resultado;
         String opcion;
         System.out.println("-------------------------------");
-        System.out.println("Demomento solo disponemos de una ruleta con rojo o negro");
+        System.out.println("Demomento solo disponemos de una ruleta con rojo, negro o verde");
         esperar(0.7);
         do {
 
+            salir = false;
             System.out.println("Apuesta:");
             System.out.println("1 - Rojo");
             System.out.println("2 - Negro");
+            System.out.println("3 - Verde");
             System.out.println("S - Salir");
             opcion = leer.next();
             leer.nextLine();
+            if (opcion.equalsIgnoreCase("S")) {
 
-            int resultado = ruletaRojoNegro();
+                salir = true;
+                break;
+
+            }
+
+            apuesta = apuesta(saldo);
+            if (apuesta == 0) {
+
+                continue;
+
+            }
+            saldo = saldo - apuesta;
+            resultado = ruletaRojoNegro();
 
             switch (opcion) {
 
                 case "1":
+                    if (resultado == 0) {
+
+                        System.out.println("HA GANADO !!!");
+                        saldo = apuesta * 2;
+                        esperar(0.35);
+                        System.out.println("Beneficio: +" + redondear(apuesta));
+                        System.out.println("Saldo actual: " + redondear(saldo));
+
+                    } else {
+
+                        System.out.println("Ha perdido...");
+                        System.out.println("Saldo restante: " + redondear(saldo));
+
+                    }
 
                     break;
 
                 case "2":
+                    if (resultado == 1) {
 
+                        System.out.println("HA GANADO !!!");
+                        saldo = apuesta * 2;
+                        esperar(0.35);
+                        System.out.println("Beneficio: +" + redondear(apuesta));
+                        System.out.println("Saldo actual: " + redondear(saldo));
+
+                    } else {
+
+                        System.out.println("Ha perdido...");
+                        System.out.println("Saldo restante: " + redondear(saldo));
+
+                    }
+                    break;
+                case "3":
+                    if (resultado == 2) {
+
+                        System.out.println("HA GANADO !!!");
+                        saldo = apuesta * 35;
+                        esperar(0.35);
+                        System.out.println("Beneficio: +" + redondear(((apuesta * 35) / 2)));
+                        System.out.println("Saldo actual: " + redondear(saldo));
+
+                    } else {
+
+                        System.out.println("Ha perdido...");
+                        System.out.println("Saldo restante: " + redondear(saldo));
+
+                    }
                     break;
                 case "S","s":
                     System.out.println("Saliendo...");
@@ -90,6 +244,7 @@ public class programa {
             }
             System.out.println("-------------------------------");
         } while (!salir);
+        return saldo;
 
 
     }
@@ -106,7 +261,7 @@ public class programa {
 
             esperar(0.7);
 
-            System.out.println("Dispone de un saldo de " + getSaldo(saldo));
+            System.out.println("Dispone de un saldo de " + redondear(saldo));
 
             esperar(1);
 
@@ -123,7 +278,7 @@ public class programa {
             switch (opcion) {
 
                 case "1":
-                    System.out.println("Ruleta");
+                    saldo = ruleta(saldo);
                     break;
 
                 case "2":
