@@ -1,7 +1,9 @@
 import java.util.Scanner;
 public class programa {
 
-    static Scanner leer = new Scanner(System.in);
+    public static Scanner leer = new Scanner(System.in);
+    public static String[] log = new String[1000000000];
+    public static int ILog = 0;
     public static void esperar(double seg) { // Funcion para esperar, en vez de poner este pedazo código todo el rato
 
         int mili = (int) (seg * 1000);
@@ -12,15 +14,74 @@ public class programa {
 
         } catch (InterruptedException e) {
 
-            System.out.println("Erro de espera");
+            System.out.println("Error de espera");
 
         }
 
     }
 
-    public static int random (int max, int min) {
+    public static int random (int max, int min) { // Funcion random, en vez de poner este pedazo código todo el rato
 
         return (int) (Math.random() * (max - min) + min);
+
+    }
+
+    public static String registroIngreso(double ingreso) {
+
+        return "Ingresado: " + "+" + redondear(ingreso);
+    }
+
+    public static String registroRetirar(double retirado) {
+
+        return "Retirado: " + "-" + redondear(retirado);
+    }
+
+    public static String registroRuletaGanar(double apuesta) {
+
+        return "Ruleta: " + "+" + redondear(apuesta);
+    }
+
+    public static String registroRuletaPerder(double apuesta) {
+
+        return "Ruleta: " + "-" + redondear(apuesta);
+    }
+
+    public static String registroBlackJackGanar(double apuesta) {
+
+        return "BlackJack: " + "+" + redondear(apuesta);
+    }
+
+    public static String registroBlackJackPerder(double apuesta) {
+
+        return "BlackJack: " + "-" + redondear(apuesta);
+    }
+
+    public static void registro(String registro) {
+
+        log[ILog] = registro;
+        ILog += 1;
+
+    }
+
+    public static void verRegistro() {
+
+        System.out.println("Registro:");
+        esperar(0.7);
+        if (ILog == 0) {
+
+            System.out.println("No hay registros");
+
+        } else {
+
+            for (int i = 0; i < ILog; i++) {
+
+                System.out.println((i+1) + ". " + log[i]);
+
+            }
+
+        }
+
+
 
     }
 
@@ -206,12 +267,14 @@ public class programa {
 
                         System.out.println("HA GANADO !!!");
                         saldo = saldo + apuesta * 2;
+                        registro(registroRuletaGanar(apuesta));
                         esperar(0.35);
                         System.out.println("Beneficio: +" + redondear(apuesta));
                         System.out.println("Saldo actual: " + redondear(saldo));
 
                     } else {
 
+                        registro(registroRuletaPerder(apuesta));
                         System.out.println("Ha perdido...");
                         System.out.println("Saldo restante: " + redondear(saldo));
 
@@ -224,12 +287,14 @@ public class programa {
 
                         System.out.println("HA GANADO !!!");
                         saldo = saldo + apuesta * 2;
+                        registro(registroRuletaGanar(apuesta));
                         esperar(0.35);
                         System.out.println("Beneficio: +" + redondear(apuesta));
                         System.out.println("Saldo actual: " + redondear(saldo));
 
                     } else {
 
+                        registro(registroRuletaPerder(apuesta));
                         System.out.println("Ha perdido...");
                         System.out.println("Saldo restante: " + redondear(saldo));
 
@@ -240,12 +305,14 @@ public class programa {
 
                         System.out.println("HA GANADO !!!");
                         saldo = saldo + apuesta * 35;
+                        registro(registroRuletaGanar(apuesta * 35));
                         esperar(0.35);
                         System.out.println("Beneficio: +" + redondear(((apuesta * 35) / 2)));
                         System.out.println("Saldo actual: " + redondear(saldo));
 
                     } else {
 
+                        registro(registroRuletaPerder(apuesta));
                         System.out.println("Ha perdido...");
                         System.out.println("Saldo restante: " + redondear(saldo));
 
@@ -276,6 +343,7 @@ public class programa {
         int manoU = random(max,min);
         boolean salir;
         boolean correcto;
+        boolean plantado = false;
         do {
             salir = false;
             if (manoC < 17) {
@@ -290,22 +358,23 @@ public class programa {
 
             }
 
-            if (manoU == 21 && manoC == 21) {
+            if (manoU == manoC && plantado) {
 
                 System.out.println("Empate");
                 salir = true;
                 return apuesta;
 
-            } else if (manoU > 21) {
+            } else if (manoU > 21 || (plantado && manoC <= 21 && manoC > manoU)) {
 
+                registro(registroBlackJackPerder(apuesta));
                 System.out.println("Ha perido...");
                 esperar(0.5);
                 salir = true;
                 return 0;
 
-            } else if ( manoC >= 17 && manoU <= 21) {
+            } else if ( manoC >= 17 && plantado) {
 
-
+                registro(registroBlackJackGanar(apuesta));
                 System.out.println("¡ HA GANADO !");
                 salir = true;
                 return apuesta * 2;
@@ -332,6 +401,7 @@ public class programa {
                                 esperar(0.6);
 
                             }
+                            plantado = true;
                             correcto = true;
 
                             break;
@@ -402,9 +472,111 @@ public class programa {
         return saldo;
     }
 
+    public static double gestionSaldo(double saldo) {
 
+        boolean salir;
+        boolean correcto;
+        String opcion;
+        double retirar;
+        double ingresar;
+        esperar(0.5);
+        do {
+            salir = false;
+            correcto = false;
+            System.out.println("-------------------------------");
+            System.out.println("Eliga entre las siguientes opciones:");
+            System.out.println("1 - Ingresar");
+            System.out.println("2 - Retirar");
+            System.out.println("3 - Ver registro");
+            System.out.println("S - Salir");
+            opcion = leer.next();
+            leer.nextLine();
+            switch (opcion) {
+
+                case "1":
+                    do {
+                        System.out.println("¿Cuánto desea ingresar?");
+                        if (leer.hasNextDouble()) {
+
+                            ingresar = leer.nextDouble();
+                            leer.nextLine();
+                            correcto = true;
+                            saldo = saldo + ingresar;
+                            registro(registroIngreso(ingresar));
+                            esperar(0.2);
+                            System.out.println("Ingrsado correctamente " + "+" + redondear(ingresar) + " al saldo.");
+                            esperar(0.5);
+                            System.out.println("-------------------------------");
+                            System.out.println("Saldo actual: " + redondear(saldo));
+
+                        } else {
+
+                            esperar(0.3);
+                            System.out.println("Cantidad inválida, por favor, ingrese un número real.");
+                            leer.nextLine();
+
+                        }
+
+                    } while (!correcto);
+
+                    break;
+                case "2":
+                    do {
+                        System.out.println("¿Cuánto desea retirar?");
+                        if (leer.hasNextDouble()) {
+
+                            retirar = leer.nextDouble();
+                            leer.nextLine();
+                            esperar(0.2);
+                            if (retirar > saldo) {
+
+                                System.out.println("NO puede retirar más saldo del que dispone");
+
+
+                            } else {
+
+                                saldo = saldo - retirar;
+                                registro(registroRetirar(retirar));
+                                System.out.println("Retirado correctamente " + "-" + redondear(retirar) + " del saldo.");
+                                esperar(0.5);
+                                System.out.println("-------------------------------");
+                                System.out.println("Saldo actual: " + redondear(saldo));
+
+                            }
+                            correcto = true;
+
+
+                        } else {
+
+                            esperar(0.3);
+                            System.out.println("Cantidad inválida, por favor, ingrese un número real.");
+                            leer.nextLine();
+
+                        }
+
+                    } while (!correcto);
+
+                    break;
+                case "3":
+                    esperar(0.2);
+                    verRegistro();
+                    break;
+                case "S","s":
+                    salir = true;
+                    break;
+                default:
+                    esperar(0.3);
+                    System.out.println("Opción no válida");
+                    break;
+            }
+
+        } while (!salir);
+
+
+
+        return saldo;
+    }
     public static void main(String[] args) {
-
 
         boolean salir = false;
         double saldo = 1000;
@@ -444,7 +616,7 @@ public class programa {
                     break;
 
                 case "4":
-                    System.out.println("Gestión saldo");
+                    saldo = gestionSaldo(saldo);
                     break;
 
                 case "S","s":
