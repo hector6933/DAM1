@@ -4,7 +4,7 @@ public class Prueba1 {
 
         /*
         for (int i = 1; i < 4; i++);
-        System.out.print(i);*/
+        System.out.print(i);
         /*for (int i = 0; i <= 4; i++) {
             if (i == 2)
                 continue;
