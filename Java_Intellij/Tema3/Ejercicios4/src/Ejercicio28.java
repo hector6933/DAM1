@@ -1,0 +1,51 @@
+import java.util.Scanner;
+public class Ejercicio28 {
+
+    public static void main(String[] args) {
+
+        Scanner leer = new Scanner(System.in);
+
+        boolean correcto = false;
+        int altura = 0;
+        int longitud = 0;
+        do {
+            System.out.print("Introduce la altura del triángulo de asteríscos: ");
+            if (leer.hasNextInt()) {
+
+                altura = leer.nextInt();
+                leer.nextLine();
+                if (altura <= 0) {
+
+                    System.out.println("Por favor, introduce un número entero positivo válido y mayor que 0");
+
+                } else {
+
+                    correcto = true;
+
+                }
+
+            } else {
+
+                System.out.println("La altura debe de ser un número entero positivo");
+                leer.nextLine();
+
+            }
+
+        } while (!correcto);
+
+        longitud = altura;
+        for (int i = 0; i < altura; i++) {
+
+            for (int j = 0; j < longitud; j++) {
+
+                System.out.print("*");
+
+            }
+            longitud -= 1;
+            System.out.println(" ");
+
+        }
+
+    }
+
+}
