@@ -586,44 +586,38 @@ public class programa {
 
         boolean salir;
         boolean correcto;
+        String[][] campoBombas = new String[5][5];
+        double multi = 1;
         int random1;
         int random2;
+        int casillas = 25;
+        int seguras = casillas - bombas;
 
         int pos1 = 0;
         int pos2 = 0;
 
         int max = 0;
-        int min = 5;;
+        int min = 4;;
         int contador = 0;
 
-        // Printear campo
-        for (int i = 0; i < 6; i++) {
+        // Rellenar los dos arrays:
+        for (int i = 0; i < 4; i++) {
 
-            System.out.print("   " + (i+1));
-
-        }
-
-        System.out.println(" ");
-
-        for (int i = 0; i < 6; i++) {
-
-            System.out.print((i+1) + " ");
-            for (int j = 0; j < 6; j++) {
+            for (int j = 0; j < 4; j++) {
 
                 campo[i][j] = "x";
-                System.out.print("["+ campo[i][j] + "] ");
+                campoBombas[i][j] = "x";
 
             }
-            System.out.println(" ");
 
         }
-        // Finalizar printear campo
 
+        // Meter las bombas en el campo con bombas:
         while (contador != bombas){
 
             random1 = random(max,min);
             random2 = random(max,min);
-            campo[random1][random2] = "☼";
+            campoBombas[random1][random2] = "☼";
 
             contador +=1;
         }
@@ -640,7 +634,7 @@ public class programa {
 
                         pos1 = leer.nextInt();
                         leer.nextLine();
-                        if (pos1 < 1 || pos1 > 6) {
+                        if (pos1 < 1 || pos1 > 5) {
 
                             System.out.println("El número debe de estar comprendido entre 1 y 6");
 
@@ -652,7 +646,7 @@ public class programa {
 
                                     pos2 = leer.nextInt();
                                     leer.nextLine();
-                                    if (pos2 < 1 || pos2 > 6) {
+                                    if (pos2 < 1 || pos2 > 5) {
 
                                         System.out.println("El número debe de estar comprendido entre 1 y 6");
 
@@ -682,9 +676,10 @@ public class programa {
 
                 } while (!correcto);
 
-                if (campo[pos1][pos2].equalsIgnoreCase("☼")) {
+                if (campoBombas[pos1][pos2].equalsIgnoreCase("☼")) {
 
-                    for (int i = 0; i < 5; i++) {
+                    campo[pos1][pos2] = campoBombas[pos1][pos2];
+                    for (int i = 0; i < 4; i++) {
 
                         System.out.print("   " + (i+1));
 
@@ -692,12 +687,12 @@ public class programa {
 
                     System.out.println(" ");
 
-                    for (int i = 0; i < 6; i++) {
+                    for (int i = 0; i < 5; i++) {
 
                         System.out.print((i+1) + " ");
-                        for (int j = 0; j < 6; j++) {
+                        for (int j = 0; j < 5; j++) {
 
-                            campo[i][j] = "x";
+
                             System.out.print("["+ campo[i][j] + "] ");
 
                         }
@@ -706,9 +701,39 @@ public class programa {
                     }
                     System.out.println("¡ BOMBA !");
                     esperar(0.7);
-                    System.out.println("Has perdido");
+                    System.out.println("Has perdido...");
                     registro(registroBombasPerder(apuesta));
                     apuesta = 0;
+                    esperar(0.5);
+
+                } else {
+
+                    campo[pos1][pos2] = "+";
+                    for (int i = 0; i < 4; i++) {
+
+                        System.out.print("   " + (i+1));
+
+                    }
+
+                    System.out.println(" ");
+
+                    for (int i = 0; i < 5; i++) {
+
+                        System.out.print((i+1) + " ");
+                        for (int j = 0; j < 5; j++) {
+
+
+                            System.out.print("["+ campo[i][j] + "] ");
+
+                        }
+                        System.out.println(" ");
+
+                    }
+                    System.out.println("No hay bomba...");
+                    multi = multi * (casillas / seguras);
+                    casillas -=1;
+                    seguras -=1;
+                    multi = (multi - (multi * 0.2));
 
                 }
 
@@ -717,6 +742,31 @@ public class programa {
             // Por hacer:
             // Hacer el multiplicador de dinero para las bombas, si llena la mitad del campo y consigue desbloquear todos sin bomba es un x4
             // Si desbloquea un cuarto de las bombas
+
+        } else {
+
+
+            // Printear campo
+            for (int i = 0; i < 5;i++) {
+
+                System.out.print("   " + (i+1));
+
+            }
+
+            System.out.println(" ");
+
+            for (int i = 0; i < 5; i++) {
+
+                System.out.print((i+1) + " ");
+                for (int j = 0; j < 5; j++) {
+
+                    System.out.print("["+ campo[i][j] + "] ");
+
+                }
+                System.out.println(" ");
+
+            }
+            // Finalizar printear campo
 
         }
         return apuesta;
@@ -729,7 +779,7 @@ public class programa {
         boolean salir;
         boolean correcto;
         double apuesta = 0;
-        String[][] campo = new String[6][6];
+        String[][] campo = new String[5][5];
         int bombas;
         System.out.println("☼ Bienvenido a las bombas ☼");
         esperar(0.7);
