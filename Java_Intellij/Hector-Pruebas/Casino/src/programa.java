@@ -56,6 +56,17 @@ public class programa {
         return "BlackJack: " + "-" + redondear(apuesta);
     }
 
+    public static String registroBombasGanar(double apuesta) {
+
+        return "Bombas: " + "+" + redondear(apuesta);
+    }
+
+    public static String registroBombasPerder(double apuesta) {
+
+        return "Bombas: " + "-" + redondear(apuesta);
+    }
+
+
     public static void registro(String registro) {
 
         log[ILog] = registro;
@@ -80,8 +91,6 @@ public class programa {
             }
 
         }
-
-
 
     }
 
@@ -532,7 +541,6 @@ public class programa {
 
                                 System.out.println("NO puede retirar más saldo del que dispone");
 
-
                             } else {
 
                                 saldo = saldo - retirar;
@@ -544,7 +552,6 @@ public class programa {
 
                             }
                             correcto = true;
-
 
                         } else {
 
@@ -572,10 +579,211 @@ public class programa {
 
         } while (!salir);
 
+        return saldo;
+    }
 
+    public static double campoBombas(int bombas, String[][] campo, double apuesta) {
+
+        boolean salir;
+        boolean correcto;
+        int random1;
+        int random2;
+
+        int pos1 = 0;
+        int pos2 = 0;
+
+        int max = 0;
+        int min = 5;;
+        int contador = 0;
+
+        // Printear campo
+        for (int i = 0; i < 6; i++) {
+
+            System.out.print("   " + (i+1));
+
+        }
+
+        System.out.println(" ");
+
+        for (int i = 0; i < 6; i++) {
+
+            System.out.print((i+1) + " ");
+            for (int j = 0; j < 6; j++) {
+
+                campo[i][j] = "x";
+                System.out.print("["+ campo[i][j] + "] ");
+
+            }
+            System.out.println(" ");
+
+        }
+        // Finalizar printear campo
+
+        while (contador != bombas){
+
+            random1 = random(max,min);
+            random2 = random(max,min);
+            campo[random1][random2] = "☼";
+
+            contador +=1;
+        }
+
+        if (bombas != 0) {
+
+            do {
+                salir = false;
+                System.out.println("¿Que posicion quiere revelar?");
+                do {
+                    correcto = false;
+                    System.out.print("Pos 1:");
+                    if (leer.hasNextInt()) {
+
+                        pos1 = leer.nextInt();
+                        leer.nextLine();
+                        if (pos1 < 1 || pos1 > 6) {
+
+                            System.out.println("El número debe de estar comprendido entre 1 y 6");
+
+                        } else {
+
+                            do {
+                                System.out.print("Pos 2:");
+                                if (leer.hasNextInt()) {
+
+                                    pos2 = leer.nextInt();
+                                    leer.nextLine();
+                                    if (pos2 < 1 || pos2 > 6) {
+
+                                        System.out.println("El número debe de estar comprendido entre 1 y 6");
+
+                                    } else {
+
+                                        correcto = true;
+
+                                    }
+
+                                } else {
+
+                                    System.out.println("Número inválido, debe de ser un número entero.");
+                                    leer.nextLine();
+
+                                }
+
+                            } while (!correcto);
+
+                        }
+
+                    } else {
+
+                        System.out.println("Número inválido, debe de ser un número entero.");
+                        leer.nextLine();
+
+                    }
+
+                } while (!correcto);
+
+                if (campo[pos1][pos2].equalsIgnoreCase("☼")) {
+
+                    for (int i = 0; i < 5; i++) {
+
+                        System.out.print("   " + (i+1));
+
+                    }
+
+                    System.out.println(" ");
+
+                    for (int i = 0; i < 6; i++) {
+
+                        System.out.print((i+1) + " ");
+                        for (int j = 0; j < 6; j++) {
+
+                            campo[i][j] = "x";
+                            System.out.print("["+ campo[i][j] + "] ");
+
+                        }
+                        System.out.println(" ");
+
+                    }
+                    System.out.println("¡ BOMBA !");
+                    esperar(0.7);
+                    System.out.println("Has perdido");
+                    registro(registroBombasPerder(apuesta));
+                    apuesta = 0;
+
+                }
+
+            } while (!salir);
+
+            // Por hacer:
+            // Hacer el multiplicador de dinero para las bombas, si llena la mitad del campo y consigue desbloquear todos sin bomba es un x4
+            // Si desbloquea un cuarto de las bombas
+
+        }
+        return apuesta;
+
+
+    }
+
+    public static double bombas(double saldo) {
+
+        boolean salir;
+        boolean correcto;
+        double apuesta = 0;
+        String[][] campo = new String[6][6];
+        int bombas;
+        System.out.println("☼ Bienvenido a las bombas ☼");
+        esperar(0.7);
+        System.out.println("Bombardeen perú");
+
+        do {
+            salir = false;
+            correcto = false;
+            System.out.println("Este es el campo: ");
+            campoBombas(0, campo, apuesta);
+            esperar(0.5);
+            apuesta = apuesta(saldo);
+            if (apuesta == 0) {
+
+                salir = true;
+                break;
+
+            } else {
+
+                do {
+                    System.out.print("¿Cuántas bombas quieres? (0 - Salir): ");
+                    if (leer.hasNextInt()) {
+
+                        bombas = leer.nextInt();
+                        leer.nextLine();
+                        correcto = true;
+                        if (bombas == 0) {
+
+                            salir = true;
+                            break;
+
+                        } else {
+
+                            saldo = saldo + campoBombas(bombas, campo, apuesta);
+
+                        }
+
+                    } else {
+
+                        System.out.println("Número inválido, debe de ser un número entero comprendido en x x");
+                        leer.nextLine();
+
+                    }
+
+                } while (!correcto);
+
+            }
+
+        } while (!salir);
 
         return saldo;
     }
+
+
     public static void main(String[] args) {
 
         boolean salir = false;
@@ -612,7 +820,7 @@ public class programa {
                     break;
 
                 case "3":
-                    System.out.println("Bombas");
+                    saldo = bombas(saldo);
                     break;
 
                 case "4":
@@ -629,7 +837,6 @@ public class programa {
             }
 
             System.out.println("▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼");
-
 
         } while (!salir);
 
