@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posicajas</title>
+    <style>
+        * {
+
+            font-family: 'Cascadia Code';
+            margin-left: 0;
+            padding: 0;
+
+        }
+
+        body {
+
+            background-color: black;
+
+        }
+
+        .caja {
+
+            display: inline-flex;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(12, 57,116);
+            color: white;
+            margin-bottom: 7px;
+            font-size: 40px;
+            padding: 9px;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s;
+
+        }
+
+        .posicionada {
+
+            background-color: rgb(13, 96, 222);
+            position: relative;
+            top: 40px;
+            left: 60px;
+
+        }
+
+        .posicionada2 {
+
+            background-color: rgb(13, 96, 222);
+            position: absolute; /*Es absoluto respecto a su contenedor padre POSICIONADO, osea body*/
+            top: 150px;
+            left: 20px;
+
+        }
+
+        .cajarelativa {
+
+            position: relative;
+
+        }
+        h1 {
+
+            color: white;
+            margin-top: 30px;
+            margin-bottom: 60px;
+
+        }
+
+        .cajaFixed {
+
+            display: inline-flex;
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 12, 12);
+            color: white;
+            margin-bottom: 7px;
+            font-size: 25px;
+            padding: 9px;
+            justify-content: center;
+            align-items: center;
+            right: 20px;
+            bottom: 7px; /*Para el fixed hay que poner un bottom por cojones si no, no va.*/
+            border-radius: 25px;
+            transition: all 0.3s;
+
+        }
+        .cajaFixed:hover {
+
+            background-color: rgb(189, 9, 9);
+            transform: scale(1.1);
+
+        }
+
+        .caja:hover {
+
+            background-color: rgb(12, 83, 116);
+
+        }
+        .posicionada:hover, .posicionada2:hover {
+
+            background-color: rgb(13, 156, 222);
+
+        }
+
+        .cajaoverflow {
+
+            /*Propiedad para manipular los elementos que sobresalen
+            overflow: visible; Por defecto, se desborda
+            overflow: hidden; Oculta el contenido que se desborda
+            overflow: scroll; Siempre muestra scrollbars */
+            overflow: auto; /* Scrollbars solo si es necesario */
+
+        }
+        .cajaFixed {
+
+            background: linear-gradient(to right, #ff0000, #0051ff);
+
+        }
+       
+    </style>
+</head>
+<body>
+    <h1>Caja posicionada relativamente:</h1>
+    <div class="caja caja1">1</div>
+    <div class="caja posicionada">2</div>
+    <div class="caja">3</div>
+    <div class="caja">4</div>
+    <div class="caja">5</div>
+    <div class="caja">6</div>
+    <div class="caja">7</div>
+    <div class="caja">8</div>
+    <div class="caja">9</div>
+
+    <h1>Caja posiconada absolutamente:</h1>
+    <div class="caja">1</div>
+    <div class="caja cajarelativa">Relativa
+        <div class="caja posicionada2">2</div>
+        <!-- Esta caja está posicionada respecto a su contenedor padre POSICIONADO-->
+    </div>
+    <div class="caja">3</div>
+    <div class="caja">4</div>
+    <div class="caja">5</div>
+    <div class="caja">6</div>
+    <div class="caja">7</div>
+    <div class="caja">8</div>
+    <div class="caja">9</div>
+
+    <div class="cajaFixed">Fixed</div>
+
+    <h1>Overflow:</h1>
+    <div class="caja cajaoverflow">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aperiam accusamus nam voluptate laborum harum at deserunt corrupti ducimus inventore.</div>
+    
+    
+</body>
+</html>
