@@ -154,14 +154,22 @@ public class BlackJack {
 
     }
 
-    public static boolean compararManos(int manoU, int manoC) {
+    public static int compararManos(int manoU, int manoC) {
 
         if (manoU == manoC) {
 
-            return true;
+            return 0;
+
+        } else if (manoU < manoC) {
+
+            return 1;
+
+        } else {
+
+            return 2;
 
         }
-        return true;
+
     }
 
     public static double Juego(double saldo) {
@@ -171,6 +179,7 @@ public class BlackJack {
         int[] manoU = new int[11];
         int i = 0;
         int Ibanca = 1;
+        boolean parar = false;
         boolean salir;
         boolean plantado = false;
         System.out.println("Iniciando partida...");
@@ -208,15 +217,24 @@ public class BlackJack {
 
                     } else {
 
-                        System.out.println("Repartiendo cartas al crupier...");
-                        esperar(0.7);
-                        Ibanca =  turnoBanca(manoC);
-                        if (valorMano(manoC,i) > 21) {
+                        do {
+
+                            System.out.println("Repartiendo cartas al crupier...");
+                            esperar(0.3);
+                            Ibanca = turnoBanca(manoC);
+                            if (valorMano(manoC,i) > 21) {
+
+                                System.out.println("¡Has ganado!");
+
+                            } else {
+
+                                compararManos(valorMano(manoU,i),valorMano(manoC, Ibanca));
+
+                            }
 
 
+                        } while (!parar);
 
-                        }
-                        compararManos(valorMano(manoU,i),valorMano(manoC, Ibanca));
 
                     }
 

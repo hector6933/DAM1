@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos</title>
+    <style>
+
+        
+        body {
+
+            font-family: 'Cascadia Code';
+            background-color: #f2f2f2;
+
+        }
+
+        h1, p, div, span {
+
+            background-color: #CCC;
+            height: 50px;
+            padding: 10px;
+            margin: 5px;
+
+        }
+
+        h1 {
+
+            display: inline; 
+            /*
+            Basicamente en inilne se pone en linea y block se pone en bloque, no hay mas misterio
+            */
+
+        }
+
+        a {
+
+            background-color: black;
+            color: white;
+
+        }
+        div {
+
+            display: inline-block;
+
+        }
+        .menu {
+
+            justify-self: center;
+
+        }
+        .menu > li {
+
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 20px;
+
+        }
+        .menu a {
+
+            background-color: white;
+            color: black;
+
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Hola soy un título</h1>
+    <span>hola</span>
+    <p>Yo soy un párrafo <a href="">Soy un enlace dentro del párrafo</a></p>
+    <div>Yo soy un contenedor</div>
+    <a href="">Soy un enlace</a>
+    <a href="">Yo otro enlace</a>
+    <span>Yo soy un span</span>
+
+    <span>Yo soy otro span</span>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <ul class="menu">
+        <li><a href="">Elemento 1</a></li>
+        <li><a href="">Elemento 2</a></li>
+        <li><a href="">Elemento 3</a></li>
+        <li><a href="">Elemento 4</a></li>
+    </ul>
+
+
+</body>
+</html>
