@@ -17,6 +17,21 @@ public class BlackJack {
 
     }
 
+    public static String numeroBien(double num) {
+
+        if (num == Math.floor(num)) {
+
+            return String.format("%.0f", num);
+
+        } else {
+
+            return String.format("%.2f", num);
+
+        }
+
+    }
+
+
     public static void reglas() {
 
         System.out.println("Reglas básicas: ");
@@ -33,7 +48,9 @@ public class BlackJack {
                 "   Si se pasa de 21, el jugador gana automáticamente.");
         System.out.println("- Gana quien tenga la puntuación más alta sin superar 21.");
         System.out.println(" ");
-        esperar(5);
+        esperar(2);
+        System.out.println("Presione cualquier tecla para continuar...");
+        leer.nextLine();
 
     }
 
@@ -80,11 +97,11 @@ public class BlackJack {
 
       if (jugador == 1) {
 
-          return "Mano del jugador" + mano;
+          return "Mano del jugador: " + mano;
 
       } else if (jugador == 2) {
 
-          return "Mano del crupier" + mano;
+          return "Mano del crupier: " + mano;
 
       }
       return " ";
@@ -136,18 +153,23 @@ public class BlackJack {
 
     }
 
-    public static int turnoBanca(int[] mano) {
+    public static int turnoBanca(int[] mano, int[]manoU, int iU) {
 
         boolean salir = false;
         int i = 1;
         do {
             mano[i] = repartirCarta();
-            i +=1;
-            if (mano[i] > 17) {
+            System.out.println("---------------------------");
+            System.out.println(MostrarMano(1,valorMano(manoU,iU)));
+            System.out.println(MostrarMano(2,valorMano(mano,i)));
+            System.out.println("---------------------------");
+            esperar(0.5);
+            if (valorMano(mano, i) > 17) {
 
                 salir = true;
 
             }
+            i += 1;
 
         } while (!salir);
         return i;
@@ -179,7 +201,9 @@ public class BlackJack {
         int[] manoU = new int[11];
         int i = 0;
         int Ibanca = 1;
-        boolean parar = false;
+        int as = 0;
+        boolean hayas;
+        String valorAS = "";
         boolean salir;
         boolean plantado = false;
         System.out.println("Iniciando partida...");
@@ -193,19 +217,37 @@ public class BlackJack {
         } else {
 
             saldo -= apuesta;
+            hayas = false;
             manoU[i] = repartirCarta();
             manoC[i] = repartirCarta();
 
             i += 1;
             do {
+
                 salir = false;
+                System.out.println("Repartiendo cartas...");
+                esperar(0.5);
+
+                if (manoU[i-1] == 1) {
+
+                    System.out.println("Te ha tocado un AS! Este vale como 1 o 10 en cuanto te plantes");
+                    as = i-1;
+                    hayas = true;
+                }
+                if (hayas) {
+
+                    valorAS = " / " + (valorMano(manoU,i) + 9);
+
+                }
                 System.out.println("---------------------------");
-                System.out.println(MostrarMano(1,valorMano(manoC,i)));
-                System.out.println(MostrarMano(2,valorMano(manoU,i)));
+                System.out.println(MostrarMano(1,valorMano(manoU,i)) + valorAS);
+                System.out.println(MostrarMano(2,valorMano(manoC,i)));
                 System.out.println("---------------------------");
                 if (valorMano(manoU,i) > 21) {
 
                     System.out.println("Has perdido...");
+                    System.out.println("Perdida: -" + numeroBien(apuesta) );
+                    apuesta = 0;
                     salir = true;
 
                 } else {
@@ -217,24 +259,64 @@ public class BlackJack {
 
                     } else {
 
+                        esperar(0.7);
+                        if (hayas) {
+
+                            if ((valorMano(manoU, i) + 9) > 21){
+
+                                System.out.println("Tu AS toma el valor de 1");
+                                manoU[as] = 1;
+
+                            } else if ((valorMano(manoU, i) + 9) <= 21) {
+
+                                System.out.println("Tu AS toma el valor de 10");
+                                manoU[as] = 10;
+
+                            }
+
+                        }
+
+
                         do {
 
                             System.out.println("Repartiendo cartas al crupier...");
                             esperar(0.3);
-                            Ibanca = turnoBanca(manoC);
+                            Ibanca = turnoBanca(manoC, manoU, i);
                             if (valorMano(manoC,i) > 21) {
 
                                 System.out.println("¡Has ganado!");
+                                apuesta *= 2;
+                                System.out.println("Ganancia: +" + numeroBien(apuesta));
+                                salir = true;
 
                             } else {
 
-                                compararManos(valorMano(manoU,i),valorMano(manoC, Ibanca));
+                                int resultado = compararManos(valorMano(manoU,i),valorMano(manoC, Ibanca));
+
+                                if (resultado == 0) {
+
+                                    System.out.println("Empate");
+                                    System.out.println("Ganancia: " + 0);
+
+                                } else if (resultado == 2) {
+
+                                    System.out.println("¡Has ganado!");
+                                    apuesta *= 2;
+                                    System.out.println("Ganancia: +" + numeroBien(apuesta));
+
+                                } else {
+
+                                    System.out.println("Has perdido...");
+                                    System.out.println("Perdida: -" + numeroBien(apuesta) );
+                                    apuesta = 0;
+
+                                }
+                                salir = true;
 
                             }
 
 
-                        } while (!parar);
-
+                        } while (!salir);
 
                     }
 
@@ -243,7 +325,7 @@ public class BlackJack {
             } while (!salir);
 
         }
-
+        saldo = saldo + apuesta;
         return saldo;
 
     }
@@ -251,13 +333,18 @@ public class BlackJack {
     public static void main(String[] args) {
 
         String opcion;
+        String deNuevo;
         boolean salir;
+        boolean salir2;
+        boolean otraVez;
         double saldo = 100;
         do {
 
             salir = false;
+            otraVez = true;
             System.out.println("Bienvenido al blackjack");
             esperar(0.7);
+            System.out.println("Dispone de un saldo de " + numeroBien(saldo));
             System.out.println("1 - Jugar partida");
             System.out.println("2 - Ver reglas");
             System.out.println("S - Salir");
@@ -268,7 +355,38 @@ public class BlackJack {
             switch (opcion) {
 
                 case "1":
-                    saldo = Juego(saldo);
+                    do {
+                        salir2 = false;
+                        if (otraVez) {
+
+                            saldo = Juego(saldo);
+                            System.out.println("Saldo restante: " + numeroBien(saldo) + "€");
+                            esperar(0.7);
+
+
+                        }
+
+                        System.out.println("¿Quieres jugar de nuevo? (S/N)");
+                        deNuevo = leer.next();
+                        leer.nextLine();
+                        switch (deNuevo) {
+
+                            case "S","s":
+                                otraVez = true;
+                                break;
+                            case "N","n":
+                                otraVez = false;
+                                salir2 = true;
+                                break;
+                            default:
+                                System.out.println("Opción NO válida");
+                                otraVez = false;
+                                break;
+
+                        }
+
+                    } while (!salir2);
+
                     break;
                 case "2":
                     reglas();
@@ -285,6 +403,8 @@ public class BlackJack {
 
         } while (!salir);
 
+        leer.close();
     }
+
 
 }
