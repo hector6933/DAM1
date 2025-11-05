@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class programa {
+public class AutoBombasTest {
 
     public static Scanner leer = new Scanner(System.in);
     public static String[] log = new String[1000000000];
@@ -22,7 +22,7 @@ public class programa {
 
     public static int random (int max, int min) { // Funcion random, en vez de poner este pedazo código todo el rato
 
-        return (int) (Math.random() * (max - min) + min);
+        return (int) (Math.random() * ((max - min) + min));
 
     }
 
@@ -170,10 +170,9 @@ public class programa {
             salir = false;
             salir2 = false;
             System.out.println("¿Cuánto desea apostar? (0 - Salir)");
-            if (leer.hasNextDouble()) {
+            if (!salir) {
 
-                apuesta = leer.nextDouble();
-                leer.nextLine();
+                apuesta = 500;
                 if (apuesta == 0) {
 
                     salir = true;
@@ -183,8 +182,7 @@ public class programa {
                     do {
 
                         System.out.println("¿Está seguro? (S/N)");
-                        opcion = leer.next();
-                        leer.nextLine();
+                        opcion = "s";
                         switch (opcion) {
 
                             case "S","s":
@@ -377,7 +375,7 @@ public class programa {
             } else if (manoU > 21 || (plantado && manoC <= 21 && manoC > manoU)) {
 
                 registro(registroBlackJackPerder(apuesta));
-                System.out.println("Ha perdido...");
+                System.out.println("Ha perido...");
                 esperar(0.5);
                 salir = true;
                 return 0;
@@ -624,7 +622,7 @@ public class programa {
 
                 campoBombas[random1][random2] = "☼";
                 contador += 1;
-                // System.out.println("--- bomba metida --- en posicion " + random1 + "|"+ random2);
+                System.out.println("--- bomba metida --- en posicion " + random1 + "|"+ random2);
 
             }
 
@@ -642,10 +640,18 @@ public class programa {
                 do {
                     correcto = false;
                     System.out.print("Pos 1: ");
-                    if (leer.hasNextInt()) {
+                    if (!correcto) {
 
-                        pos1 = leer.nextInt();
-                        leer.nextLine();
+                        if (!parar) {
+
+                            pos1 = random(max,min);
+
+                        } else {
+
+                            pos1 = 0;
+
+                        }
+
                         if (pos1 == 0) {
 
                             System.out.println("Saliendo...");
@@ -655,19 +661,26 @@ public class programa {
 
                         } else if (pos1 < 1 || pos1 > 5) {
 
-                            System.out.println("El número debe de estar comprendido entre 1 y 5");
+                            System.out.println("El número debe de estar comprendido entre 1 y 6");
 
                         } else {
 
                             do {
                                 System.out.print("Pos 2: ");
-                                if (leer.hasNextInt()) {
+                                if (!correcto) {
 
-                                    pos2 = leer.nextInt();
-                                    leer.nextLine();
+                                    if (!parar) {
+
+                                        pos2 = random(max,min);
+
+                                    } else {
+
+                                        pos2 = 0;
+
+                                    }
                                     if (pos2 < 1 || pos2 > 5) {
 
-                                        System.out.println("El número debe de estar comprendido entre 1 y 5");
+                                        System.out.println("El número debe de estar comprendido entre 1 y 6");
 
                                     } else {
 
@@ -761,6 +774,7 @@ public class programa {
                             multi = multi * 0.8;
                             casillas -=1;
                             seguras -=1;
+                            parar = true;
                             if (casillas == seguras) {
 
                                 System.out.println("Enhourabuena ! Ha revelado TODAS las casillas buenas");
@@ -794,6 +808,7 @@ public class programa {
 
         } else {
 
+
             // Printear campo
             for (int i = 0; i < 5;i++) {
 
@@ -820,9 +835,10 @@ public class programa {
         apuesta = apuesta * multi;
         return apuesta;
 
+
     }
 
-    public static double  bombas(double saldo) {
+    public static double bombas(double saldo) {
 
         boolean salir;
         boolean correcto;
@@ -831,7 +847,7 @@ public class programa {
         int bombas;
         System.out.println("☼ Bienvenido a las bombas ☼");
         esperar(0.7);
-        System.out.println("Pura Dinamita... para ganar, hay que quemarse...");
+        System.out.println("Donde usted hallará una explosión de dinero");
 
         do {
             salir = false;
@@ -851,10 +867,9 @@ public class programa {
 
                 do {
                     System.out.print("¿Cuántas bombas quieres? (0 - Salir): ");
-                    if (leer.hasNextInt()) {
+                    if (!salir) {
 
-                        bombas = leer.nextInt();
-                        leer.nextLine();
+                        bombas = 20;
                         if (bombas <= 0) {
 
                             salir = true;
@@ -893,12 +908,17 @@ public class programa {
         return saldo;
     }
 
+
     public static void main(String[] args) {
 
-        boolean salir = false;
-        double saldo = 1000;
+        int repetir;
+        int i = 0;
+        System.out.println("Cuántas veces quieres que se repita la simulación?");
+        repetir = leer.nextInt();
+        leer.nextLine();
         String opcion;
-
+        boolean salir = false;
+        double saldo = 1999999999;
         System.out.println("♦ Hola y bienvenido al HecSino ♦");
         do {
 
@@ -915,8 +935,18 @@ public class programa {
             System.out.println("3 - Bombas");
             System.out.println("4 - Gestión saldo");
             System.out.println("S - Salir");
-            opcion = leer.next();
-            leer.nextLine();
+            if (i == repetir) {
+
+                opcion = "S";
+
+            } else {
+
+                opcion = "3";
+
+            }
+            i++;
+
+
 
             switch (opcion) {
 
@@ -948,6 +978,44 @@ public class programa {
             System.out.println("▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼");
 
         } while (!salir);
+        salir = false;
+
+        do {
+            System.out.println("Simulación acabada");
+            System.out.println("4 - Gestión saldo");
+            System.out.println("S - Salir");
+            System.out.print("> ");
+            opcion = leer.next();
+            switch (opcion) {
+
+                case "1":
+                    saldo = ruleta(saldo);
+                    break;
+
+                case "2":
+                    saldo = blackJack(saldo);
+                    break;
+
+                case "3":
+                    saldo = bombas(saldo);
+                    break;
+
+                case "4":
+                    saldo = gestionSaldo(saldo);
+                    break;
+
+                case "S","s":
+                    System.out.println("¡ Hasta pronto !");
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Opción NO válida");
+                    break;
+            }
+
+        } while (!salir);
+
+
 
     }
 
