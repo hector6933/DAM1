@@ -940,6 +940,9 @@ public class programa {
                     System.out.println("¡ Hasta pronto !");
                     salir = true;
                     break;
+                case "remonmaricon" , "REMONMARICON" , " RemonMaricon" , "Remonmaricon":
+                    System.out.println("REEEEEMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON");
+                    break;
                 default:
                     System.out.println("Opción NO válida");
                     break;
