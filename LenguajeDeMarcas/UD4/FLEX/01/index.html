@@ -98,11 +98,13 @@
         .contenedor3 {
 
             display: flex;
-    
+            flex-wrap: wrap;
     
             background-color: burlywood;
             padding: 10px;
             border: 2px solid black;
+            align-content: space-evenly;
+            height: 500px;
     
 
         }
@@ -118,6 +120,55 @@
             border: 2px solid black;
 
         }
+
+        .contenedor4 {
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background-color: burlywood;
+            padding: 10px;
+            border: 2px solid black;
+            height: 200px;
+    
+
+        }
+
+        div.contenedor4 div {
+
+            width: 100px;
+            margin: 10px;
+            background-color: lightskyblue;
+            text-align: center;
+            line-height: 75px;
+            font-size: 30px;
+            border: 2px solid black;
+
+        }
+
+        .contenedor5 {
+
+            display: flex;
+            background-color: burlywood;
+            padding: 10px;
+            border: 2px solid black;
+            height: 400px;
+    
+
+        }
+
+        div.contenedor5 div {
+
+            width: 100px;
+            margin: 10px;
+            background-color: lightskyblue;
+            text-align: center;
+            line-height: 75px;
+            font-size: 30px;
+            border: 2px solid black;
+
+        }
+
 
     
 
@@ -173,6 +224,41 @@
         <div>10</div>
         <div>11</div>
         <div>12</div>
+
+    </div>
+
+    <br><br>
+    <hr>
+    <br><br>
+
+    <div class="contenedor4">
+
+        <!-- Se puede cambiar el orden de las cajas con order-->
+         <!-- Se puede cambiar la prioridad de espacio de las cajas con flex-grow-->
+        <div style="background-color: red; order: 4; flex-grow: 1;">1</div>
+        <div style="background-color: yellow; order: 2; flex-grow: 2;">2</div>
+        <div style="background-color: green; order: 3; flex-grow: 0.5;">3</div>
+        <div style="background-color: blue; order: 1; flex-grow: 1;">4</div>
+    
+    </div>
+
+    <br><br>
+    <hr>
+    <br><br>
+
+    <div class="contenedor5">
+
+        <!-- El etributo flex a secas es para cambiar la relacion de tamaño, aquí la caja dos es 4 veces mas grande que la 1-->
+        <div style="background-color: red; order: 1; flex: 1;">1</div>
+        <div style="background-color: yellow; order: 2; flex: 4;">2</div>
+        
+    
+    </div>
+    <!-- Enlaces para flex:
+    http://www.flexboxdefense.com/
+    https://codingfantasy.com/games/flexboxadventure/play
+    https://flexboxfroggy.com/#es 
+    -->
 
 
 
