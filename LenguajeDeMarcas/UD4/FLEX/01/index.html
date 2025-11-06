@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flex</title>
+    <style>
+        * {
+
+            box-sizing: border-box;
+
+        }
+
+        .contenedor {
+
+            display: flex;
+    
+            /*
+            Esta propiedad hace que se agrupen los elementos en caso de que no quepan haciendo los saltos de línea de arriba a abajo, en el caso del flex-direction row saltarán de línea, y en el caso de flex-direction column saltaran a otra columna
+            flex-wrap: wrap;
+
+            Esta otra propiedad hace que se agrupen al revés, oesa hace los saltos de linea de abajo hacia arriba:
+            flex-wrap: wrap-reverse;
+
+            */
+            /*
+            La direccion en la que se agrupan los elementos del conetendor, row viene por defecto:
+            flex-direction: row;
+            flex-direction: row-reverse;
+            flex-direction: column;
+            flex-direction: column-reverse;
+            */
+            /*La combinacion de los dos:*/
+            flex-flow: row wrap-reverse;
+            background-color: burlywood;
+            padding: 10px;
+            border: 2px solid black;
+    
+
+        }
+
+        .contenedor div {
+
+            width: 100px;
+            margin: 10px;
+            background-color: lightskyblue;
+            text-align: center;
+            line-height: 75px;
+            font-size: 30px;
+            border: 2px solid black;
+
+        }
+
+        .contenedor2 {
+
+            display: flex;
+            flex-flow: row nowrap;
+            
+            /*
+            Propiedades para alinear contenido:
+            justify-content: flex-end; Al final
+            justify-content: flex-start; Al principio
+            justify-content: center; Al centro
+            justify-content: space-between; Deja el mismo espacio entre los elementos sin tener en cuenta los extremos 
+            justify-content: space-around; Lo mismo que el space-between pero también separa un poco los extremos
+            justify-content: space-evenly; Aquí deja exactamente el mismo espacio entre las cajas y entre los extremos
+            */
+            justify-content: space-evenly;
+            height: 250px;
+            /*
+            Por defecto en un flex-direction: row hace que los elementos ocupen todo el contenedor en altura y queda feo
+            pero le podemos especificar como se van alinear verticalmente en el row
+            align-items: baseline; Alinea el contenido en base a la linea de altura del texto
+            */
+            align-items: center;
+
+            background-color: burlywood;
+            padding: 10px;
+            border: 2px solid black;
+            
+            
+    
+
+        }
+
+        .contenedor2 div {
+
+            width: 100px;
+            margin: 10px;
+            background-color: lightskyblue;
+            text-align: center;
+            line-height: 75px;
+            font-size: 30px;
+            border: 2px solid black;
+
+        }
+
+        .contenedor3 {
+
+            display: flex;
+    
+    
+            background-color: burlywood;
+            padding: 10px;
+            border: 2px solid black;
+    
+
+        }
+
+        div.contenedor3 div {
+
+            width: 100px;
+            margin: 10px;
+            background-color: lightskyblue;
+            text-align: center;
+            line-height: 75px;
+            font-size: 30px;
+            border: 2px solid black;
+
+        }
+
+    
+
+    </style>
+</head>
+<body>
+    
+    <h1>CSS - Flex </h1>
+    <hr>
+    <div class="contenedor">
+
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+
+    </div>
+
+    <br><br>
+    <hr>
+    <br><br>
+
+    <div class="contenedor2">
+
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+
+    <br><br>
+    <hr>
+    <br><br>
+
+    <div class="contenedor3">
+
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+
+
+
+</body>
+</html>
