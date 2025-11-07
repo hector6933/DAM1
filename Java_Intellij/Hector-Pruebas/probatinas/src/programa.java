@@ -80,7 +80,7 @@ public class programa {
         esperar(0.7);
         if (ILog == 0) {
 
-            System.out.println("No hay registros");
+            System.out.println("No hay registros ☺");
 
         } else {
 
