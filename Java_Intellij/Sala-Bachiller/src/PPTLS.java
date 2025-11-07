@@ -17,19 +17,92 @@ public class PPTLS {
             throw new RuntimeException(e);
 
         }
-        
+
     }
 
-    public static void partidaHumanovsHumano(String jugador, int puntos) {
+    public static boolean partidaHumanovsHumano(String jugador1, String judaor2) {
 
         boolean correcto;
-        System.out.println("Turno de " + jugador);
+        byte opcion = 0;
+        byte eleccion1 = 0;
+        byte eleccion2 = 0;
+        int i = 1;
+
         do {
             correcto = false;
+            System.out.println("Turno del jugador" + i);
+            System.out.println("Elige: ");
+            System.out.println("1 - Piedra");
+            System.out.println("2 - Papel");
+            System.out.println("3 - Tijera");
+            System.out.print("> ");
+            if (leer.hasNextByte()) {
+
+                opcion = leer.nextByte();
+
+            }
+            leer.nextLine();
+            switch (opcion) {
+
+                case 1:
+                    if (i == 1) {
+
+                        eleccion1 = 1;
+
+                    } else {
+
+                        eleccion2 = 1;
+                        correcto = true;
+
+                    }
+                    i++;
+                case 2:
+                    if (i == 1) {
+
+                        eleccion1 = 2;
+
+                    } else {
+
+                        eleccion2 = 2;
+                        correcto = true;
+
+                    }
+                    i++;
+                    break;
+
+                case 3:
+                    if (i == 1) {
+
+                        eleccion1 = 3;
+
+                    } else {
+
+                        eleccion2 = 3;
+                        correcto = true;
+
+                    }
+                    i++;
+                    break;
+
+                default:
+                    System.out.println("Opción inválida");
+                    break;
+
+            }
+
 
         } while (!correcto);
-        System.out.println("Elige");
 
+        if (eleccion1 == 1 && eleccion2 == 3) {
+
+            return true;
+
+        } else if (eleccion1 == 1) {
+
+        }
+
+
+    }
 
     }
 
@@ -84,8 +157,6 @@ public class PPTLS {
 
         } while (!correcto);
 
-
-
     }
 
     public static void main(String[] args) {
@@ -108,7 +179,6 @@ public class PPTLS {
             if (leer.hasNextByte()) {
 
                 opcion = leer.nextByte();
-                correcto = true;
 
             }
             leer.nextLine();
