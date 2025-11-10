@@ -23,7 +23,7 @@ public class Prueba2 {
                 System.out.println("¡ Valor inválido !");
 
             }
-            
+
             /*
 
             if (leer.hasNextInt()) {
