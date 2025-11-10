@@ -80,7 +80,7 @@ public class programa {
         esperar(0.7);
         if (ILog == 0) {
 
-            System.out.println("No hay registros");
+            System.out.println("No hay registros ☺");
 
         } else {
 
@@ -628,7 +628,6 @@ public class programa {
 
             }
 
-
         }
 
         if (bombas != 0) {
@@ -939,6 +938,9 @@ public class programa {
                 case "S","s":
                     System.out.println("¡ Hasta pronto !");
                     salir = true;
+                    break;
+                case "remonmaricon" , "REMONMARICON" , " RemonMaricon" , "Remonmaricon":
+                    System.out.println("REEEEEMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON");
                     break;
                 default:
                     System.out.println("Opción NO válida");
