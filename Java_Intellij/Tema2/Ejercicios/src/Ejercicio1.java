@@ -11,6 +11,7 @@ public class Ejercicio1 {
         double altura = leer.nextDouble();
 
         System.out.println("El área es de " + (base*altura));
+        System.out.println("Pablo tetas 25");
 
     }
 
