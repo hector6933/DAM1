@@ -1,1 +1,3 @@
-Hola esto es un readme de los guapos
+# Repositorio oficial de DAM 1
+
+Cosas de DAM 1
