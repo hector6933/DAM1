@@ -8,7 +8,6 @@ public class Ejercicio5 {
         int[] randoms = new int[10];
         int pos = 0;
         boolean esta;
-        boolean correcto;
 
         for (int i = 0; i < randoms.length; i++) {
 
@@ -26,13 +25,12 @@ public class Ejercicio5 {
         System.out.println("---------------------------");
 
         do {
-            correcto = false;
+
             System.out.println("Introduce un número entero y te digo si está en el array (Numero negativo para salir)");
             System.out.print("> ");
             try {
 
                 pos = Integer.parseInt(leer.nextLine());
-                correcto = true;
                 if (pos >= 0) {
 
                     esta = false;
@@ -69,7 +67,7 @@ public class Ejercicio5 {
 
             }
 
-        } while (pos >= 0 || !correcto);
+        } while (pos >= 0);
 
     }
 
