@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Hector-Pruebas/Casino/Casino.iml" filepath="$PROJECT_DIR$/Hector-Pruebas/Casino/Casino.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Hector-Pruebas/probatinas/Clases/Clases.iml" filepath="$PROJECT_DIR$/Hector-Pruebas/probatinas/Clases/Clases.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tema2/Ejercicios/Ejercicios.iml" filepath="$PROJECT_DIR$/Tema2/Ejercicios/Ejercicios.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tema3/Ejercicios1/Ejercicios1.iml" filepath="$PROJECT_DIR$/Tema3/Ejercicios1/Ejercicios1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tema3/Ejercicios2/Ejercicios2.iml" filepath="$PROJECT_DIR$/Tema3/Ejercicios2/Ejercicios2.iml" />
