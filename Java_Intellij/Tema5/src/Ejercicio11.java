@@ -1,3 +1,5 @@
+import java.awt.font.FontRenderContext;
+
 public class Ejercicio11 {
 
     public static void main(String[] args) {
@@ -5,30 +7,38 @@ public class Ejercicio11 {
         int[] randoms = new int[10];
         int numeroMeter;
 
+        boolean salir = false;
         int contador = 0;
-        boolean esta = false;
-        
+
+
         for (int i = 0; i < randoms.length; i++) {
 
-            numeroMeter = (int) (Math.random() * (10 - (-11) + 1) + (-11));
-            System.out.println("Número random de la iteración " + i + ": " + numeroMeter);
-            for (int j = 0; j < randoms.length; j++) {
-                esta = false;
-                if (numeroMeter == randoms[j]) {
+            randoms[i] = 33;
 
-                    System.out.println("El número está en el array");
-                    esta = true;
+        }
+
+       while (contador <= 10) {
+
+          
+
+       }
+
+            numeroMeter = (int) (Math.random() * (10 - (-11) + 1) + (-11));
+            for (int j = 0; j < randoms.length; j++) {
+
+                if (randoms[i] != numeroMeter) {
+
+
+
+                }
+                if (randoms[i] != 33) {
+
+
 
                 }
 
-            }
-            if (!esta) {
-
-                randoms[i] = numeroMeter;
-
-            }
-
         }
+
         System.out.println("Randoms que NO se repiten:");
         for (int numeros : randoms) {
 
