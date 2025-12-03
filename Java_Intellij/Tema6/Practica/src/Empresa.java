@@ -46,7 +46,7 @@ public class Empresa {
 
         for (Empleado e : empleados) {
 
-            if (temporal.getAntiguedad() < e.getAntiguedad()) {
+            if (temporal.getAntiguedad() > e.getAntiguedad()) {
 
                 temporal = e;
 

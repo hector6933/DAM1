@@ -17,6 +17,13 @@ public class DemoEmpresa {
 
         pascualSL.mostrarEmpleados();
 
+        System.out.println("Salario promedio:");
+        System.out.println(pascualSL.salarioPromedio());
+        System.out.println("Más antiguo:");
+        System.out.println(pascualSL.mayorAntiguedad());
+
+        System.out.println("Busqueda por nombre:");
+        
     }
 
 }
