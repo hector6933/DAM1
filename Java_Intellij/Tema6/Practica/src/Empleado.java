@@ -9,12 +9,13 @@ public class Empleado {
     private String DNI;
     private Double salario;
     private String puesto;
-
-    private static int id = 0;
     private int IdPersona;
 
+    private static int AutoIncremental = 0;
+
+
     public Empleado() {
-        id++;
+        AutoIncremental++;
     }
 
     public Empleado(String nombre) {
@@ -33,8 +34,8 @@ public class Empleado {
         this.DNI = DNI;
         this.salario = salario;
         this.puesto = puesto;
-        IdPersona = id;
-        id++;
+        IdPersona = AutoIncremental;
+        AutoIncremental++;
     }
 
     public String getNombre() {

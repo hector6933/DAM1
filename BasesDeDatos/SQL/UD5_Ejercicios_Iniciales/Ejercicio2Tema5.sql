@@ -1,9 +1,13 @@
+-- Borramos la base de datos para hacer pruebas
 DROP DATABASE restricciones;
 
+-- Creamos la base de datos
 CREATE DATABASE restricciones;
 
+-- Nos posicionamos en ella
 USE restricciones;
 
+-- Creamos la tabla provincias
 CREATE TABLE provincias (
 	cod_provi NUMERIC(2),
 	nombre VARCHAR(25) NOT NULL,
@@ -12,8 +16,10 @@ CREATE TABLE provincias (
 	CONSTRAINT ck_provincias_pais CHECK (pais IN ('España','Portugal','Italia'))
 );
 
+-- Insertamos valores en la tabla provincias
 INSERT INTO provincias VALUES (1,'Ávila','España');
 
+-- Creamos la tabla empresas
 CREATE TABLE empresas (
 	cod_empresa NUMERIC(2),
 	nombre VARCHAR(25) NOT NULL DEFAULT 'empresa1',
@@ -21,12 +27,14 @@ CREATE TABLE empresas (
 	CONSTRAINT pk_cod_empresa PRIMARY KEY (cod_empresa)
 );
 
+-- Creamos la tabla continentes
 CREATE TABLE continentes (
 	cod_continente NUMERIC(2),
 	nombre VARCHAR(20) NOT NUll DEFAULT 'EUROPA',
 	CONSTRAINT pk_cod_continente PRIMARY KEY (cod_continente)
 );
 
+-- Creamos la tabla alumnos
 CREATE TABLE alumnos (
 	codigo NUMERIC(3),
 	nombre VARCHAR(21) NOT NULL,
@@ -37,6 +45,7 @@ CREATE TABLE alumnos (
 	CONSTRAINT pk_codigo PRIMARY KEY (codigo)
 );
 
+-- Creamos la tabla empleado
 CREATE TABLE empleado(
 	cod_empleado NUMERIC(2),
 	nombre VARCHAR(20) NOT NULL,
@@ -50,6 +59,7 @@ CREATE TABLE empleado(
 	CONSTRAINT fk_emp_empresa FOREIGN KEY (empresa) REFERENCES empresas (cod_empresa)
 );
 
+-- Creamos la tabla personas
 CREATE TABLE personas(
 	dni CHAR(9),
 	nombre VARCHAR(20),
@@ -59,6 +69,7 @@ CREATE TABLE personas(
 	CONSTRAINT pk_dni PRIMARY KEY (dni)
 );
 
+-- Creamos la tabla ejemplo1
 CREATE TABLE ejemplo1 (
 	dni VARCHAR(10),
 	nombre VARCHAR(30),
@@ -67,6 +78,7 @@ CREATE TABLE ejemplo1 (
 	CONSTRAINT pk_dni PRIMARY KEY (dni)
 );
 
+-- Creamos la tabla ejemplo2
 CREATE TABLE ejemplo2 (
 	dni VARCHAR(10),
 	nombre VARCHAR(30),
@@ -76,19 +88,21 @@ CREATE TABLE ejemplo2 (
 	CONSTRAINT ck_curso_ejemplo3 CHECK (curso IN (1,2,3))
 );
 
+-- Creamos la tabla alumnos2
 CREATE TABLE alumnos2 (
 	codigo NUMERIC(2),
 	nombre VARCHAR(25) NOT NULL,
 	CONSTRAINT codigo PRIMARY KEY (CODIGO)
 );
 
+-- Creamos la tabla modulos
 CREATE TABLE modulos (
 	codigo INTEGER,
 	nombre VARCHAR(25),
 	CONSTRAINT pk_codigo_modulos PRIMARY KEY (codigo)
 
 );
--- Comentario
+-- Creamos la tabla notas
 CREATE TABLE notas (
 	cod_alumno NUMERIC(2),
 	cod_modulo INTEGER,
