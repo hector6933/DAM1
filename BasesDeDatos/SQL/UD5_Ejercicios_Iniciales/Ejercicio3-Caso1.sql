@@ -1,12 +1,15 @@
 -- Ejercicio 3
--- 
 
+-- Borramos la base de datos para hacer pruebas
 DROP DATABASE IF EXISTS logistica;
 	
+-- Creamos la base de datos	
 CREATE DATABASE logistica;
 
+-- Nos posicionamos en ella
 USE logistica;
 
+-- Creamos la tabla proveedores
 CREATE TABLE proveedores (
 	id_prov NUMERIC,
 	nombre VARCHAR(30),
@@ -15,12 +18,14 @@ CREATE TABLE proveedores (
 	CONSTRAINT pk_id_prov PRIMARY KEY (id_prov)
 );
 
+-- Creamos la tabla categorias
 CREATE TABLE categorias (
 	id_categoria CHAR(2),
 	descripcion VARCHAR(50),
 	CONSTRAINT pk_id_categoria PRIMARY KEY (id_categoria)
 );
 
+-- Creamos la tabla productos
 CREATE TABLE productos (
 	numero_producto INTEGER,
 	nombre VARCHAR(30),
@@ -31,6 +36,7 @@ CREATE TABLE productos (
 	CONSTRAINT fk_id_categoria FOREIGN KEY (id_categoria) REFERENCES categorias (id_categoria)
 );
 
+-- Creamos la tabla productos_proveedores
 CREATE TABLE productos_proveedores (
 	id_prov NUMERIC,
 	numero_producto INTEGER,
@@ -39,6 +45,7 @@ CREATE TABLE productos_proveedores (
 	CONSTRAINT fk_num_producto FOREIGN KEY (numero_producto) REFERENCES productos (numero_producto)
 );
 
+-- Creamos la tabla clientes
 CREATE TABLE clientes (
 	id_cliente CHAR(3),
 	nombre VARCHAR(25),
@@ -48,6 +55,7 @@ CREATE TABLE clientes (
 	CONSTRAINT pk_id_cliente PRIMARY KEY (id_cliente)
 );
 
+-- Creamos la tabla empleados
 CREATE TABLE empleados (
 	id_empleado CHAR(3),
 	nombre VARCHAR(30),
@@ -57,6 +65,7 @@ CREATE TABLE empleados (
 	CONSTRAINT pk_id_empleado PRIMARY KEY (id_empleado)
 );
 
+-- Creamos la tabla pedidos
 CREATE TABLE pedidos (
 	numero_pedido INTEGER,
 	fecha_pedido DATE,
@@ -67,6 +76,7 @@ CREATE TABLE pedidos (
 	CONSTRAINT fk_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleados (id_empleado)
 );
 
+-- Creamos la tabla detalles_pedidos
 CREATE TABLE detalles_pedidos (
 	numero_pedido INTEGER,
 	numero_producto INTEGER,
