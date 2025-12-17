@@ -2,7 +2,7 @@ from turtle import *
 speed(9999999999999999)
 color("red")
 contador = 1
-esferas = 10
+esferas = 3
 while True:
     begin_fill()
     circle(100)
