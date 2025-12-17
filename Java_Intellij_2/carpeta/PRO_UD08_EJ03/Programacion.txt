@@ -1,0 +1,7 @@
+Una clase es un modelo a partir del cual se crean los objetos individuales.
+Las tres características de un objeto son estado, comportamiento e identidad.
+De manera general, una interfaz es un grupo de métodos relacionados que definen un
+comportamiento y que permiten la interacción de ese comportamiento del objeto que los implementa
+con el mundo exterior.
+En OOP, una interfaz viene definida por un nombre y por un conjunto de métodos con el cuerpo de
+código vacío.
