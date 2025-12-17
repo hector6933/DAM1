@@ -19,8 +19,6 @@ public class Ejercicio3 {
         Path ruta6 = Paths.get(ruta4.toString() + "/Programacion.txt");
         Path ruta7 = Paths.get(ruta5.toString() + "/Programacion.txt");
 
-        File fichero1 = new File(ruta1.toString());
-
         // Intentar copiar el archivo de "Programacion.txt" dos veces
         try {
 
