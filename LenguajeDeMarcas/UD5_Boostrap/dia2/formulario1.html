@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 2 Formularios </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        body {
+
+            
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container py-4">
+
+        <form action="#">
+
+            <div class="mb-3 row">
+                <label for="nombre" class="col-form-label col col-2">Nombre:</label>
+                <input type="text" id="nombre" class="form-control col" placeholder="Introduce tu nombre">
+            </div>
+
+            <div class="mb-3 row">
+                <label for="apellido" class="col-form-label col col-2">Apellido:</label>
+                <input type="text" id="apellido" class="form-control col" placeholder="Introduce tu apellido" disabled value="Rodriguez">
+            </div>
+            
+            <div class="mb-3 row">
+                <label for="correo" class="col-form-label col col-2">Correo electrónico:</label>
+                <input type="email" id="correo" class="form-control col" placeholder="Email">
+            </div>
+
+            <div class="mb-3 row">
+                <label for="asunto" class="col-form-label col col-2">Asunto: </label>
+                <textarea name="asunto" id="asunto" cols="30" rows="10" class="form-control col" placeholder="El que sea"></textarea>
+            </div>
+
+            <div>
+                <input type="submit" value="Enviar" class="btn btn-outline-success btn-lg">
+                <input type="reset" value="Borrar" class="btn btn-outline-danger btn-lg">
+            </div>
+
+        </form>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
