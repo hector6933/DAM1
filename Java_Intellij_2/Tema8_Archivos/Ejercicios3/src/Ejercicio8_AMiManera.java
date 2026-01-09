@@ -2,10 +2,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
-public class Ejercicio8 {
+public class Ejercicio8_AMiManera {
 
     public static void main(String[] args) {
 
@@ -20,6 +19,7 @@ public class Ejercicio8 {
             for (int i = 0; i < palabras.length; i++) {
                 int pos = 0;
 
+                // Quito todos los espacios de la linea en la que estoy
                 if (palabras[i].charAt(pos) == ' ') {
 
                     while (palabras[i].charAt(pos) == ' ') {
@@ -30,7 +30,7 @@ public class Ejercicio8 {
 
                 }
 
-                for (int j = 0; j < palabras[i].length(); j++) {
+                while(pos < palabras[i].length()) {
 
                     if (palabras[i].charAt(pos) == ' ') {
 
@@ -42,10 +42,10 @@ public class Ejercicio8 {
 
                         contadorPalabras++;
 
-                    } else if (j == palabras[i].length()-1) {
+                    } else if (pos == palabras[i].length()-1) {
 
                         contadorPalabras++;
-
+                        pos++;
 
                     } else {
 
