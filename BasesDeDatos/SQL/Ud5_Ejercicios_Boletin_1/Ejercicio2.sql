@@ -23,7 +23,7 @@ CREATE TABLE categorias(
 CREATE TABLE instructores (
 	email VARCHAR(100),
 	nombre_completo VARCHAR(80) NOT NULL,
-	biografia TEXT,
+	biografia LONGTEXT,
 	fecha_registro DATETIME DEFAULT NOW(),
 	puntuacion_media DECIMAL(3,2),
 	certificado CHAR(1),
@@ -89,12 +89,51 @@ CREATE TABLE matriculas(
 	CONSTRAINT uq_curso_matric UNIQUE(id_matricula, cod_curso)
 );
 
+-- Pruebas de inserción:
+
 -- Inserto una categoria 
 INSERT INTO categorias (nombre_categoria,descripcion,activa) VALUES ('PROGRAMACION','Categoria de programacion','S');
 
 -- Inserto un instructor
-INSERT INTO instructores (email,nombre_completo,puntuacion_media,certificado) VALUES ('juan.perez@academia.com','Juan Pérez Sánchez',4.75,'S');
+-- INSERT INTO instructores (email,nombre_completo,puntuacion_media,certificado) VALUES ('juan.perez@academia.com','Juan Pérez Sánchez',4.75,'S');
+-- Comento esto para el que la modificacion del Ejercicio 12 funcione
 
--- Inserto un curso
+-- Modificaciones avanzadas:
 
+-- 11
+-- Añado un nuevo campo a la tabla cursos
+ALTER TABLE cursos ADD idioma VARCHAR(20) DEFAULT 'ESPAÑOL';
 
+ALTER TABLE cursos ADD CONSTRAINT ck_idioma_cursos CHECK (idioma IN ('ESPAÑOL','INGLES','FRANCES','ALEMAN'));
+
+-- 12
+-- Modifico el campo biografia de la tabla instructores
+ALTER TABLE instructores MODIFY biografia LONGTEXT NOT NULL;
+
+-- 13
+-- Añado un nuevo campo a la tabla matriculas
+ALTER TABLE matriculas ADD descuento_aplicado DECIMAL(5,2);
+
+ALTER TABLE matriculas ADD CONSTRAINT ck_descuento_aplicado_matriculas CHECK (descuento_aplicado>=0 AND descuento_aplicado<=100);
+
+-- 14
+-- Modifico la tabla instructores para eliminar la restriccion de puntuacion media
+ALTER TABLE instructores DROP CONSTRAINT ck_puntuacion_media;
+
+ALTER TABLE instructores ADD CONSTRAINT ck_puntuacion_media CHECK (puntuacion_media>=0 AND puntuacion_media<=10);
+
+-- 15
+-- Añado dos campos de fecha a la tabla cursos
+ALTER TABLE cursos ADD fecha_inicio DATE, ADD fecha_fin DATE;
+
+-- 16
+-- Creo una restriccion el la tabla cursos para que la fecha fin sea posterior a la fecha inicio
+ALTER TABLE cursos ADD CONSTRAINT ck_fechas_cursos CHECK (fecha_inicio>fecha_fin);
+
+-- 17
+-- Elimino el campo Linkedin de la tabla instructores
+ALTER TABLE instructores DROP linkedin;
+
+-- 18 
+-- Añado una restriccion en la tabla matriculas
+ALTER TABLE matriculas ADD CONSTRAINT ck_completado_progreso CHECK (completado='S' AND progreso=100);

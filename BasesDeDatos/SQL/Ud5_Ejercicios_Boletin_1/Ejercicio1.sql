@@ -122,5 +122,8 @@ ALTER TABLE pacientes DROP alergias;
 Añade una restricción CHECK a la tabla CONSULTAS para que el campo precio no pueda
 superar los 1000 euros (modifica la restricción existente).
 */
+ALTER TABLE consultas DROP CONSTRAINT ck_precio;
+ALTER TABLE consultas ADD CONSTRAINT ck_precio_consultas CHECK (precio>=0 AND precio<=1000);
 
-ALTER TABLE MODIFY ck_precio_consultas ADD CHECK (precio>=0 AND precio<1000);
+-- Creo una restriccion UNIQUE en la tabla medicos para el campo email
+ALTER TABLE medicos ADD CONSTRAINT uq_email_medicos UNIQUE (email);
