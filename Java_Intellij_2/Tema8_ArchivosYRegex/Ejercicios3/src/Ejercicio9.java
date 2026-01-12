@@ -8,7 +8,6 @@ public class Ejercicio9 {
 
     public static void main(String[] args) {
 
-
         try (BufferedReader leer = new BufferedReader(new FileReader("carpeta/Ej9/archivo.txt"))){
 
             String linea;
@@ -48,13 +47,11 @@ public class Ejercicio9 {
                 }
             }
 
-
         } catch (FileNotFoundException e) {
 
             System.out.println("Error, archivo NO encontrado !!!");
 
         } catch (IOException e) {
-
 
             System.out.println("Error en la lectura del archivo !!!");
 
