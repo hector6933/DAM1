@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+
+    <style>
+        .btn-enviar {
+
+            padding: 5px;
+            background-color: green;
+            color: white;
+            font-weight: bold;
+            border: 1px solid white;
+            border-radius: 10px;
+
+        }
+
+        .btn-reset {
+
+            padding: 5px;
+            background-color: rgb(255, 0, 0);
+            color: white;
+            font-weight: bold;
+            border: 1px solid white;
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+<body style="background-color: black; color: white;">
+    
+    <h1>Formulario:</h1>
+
+
+    <fieldset>
+        <legend>Formulario to guapo</legend>
+    <form action="#">
+
+        <p>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+        </p>
+
+        <p>
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" required>
+        </p>
+
+        <p>
+            <label for="color">Color fav:</label>
+            <input type="color" id="color">
+        </p>
+
+        <p>
+            <label for="fechaNac">Fecha nacimiento:</label>
+            <input type="date" id="fechaNac" max="2025-04-12" min="2007-01-01">
+        </p>
+
+        <label for="seleccion">Selecciona</label>
+        <select name="seleccion" id="seleccion">
+            <option value="" disabled selected>--- Selecciona ---</option>
+            <optgroup label="Grupo 1">
+                <option value="opcion1">Opcion 1</option>
+                <option value="opcion2">Opcion 2</option>
+                <option value="opcion3">Opcion 3</option>
+                <option value="opcion4">Opcion 4</option>
+            </optgroup>
+            <optgroup label="Grupo 2">
+                <option value="opcion1">Opcion 1</option>
+                <option value="opcion2">Opcion 2</option>
+                <option value="opcion3">Opcion 3</option>
+                <option value="opcion4">Opcion 4</option>
+            </optgroup>
+            <optgroup label="Grupo 3">
+                <option value="opcion1">Opcion 1</option>
+                <option value="opcion2">Opcion 2</option>
+                <option value="opcion3">Opcion 3</option>
+                <option value="opcion4">Opcion 4</option>
+            </optgroup>
+        </select>
+
+        <p>
+            <label for="imagen">Sube una imagen: </label>
+            <input type="file" accept=".png" id="imagen">
+        </p>
+
+        <p>
+            <label for="dni">DNI:</label>
+            <input type="text" maxlength="9" id="dni">
+        </p>
+
+        <p>
+            <label for="comida">Comida fav:</label>
+            <input type="text" pattern="[A-Za-z]">
+        </p>
+
+        <p>
+        <button type="submit" class="btn-enviar">Enviar</button>
+        <button type="reset" class="btn-reset">Reset</button>
+
+        </p>
+    </form>
+    </fieldset>
+
+</body>
+</html>

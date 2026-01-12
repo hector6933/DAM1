@@ -5,17 +5,18 @@
 ##### Esto es un titulo h5
 ###### Esto es un titulo h6
   <!-- Esto es un comentario-->
-  Hola a *toda la clase* de DAM 1
+  Hola a **toda la clase** de DAM 1
 
   'hola'
 
-  Hola a _toda la clase_ de DAM 1
+  Hola a _toda la claee_ de DAM 1
   
   Hola a **toda la clase** de DAM 1
 
-  Hola a ***toda la clase*** de DAM 1
+  Hola a **_toda la clase_** de DAM 1
 
   `Hola a toda la clase de DAM 1`
+
 
   ~~Hola a toda la clase de DAM 1~~
 
@@ -53,8 +54,9 @@ Esto es un [enlace a google](https://google.com "Tetas")
 ## Linea horizontal
 ___
 ---
-
 ## Texto NO interpretado
+
+`Texto entre tíldes`
 
 `console.log(name)`
 
@@ -86,12 +88,17 @@ if (pascual) {
 ## Imágenes
 
 ![Texto de la imagen](https://picsum.photos/500/505)
+![Texto de la imagen](https://picsum.photos/600/400)
 
 
 * [x] Tarea 1
-* [ ] Tarea 2
-* [x] Tarea 3
+* [x] Tarea 2
+* [ ] Tarea 3
 * [ ] Tarea 4
+
+* [] Lista tarea
+* [] Lista tarea 2
+* [x] Lista tarea 3
 
 ## Teclado de Emoji
 
