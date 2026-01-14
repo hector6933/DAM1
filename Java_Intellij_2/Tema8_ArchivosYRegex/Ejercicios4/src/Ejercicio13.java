@@ -11,9 +11,9 @@ public class Ejercicio13 {
         System.out.println("Introduce tu número de teléfono formato (xxx-xxx-xxxx): ");
         System.out.print("> ");
 
-        Matcher patronTelefono = Pattern.compile("^[0-9]{3}-[0-9]{3}-[0-9]{4}$").matcher(leer.nextLine());
+        boolean correcto = Pattern.matches("^[0-9]{3}-[0-9]{3}-[0-9]{4}$",leer.nextLine());
 
-        if (patronTelefono.find()) {
+        if (correcto) {
 
             System.out.println("Telefóno válido !");
 
