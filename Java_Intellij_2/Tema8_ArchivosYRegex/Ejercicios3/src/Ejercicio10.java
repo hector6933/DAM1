@@ -40,23 +40,23 @@ public class Ejercicio10 {
 
     public static void main(String[] args) {
 
-//        System.out.println("-----------------------------------------------");
-//        System.out.println("Registros de los paises Portugal y España:");
-//        encontrarPatron("\\bES\\b|\\bPT\\b");
-//        System.out.println("-----------------------------------------------");
-//        System.out.println();
-//
-//        System.out.println("-----------------------------------------------");
-//        System.out.println("Registros con email de dominios .edu:");
-//        encontrarPatron(",[a-zA-Z]+@[a-zA-Z]+\\.edu,");
-//        System.out.println("-----------------------------------------------");
-//        System.out.println();
-//
-//        System.out.println("-----------------------------------------------");
-//        System.out.println("Registros con email de yahoo:");
-//        encontrarPatron(",[a-zA-Z]+@yahoo");
-//        System.out.println("-----------------------------------------------");
-//        System.out.println();
+        System.out.println("-----------------------------------------------");
+        System.out.println("Registros de los paises Portugal y España:");
+        encontrarPatron("\\bES\\b|\\bPT\\b");
+        System.out.println("-----------------------------------------------");
+        System.out.println();
+
+        System.out.println("-----------------------------------------------");
+        System.out.println("Registros con email de dominios .edu:");
+        encontrarPatron(",[a-zA-Z]+@[a-zA-Z]+\\.edu,");
+        System.out.println("-----------------------------------------------");
+        System.out.println();
+
+        System.out.println("-----------------------------------------------");
+        System.out.println("Registros con email de yahoo:");
+        encontrarPatron(",[a-zA-Z]+@yahoo");
+        System.out.println("-----------------------------------------------");
+        System.out.println();
 
         System.out.println("-----------------------------------------------");
         System.out.println("Registros con el último login entre mayo de 2015 y febrero de 2017:");
