@@ -11,7 +11,7 @@ public class Ejercicio14 {
         System.out.println("Introduce una frase: ");
         System.out.print("> ");
 
-        Matcher comenzarMayus = Pattern.compile("\\b[A-Z][\\w]+\\b").matcher(leer.nextLine());
+        Matcher comenzarMayus = Pattern.compile("\\b[A-ZÑ][\\wñÑ]+\\b").matcher(leer.nextLine());
 
         System.out.println("Palabras que empiezan por mayúsculas: ");
         while (comenzarMayus.find()){
