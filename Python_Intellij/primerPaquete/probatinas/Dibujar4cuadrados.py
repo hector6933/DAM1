@@ -2,17 +2,37 @@ from turtle import *
 color("red")
 hideturtle()
 speed(9999999999999999999999)
-for i in range(2):
-    for i in range (4):
-        forward(50)
-        left(90)
-    penup()
-    forward(100)
-    pendown()
 penup()
-forward(50)
-
-for i in range (4):
-    for i in range (4):
-        forward(50)
-        left(90)
+left(180)
+forward(250)
+right(90)
+forward(250)
+pendown()
+for i in range(4):
+    forward(100)
+    left(90)
+penup()
+forward(100)
+right(90)
+forward(200)
+pendown()
+for i in range(4):
+    forward(100)
+    right(90)
+penup()
+left(180)
+forward(300)
+left(90)
+forward(200)
+left(90)
+pendown()
+for i in range(4):
+    forward(100)
+    right(90)
+penup()
+forward(300)
+pendown()
+for i in range(4):
+    forward(100)
+    right(90)
+mainloop()
