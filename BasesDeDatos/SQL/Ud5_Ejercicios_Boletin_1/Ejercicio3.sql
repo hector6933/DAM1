@@ -94,7 +94,39 @@ CREATE TABLE prestamos(
 	id_prestamo INTEGER AUTO_INCREMENT,
 	num_socio INTEGER,
 	isbn VARCHAR(17),
-	CONSTRAINT fk_isbn_prestamos FOREIGN KEY (isbn) REFERENCES libros (isbn),
-	CONSTRAINT fk_num_socio_prestamos FOREIGN KEY (num_socio) REFERENCES socios (num_socio),
+	fecha_prestamo DATETIME DEFAULT NOW(),
+	fecha_devolucion_prevista DATE NOT NULL,
+	fecha_devolucion_real DATE,
+	estado VARCHAR(20) DEFAULT 'EN_PRESTAMO',
+	renovaciones INTEGER DEFAULT 0,
+	CONSTRAINT ck_fechas_prestamos CHECK (fecha_devolucion_prevista>fecha_devolucion_real),
+	CONSTRAINT ck_renovaciones_prestamos CHECK (renovaciones>=0 AND renovaciones<=3),
+	CONSTRAINT ck_estado_prestamos CHECK (estado IN ('EN_PRESTAMO','DEVUELTO','RETRASADO','PERDIDO')),
+	CONSTRAINT fk_isbn_prestamos FOREIGN KEY (isbn) REFERENCES libros (isbn) ON DELETE RESTRICT,
+	CONSTRAINT fk_num_socio_prestamos FOREIGN KEY (num_socio) REFERENCES socios (num_socio) ON DELETE RESTRICT,
 	CONSTRAINT pk_id_prestamo PRIMARY KEY (id_prestamo)
 );
+
+-- Inserto una editorial
+INSERT INTO editoriales (cif,nombre,pais_origen,anio_fundacion) VALUES ('A12345678','Editorial Planeta','España',1949);
+
+-- Inserto un autor
+INSERT INTO autores (nombre_completo,nacionalidad,fecha_nacimiento,fecha_fallecimiento) VALUES ('abriel García Márquez','Colombia','1927-03-06','2014-04-17');
+
+-- Intento insertar un libros
+INSERT INTO libros (isbn,titulo,anio_publicacion,num_pagina,idioma,genero,cif_editorial) VALUES ('978-84-08-12345-6','Cien años de soledad',1967,500,'ESPAÑOL','Realismo mágico','A12345678');
+-- Da un error si pongo que el año es mayor al año actual
+
+-- Inserto un socios
+INSERT INTO socios (dni,nombre,apellidos,email,tipo_socio,cuota_pagada) VALUES ('11223344B','Ana','Martínez González','ana.martinez@email.com','PREMIUM','S');
+
+-- Intento insertar un prestamo con fecha de devolucion prevista anterior a la fecha de prestamo
+-- INSERT INTO prestamos (fecha_devolucion_real,fecha_devolucion_prevista) VALUES ('2020-04-17','2013-04-17');
+-- Evidentemente da error, ya que me contradigo con la restricción
+
+-- Añado un campo sinopsis
+ALTER TABLE libros ADD sinopsis LONGTEXT;
+
+-- Modifico el campo genero de la tabla libros
+-- ALTER TABLE libros ADD CONSTRAINT ck_genero_libros CHECK (genero IN('NOVELA','ENSAYO','POESIA','CIENCIA','HISTORIA','BIOGRAFIA','INFANTIL'));
+-- Ahora la inserccion de otros campos se contradice con esta restriccion añadida. La comento
