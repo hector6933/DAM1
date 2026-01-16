@@ -114,7 +114,7 @@ INSERT INTO editoriales (cif,nombre,pais_origen,anio_fundacion) VALUES ('A123456
 INSERT INTO autores (nombre_completo,nacionalidad,fecha_nacimiento,fecha_fallecimiento) VALUES ('abriel García Márquez','Colombia','1927-03-06','2014-04-17');
 
 -- Intento insertar un libros
-INSERT INTO libros (isbn,titulo,anio_publicacion,num_pagina,idioma,genero,cif_editorial) VALUES ('978-84-08-12345-6','Cien años de soledad',1967,500,'ESPAÑOL','Realismo mágico','A12345678');
+INSERT INTO libros (isbn,titulo,anio_publicacion,num_pagina,idioma,genero,cif_editorial) VALUES ('978-84-08-12345-6','Cien años de soledad',1967,500,'ESPAÑOL','POESIA','A12345678');
 -- Da un error si pongo que el año es mayor al año actual
 
 -- Inserto un socios
@@ -128,5 +128,10 @@ INSERT INTO socios (dni,nombre,apellidos,email,tipo_socio,cuota_pagada) VALUES (
 ALTER TABLE libros ADD sinopsis LONGTEXT;
 
 -- Modifico el campo genero de la tabla libros
--- ALTER TABLE libros ADD CONSTRAINT ck_genero_libros CHECK (genero IN('NOVELA','ENSAYO','POESIA','CIENCIA','HISTORIA','BIOGRAFIA','INFANTIL'));
--- Ahora la inserccion de otros campos se contradice con esta restriccion añadida. La comento
+ALTER TABLE libros ADD CONSTRAINT ck_genero_libros CHECK (genero IN('NOVELA','ENSAYO','POESIA','CIENCIA','HISTORIA','BIOGRAFIA','INFANTIL'));
+
+-- Añado un nuevo campo a libros y le meto su restricción correspondiente
+ALTER TABLE libros ADD valoracion_media DECIMAL(4,2);
+ALTER TABLE libros ADD CONSTRAINT ck_valoracion_media_libros CHECK (valoracion_media>=0 AND valoracion_media<=5);
+
+
