@@ -119,6 +119,7 @@ INSERT INTO libros (isbn,titulo,anio_publicacion,num_pagina,idioma,genero,cif_ed
 
 -- Inserto un socios
 INSERT INTO socios (dni,nombre,apellidos,email,tipo_socio,cuota_pagada) VALUES ('11223344B','Ana','Martínez González','ana.martinez@email.com','PREMIUM','S');
+INSERT INTO socios (dni,nombre,apellidos,email,tipo_socio,cuota_pagada) VALUES ('sdad213','Ana','Martínez González','ana.ma211rtinez@email.com','VIP','S');
 
 -- Intento insertar un prestamo con fecha de devolucion prevista anterior a la fecha de prestamo
 -- INSERT INTO prestamos (fecha_devolucion_real,fecha_devolucion_prevista) VALUES ('2020-04-17','2013-04-17');
@@ -133,5 +134,29 @@ ALTER TABLE libros ADD CONSTRAINT ck_genero_libros CHECK (genero IN('NOVELA','EN
 -- Añado un nuevo campo a libros y le meto su restricción correspondiente
 ALTER TABLE libros ADD valoracion_media DECIMAL(4,2);
 ALTER TABLE libros ADD CONSTRAINT ck_valoracion_media_libros CHECK (valoracion_media>=0 AND valoracion_media<=5);
+
+-- Elimino la restricción de la tabla socios y la creo de nuevo pero con distintos parámetros
+ALTER TABLE socios DROP CONSTRAINT ck_penalizaciones_socios;
+ALTER TABLE socios ADD CONSTRAINT ck_penalizaciones_socios CHECK (penalizaciones>=0 AND penalizaciones<=20);
+
+-- Añado un campo en la tabla prestamos
+ALTER TABLE prestamos ADD observaciones VARCHAR(300);
+
+-- Modifico la restricción de la tabla socios para que permita un nuevo valoracion_media
+ALTER TABLE socios DROP CONSTRAINT ck_tipo_socio_socios;
+ALTER TABLE socios ADD CONSTRAINT ck_tipo_socio_socios CHECK (tipo_socio IN ('BASICO','PREMIUM','VIP','CORPORTAIVO'));
+
+-- Elimino el campo web de la tabla editoriales
+ALTER TABLE editoriales DROP web;
+
+-- Añado una nueva restricción a la tabla préstamos
+ALTER TABLE prestamos ADD CONSTRAINT ck_socio_prestamos UNIQUE (id_prestamo,num_socio,isbn);
+
+-- Creo un nuevo campo en la tabla Socios 
+ALTER TABLE socios ADD descuento_socio INTEGER;
+ALTER TABLE socios ADD CONSTRAINT ck_descuento_socio CHECK (descuento_socio>=0 AND descuento_socio<=50);
+
+-- Añado una restricción a la tabla socios 
+ALTER TABLE socios ADD CONSTRAINT ck_tipo_socio_cuota CHECK ((tipo_socio<>'VIP') OR (tipo_socio='VIP' AND cuota_pagada='S'));
 
 
