@@ -14,10 +14,9 @@ public class Ejercicio16 {
 
 
             while ((linea = leerBufer.readLine()) != null) {
-
-                System.out.println(linea);
-
-                Matcher matcherFecha = Pattern.compile(linea).matcher("\\b(0[1-9]|[10-30])/hola\\b");
+                // Este regex solo sirve para este milenio
+                // En caso de pasar al siguiente milenio cambiar en el apartado del año {1,4} -> {1,5}
+                Matcher matcherFecha = Pattern.compile("([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/[0-9]{1,4}").matcher(linea);
                 while (matcherFecha.find()) {
 
                     System.out.println("Fecha válida encontrada: " + matcherFecha.group());
