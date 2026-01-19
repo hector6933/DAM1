@@ -10,7 +10,7 @@ public class Ejercicio19 {
         System.out.println("Introduce tu contraseña: ");
         System.out.print("> ");
 
-        Boolean validarPass = Pattern.matches("^[\\w]+[A-Z]+[0-9]+[\\W]++$",leer.nextLine());
+            boolean validarPass = Pattern.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.*[$%#@&/])\\S{8,}$",leer.nextLine());
 
         if (validarPass) {
 
