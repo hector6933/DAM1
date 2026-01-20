@@ -2,16 +2,23 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/Cosas/Cosas.iml" filepath="$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/Cosas/Cosas.iml" />
       <module fileurl="file://$PROJECT_DIR$/DAM1.iml" filepath="$PROJECT_DIR$/DAM1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema6-Casa/Ej4/Ej4.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema6-Casa/Ej4/Ej4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema6-Casa/Ej_1y2/Ej_1y2.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema6-Casa/Ej_1y2/Ej_1y2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema2/Ejercicios/Ejercicios.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema2/Ejercicios/Ejercicios.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema3/Ejercicios1/Ejercicios1.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema3/Ejercicios1/Ejercicios1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema3/Ejercicios2/Ejercicios2.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema3/Ejercicios2/Ejercicios2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema3/Ejercicios4/Ejercicios4.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema3/Ejercicios4/Ejercicios4.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema2/Ejercicios_Dificiles/Ejercicios_Dificiles.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema2/Ejercicios_Dificiles/Ejercicios_Dificiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_Intellij/EstudiarCasa/EstudiarCasa.iml" filepath="$PROJECT_DIR$/Java_Intellij/EstudiarCasa/EstudiarCasa.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/Hector-Pruebas.iml" filepath="$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/Hector-Pruebas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/probatinasCasa/IntentoDeGUI/IntentoDeGUI.iml" filepath="$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/probatinasCasa/IntentoDeGUI/IntentoDeGUI.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Java_Intellij.iml" filepath="$PROJECT_DIR$/Java_Intellij/Java_Intellij.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Proyectos/Proyectos.iml" filepath="$PROJECT_DIR$/Java_Intellij/Proyectos/Proyectos.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema3/Pruebas/Pruebas.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema3/Pruebas/Pruebas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema5-Casa/Tema5-Casa.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema5-Casa/Tema5-Casa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema6-Casa/Tema6-Casa.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema6-Casa/Tema6-Casa.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Tema2/cositas/cositas.iml" filepath="$PROJECT_DIR$/Java_Intellij/Tema2/cositas/cositas.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/probatinasCasa/probatinasCasa.iml" filepath="$PROJECT_DIR$/Java_Intellij/Hector-Pruebas/probatinasCasa/probatinasCasa.iml" />
     </modules>
