@@ -1,2 +1,5 @@
-hola soy un texto normal y corriente jajaja
-hola hola adios adios
+téxto1 texto2 texto3
+texto1 tex@to2 texto3
+texto1 texto2 texto3
+texto1 tex to2 texto3
+texto1 texto2 texto3
