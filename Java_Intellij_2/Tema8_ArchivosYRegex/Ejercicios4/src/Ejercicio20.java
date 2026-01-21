@@ -22,7 +22,7 @@ public class Ejercicio20 {
             // C@lam@res
             // No coincide con el primer espacio, empieza a coincidir con la C --> \\S* luego con el arroba --> [$%&#@]
             // y luego con todo lo demás hasta llegar al final donde coincide hasta llegar al borde o a un espacio
-            Matcher patronCaracteres = Pattern.compile("\\S*[$%&#@]\\S*").matcher(Files.readString(Path.of("carpeta/Ej20/archivo.txt")));
+            Matcher patronCaracteres = Pattern.compile("\\S*[^A-Za-z0-9\\s]\\S*").matcher(Files.readString(Path.of("carpeta/Ej20/archivo.txt")));
             //
             while (patronCaracteres.find()) {
 
