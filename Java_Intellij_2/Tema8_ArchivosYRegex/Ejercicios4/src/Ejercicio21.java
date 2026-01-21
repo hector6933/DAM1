@@ -13,7 +13,7 @@ public class Ejercicio21 {
 
             while ((linea = leerBufer.readLine()) != null) {
 
-                linea = linea.replaceAll("[aAeEiIoOuU]","*");
+                linea = linea.replaceAll("(?i)[aeiou]","*");
                 writeBufer.write(linea + "\n");
 
             }

@@ -7,20 +7,27 @@ public class Ejercicio19 {
 
         Scanner leer = new Scanner(System.in);
 
-        System.out.println("Introduce tu contraseña: ");
-        System.out.print("> ");
+        do {
+
+            System.out.println("Introduce tu contraseña: ");
+            System.out.print("> ");
 
             boolean validarPass = Pattern.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.*[$%#@&/])\\S{8,}$",leer.nextLine());
 
-        if (validarPass) {
+            if (validarPass) {
 
-            System.out.println("Contraseña válida !");
+                System.out.println("Contraseña válida !");
+                break;
 
-        } else {
+            } else {
 
-            System.out.println("Contraseña INVÁLIDA !!!");
+                System.out.println("Contraseña INVÁLIDA !!!");
 
-        }
+            }
+
+        } while (true);
+
+
 
 
         leer.close();
