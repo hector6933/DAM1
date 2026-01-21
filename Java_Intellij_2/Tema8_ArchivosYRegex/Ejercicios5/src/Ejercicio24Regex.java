@@ -8,51 +8,64 @@ public class Ejercicio24Regex {
 
     public static void main(String[] args) {
 
-        try (BufferedWriter writeBufer = new BufferedWriter(new FileWriter("carpeta/Ej24_2/archivo2.txt"));) {
+        try (BufferedWriter writeBufer = new BufferedWriter(new FileWriter("carpeta/Ej24_2/archivo2.txt"));
+            BufferedReader leerBufer = new BufferedReader(new FileReader("carpeta/Ej24_2/archivo.txt"))) {
 
-            String archivo = Files.readString(Path.of("carpeta/Ej24_2/archivo.txt"));
+            String linea;
+            int contLinea = 0;
+            while ((linea = leerBufer.readLine()) != null) {
 
-            String texto = "hola hola2";
+                StringBuilder regex = new StringBuilder();
+                StringBuilder regex2 = new StringBuilder();
 
-            StringBuilder regex = new StringBuilder();
-            StringBuilder regex2 = new StringBuilder();
+                Matcher matcherPalabras = Pattern.compile("\\S*[\\S]+\\S*").matcher(linea);
 
-            Matcher matcherPalabras = Pattern.compile("\\b\\w+\\b").matcher(archivo);
-            int contadorPalabras = 0;
+                int contadorPalabras = 0;
 
-            while (matcherPalabras.find()) {
 
-                contadorPalabras++;
+                while (matcherPalabras.find()) {
 
-            }
-
-            for (int i = 1; i < contadorPalabras; i++) {
-
-                regex.append("(\\S*\\w+\\S*)");
-//                if (i == contadorPalabras-1) {
-//
-//                    regex.append("(\\w+)");
-//
-//                }
-
-            }
-
-            for (int i = contadorPalabras; i > 0; i--) {
-
-                regex2.append("$" + i + " ");
-                if (i == 1) {
-
-                    regex2.append("$" + i);
+                    contadorPalabras++;
 
                 }
 
+                for (int i = 0; i < contadorPalabras; i++) {
+
+                    if (i == contadorPalabras-1) {
+
+                        regex.append("(\\S*[\\w]+\\S*)");
+
+                    } else {
+
+                        regex.append("(\\S*[\\w]+\\S*) ");
+
+                    }
+
+                }
+
+                for (int i = contadorPalabras; i > 0; i--) {
+
+                    if (i == 1) {
+
+                        regex2.append("$" + i);
+
+                    } else {
+
+                        regex2.append("$" + i + " ");
+
+                    }
+
+                }
+
+                String linea2 = linea.replaceAll(regex.toString(),regex2.toString());
+
+                System.out.println("Linea: " + linea2);
+                System.out.println("---------------------------");
+                writeBufer.write(linea2);
+                writeBufer.newLine();
+
             }
 
-            String texto2 = archivo.replaceAll(regex.toString(),regex2.toString());
-
-            System.out.println(texto2);
-
-            System.out.println("-----------------");
 
         } catch (FileNotFoundException e) {
 
