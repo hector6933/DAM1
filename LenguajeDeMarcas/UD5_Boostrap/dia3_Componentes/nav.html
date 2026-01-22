@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collapse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .active {
+
+            color: red;
+
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container py-4">
+
+        <div class="card mb-5">
+            <div class="card-body">
+                <nav class="nav justify-content-center">
+                    <a href="#" class="nav-link active">Enlace 1</a>
+                    <a href="#" class="nav-link">Enlace 2</a>
+                    <a href="#" class="nav-link">Enlace 3</a>
+                    <a href="#" class="nav-link disabled">Enlace 4</a>
+                </nav>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav nav-underline">
+                <li class="nav-item"><a href="#" class="nav-link active">Enlace1</a></li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dropdown</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="" class="dropdown-item">SubElemento 1</a></li>
+                        <li><a href="" class="dropdown-item">SubElemento 2</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link">Enlace2</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Enlace3</a></li>
+                <li class="nav-item"><a href="#" class="nav-link disabled">Enlace4</a></li>
+            </ul>
+        </nav>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

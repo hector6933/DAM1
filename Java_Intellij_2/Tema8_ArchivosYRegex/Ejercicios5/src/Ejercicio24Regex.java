@@ -18,7 +18,7 @@ public class Ejercicio24Regex {
                 StringBuilder regex = new StringBuilder();
                 StringBuilder regex2 = new StringBuilder();
 
-                Matcher matcherPalabras = Pattern.compile("\\S*[\\S]+\\S*").matcher(linea);
+                Matcher matcherPalabras = Pattern.compile("\\S+").matcher(linea);
 
                 int contadorPalabras = 0;
 
@@ -33,11 +33,11 @@ public class Ejercicio24Regex {
 
                     if (i == contadorPalabras-1) {
 
-                        regex.append("(\\S*[\\w]+\\S*)");
+                        regex.append("(\\S+)");
 
                     } else {
 
-                        regex.append("(\\S*[\\w]+\\S*) ");
+                        regex.append("(\\S+) ");
 
                     }
 

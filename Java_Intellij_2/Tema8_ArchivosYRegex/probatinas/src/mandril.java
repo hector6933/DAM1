@@ -6,13 +6,12 @@ public class mandril {
 
     public static void main(String[] args) {
 
-        String cadena = "Hol@a@ soy and@@res y me gústá programacion";
+        String cadena = "1 2 3";
 
-        Pattern patron = Pattern.compile("(?=\\S*[^A-Za-z0-9\\s](?=\\S*[^A-Za-z0-9\\s]))\\S*");
-        Matcher matcher = patron.matcher(cadena);
+        Matcher matcher = Pattern.compile("(?:\\d)\\s(?:\\d)\\s(\\d)").matcher(cadena);
 
         while (matcher.find()){
-            System.out.println("Coincidencia encontrada: " + matcher.group());
+            System.out.println(cadena.replaceAll("(?:\\d)\\s(?:\\d)\\s(\\d)", "$1"));
         }
 
     }
