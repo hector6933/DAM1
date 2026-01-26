@@ -19,7 +19,6 @@ public class probatina4 {
 
             }
 
-
         } catch (IllegalArgumentException e) {
 
             System.out.println("Número inválido !!!");
