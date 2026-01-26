@@ -1,0 +1,1 @@
+SELECT ci.*, co.* FROM city ci CROSS JOIN country co;

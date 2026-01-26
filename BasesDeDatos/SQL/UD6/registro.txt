@@ -1,0 +1,25 @@
+mysql> source C:\Users\dam1\Desktop\Script.sql
++-----------+--------+-----------+----------+----------+--------+
+| DNI       | nombre | apellidos | beca     | facultad | activo |
++-----------+--------+-----------+----------+----------+--------+
+| 11111111X | Luis   | Lopez     |  5250.78 |        1 | S      |
+| 22222222K | Ana    | Gracia    |  3000.50 |        1 | S      |
+| 33333333P | Sonia  | Gomez     |  2000.50 |        1 | S      |
+| 44444444R | Raquel | Raya      |  8000.50 |        3 | N      |
+| 55555555I | Pedro  | Martinez  | 45000.30 |        4 | S      |
+| 66666666D | Sara   | Salas     |  8000.00 |        4 | S      |
++-----------+--------+-----------+----------+----------+--------+
+6 rows in set (0.007 sec)
+
++----------+------------+------------------------------+
+| IdEquipo | IdFacultad | Descripcion                  |
++----------+------------+------------------------------+
+| H222     |          2 | Multimetro digital FLUKE     |
+| H555     |          3 | Telemetro laser SICK         |
+| K111     |          2 | Lente para camara FUJINON-TV |
+| M222     |          3 | Cámara digital SONY          |
+| M333     |          3 | Fuente de Voltaje TEKTRONIX  |
++----------+------------+------------------------------+
+5 rows in set (0.005 sec)
+
+mysql> Terminal close -- exit!
