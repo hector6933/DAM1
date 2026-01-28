@@ -15,11 +15,14 @@ public class escribitBytes {
                 System.out.println("Introduce texto (S para salir):");
                 System.out.print("> ");
                 String texto = leer.nextLine();
-                for (int i = 0; i < texto.length(); i++) {
-
-                    escribirBytes.write((int) texto.charAt(i));
-
-                }
+//                for (int i = 0; i < texto.length(); i++) {
+//
+//                    escribirBytes.write((int) texto.charAt(i));
+//
+//                }
+                escribirBytes.write(texto.getBytes());
+//                String alonso = "Hola soy alonso que tal !!!";
+//                escribirBytes.write(alonso.getBytes());
                 if (texto.equalsIgnoreCase("S")) {
 
                     System.out.println("Saliendo...");
@@ -27,7 +30,8 @@ public class escribitBytes {
 
                 } else {
 
-                    escribirBytes.write(13);
+//                    escribirBytes.write(13);
+                    escribirBytes.write('\n');
 
                 }
 

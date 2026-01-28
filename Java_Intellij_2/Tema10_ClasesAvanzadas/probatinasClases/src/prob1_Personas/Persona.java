@@ -1,4 +1,4 @@
-package prob1;
+package prob1_Personas;
 
 public class Persona {
 

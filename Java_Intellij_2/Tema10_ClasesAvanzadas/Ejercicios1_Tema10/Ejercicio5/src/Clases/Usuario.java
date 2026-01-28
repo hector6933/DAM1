@@ -9,16 +9,7 @@ public class Usuario {
 
     public Usuario(String usuario, String passwd) {
 
-        boolean validarPasswd = Pattern.matches("^(?=\\S*[A-Z])(?=\\S*\\d)\\S{8,}$",passwd);
-        if (validarPasswd) {
-
-            this.passwd = passwd;
-
-        } else {
-
-            throw new IllegalArgumentException("La contraseña debe de cumplir los requisitos");
-
-        }
+        cambiarPasswd(passwd);
 
         this.usuario = usuario;
 
