@@ -1,0 +1,150 @@
+mysql> use ventas
+Database changed
+mysql> SELECT CONCAT(nombre,apellidos) AS NombreCompleto,ciudad FROM empleados;
++----------------+------------+
+| NombreCompleto | ciudad     |
++----------------+------------+
+| MariaTorres    | Daganzo    |
+| MateoBerges    | Tielmes    |
+| CarolViescas   | Horcajuelo |
+| PedroDonoso    | San Roman  |
+| DavidViescas   | Robledo    |
+| CatalinaPelayo | Somosierra |
+| SusanaMaestre  | Belmonte   |
+| DomingoDumbo   | Navalcan   |
++----------------+------------+
+8 rows in set (0.008 sec)
+
+mysql> SELECT numero_producto,nombre,precio_venta FROM productos WHERE stock >= 10 AND stock <= 50;
++-----------------+---------------------------------------+--------------+
+| numero_producto | nombre                                | precio_venta |
++-----------------+---------------------------------------+--------------+
+|               3 | Dog Ear Cyclecomputer                 |        75.00 |
+|               4 | Victoria Pro All Weather Llantas      |        54.95 |
+|               5 | Dog Ear Helmet Mount Espejos          |         7.45 |
+|               7 | Viscount C-500 Wireless Bike Computer |        49.00 |
+|               8 | Kryptonite Advanced 2000 U-Lock       |        50.00 |
+|               9 | Nikoma Lok-Tight U-Lock               |        33.00 |
+|              10 | Viscount Microshell Casco             |        36.00 |
+|              12 | Shinoman 105 SC Frenos                |        23.50 |
+|              13 | Shinoman Dura-Ace Auriculares         |        67.50 |
+|              14 | Eagle SA-120 Pedales sin clip         |       139.95 |
+|              15 | ProFormance clip para pedal 2G        |         4.99 |
+|              16 | ProFormance ATB Pedal todo-terreno    |        28.00 |
+|              18 | Viscount CardioSport Sport Watch      |       179.00 |
+|              19 | Viscount Tru-Beat pulsometro          |        47.00 |
+|              20 | Dog Ear Monster guantes               |        15.00 |
+|              21 | Dog Ear Aero-Flow Hinchador           |        55.00 |
+|              22 | Pro-Sport 'Dillo Gafas de sol         |        82.00 |
+|              23 | Ultra-Pro Rain maillot                |        85.00 |
+|              24 | StaDry Cycling culote                 |        69.00 |
+|              25 | King Cobra Casco                      |       139.00 |
+|              26 | Glide-O-Matic Cycling Casco           |       125.00 |
+|              27 | X-Pro All Weather Llantas             |        24.00 |
+|              28 | Turbo Twin Llantas                    |        29.00 |
+|              29 | Ultra-2K Competition Llanta           |        34.00 |
+|              30 | Clear Shade 85-T Gafas                |        45.00 |
+|              31 | True Grip Competition Guantes         |        22.00 |
+|              32 | Kool-Breeze Rocket Top Jersey         |        32.00 |
+|              33 | Wonder Wool Cycle Calcetines          |        19.00 |
+|              34 | TransPort Bicycle Parrilla            |        27.00 |
+|              35 | HP Deluxe Alforjas                    |        39.00 |
+|              36 | Cosmic Elite Road Warrior Ruedas      |       165.00 |
+|              37 | AeroFlo ATB Ruedas                    |       189.00 |
+|              38 | Cycle-Doc Pro Repair Stand            |       166.00 |
++-----------------+---------------------------------------+--------------+
+33 rows in set (0.009 sec)
+
+mysql> SELECT nombre FROM productos WHERE nombre LIKE '%Mountain%' OR nombre LIKE '%Trail%' ORDER BY precio_venta DESC;
++--------------------------+
+| nombre                   |
++--------------------------+
+| Eagle FS-3 Mountain Bike |
+| GT RTS-2 Mountain Bike   |
+| Viscount Mountain Bike   |
++--------------------------+
+3 rows in set (0.008 sec)
+
+mysql> SELECT nombre FROM clientes WHERE nombre LIKE '%a' AND provincia NOT LIKE 'MADRID' AND provincia NOT LIKE 'TOLEDO';
++---------+
+| nombre  |
++---------+
+| Maria   |
+| Manuela |
++---------+
+2 rows in set (0.010 sec)
+
+mysql> SELECT nombre,apellidos,CONCAT(codigo_area,telefono) AS 'Area+Telefono' FROM empleados WHERE cod_postal LIKE '28%';
++----------+-----------+---------------+
+| nombre   | apellidos | Area+Telefono |
++----------+-----------+---------------+
+| Maria    | Torres    | 425555-2516   |
+| Mateo    | Berges    | 253555-2581   |
+| Carol    | Viescas   | 425555-2576   |
+| David    | Viescas   | 425555-2661   |
+| Catalina | Pelayo    | 206555-2697   |
+| Susana   | Maestre   | 425555-2301   |
++----------+-----------+---------------+
+6 rows in set (0.007 sec)
+
+mysql> SELECT precio_venta,precio_venta * 0.80 AS precio_con_descuento FROM productos;
++--------------+----------------------+
+| precio_venta | precio_con_descuento |
++--------------+----------------------+
+|      1800.00 |            1440.0000 |
+|        75.00 |              60.0000 |
+|        54.95 |              43.9600 |
+|         7.45 |               5.9600 |
+|       635.00 |             508.0000 |
+|        49.00 |              39.2000 |
+|        50.00 |              40.0000 |
+|        33.00 |              26.4000 |
+|        36.00 |              28.8000 |
+|      1650.00 |            1320.0000 |
+|        23.50 |              18.8000 |
+|        67.50 |              54.0000 |
+|       139.95 |             111.9600 |
+|         4.99 |               3.9920 |
+|        28.00 |              22.4000 |
+|        45.00 |              36.0000 |
+|       179.00 |             143.2000 |
+|        47.00 |              37.6000 |
+|        15.00 |              12.0000 |
+|        55.00 |              44.0000 |
+|        82.00 |              65.6000 |
+|        85.00 |              68.0000 |
+|        69.00 |              55.2000 |
+|       139.00 |             111.2000 |
+|       125.00 |             100.0000 |
+|        24.00 |              19.2000 |
+|        29.00 |              23.2000 |
+|        34.00 |              27.2000 |
+|        45.00 |              36.0000 |
+|        22.00 |              17.6000 |
+|        32.00 |              25.6000 |
+|        19.00 |              15.2000 |
+|        27.00 |              21.6000 |
+|        39.00 |              31.2000 |
+|       165.00 |             132.0000 |
+|       189.00 |             151.2000 |
+|       166.00 |             132.8000 |
+|       175.00 |             140.0000 |
+|       180.00 |             144.0000 |
++--------------+----------------------+
+39 rows in set (0.008 sec)
+
+mysql> SELECT * FROM productos WHERE precio_venta > (SELECT AVG(precio_venta) FROM productos);
++-----------------+---------------------------------------+-------------+--------------+-------+--------------+
+| numero_producto | nombre                                | descripcion | precio_venta | stock | id_categoria |
++-----------------+---------------------------------------+-------------+--------------+-------+--------------+
+|               2 | Eagle FS-3 Mountain Bike              | NULL        |      1800.00 |     8 |            2 |
+|               6 | Viscount Mountain Bike                | NULL        |       635.00 |     5 |            2 |
+|              11 | GT RTS-2 Mountain Bike                | NULL        |      1650.00 |     5 |            2 |
+|              18 | Viscount CardioSport Sport Watch      | NULL        |       179.00 |    12 |            1 |
+|              37 | AeroFlo ATB Ruedas                    | NULL        |       189.00 |    40 |            4 |
+|              39 | Road Warrior soporte para maletero    | NULL        |       175.00 |     6 |            5 |
+|              40 | Ultimate Export 2G baca para bibileta | NULL        |       180.00 |     8 |            5 |
++-----------------+---------------------------------------+-------------+--------------+-------+--------------+
+7 rows in set (0.009 sec)
+
+mysql> Terminal close -- exit!
