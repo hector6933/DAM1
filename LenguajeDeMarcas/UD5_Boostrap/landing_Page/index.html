@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAM 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+
+<body>
+
+    <!--###########################################################################-->
+    <!-----------------------------------ENCABEZADO---------------------------------->
+    <!--###########################################################################-->
+
+    <div class="container-fluid bg-primary d-flex justify-content-center">
+        <header>
+            <p class="text-light mb-0 p-2 fs-6">Contáctanos: +34 978 654 6969</p>
+        </header>
+    </div>
+
+    <!--###########################################################################-->
+    <!-----------------------------------MENÚ---------------------------------------->
+    <!--###########################################################################-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><span class="text-primary fw-bold fs-5">IES Chomón</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mi-menu"
+                aria-controls="mi-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mi-menu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Equipo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contáctos</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="email">
+                    <input class="form-control me-2" type="email" placeholder="Correo electrónico" aria-label="email" />
+                    <button class="btn btn-outline-success" type="submit">Suscribete</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!--###########################################################################-->
+    <!-----------------------------------SLIDER-------------------------------------->
+    <!--###########################################################################-->
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="./img/slide1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="./img/slide2.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="./img/slide3.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!--###########################################################################-->
+    <!-----------------------------------INTRODUCCIÓN-------------------------------->
+    <!--###########################################################################-->
+    <section id="intro" class="w-50 m-auto text-center pt-5">
+        <h1 class="p3 fs-2 border-top border-3">Un ciclo superior único para todas tus necesidades como <span class="text-primary">Desarrollador web</span></h1>
+        <p class="p-3 fs-4"><span class="text-primary">IES Segundo de Chomón</span> es un instituto público donde se imparte CFGS de DAM y CFGM de SMR </p>
+    </section>
+
+
+    <!--###########################################################################-->
+    <!-----------------------------------SERVICIOS----------------------------------->
+    <!--###########################################################################-->
+
+    <section id="servicios" class="container">
+        <div class="row mx-auto my-5">
+            <div class="col-12 col-md-6 d-flex">
+                <img src="./img/desarrollo.png" alt="imagenDesarrollo" width="180" height="160">
+                <div>
+                    <h3 class="fs-5 mt-4 px-4 py-1">Desarrollo</h3>
+                    <p class="px-4">Desarrollo de aplicaciones Web, móviles y ecommerce</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex">
+                <img src="./img/concepto.png" alt="imagenConcepto" width="180" height="160">
+                <div>
+                    <h3 class="fs-5 mt-4 px-4 py-1">Branding</h3>
+                    <p class="px-4">Diseño, Conceptualización o implementación de productos digitales</p>
+                </div>
+            </div>          
+        </div>
+        <div class="row mx-auto my-5">
+            <div class="col-12 col-md-6 d-flex">
+                <img src="./img/comunicaciones.png" alt="imagenComunicaciones" width="180" height="160">
+                <div>
+                    <h3 class="fs-5 mt-4 px-4 py-1">Comunicaciones</h3>
+                    <p class="px-4">Desarrollo del plan de comunicaciones para nuestros clientes web.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex">
+                <img src="./img/seo.png" alt="imagenSeo" width="180" height="160">
+                <div>
+                    <h3 class="fs-5 mt-4 px-4 py-1">SEO</h3>
+                    <p class="px-4">Analizamos la eficiencia y optimizamos los sitios web!</p>
+                </div>
+            </div>          
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

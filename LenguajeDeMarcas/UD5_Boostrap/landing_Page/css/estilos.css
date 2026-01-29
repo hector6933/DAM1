@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/*=============== PROPIEDADES GLOBALES ====================*/
+body {
+
+    font-family: Montserrat,sans-serif;
+
+}
+
+/*=============== PROPIEDADES PARA EL MENÚ ====================*/
+#mi-menu a, button{
+
+    font-size: 18px !important;
+    font-weight: 600;
+
+}
+
+#mi-menu a {
+
+    color: #3f3f3f;
+
+}
+/*=============== SLIDER ====================*/
+.carousel-inner {
+
+    max-height: 39rem;
+
+}
+
+/*=============== MediaQuery para pantallas SM====================*/
+@media(max-width:768px){
+    #intro{
+        width: 90% !important;
+    }
+}
