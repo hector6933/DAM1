@@ -52,3 +52,28 @@ SELECT * FROM equipos;
 
 -- MULTITABLAS
 
+SELECT inv.*, fa.NomFacultad FROM 
+investigadores inv INNER JOIN facultades fa ON inv.facultad=fa.IdFacultad;
+
+SELECT re.*, inv.nombre, inv.apellidos 
+FROM reservas re INNER JOIN investigadores inv ON re.DNI=inv.DNI;
+
+-- Otra notación del de arriba
+SELECT re.*, inv.nombre, inv.apellidos 
+FROM reservas re INNER JOIN investigadores inv USING(DNI);
+
+SELECT re.*, inv.nombre, inv.apellidos 
+FROM reservas re NATURAL JOIN investigadores inv;
+-- --------------------------------------------------
+
+SELECT re.*, inv.nombre, inv.apellidos, eq.Descripcion 
+FROM reservas re INNER JOIN investigadores inv INNER JOIN equipos eq
+ON re.DNI=inv.DNI AND re.IdEQuipo=eq.IdEquipo;
+
+-- Simplificado: 
+SELECT re.*, inv.nombre, inv.apellidos, eq.Descripcion 
+FROM reservas re NATURAL JOIN investigadores inv NATURAL JOIN equipos eq;
+
+
+
+

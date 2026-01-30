@@ -14,6 +14,28 @@ SELECT * FROM productos WHERE precio_venta > (SELECT AVG(precio_venta) FROM prod
 
 -- FALTA EL 8
 
-SELECT * FROM proveedores WHERE id_prov NOT IN (SELECT id_prov FROM productos_proveedores WHERE numero_producto IN (SELECT numero_producto FROM productos WHERE numero_producto IN (SELECT numero_producto FROM detalles_pedidos WHERE numero_pedido IN (SELECT numero_pedido FROM pedidos	WHERE YEAR(fecha_pedido)=2007))));
+SELECT * FROM proveedores WHERE id_prov NOT IN (SELECT id_prov FROM productos_proveedores WHERE numero_producto IN (SELECT numero_producto FROM productos WHERE numero_producto IN (SELECT numero_producto FROM detalles_pedidos WHERE numero_pedido IN (SELECT numero_pedido FROM pedidos WHERE YEAR(fecha_pedido)=2007))));
 
 SELECT * FROM categorias WHERE id_categoria IN (SELECT id_categoria FROM productos WHERE precio_venta>30.0);
+
+SELECT * FROM productos WHERE precio_venta > (SELECT precio_venta FROM productos WHERE numero_producto = 15);
+
+SELECT * FROM proveedores;
+
+SELECT * FROM clientes WHERE provincia IN (SELECT provincia FROM proveedores WHERE nombre LIKE 'Shinoman, Incorporated');
+
+SELECT * FROM clientes WHERE provincia NOT IN (SELECT provincia FROM proveedores);
+
+SELECT * FROM proveedores WHERE id_prov IN (SELECT id_prov FROM productos_proveedores WHERE numero_producto NOT IN (SELECT numero_producto FROM detalles_pedidos));
+
+SELECT * FROM proveedores WHERE id_prov IN (SELECT id_prov FROM productos_proveedores WHERE numero_producto IN (SELECT numero_producto FROM detalles_pedidos));
+
+-- POR HACER:
+SELECT * FROM productos WHERE precio_venta > (SELECT precio_venta FROM productos WHERE id_categoria = (SELECT id_categoria WHERE descripcion LIKE 'Ropa'));
+
+SELECT * FROM categorias;
+SELECT * FROM productos;
+
+
+
+
