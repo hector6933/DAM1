@@ -39,8 +39,7 @@ SELECT * FROM pedidos WHERE precio_total < ALL (SELECT precio_total FROM pedidos
 SELECT * FROM pedidos WHERE fecha_pedido < ALL (SELECT fecha_pedido FROM pedidos WHERE id_cliente = 1005);
 
 SELECT cli.nombre, cli.apellidos, ped.numero_pedido, ped.fecha_pedido FROM clientes cli NATURAL LEFT JOIN pedidos ped;
-
-
+-- 21:
 SELECT ped.numero_pedido, pro.nombre, ped.cantidad
 FROM detalles_pedidos ped INNER JOIN productos pro 
 ON ped.numero_producto=pro.numero_producto;
