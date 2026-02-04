@@ -30,12 +30,18 @@ SELECT * FROM proveedores WHERE id_prov IN (SELECT id_prov FROM productos_provee
 
 SELECT * FROM proveedores WHERE id_prov IN (SELECT id_prov FROM productos_proveedores WHERE numero_producto IN (SELECT numero_producto FROM detalles_pedidos));
 
--- POR HACER:
-SELECT * FROM productos WHERE precio_venta > (SELECT precio_venta FROM productos WHERE id_categoria = (SELECT id_categoria WHERE descripcion LIKE 'Ropa'));
+SELECT * FROM productos WHERE precio_venta > ANY (SELECT precio_venta FROM productos WHERE id_categoria IN (SELECT id_categoria FROM categorias WHERE descripcion LIKE 'Ropa'));
 
-SELECT * FROM categorias;
-SELECT * FROM productos;
+SELECT * FROM pedidos WHERE precio_total < ALL (SELECT precio_total FROM pedidos WHERE id_cliente = 1001);
+
+-- NO SE PUEDE HACER !!!! SELECT * FROM productos WHERE precio_venta < (SELECT precio_venta FROM productos WHERE id_categoria IN (SELECT id_categoria FROM categorias));
+
+SELECT * FROM pedidos WHERE fecha_pedido < ALL (SELECT fecha_pedido FROM pedidos WHERE id_cliente = 1005);
+
+SELECT cli.nombre, cli.apellidos, ped.numero_pedido, ped.fecha_pedido FROM clientes cli NATURAL LEFT JOIN pedidos ped;
 
 
-
+SELECT ped.numero_pedido, pro.nombre, ped.cantidad
+FROM detalles_pedidos ped INNER JOIN productos pro 
+ON ped.numero_producto=pro.numero_producto;
 

@@ -273,3 +273,49 @@ mysql> SELECT * FROM proveedores WHERE id_prov IN (SELECT id_prov FROM productos
 +---------+------------------------+---------------------------+--------------+-----------+------------+----------------+----------------+-------------------------------+------------------------------+
 10 rows in set (0.010 sec)
 
+mysql> Terminal close -- exit!
+mysql> use ventas;
+Database changed
+mysql> SELECT * FROM productos WHERE precio_venta > ANY (SELECT precio_venta FROM productos WHERE id_categoria IN (SELECT id_categoria FROM categorias WHERE descripcion LIKE 'Ropa'));
++-----------------+---------------------------------------+-------------+--------------+-------+--------------+
+| numero_producto | nombre                                | descripcion | precio_venta | stock | id_categoria |
++-----------------+---------------------------------------+-------------+--------------+-------+--------------+
+|               2 | Eagle FS-3 Mountain Bike              | NULL        |      1800.00 |     8 |            2 |
+|               3 | Dog Ear Cyclecomputer                 | NULL        |        75.00 |    20 |            1 |
+|               4 | Victoria Pro All Weather Llantas      | NULL        |        54.95 |    20 |            4 |
+|               6 | Viscount Mountain Bike                | NULL        |       635.00 |     5 |            2 |
+|               7 | Viscount C-500 Wireless Bike Computer | NULL        |        49.00 |    30 |            1 |
+|               8 | Kryptonite Advanced 2000 U-Lock       | NULL        |        50.00 |    20 |            1 |
+|               9 | Nikoma Lok-Tight U-Lock               | NULL        |        33.00 |    12 |            1 |
+|              10 | Viscount Microshell Casco             | NULL        |        36.00 |    20 |            1 |
+|              11 | GT RTS-2 Mountain Bike                | NULL        |      1650.00 |     5 |            2 |
+|              12 | Shinoman 105 SC Frenos                | NULL        |        23.50 |    16 |            4 |
+|              13 | Shinoman Dura-Ace Auriculares         | NULL        |        67.50 |    20 |            4 |
+|              14 | Eagle SA-120 Pedales sin clip         | NULL        |       139.95 |    20 |            4 |
+|              16 | ProFormance ATB Pedal todo-terreno    | NULL        |        28.00 |    40 |            4 |
+|              17 | Shinoman Deluxe TX-30 Pedal           | NULL        |        45.00 |    60 |            4 |
+|              18 | Viscount CardioSport Sport Watch      | NULL        |       179.00 |    12 |            1 |
+|              19 | Viscount Tru-Beat pulsometro          | NULL        |        47.00 |    20 |            1 |
+|              21 | Dog Ear Aero-Flow Hinchador           | NULL        |        55.00 |    25 |            1 |
+|              22 | Pro-Sport 'Dillo Gafas de sol         | NULL        |        82.00 |    18 |            1 |
+|              23 | Ultra-Pro Rain maillot                | NULL        |        85.00 |    30 |            3 |
+|              24 | StaDry Cycling culote                 | NULL        |        69.00 |    22 |            3 |
+|              25 | King Cobra Casco                      | NULL        |       139.00 |    30 |            1 |
+|              26 | Glide-O-Matic Cycling Casco           | NULL        |       125.00 |    24 |            1 |
+|              27 | X-Pro All Weather Llantas             | NULL        |        24.00 |    20 |            6 |
+|              28 | Turbo Twin Llantas                    | NULL        |        29.00 |    18 |            6 |
+|              29 | Ultra-2K Competition Llanta           | NULL        |        34.00 |    22 |            6 |
+|              30 | Clear Shade 85-T Gafas                | NULL        |        45.00 |    14 |            1 |
+|              31 | True Grip Competition Guantes         | NULL        |        22.00 |    20 |            1 |
+|              32 | Kool-Breeze Rocket Top Jersey         | NULL        |        32.00 |    12 |            3 |
+|              34 | TransPort Bicycle Parrilla            | NULL        |        27.00 |    14 |            1 |
+|              35 | HP Deluxe Alforjas                    | NULL        |        39.00 |    10 |            1 |
+|              36 | Cosmic Elite Road Warrior Ruedas      | NULL        |       165.00 |    22 |            4 |
+|              37 | AeroFlo ATB Ruedas                    | NULL        |       189.00 |    40 |            4 |
+|              38 | Cycle-Doc Pro Repair Stand            | NULL        |       166.00 |    12 |            1 |
+|              39 | Road Warrior soporte para maletero    | NULL        |       175.00 |     6 |            5 |
+|              40 | Ultimate Export 2G baca para bibileta | NULL        |       180.00 |     8 |            5 |
++-----------------+---------------------------------------+-------------+--------------+-------+--------------+
+35 rows in set (0.013 sec)
+
+mysql> Terminal close -- exit!
