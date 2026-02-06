@@ -77,7 +77,3 @@ WHERE proprov.id_prov = (SELECT id_prov FROM proveedores WHERE nombre LIKE 'Visc
 -- 29:
 SELECT 
 FROM productos pro
-
-
-
-
