@@ -62,4 +62,22 @@ SELECT pro.*
 FROM productos pro WHERE (SELECT COUNT(*) FROM detalles_pedidos WHERE numero_producto=pro.numero_producto) = 0;
 
 -- 26:
+SELECT ped.*
+FROM pedidos ped WHERE 7 < ped.fecha_envio - ped.fecha_pedido;
+
+-- 27:
+SELECT cat.descripcion, pro.nombre, pro.precio_venta
+FROM productos pro INNER JOIN categorias cat WHERE pro.precio_venta = (SELECT MAX(precio_venta) FROM productos WHERE id_categoria=cat.id_categoria);
+
+-- 28:
+SELECT pro.*
+FROM productos pro NATURAL JOIN productos_proveedores proprov
+WHERE proprov.id_prov = (SELECT id_prov FROM proveedores WHERE nombre LIKE 'Viscount');
+
+-- 29:
 SELECT 
+FROM productos pro
+
+
+
+
