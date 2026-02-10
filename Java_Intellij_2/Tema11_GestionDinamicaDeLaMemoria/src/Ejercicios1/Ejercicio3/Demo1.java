@@ -14,17 +14,20 @@ public class Demo1 {
 
         Random random = new Random();
 
+        int numero;
+
         for (int i = 0; i < 50; i++) {
 
             randoms.add(random.nextInt(0,100));
 
         }
+        System.out.println(randoms);
 
         do {
             System.out.println("Introduce un número entre 0 y 99");
             try {
 
-                int numero = Integer.parseInt(leer.nextLine());
+                numero = Integer.parseInt(leer.nextLine());
                 if (numero < 0 || numero > 99) {
 
                     System.out.println("El número debe de estar entre 0 y 99 !!!");
@@ -43,7 +46,8 @@ public class Demo1 {
 
         } while (true);
 
-        
+        final int temp = numero;
+        System.out.println("El número " + temp + " aparece " + randoms.stream().filter(a-> a == temp).count() + " veces");
 
         leer.close();
 
