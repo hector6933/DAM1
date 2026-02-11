@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Inicio</title>
+    <style>
+        * {
+            font-family: sans-serif;
+
+        }
+
+        .barra {
+            margin: 0;
+            display: block;
+            border: none;
+            height: 6px;
+            background: linear-gradient(to right, rgb(0, 110, 165), rgb(172, 203, 239));
+            border-radius: 2px;
+        }
+
+        .barra2 {
+            margin: 0;
+            display: block;
+            border: none;
+            height: 6px;
+            background: linear-gradient(to left, rgb(0, 110, 165), rgb(172, 203, 239));
+            border-radius: 2px;
+        }
+
+        .active {
+
+            color: red;
+
+        }
+
+        .contenido {
+            margin: 0;
+            height: 800px;
+            background-image: url(img/fonsrobot.jpg);
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container py-4">
+            <img src="img/logoAsimovFans.png" alt="">
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html" class="nav-link active">INICIO</a>
+            <a href="leyes.html" class="nav-link text-primary-emphasis">LEYES</a>
+            <a href="datos.html" class="nav-link text-primary-emphasis">DATOS</a>
+            <a href="asociate.html" class="nav-link text-primary-emphasis">ASÓCIATE</a>
+        </nav>
+    </div>
+
+    <div class="barra"></div>
+    
+    <div class="contenido">
+        <div class="text-black">
+            <div class="container">
+                <div class="col-6 col-md-3 border border-primary border-1">
+                    <div class="bg-white p-3 py-4">
+                        <h1 class="text-primary-emphasis fw-bold">
+                            Club de fans de Asimov</h1>
+                        <br>
+                        <p class="fs-4 fw-bold">Isaac Asimov fue el autor más influyente y destacado de la ciencia
+                            ficción y la divulgación científica siglo XX</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="barra2"></div>
+
+    <footer class="bg-primary bg-opacity-10">
+        <div class="container p-3 d-flex justify-content-center">
+            <div class="text-center">
+                <p>Actividad realizada por Héctor Criado González</p>
+                <p>Fotografía de la portada de <a href="#">Adam Muise</a> en <a href="#">Unsplash</a></p>
+                <img src="img/creative-commons.png" alt="">
+            </div>
+        </div>
+    </footer>
+
+
+    <!--67-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
