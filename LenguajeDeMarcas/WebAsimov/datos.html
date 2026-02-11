@@ -1,19 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Datos</title>
     <style>
-        .active{
+        html,
+        body {
+            scrollbar-width: none;
+            
+            -ms-overflow-style: none;
+            
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+            
+        }
+        * {
+            font-family: sans-serif;
+
+        }
+
+        .barra {
+            margin: 0;
+            display: block;
+            border: none;
+            height: 6px;
+            background: linear-gradient(to right, rgb(0, 110, 165), rgb(172, 203, 239));
+            border-radius: 2px;
+        }
+
+        .barra2 {
+            margin: 0;
+            display: block;
+            border: none;
+            height: 6px;
+            background: linear-gradient(to left, rgb(0, 110, 165), rgb(172, 203, 239));
+            border-radius: 2px;
+        }
+
+        .active {
 
             color: red;
 
         }
     </style>
 </head>
-<body>
+
+<body class="d-flex flex-column min-vh-100">
 
     <header>
         <div class="container py-4">
@@ -29,11 +68,94 @@
             <a href="asociate.html" class="nav-link text-primary-emphasis">ASÓCIATE</a>
         </nav>
     </div>
+
+    <div class="barra"></div>
+
+    <div class="container">
+        <h2 class="text-primary-emphasis my-4 fw-bolder">Datos</h2>
+
+        <p class="mb-5">En la siguiente tabla se plantean las prvisiones sobre el número de robots que serán fabricados,
+            en millones de unidades, en los próximos 20 años.
+            Lods datos se han establecido siguiendo los procesos de <a href="#">forecasting</a> y la especulación
+            futurista de Asimov
+        </p>
+        <p class="text-center">ESTIMACIÓN DE FABRICACIÓN NÚMERO ROBOTS POR AÑOS, ZONA Y TIPO</p>
+
+        <div class="text-center d-flex justify-content-center">
+            <table class="table w-50 table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        <td rowspan="2"></td>
+                        <td colspan="2">EUROPA</td>
+                        <td colspan="2">AMÉRICA</td>
+                    </tr>
+                    <tr class="table-info">
+                        <th>normales</th>
+                        <th>positrónicos</th>
+                        <th>normales</th>
+                        <th>positrónicos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-primary">2025</td>
+                        <td>200</td>
+                        <td>50</td>
+                        <td>300</td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <td class="table-primary">2030</td>
+                        <td>250</td>
+                        <td>180</td>
+                        <td>380</td>
+                        <td>220</td>
+                    </tr>
+                    <tr>
+                        <td class="table-primary">2035</td>
+                        <td>255</td>
+                        <td>280</td>
+                        <td>370</td>
+                        <td>410</td>
+                    </tr>
+                    <tr>
+                        <td class="table-primary">240</td>
+                        <td>120</td>
+                        <td>450</td>
+                        <td>200</td>
+                        <td>635</td>
+                    </tr>
+                    <tr class="table-info">
+                        <th>TOTAL</th>
+                        <th>825</th>
+                        <th>960</th>
+                        <th>1250</th>
+                        <th>1345</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="my-5"><i>Texto y datos totalment inventados, sin ninguna relación con la realidad.</i></p>
+    </div>
+
+    <div class="barra2 mt-auto"></div>
+
     
-    
+    <footer class="bg-primary bg-opacity-10 footer">
+        <div class="container p-3 d-flex justify-content-center">
+            <div class="text-center">
+                <p>Actividad realizada por Héctor Criado González</p>
+                <p>Fotografía de la portada de <a href="#">Adam Muise</a> en <a href="#">Unsplash</a></p>
+                <img src="img/creative-commons.png" alt="">
+            </div>
+        </div>
+    </footer>
     
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
