@@ -1,4 +1,4 @@
-package Ejercicios1.Ejercicio4;
+package Ejercicios1.Ejercicio5;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,7 +32,7 @@ public class Demo1 {
         System.out.println(lista);
 
         do {
-            System.out.println("Introduce la palabra que quieres sustituir: ");
+            System.out.println("Introduce la palabra que quieres BORRAR: ");
             System.out.print("> ");
             String pal1 = leer.nextLine();
 
@@ -42,27 +42,7 @@ public class Demo1 {
 
             } else {
 
-                do {
-                    System.out.println("Introduce la palabra a sustituir: ");
-                    System.out.print("> ");
-                    String pal2 = leer.nextLine();
-
-                    if (!lista.contains(pal2)) {
-
-                        System.out.println("Esa palabra NO está en la lista !!!");
-
-                    } else {
-
-                        int index1 = lista.indexOf(pal1);
-                        int index2 = lista.indexOf(pal2);
-                        lista.set(index1,pal2);
-                        lista.set(index2,pal1);
-
-                        System.out.println("Palabras intercambiadas correctamente !");
-                        break;
-
-                    }
-                } while (true);
+                lista.remove(pal1);
                 break;
 
             }

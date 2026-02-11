@@ -46,8 +46,8 @@ public class Demo1 {
 
         } while (true);
 
-        final int temp = numero;
-        System.out.println("El número " + temp + " aparece " + randoms.stream().filter(a-> a == temp).count() + " veces");
+        int finalNumero = numero;
+        System.out.println("El número " + finalNumero + " aparece " + randoms.stream().filter(a -> a == finalNumero).count() + " veces");
 
         leer.close();
 

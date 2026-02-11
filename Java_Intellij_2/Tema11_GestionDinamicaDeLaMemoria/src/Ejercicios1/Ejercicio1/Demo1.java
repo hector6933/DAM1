@@ -93,7 +93,7 @@ public class Demo1 {
 
         System.out.println("Los nombres y apellidos de los registros cuyo nombre (first_name) empiecen por ‘A’ ordenados por fecha (descendente) del último inicio de sesión (last_login).");
 
-        registros.stream().sorted(Comparator.comparing(Registro::getLast_login).reversed()).filter(registro -> registro.getNombre().startsWith("A")).forEach(System.out::println);
+        registros.stream().sorted(Comparator.comparing(Registro::getLast_login).reversed()).filter(registro -> registro.getNombre().startsWith("A")).map(registro -> registro.getNombre() + " " + registro.getApellidos()) .forEach(System.out::println);
 
 
 
