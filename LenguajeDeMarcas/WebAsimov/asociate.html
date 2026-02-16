@@ -1,18 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Inicio</title>
     <style>
-        .active{
+        html,
+        body {
+            scrollbar-width: none;
+            
+            -ms-overflow-style: none;
+            
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+            
+        }
+        * {
+            font-family: sans-serif;
+
+        }
+
+        .barra {
+            margin: 0;
+            display: block;
+            border: none;
+            height: 6px;
+            background: linear-gradient(to right, rgb(0, 110, 165), rgb(172, 203, 239));
+            border-radius: 2px;
+        }
+
+        .barra2 {
+            margin: 0;
+            display: block;
+            border: none;
+            height: 6px;
+            background: linear-gradient(to left, rgb(0, 110, 165), rgb(172, 203, 239));
+            border-radius: 2px;
+        }
+
+        .active {
 
             color: red;
 
         }
+
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 1rem;
+        }
+
+        legend {
+            float: none;
+            width: auto;
+            padding: 0 0.5rem;
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -29,11 +79,202 @@
             <a href="asociate.html" class="nav-link active">ASÓCIATE</a>
         </nav>
     </div>
-    
-    
-    
 
+    <div class="barra"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <div class="container">
+        <h2 class="text-primary-emphasis my-4 fw-bolder">Formulario para hacerte socio</h2>
+
+        <p class="">Para hacerte socio de nuestro club de fans, por favor rellena los siguientes datos y nos
+            pondremos en contacto contigo lo antes posible para terminar el proceso de inscripción.
+        </p>
+
+        <div class="row d-flex justify-content-center mb-5 mt-4">
+            <div class="col-7">
+                <form action="#" method="post" class="form">
+                    <fieldset class="bg-primary-subtle rounded p-4 mb-5">
+                        <legend><span class="text-primary-emphasis fw-bold">1</span> <b>Datos personales</b></legend>
+
+                        <p class="text-secondary"><i>Todos los campos con * son obligatorios</i></p>
+                        <div class="mt-5 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="nombre" class="form-label">Nombre*</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="nombre" required class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="ape" class="form-label">Primer apellido*</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="ape" required class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="sape" class="form-label">Segundo apellido*</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="sape" required class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="dnipas" class="form-label">DNI o Pasaporte</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="dnipas" required class="form-control"
+                                    placeholder="DNI o Passaport">
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="fechanac" class="form-label">Fecha de nacimiento</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" id="fechanac" required class="form-control">
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="bg-primary-subtle rounded p-4 mb-5">
+                        <legend><span class="text-primary-emphasis fw-bold">2</span> <b>Datos de contacto</b></legend>
+
+                        <div class="mt-5 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="correo" class="form-label">Correo electrónico*</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="email" id="correo" required class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="codpost" class="form-label">Código postal*</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="codpost" required class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="dirpost" class="form-label">Dirección postal*</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="dirpost" required class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="pobla" class="form-label">Población*</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="pobla" required class="form-control"
+                                    placeholder="DNI o Passaport">
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="bg-primary-subtle rounded p-4">
+                        <legend><span class="text-primary-emphasis fw-bold">3</span> <b>Datos de inscripción</b></legend>
+
+                        <div class="mt-5 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="tipo" class="form-label">Tipo*</label>
+                            </div>
+                            <div class="col-8">
+                                <select name="tipo" id="tipo" class="form-select">
+                                    <option value="Senior" selected>Senior</option>
+                                    <option value="Senior">Vip</option>
+                                    <option value="Senior">Vip++</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="cuota" class="form-label">Cuota*</label>
+                            </div>
+                            <div class="col-8">
+                                <select name="tipo" id="tipo" class="form-select">
+                                    <option value="Senior" selected>General - 5€/mes</option>
+                                    <option value="Senior">Vip - 10€/mes</option>
+                                    <option value="Senior">Vip++ - 20€/mes</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <fieldset class="my-4">
+                            <legend>Periocidad</legend>
+                            <input type="radio" name="perio" id="rad1">
+                            <label for="rad1">Trimestral</label>
+
+                            <input type="radio" name="perio" id="rad2">
+                            <label for="rad2">Semestral</label>
+
+                            <input type="radio" name="perio" id="rad3">
+                            <label for="rad3">Anual</label>
+                        </fieldset>
+
+                        <div class="mt-2 d-flex justify-content-end">
+
+                            <div class="col-4">
+                                <label for="iban" class="form-label">IBAN</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="iban" required class="form-control"
+                                    placeholder="(si no lo sabes, déjalo vacío)">
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-center my-4">
+                            <button type="submit" class="btn btn-danger fs-3 px-5">ENVIAR</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="barra2"></div>
+
+    <footer class="bg-primary bg-opacity-10">
+        <div class="container p-3 d-flex justify-content-center">
+            <div class="text-center">
+                <p>Actividad realizada por Héctor Criado González</p>
+                <p>Fotografía de la portada de <a href="#">Adam Muise</a> en <a href="#">Unsplash</a></p>
+                <img src="img/creative-commons.png" alt="">
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
