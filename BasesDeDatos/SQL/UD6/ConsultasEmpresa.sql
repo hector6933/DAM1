@@ -64,31 +64,52 @@ SELECT * FROM empleado WHERE (YEAR(FecNaEmp) BETWEEN 1970 AND 1979) AND (CodDep 
 -- 1:
 SELECT NomEmp, SalEmp FROM empleado WHERE SalEmp>(SELECT AVG(SalEmp) FROM empleado WHERE CodDep LIKE 'PROZS');
 
--- 2 (67):
+-- 2 ( 67 ):
 SELECT NomEmp, SalEmp FROM empleado WHERE SalEmp>(SELECT AVG(SalEmp) FROM empleado WHERE CodDep IN (SELECT CodDep FROM departamento WHERE NomDep LIKE 'Investigación y Diseño'));
 
 -- 3:
+-- Yo:
 SELECT NomEmp, SalEmp FROM empleado emp WHERE SalEmp>(SELECT AVG(SalEmp) FROM empleado WHERE CodDep LIKE emp.CodDep);
+
+-- Celia:
+SELECT NomEmp, SalEmp FROM empleado e1
+WHERE SalEmp > (SELECT AVG(SalEmp) FROM empleado e2
+						WHERE e2.CodDep=e1.CodDep);
 
 -- 4:
 SELECT NomDep FROM departamento WHERE PreAnu>(SELECT AVG(PreAnu) FROM departamento);
 
--- 5 POR HACER:
-SELECT NomDep FROM departamento WHERE PreAnu>(SELECT AVG(SUM(SELECT PreAnu FROM departamento)));
-
+-- 5 ( 76 ):
+-- Yo (Mal):
+SELECT NomDep FROM departamento dep WHERE PreAnu>(SELECT AVG(PreAnu) FROM departamento WHERE CodCen=dep.CodCen);
+-- Celia:
+SELECT NomDep
+FROM departamento
+WHERE PreAnu > (SELECT AVG(PresuCentro)
+					FROM (SELECT SUM(PreAnu) AS PresuCentro
+						FROM departamento
+						GROUP BY CodCen) AS PresuCentro
+					);
+					
 SELECT * FROM departamento;
 
+-- De otra manera, me creao la tabla primero para luego usarla en la subconsulta
+-- CTE (Common Table Expression)
+WITH PresuCentro AS 
+(SELECT SUM(PreAnu) AS SumaPresupuesto FROM departamento
+	GROUP BY CodCen)
+SELECT NomDep
+FROM departamento
+WHERE PreAnu > (SELECT AVG(SumaPresupuesto) FROM PresuCentro);
 
+-- 6:
+SELECT CodHab, DesHab FROM habilidad WHERE CodHab NOT IN (SELECT CodHab FROM habemp);
 
+-- 7:
+SELECT NomEmp, SalEmp FROM empleado ORDER BY SalEmp DESC LIMIT 1;
 
-
-
-
-
-
-
-
-
+-- 8:
+SELECT NomEmp, SalEmp FROM empleado WHERE SalEmp = (SELECT MAX(SalEmp) FROM empleado);
 
 
 
