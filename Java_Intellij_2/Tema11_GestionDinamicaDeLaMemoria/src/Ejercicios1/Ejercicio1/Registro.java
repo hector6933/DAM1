@@ -1,7 +1,6 @@
 package Ejercicios1.Ejercicio1;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Registro {
 
@@ -44,67 +43,43 @@ public class Registro {
                 '}';
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getNombre() {
+        return nombre;
     }
 
     public String getApellidos() {
         return apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
     public String getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(String latitud) {
-        this.latitud = latitud;
+    public String getLongitud() {
+        return longitud;
     }
 
     public String getDominio() {
         return dominio;
     }
 
-    public void setDominio(String dominio) {
-        this.dominio = dominio;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
     public String getIp() {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     public LocalDateTime getLast_login() {
         return last_login;
-    }
-
-    public void setLast_login(LocalDateTime last_login) {
-        this.last_login = last_login;
     }
 }

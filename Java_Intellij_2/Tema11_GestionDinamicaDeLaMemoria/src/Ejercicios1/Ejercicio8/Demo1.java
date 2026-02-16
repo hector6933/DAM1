@@ -1,6 +1,5 @@
 package Ejercicios1.Ejercicio8;
 
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.TreeMap;
 
