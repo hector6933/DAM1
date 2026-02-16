@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "LenguajeDeMarcas",
+			"path": ".."
+		},
+		{
+			"name": "Trabajo Asimov",
+			"path": "../../../../Descargas/Trabajo Asimov"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "LenguajeDeMarcas"
+	}
+}
