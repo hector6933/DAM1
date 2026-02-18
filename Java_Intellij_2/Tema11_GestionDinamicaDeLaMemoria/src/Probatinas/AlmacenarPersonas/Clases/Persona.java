@@ -1,4 +1,4 @@
-package Probatinas.AlmacenarPersonas;
+package Probatinas.AlmacenarPersonas.Clases;
 
 import java.util.Date;
 
