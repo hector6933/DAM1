@@ -111,5 +111,65 @@ SELECT NomEmp, SalEmp FROM empleado ORDER BY SalEmp DESC LIMIT 1;
 -- 8:
 SELECT NomEmp, SalEmp FROM empleado WHERE SalEmp = (SELECT MAX(SalEmp) FROM empleado);
 
+-- 9:
+SELECT * FROM empleado WHERE SalEmp > ANY (SELECT SalEmp FROM empleado WHERE CodDep LIKE 'JEFZS');
+
+-- 10:
+SELECT * FROM empleado WHERE SalEmp > ALL (SELECT SalEmp FROM empleado WHERE CodDep LIKE 'VENZS');
+
+-- 11:
+SELECT * FROM centro WHERE CodCen = ANY (SELECT CodCen FROM departamento WHERE PreAnu>=20000000);
+
+-- 12:
+SELECT * FROM departamento WHERE CodDep NOT IN (SELECT CodDep FROM empleado);
+
+-- 13
+SELECT * FROM departamento WHERE NOT EXISTS (SELECT CodDep FROM empleado);
+
+-- 14:
+SELECT * FROM centro cen WHERE 20000000 > ALL (SELECT PreAnu FROM departamento WHERE CodCen=cen.CodCen);
+
+-- 15:
+SELECT * FROM empleado emp WHERE CodDep IN (SELECT CodDep FROM empleado emp2 WHERE emp2.SalEmp>2000000 AND emp.CodEmp!=emp2.CodEmp);
+
+-- 16:
+-- SIN EXISTS:
+SELECT * FROM empleado WHERE FecInEmp >= ALL (SELECT FecInEmp FROM empleado);
+
+SELECT * FROM empleado emp WHERE NOT EXISTS (SELECT FecInEmp FROM empleado WHERE FecInEmp>emp.FecInEmp);
+
+-- 17:
+SELECT * FROM centro cen WHERE CodCen IN (SELECT CodCen FROM departamento WHERE PreAnu>=1000000);
+
+-- 18:
+SELECT * FROM departamento dep WHERE EXISTS (SELECT CodDep FROM empleado emp WHERE dep.CodDep=emp.CodDep AND SalEmp > 4000000);
+
+-- 19:
+SELECT * FROM empleado emp WHERE NumHi > (SELECT AVG(NumHi) FROM empleado WHERE CodDep=emp.CodDep);
+
+-- 20:
+SELECT * FROM empleado emp WHERE SalEmp = (SELECT MAX(SalEmp) FROM empleado WHERE CodDep=emp.CodDep);
+
+-- 21:
+SELECT * FROM departamento dep WHERE PreAnu > ALL (SELECT PreAnu FROM departamento WHERE dep.CodCen!=CodCen);
+
+-- MULTITABLAS ----------------------------------------------------------------------------------------------------------
+
+-- 1:
+SELECT NomDep, PreAnu, cen.NomCen FROM departamento dep LEFT JOIN centro cen ON dep.CodCen=cen.CodCen;
+
+-- 2:
+SELECT NomDep, PreAnu, emp.NomEmp FROM departamento dep LEFT JOIN empleado emp ON dep.CodEmpDir=emp.CodEmp;
+
+-- 3:
+SELECT NomDep, PreAnu, cen.NomCen, emp.NomEmp FROM departamento dep LEFT JOIN centro cen ON dep.CodCen=cen.CodCen LEFT JOIN empleado emp ON dep.CodEmpDir=emp.CodEmp;
+
+-- 4:
+SELECT NomDep, cen.NomCen, emp.NomEmp FROM departamento dep LEFT JOIN centro cen ON dep.CodCen=cen.CodCen LEFT JOIN empleado emp ON dep.CodEmpDir=emp.CodEmp WHERE dep.PreAnu >= ALL (SELECT PreAnu FROM departamento);
+
+-- 5:
+SELECT emp.*, cen.NomCen FROM empleado emp LEFT JOIN departamento dep ON emp.CodDep=dep.CodDep LEFT JOIN centro cen ON cen.CodCen=dep.CodCen WHERE cen.NomCen LIKE 'Fábrica Zona Sur';
+
+-- 6:
 
 
