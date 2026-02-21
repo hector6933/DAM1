@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Persona {
 
-    private static Integer idSiguiente;
+    private static Integer idSiguiente = 0;
 
     private Integer id;
     private String dni;
@@ -13,9 +13,9 @@ public class Persona {
     private Integer edad;
     private String sexo;
     private boolean enParo;
-    private Date fechaNacimiento;
 
-    public Persona(String dni, String nombre, String apellido, Integer edad, String sexo, boolean enParo, Date fechaNacimiento) {
+
+    public Persona(String dni, String nombre, String apellido, Integer edad, String sexo, boolean enParo) {
 
         this.id = idSiguiente;
         this.dni = dni;
@@ -24,7 +24,7 @@ public class Persona {
         this.edad = edad;
         this.sexo = sexo;
         this.enParo = enParo;
-        this.fechaNacimiento = fechaNacimiento;
+
         idSiguiente++;
 
     }
@@ -37,8 +37,7 @@ public class Persona {
         this.edad = Integer.parseInt(argumentos[3]);
         this.sexo = argumentos[4];
         this.enParo = Boolean.parseBoolean(argumentos[5]);
-        String[] fecha = argumentos[6].split("^\\d");
-        this.fechaNacimiento = new Date(Integer.parseInt(fecha[2]),Integer.parseInt(fecha[1]),Integer.parseInt(fecha[0]));
+
 
     }
 
@@ -70,7 +69,4 @@ public class Persona {
         return enParo;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
 }
