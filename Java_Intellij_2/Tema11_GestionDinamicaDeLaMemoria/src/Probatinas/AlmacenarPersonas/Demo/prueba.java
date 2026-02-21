@@ -156,8 +156,6 @@ public class prueba {
 
         String ruta = "probatinas/personas.txt";
 
-        int atributos = 6;
-
         personas.add(new Persona("12345678R", "Pepe Pepe", "Martínez", 33, "Hombre", false));
         personas.add(new Persona("12313131S", "Loli", "González", 22, "Mujer", true));
         personas.add(new Persona("21313544G", "LOLO", "Imbécil", 12, "Hombre", true));
