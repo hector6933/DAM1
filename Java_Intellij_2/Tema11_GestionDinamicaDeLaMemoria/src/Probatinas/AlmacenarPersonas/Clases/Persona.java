@@ -31,12 +31,20 @@ public class Persona {
 
     public Persona(String[] argumentos) {
 
-        this.dni = argumentos[0];
-        this.nombre = argumentos[1];
-        this.apellido = argumentos[2];
-        this.edad = Integer.parseInt(argumentos[3]);
-        this.sexo = argumentos[4];
-        this.enParo = Boolean.parseBoolean(argumentos[5]);
+        try {
+
+            this.dni = argumentos[0];
+            this.nombre = argumentos[1];
+            this.apellido = argumentos[2];
+            this.edad = Integer.parseInt(argumentos[3]);
+            this.sexo = argumentos[4];
+            this.enParo = Boolean.parseBoolean(argumentos[5]);
+
+        } catch (Exception e) {
+
+            System.out.println("Argumentos inválidos !!!");
+
+        }
 
 
     }
