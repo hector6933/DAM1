@@ -171,5 +171,33 @@ SELECT NomDep, cen.NomCen, emp.NomEmp FROM departamento dep LEFT JOIN centro cen
 SELECT emp.*, cen.NomCen FROM empleado emp LEFT JOIN departamento dep ON emp.CodDep=dep.CodDep LEFT JOIN centro cen ON cen.CodCen=dep.CodCen WHERE cen.NomCen LIKE 'Fábrica Zona Sur';
 
 -- 6:
+SELECT emp.NomEmp, hij.NomHi, hij.FecNaHi FROM empleado emp RIGHT JOIN hijo hij ON hij.CodEmp=emp.CodEmp WHERE emp.NumHi=1;
+
+-- 7:
+-- usar distinct:
+SELECT emp.* FROM empleado emp NATURAL JOIN departamento dep WHERE CodDep LIKE '%OZS' AND emp.NumHi>=1;
+
+-- 8:
+SELECT dep.*, hab.DesHab FROM departamento dep NATURAL JOIN empleado emp NATURAL JOIN habemp habe NATURAL JOIN habilidad hab WHERE habe.CodHab LIKE 'FONTA';
+
+-- 9:
+SELECT dep.NomDep, dep2.NomDep FROM departamento dep INNER JOIN departamento dep2 ON dep.CodDepDep=dep2.CodDep;
+
+-- 10:
+SELECT hab.CodHab, emp.CodEmp, habe.NivHab FROM habilidad hab NATURAL LEFT JOIN habemp habe NATURAL LEFT JOIN empleado emp;
+
+-- 11:
+SELECT hab.* FROM habilidad hab LEFT JOIN habemp habe ON habe.CodHab=hab.CodHab 
+WHERE habe.CodHab IS NULL;
+
+-- 12:
+SELECT emp.NomEmp, hij.NomHi FROM empleado emp NATURAL LEFT JOIN hijo hij;
+
+-- 13:
+SELECT dep.*, dep2.NomDep FROM departamento dep LEFT JOIN departamento dep2 ON dep.CodDepDep=dep2.CodDep;
+
+-- 13:
+-- SELECT FROM empleado emp NATURAL LEFT JOIN departamento dep;
+
 
 
