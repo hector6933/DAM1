@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plataforma xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="Ej5.xsd">
+    <cursos>
+        <curso id="C001">
+            <titulo>Introducción a Python</titulo>
+            <descripcion>Aprende los fundamentos de la programación con Python</descripcion>
+            <duracion>40</duracion>
+            <nivel>principiante</nivel>
+            <precio>49.99</precio>
+            <fechaInicio>2026-03-01</fechaInicio>
+        </curso>
+        
+        <curso id="C002">
+            <titulo>Desarrollo Web Full Stack</titulo>
+            <descripcion>Domina HTML, CSS, JavaScript, Node.js y bases de datos</descripcion>
+            <duracion>120</duracion>
+            <nivel>intermedio</nivel>
+            <precio>199.99</precio>
+            <fechaInicio>2026-03-15</fechaInicio>
+        </curso>
+        
+        <curso id="C003">
+            <titulo>Machine Learning Avanzado</titulo>
+            <descripcion>Algoritmos avanzados de aprendizaje automático e IA</descripcion>
+            <duracion>80</duracion>
+            <nivel>avanzado</nivel>
+            <precio>299.99</precio>
+            <fechaInicio>2026-04-01</fechaInicio>
+        </curso>
+    </cursos>
+    
+    <estudiantes>
+        <estudiante id="E001">
+            <nombre>Ana García Pérez</nombre>
+            <email>ana.garcia@example.com</email>
+            <fechaNacimiento>1995-05-20</fechaNacimiento>
+            <cursosMatriculados>
+                <cursoRef refCurso="C001"/>
+                <cursoRef refCurso="C002"/>
+            </cursosMatriculados>
+        </estudiante>
+        
+        <estudiante id="E002">
+            <nombre>Pedro Martínez López</nombre>
+            <email>pedro.martinez@example.com</email>
+            <fechaNacimiento>1992-08-15</fechaNacimiento>
+            <cursosMatriculados>
+                <cursoRef refCurso="C002"/>
+                <cursoRef refCurso="C003"/>
+            </cursosMatriculados>
+        </estudiante>
+        
+        <estudiante id="E003">
+            <nombre>Laura Sánchez Ruiz</nombre>
+            <email>laura.sanchez@example.com</email>
+            <fechaNacimiento>1998-12-03</fechaNacimiento>
+            <cursosMatriculados>
+                <cursoRef refCurso="C001"/>
+            </cursosMatriculados>
+        </estudiante>
+    </estudiantes>
+</plataforma>

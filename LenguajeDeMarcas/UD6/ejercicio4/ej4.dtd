@@ -1,0 +1,26 @@
+<!ELEMENT empresa (departamentos,empleados)>
+
+<!ELEMENT departamentos (departamento+)>
+<!ELEMENT departamento (nombre,ubicacion)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT ubicacion (#PCDATA)>
+
+<!ELEMENT empleados (empleado+)>
+<!ELEMENT empleado (nombreCompleto,apellidos,fechaNacimiento,departamentoRef,email?,telefono?)>
+<!ELEMENT nombreCompleto (#PCDATA)>
+<!ELEMENT apellidos (#PCDATA)>
+<!ELEMENT fechaNacimiento (#PCDATA)>
+<!ELEMENT departamentoRef (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT telefono (#PCDATA)>
+
+
+<!ATTLIST departamentoRef refDept IDREF #REQUIRED>
+<!ATTLIST departamento 
+    codigo CDATA #REQUIRED
+    id ID #REQUIRED>
+
+
+<!ATTLIST empleado 
+    dni ID #REQUIRED
+    numEmpleado CDATA #REQUIRED>

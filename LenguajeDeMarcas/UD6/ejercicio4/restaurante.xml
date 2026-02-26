@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE empresa SYSTEM "ej4.dtd">
+<empresa>
+    <departamentos>
+        <departamento id="DEPT001" codigo="IT">
+            <nombre>Tecnología</nombre>
+            <ubicacion>Planta 3</ubicacion>
+        </departamento>
+        <departamento id="DEPT002" codigo="RH">
+            <nombre>Recursos Humanos</nombre>
+            <ubicacion>Planta 1</ubicacion>
+        </departamento>
+        <departamento id="DEPT003" codigo="VT">
+            <nombre>Ventas</nombre>
+            <ubicacion>Planta 2</ubicacion>
+        </departamento>
+    </departamentos>
+    
+    <empleados>
+        <empleado dni="DNI12345678A" numEmpleado="E001">
+            <nombreCompleto>Carlos</nombreCompleto>
+            <apellidos>García López</apellidos>
+            <fechaNacimiento>1985-03-15</fechaNacimiento>
+            <departamentoRef refDept="DEPT001"/>
+            <email>carlos.garcia@empresa.com</email>
+            <telefono>666123456</telefono>
+        </empleado>
+        
+        <empleado dni="DNI87654321B" numEmpleado="E002">
+            <nombreCompleto>María</nombreCompleto>
+            <apellidos>Martínez Ruiz</apellidos>
+            <fechaNacimiento>1990-07-22</fechaNacimiento>
+            <departamentoRef refDept="DEPT002"/>
+            <email>maria.martinez@empresa.com</email>
+        </empleado>
+        
+        <empleado dni="DNI11223344C" numEmpleado="E003">
+            <nombreCompleto>Juan</nombreCompleto>
+            <apellidos>Fernández Sánchez</apellidos>
+            <fechaNacimiento>1988-11-05</fechaNacimiento>
+            <departamentoRef refDept="DEPT003"/>
+            <telefono>677987654</telefono>
+        </empleado>
+    </empleados>
+</empresa>
