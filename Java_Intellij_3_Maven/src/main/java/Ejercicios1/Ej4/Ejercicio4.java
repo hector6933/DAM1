@@ -21,16 +21,21 @@ public class Ejercicio4 {
         try (BufferedReader leerBufer = new BufferedReader(new FileReader("src/main/java/Ejercicios1/Ej3/archivo.json"))) {
 
             String linea;
+            int i = 1;
             while ((linea = leerBufer.readLine()) != null) {
 
                 libraries.add(objeto.readValue(linea,Library.class));
 
                 Library lib = objeto.readValue(linea,Library.class);
+                System.out.println("Librería " + i + ":");
+                i++;
+
                 for (Book e: lib.getLibreria()) {
 
-                    System.out.println(e.getTitle());
+                    System.out.print(e.getTitle() + " ");
 
                 }
+                System.out.println();
 
             }
 

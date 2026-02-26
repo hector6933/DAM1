@@ -1,9 +1,18 @@
 package Ejercicios1;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Book {
 
-    private transient String title;
+    private String title;
+
     private String author;
+
     private int yearPublished;
 
     public Book() {
