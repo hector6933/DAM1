@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<publisher>
+    <address>Mi casa</address>
+    <libros>
+        <title>Titulo 1</title>
+    </libros>
+    <libros>
+        <title>Titulo 2</title>
+    </libros>
+    <libros>
+        <title>Titulo 3</title>
+    </libros>
+    <libros>
+        <title>Titulo 4</title>
+    </libros>
+    <libros>
+        <title>Titulo 5</title>
+    </libros>
+    <name>Publisher1</name>
+</publisher>

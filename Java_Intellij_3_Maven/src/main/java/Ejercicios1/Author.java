@@ -36,4 +36,12 @@ public class Author {
     public void setBooksWritten(ArrayList<Book> booksWritten) {
         this.booksWritten = booksWritten;
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "name='" + name + '\'' +
+                ", booksWritten=" + booksWritten +
+                '}';
+    }
 }

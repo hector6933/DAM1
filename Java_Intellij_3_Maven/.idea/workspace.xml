@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="315bb239-6c87-4ced-bfcf-a024070577c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Author.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej5/Ejercicio5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej5/Ejercicio5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej9/Ejercicio9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej9/Ejercicio9.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +51,7 @@
   "keyToString": {
     "Application.App.executor": "Run",
     "Application.Ejercicio1.executor": "Run",
+    "Application.Ejercicio10.executor": "Run",
     "Application.Ejercicio2.executor": "Run",
     "Application.Ejercicio3.executor": "Run",
     "Application.Ejercicio4.executor": "Run",
@@ -60,6 +61,8 @@
     "Application.Ejercicio6_2.executor": "Run",
     "Application.Ejercicio7.executor": "Run",
     "Application.Ejercicio8.executor": "Run",
+    "Application.Ejercicio9.executor": "Run",
+    "Application.LibraryCatalog.executor": "Run",
     "Application.bucle.executor": "Run",
     "Application.maodkmdw.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
