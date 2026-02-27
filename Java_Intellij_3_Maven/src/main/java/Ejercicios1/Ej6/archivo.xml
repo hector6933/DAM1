@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<library>
+    <libreria>
+        <author>Autor 1</author>
+        <title>Titulo 1</title>
+        <yearPublished>2000</yearPublished>
+    </libreria>
+    <libreria>
+        <author>Autor 2</author>
+        <title>Titulo 2</title>
+        <yearPublished>1990</yearPublished>
+    </libreria>
+    <libreria>
+        <author>Autor 3</author>
+        <title>Titulo 3</title>
+        <yearPublished>2020</yearPublished>
+    </libreria>
+    <libreria>
+        <author>Autor 4</author>
+        <title>Titulo 4</title>
+        <yearPublished>2030</yearPublished>
+    </libreria>
+</library>

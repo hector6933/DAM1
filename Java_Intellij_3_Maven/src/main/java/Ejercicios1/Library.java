@@ -7,7 +7,6 @@ import java.util.ArrayList;
 @XmlRootElement
 public class Library {
 
-    @XmlAttribute
     ArrayList<Book> libreria;
 
     public Library() {

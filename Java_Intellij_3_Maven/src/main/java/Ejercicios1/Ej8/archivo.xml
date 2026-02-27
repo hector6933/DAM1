@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bookStore>
+    <autores>
+        <booksWritten>
+            <author>Pascual</author>
+            <title>Titulo 1</title>
+            <yearPublished>2000</yearPublished>
+        </booksWritten>
+        <booksWritten>
+            <author>Pascual</author>
+            <title>Titulo 2</title>
+            <yearPublished>1990</yearPublished>
+        </booksWritten>
+        <booksWritten>
+            <author>Pascual</author>
+            <title>Titulo 3</title>
+            <yearPublished>2020</yearPublished>
+        </booksWritten>
+        <name>Pascual</name>
+    </autores>
+    <autores>
+        <booksWritten>
+            <author>Juanma</author>
+            <title>Titulo 1</title>
+            <yearPublished>2000</yearPublished>
+        </booksWritten>
+        <booksWritten>
+            <author>Juanma</author>
+            <title>Titulo 2</title>
+            <yearPublished>1990</yearPublished>
+        </booksWritten>
+        <booksWritten>
+            <author>Juanma</author>
+            <title>Titulo 3</title>
+            <yearPublished>2020</yearPublished>
+        </booksWritten>
+        <name>Juanma</name>
+    </autores>
+    <libros>
+        <author>Pascual</author>
+        <title>Titulo 1</title>
+        <yearPublished>2000</yearPublished>
+    </libros>
+    <libros>
+        <author>Pascual</author>
+        <title>Titulo 2</title>
+        <yearPublished>1990</yearPublished>
+    </libros>
+    <libros>
+        <author>Pascual</author>
+        <title>Titulo 3</title>
+        <yearPublished>2020</yearPublished>
+    </libros>
+    <libros>
+        <author>Juanma</author>
+        <title>Titulo 1</title>
+        <yearPublished>2000</yearPublished>
+    </libros>
+    <libros>
+        <author>Juanma</author>
+        <title>Titulo 2</title>
+        <yearPublished>1990</yearPublished>
+    </libros>
+    <libros>
+        <author>Juanma</author>
+        <title>Titulo 3</title>
+        <yearPublished>2020</yearPublished>
+    </libros>
+</bookStore>

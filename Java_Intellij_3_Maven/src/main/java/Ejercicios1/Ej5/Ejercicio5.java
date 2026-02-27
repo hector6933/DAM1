@@ -12,7 +12,6 @@ public class Ejercicio5 {
     public static void main(String[] args) {
 
         Book libro = new Book("Titulo 1", "Autor1",2000);
-
         try {
 
             JAXBContext context = JAXBContext.newInstance(Book.class);
@@ -20,21 +19,7 @@ public class Ejercicio5 {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
 
             File file = new File("src/main/java/Ejercicios1/Ej5/archivo.xml");
-
-            try (BufferedWriter escribirBufer = new BufferedWriter(new FileWriter("src/main/java/Ejercicios1/Ej5/archivo.xml"))) {
-
-                marshaller.marshal(libro,file);
-
-
-            } catch (FileNotFoundException e) {
-
-                System.out.println("Archivo NO encontrado !!!");
-
-            } catch (IOException e) {
-
-                System.out.println("Error en la escritura del archivo !!!");
-
-            }
+            marshaller.marshal(libro,file);
 
 
         } catch (JAXBException e) {
