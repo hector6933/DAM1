@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="315bb239-6c87-4ced-bfcf-a024070577c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Author.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej9/Ejercicio9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej9/Ejercicio9.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,36 +44,36 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.Ejercicio1.executor": "Run",
-    "Application.Ejercicio10.executor": "Run",
-    "Application.Ejercicio2.executor": "Run",
-    "Application.Ejercicio3.executor": "Run",
-    "Application.Ejercicio4.executor": "Run",
-    "Application.Ejercicio5.executor": "Run",
-    "Application.Ejercicio5_2.executor": "Run",
-    "Application.Ejercicio6.executor": "Run",
-    "Application.Ejercicio6_2.executor": "Run",
-    "Application.Ejercicio7.executor": "Run",
-    "Application.Ejercicio8.executor": "Run",
-    "Application.Ejercicio9.executor": "Run",
-    "Application.LibraryCatalog.executor": "Run",
-    "Application.bucle.executor": "Run",
-    "Application.maodkmdw.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/dam1/Desktop/DAM1/Java_Intellij_3_Maven",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio10.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio4.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio5.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio5_2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio6.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio6_2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio7.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio8.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio9.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LibraryCatalog.executor&quot;: &quot;Run&quot;,
+    &quot;Application.bucle.executor&quot;: &quot;Run&quot;,
+    &quot;Application.maodkmdw.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dam1/Desktop/DAM1/Java_Intellij_3_Maven&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\dam1\Desktop\DAM1\Java_Intellij_3_Maven" />

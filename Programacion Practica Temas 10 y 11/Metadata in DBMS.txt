@@ -1,0 +1,51 @@
+Metadata in DBMS and it's types
+
+Metadata is simply defined as data about data. It means it is a description and context of the data. It helps to organize, find and understand data. Let me explain to you by giving a real-world example of metadata:
+
+Every time you take a photo with today’s cameras a bunch of metadata is gathered and saved with it. Such as
+
+    File name,
+    Size of the file,
+    Date and time,
+    Camera settings etc.
+
+Meta data in Relational database:
+Relational databases store and provide access not only data but also metadata in a structure called data dictionary or system catalog. It holds information about:
+
+    tables,
+    columns,
+    data types,
+    table relationship,
+    constraints etc.
+
+Data dictionary:
+
+    A data dictionary is a collection of descriptions of the data objects or items in a data model for the benefit of programmers and others who need to refer to them.
+    A data dictionary contains a list of all files in the database, the number of records in each file, and the names and types of each field. Most database management systems keep the data dictionary hidden from users to prevent them from accidentally destroying its contents.
+
+Accessing metadata in RDBMS:
+RDBMS provides access to their metadata with a set of tables or views often called system catalog or data dictionary. We can access those views using plain SQL statements.
+Example:
+
+select * 
+from tables
+
+Types of Metadata:
+There are several sorts of metadata consistent with their uses and domain.
+
+    Technical Metadata –
+    This type of metadata defines database system names, tables names, table size, data types, values, and attributes. Further technical metadata also includes some constraints like foreign key, primary key, and indices.
+    Business Metadata –
+    It consists of the ownership of data, changing policies, business rules and regulations, and other business details. This type of metadata is said to a specific business.
+    Descriptive Metadata –
+    Descriptive metadata describes any file, folder, book, image, or video. It may include details of knowledge like title, author, date, size, author name, published on, and similarly others.
+    Operational Metadata –
+    This type includes the info which is currently under any operation. Besides, it represents the data that is used by executive-level managers to perform any task. Also, this sort of metadata is often purged, archived, or activated and may even be migrated.
+
+Metadata in terms of data warehouse:
+In terms of data warehouse, we can define metadata as follows:
+
+    Metadata is a roadmap to data warehouse.
+    Metadata in data warehouse defines the warehouse objects.
+    Metadata acts as a directory. This directory helps the decision support system to locate the contents of a data warehouse.
+

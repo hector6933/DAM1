@@ -13,7 +13,7 @@ public class Demo1 {
         System.out.print("> ");
         String frase = leer.nextLine();
 
-        frase = frase.replaceAll("[^A-za-z]+","");
+        frase = frase.replaceAll("[^A-Za-z]+","");
 
         TreeMap<Character,Integer> letras = new TreeMap<>();
 
