@@ -196,7 +196,7 @@ SELECT emp.NomEmp, hij.NomHi FROM empleado emp NATURAL LEFT JOIN hijo hij;
 -- 13:
 SELECT dep.*, dep2.NomDep FROM departamento dep LEFT JOIN departamento dep2 ON dep.CodDepDep=dep2.CodDep;
 
--- 13:
+-- 14:
 -- SELECT FROM empleado emp NATURAL LEFT JOIN departamento dep;
 
 

@@ -43,30 +43,37 @@ public class Ejercicio4 {
         System.out.println("Las 3 palabras más frecuentes: ");
 
         // Hago un for each de todos los valores del mapa ordenados de mayor a menor
-        int i = 1;
-        for (Integer e: mapa.values().stream().sorted(Comparator.reverseOrder()).toList()) {
 
-            // Hago otro for each de todas las claves del mapa
-            for (String s: mapa.keySet()) {
+        ArrayList<Map.Entry<String, Integer>> lista = new ArrayList<>(mapa.entrySet());
 
-                // En caso de que el valor correspondiente sea el mismo que el de la clave correspondiente lo saco por pantalla y lo elimino del mapa para evitar que se repita la siguiente vez
-                if (mapa.get(s).equals(e)) {
+        lista.sort(Map.Entry.comparingByValue());
 
-                    System.out.println(i + " - " + s + " " + mapa.get(s) + " veces");
-                    mapa.remove(s);
-                    i++;
-                    break;
-                }
+        System.out.println(lista.reversed());
 
-            }
-
-            if (i == 4) {
-
-                break;
-
-            }
-
-        }
+//        int i = 1;
+//        for (Integer e: mapa.values().stream().sorted(Comparator.reverseOrder()).toList()) {
+//
+//            // Hago otro for each de todas las claves del mapa
+//            for (String s: mapa.keySet()) {
+//
+//                // En caso de que el valor correspondiente sea el mismo que el de la clave correspondiente lo saco por pantalla y lo elimino del mapa para evitar que se repita la siguiente vez
+//                if (mapa.get(s).equals(e)) {
+//
+//                    System.out.println(i + " - " + s + " " + mapa.get(s) + " veces");
+//                    mapa.remove(s);
+//                    i++;
+//                    break;
+//                }
+//
+//            }
+//
+//            if (i == 4) {
+//
+//                break;
+//
+//            }
+//
+//        }
 
     }
 
