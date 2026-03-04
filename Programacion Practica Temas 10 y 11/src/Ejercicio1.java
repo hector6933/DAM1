@@ -22,14 +22,16 @@ public class Ejercicio1 {
 
         for (Integer e: randoms) {
 
-            if (randoms.stream().filter(a -> a == e).count() == 1) {
+            if (randoms.stream().filter(a -> a.equals(e)).count() == 1) {
 
                 System.out.println("El primer número que NO se repite es el: " + e);
-                break;
+                return;
 
             }
 
         }
+
+        System.out.println("Todos los números de repiten");
 
 
 //        // Compruebo mediante un for each anidado si el número correspondiente se repite o no

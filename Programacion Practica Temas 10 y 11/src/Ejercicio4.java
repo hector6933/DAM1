@@ -39,17 +39,18 @@ public class Ejercicio4 {
 
         }
 
-        // Compruebo las 3 palabras más frecuentes mediante la forma que se me ha ocurrido
-        System.out.println("Las 3 palabras más frecuentes: ");
-
-        // Hago un for each de todos los valores del mapa ordenados de mayor a menor
+        // Ordenar el hasmap y mostrar las 4 palabras más frecuentes de una forma eficiente
+        System.out.println("Las 4 palabras más frecuentes: ");
 
         ArrayList<Map.Entry<String, Integer>> lista = new ArrayList<>(mapa.entrySet());
 
         lista.sort(Map.Entry.comparingByValue());
 
-        System.out.println(lista.reversed());
+        System.out.println(lista.reversed().stream().limit(4).toList());
 
+        
+// Compruebo las 4 palabras más frecuentes mediante la forma que se me ha ocurrido
+// Hago un for each de todos los valores del mapa ordenados de mayor a menor
 //        int i = 1;
 //        for (Integer e: mapa.values().stream().sorted(Comparator.reverseOrder()).toList()) {
 //
