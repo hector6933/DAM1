@@ -42,6 +42,7 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.App.executor&quot;: &quot;Run&quot;,
@@ -70,6 +71,37 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "Application.Ejercicio1.executor": "Run",
+    "Application.Ejercicio10.executor": "Run",
+    "Application.Ejercicio2.executor": "Run",
+    "Application.Ejercicio3.executor": "Run",
+    "Application.Ejercicio4.executor": "Run",
+    "Application.Ejercicio5.executor": "Run",
+    "Application.Ejercicio5_2.executor": "Run",
+    "Application.Ejercicio6.executor": "Run",
+    "Application.Ejercicio6_2.executor": "Run",
+    "Application.Ejercicio7.executor": "Run",
+    "Application.Ejercicio8.executor": "Run",
+    "Application.Ejercicio9.executor": "Run",
+    "Application.LibraryCatalog.executor": "Run",
+    "Application.bucle.executor": "Run",
+    "Application.maodkmdw.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/kubector/Escritorio/DAM1/Java_Intellij_3_Maven",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+>>>>>>> 239355d (cosa)
   }
 }</component>
   <component name="RecentsManager">
@@ -82,6 +114,7 @@
       <recent name="C:\Users\dam1\Desktop\DAM1\Java_Intellij_3_Maven\Ejercicios1" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager">
     <configuration name="Ejercicio3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ejercicios1.Ej3.Ejercicio3" />
@@ -101,6 +134,14 @@
         <item itemvalue="Application.Ejercicio3" />
       </list>
     </recent_temporary>
+=======
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
+      </set>
+    </attachedChunks>
+>>>>>>> 239355d (cosa)
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
