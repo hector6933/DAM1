@@ -14,10 +14,10 @@ public class Book {
 
     private String title;
 
-    @JsonIgnore
+    //@JsonIgnore
     private String author;
 
-    @JsonIgnore
+    //@JsonIgnore
     private int yearPublished;
 
     public Book() {

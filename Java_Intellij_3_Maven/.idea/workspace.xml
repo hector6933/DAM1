@@ -6,6 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="315bb239-6c87-4ced-bfcf-a024070577c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej3/Ejercicio3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej3/Ejercicio3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej3/archivo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej3/archivo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej4/Ejercicio4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej4/Ejercicio4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej7/Ejercicio7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej7/Ejercicio7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej7/archivo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej7/archivo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programacion Practica Temas 10 y 11/src/Ejercicio4.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programacion Practica Temas 10 y 11/src/Ejercicio4.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +91,26 @@
       <recent name="C:\Users\dam1\Desktop\DAM1\Java_Intellij_3_Maven\src\main" />
       <recent name="C:\Users\dam1\Desktop\DAM1\Java_Intellij_3_Maven\Ejercicios1" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Ejercicio3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios1.Ej3.Ejercicio3" />
+      <module name="Java_Intellij_3_Maven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios1.Ej3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Ejercicio3" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

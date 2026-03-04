@@ -48,7 +48,7 @@ public class Ejercicio4 {
 
         System.out.println(lista.reversed().stream().limit(4).toList());
 
-        
+
 // Compruebo las 4 palabras más frecuentes mediante la forma que se me ha ocurrido
 // Hago un for each de todos los valores del mapa ordenados de mayor a menor
 //        int i = 1;
