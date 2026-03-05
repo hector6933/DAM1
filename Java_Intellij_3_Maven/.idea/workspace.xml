@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4948590c-7ea7-485e-8396-cc73d49ecc30" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/prueba.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/Ejercicio10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/Ejercicio10.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/archivo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/archivo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/programaAlumnosJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/programaAlumnosJSON.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +51,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Ejercicio10.executor": "Debug",
+    "Application.Demo1.executor": "Run",
+    "Application.Ejercicio10.executor": "Run",
     "Application.Ejercicio7.executor": "Run",
     "Application.programaAlumnosJSON.executor": "Run",
     "Application.prueba.executor": "Run",

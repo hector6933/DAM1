@@ -1,0 +1,48 @@
+{
+  "alumnos" : [ {
+    "id" : 0,
+    "nombre" : "Nombre 1",
+    "apellidos" : "Apellido 1",
+    "edad" : 33,
+    "dni" : "19491836R",
+    "fechaMatricula" : 1735686000000,
+    "notas" : null,
+    "asignaturas" : null
+  }, {
+    "id" : 1,
+    "nombre" : "Nombre 2",
+    "apellidos" : "Apellido 2",
+    "edad" : 69,
+    "dni" : "49030103T",
+    "fechaMatricula" : 1259794800000,
+    "notas" : null,
+    "asignaturas" : null
+  }, {
+    "id" : 2,
+    "nombre" : "Nombre 3",
+    "apellidos" : "Apellido 3",
+    "edad" : 22,
+    "dni" : "12312352F",
+    "fechaMatricula" : 1606950000000,
+    "notas" : null,
+    "asignaturas" : null
+  }, {
+    "id" : 3,
+    "nombre" : "Nombre 4",
+    "apellidos" : "Apellido 4",
+    "edad" : 5,
+    "dni" : "93898328R",
+    "fechaMatricula" : 660178800000,
+    "notas" : null,
+    "asignaturas" : null
+  }, {
+    "id" : 4,
+    "nombre" : "Nombre 5",
+    "apellidos" : "Apellido 5",
+    "edad" : 100,
+    "dni" : "I293I3G",
+    "fechaMatricula" : 1796252400000,
+    "notas" : null,
+    "asignaturas" : null
+  } ]
+}

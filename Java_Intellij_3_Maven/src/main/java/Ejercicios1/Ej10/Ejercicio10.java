@@ -37,7 +37,7 @@ public class Ejercicio10 {
 
         try {
 
-            mapper.writeValue(new File("src/main/java/Ejercicios1/Ej10/archivo.json"),catalogo1);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/java/Ejercicios1/Ej10/archivo.json"),catalogo1);
 
         } catch (IOException e) {
 

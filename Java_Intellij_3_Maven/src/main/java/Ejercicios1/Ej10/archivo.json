@@ -1,36 +1,36 @@
 {
-  "mapa": {
-    "Book{title='Titulo 6', author='Autor 2', yearPublished=2001}": {
-      "name": "Autor 2",
-      "booksWritten": []
+  "mapa" : {
+    "Book{title='Titulo 6', author='Autor 2', yearPublished=2001}" : {
+      "name" : "Autor 2",
+      "booksWritten" : [ ]
     },
-    "Book{title='Titulo 8', author='Autor 2', yearPublished=1971}": {
-      "name": "Autor 2",
-      "booksWritten": []
+    "Book{title='Titulo 8', author='Autor 2', yearPublished=1971}" : {
+      "name" : "Autor 2",
+      "booksWritten" : [ ]
     },
-    "Book{title='Titulo 5', author='Autor 2', yearPublished=2026}": {
-      "name": "Autor 2",
-      "booksWritten": []
+    "Book{title='Titulo 5', author='Autor 2', yearPublished=2026}" : {
+      "name" : "Autor 2",
+      "booksWritten" : [ ]
     },
-    "Book{title='Titulo 2', author='Autor 1', yearPublished=1900}": {
-      "name": "Autor 1",
-      "booksWritten": []
+    "Book{title='Titulo 2', author='Autor 1', yearPublished=1900}" : {
+      "name" : "Autor 1",
+      "booksWritten" : [ ]
     },
-    "Book{title='Titulo 4', author='Autor 1', yearPublished=2015}": {
-      "name": "Autor 1",
-      "booksWritten": []
+    "Book{title='Titulo 4', author='Autor 1', yearPublished=2015}" : {
+      "name" : "Autor 1",
+      "booksWritten" : [ ]
     },
-    "Book{title='Titulo 3', author='Autor 1', yearPublished=2020}": {
-      "name": "Autor 1",
-      "booksWritten": []
+    "Book{title='Titulo 3', author='Autor 1', yearPublished=2020}" : {
+      "name" : "Autor 1",
+      "booksWritten" : [ ]
     },
-    "Book{title='Titulo 1', author='Autor 1', yearPublished=2000}": {
-      "name": "Autor 1",
-      "booksWritten": []
+    "Book{title='Titulo 1', author='Autor 1', yearPublished=2000}" : {
+      "name" : "Autor 1",
+      "booksWritten" : [ ]
     },
-    "Book{title='Titulo 7', author='Autor 2', yearPublished=1959}": {
-      "name": "Autor 2",
-      "booksWritten": []
+    "Book{title='Titulo 7', author='Autor 2', yearPublished=1959}" : {
+      "name" : "Autor 2",
+      "booksWritten" : [ ]
     }
   }
 }
