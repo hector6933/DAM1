@@ -15,6 +15,14 @@
             <xs:maxInclusive value="200"></xs:maxInclusive>
         </xs:restriction>
     </xs:simpleType>
+
+
+<xs:simpleType name="emailValido">
+    <xs:restriction base="xs:string">
+        <xs:pattern value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"/>
+    </xs:restriction>
+</xs:simpleType>
+
     
 
     <!-- ELEMENTO RAÍZ-->
@@ -48,12 +56,16 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="nombre" type="xs:string"></xs:element>
-                                        <xs:element name="email" type="xs:string"></xs:element>
+                                        <xs:element name="email" type="emailValido"></xs:element>
                                         <xs:element name="fechaNacimiento" type="xs:date"></xs:element>
                                         <xs:element name="cursosMatriculados">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="cursoRef" maxOccurs="unbounded"></xs:element>
+                                                    <xs:element name="cursoRef" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:attribute name="refCurso" type="xs:IDREF" use="required"></xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE catalogo SYSTEM "videojuegos.dtd">-->
+
+<catalogo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="videojuegos.xsd">
+    
+    <videojuego id="VJ001">
+        <titulo>The Legend of Zelda: Breath of the Wild</titulo>
+        <desarrolladora>Nintendo</desarrolladora>
+        <año>2017</año>
+        <plataformas>
+            <plataforma>Nintendo Switch</plataforma>
+            <plataforma>Wii U</plataforma>
+        </plataformas>
+        <genero>Aventura</genero>
+        <precio>59.99</precio>
+        <valoracion>9.5</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ002">
+        <titulo>God of War</titulo>
+        <desarrolladora>Santa Monica Studio</desarrolladora>
+        <año>2018</año>
+        <plataformas>
+            <plataforma>PlayStation 4</plataforma>
+            <plataforma>PC</plataforma>
+        </plataformas>
+        <genero>Acción</genero>
+        <precio>39.99</precio>
+        <valoracion>9.7</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ003">
+        <titulo>Red Dead Redemption 2</titulo>
+        <desarrolladora>Rockstar Games</desarrolladora>
+        <año>2018</año>
+        <plataformas>
+            <plataforma>PlayStation 4</plataforma>
+            <plataforma>Xbox One</plataforma>
+            <plataforma>PC</plataforma>
+        </plataformas>
+        <genero>Aventura</genero>
+        <precio>49.99</precio>
+        <valoracion>9.6</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ004">
+        <titulo>Cyberpunk 2077</titulo>
+        <desarrolladora>CD Projekt Red</desarrolladora>
+        <año>2020</año>
+        <plataformas>
+            <plataforma>PC</plataforma>
+            <plataforma>PlayStation 5</plataforma>
+            <plataforma>Xbox Series X</plataforma>
+        </plataformas>
+        <genero>RPG</genero>
+        <precio>59.99</precio>
+        <valoracion>7.8</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ005">
+        <titulo>Elden Ring</titulo>
+        <desarrolladora>FromSoftware</desarrolladora>
+        <año>2022</año>
+        <plataformas>
+            <plataforma>PC</plataforma>
+            <plataforma>PlayStation 4</plataforma>
+            <plataforma>PlayStation 5</plataforma>
+            <plataforma>Xbox One</plataforma>
+            <plataforma>Xbox Series X</plataforma>
+        </plataformas>
+        <genero>RPG</genero>
+        <precio>59.99</precio>
+        <valoracion>9.4</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ006">
+        <titulo>Minecraft</titulo>
+        <desarrolladora>Mojang Studios</desarrolladora>
+        <año>2011</año>
+        <plataformas>
+            <plataforma>PC</plataforma>
+            <plataforma>Nintendo Switch</plataforma>
+            <plataforma>PlayStation 4</plataforma>
+            <plataforma>Xbox One</plataforma>
+            <plataforma>Mobile</plataforma>
+        </plataformas>
+        <genero>Sandbox</genero>
+        <precio>26.95</precio>
+        <valoracion>9.0</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ007">
+        <titulo>Halo Infinite</titulo>
+        <desarrolladora>343 Industries</desarrolladora>
+        <año>2021</año>
+        <plataformas>
+            <plataforma>PC</plataforma>
+            <plataforma>Xbox One</plataforma>
+            <plataforma>Xbox Series X</plataforma>
+        </plataformas>
+        <genero>Shooter</genero>
+        <precio>59.99</precio>
+        <valoracion>8.2</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ008">
+        <titulo>Spider-Man: Miles Morales</titulo>
+        <desarrolladora>Insomniac Games</desarrolladora>
+        <año>2020</año>
+        <plataformas>
+            <plataforma>PlayStation 4</plataforma>
+            <plataforma>PlayStation 5</plataforma>
+            <plataforma>PC</plataforma>
+        </plataformas>
+        <genero>Acción</genero>
+        <precio>49.99</precio>
+        <valoracion>8.8</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ009">
+        <titulo>Hollow Knight</titulo>
+        <desarrolladora>Team Cherry</desarrolladora>
+        <año>2017</año>
+        <plataformas>
+            <plataforma>PC</plataforma>
+            <plataforma>Nintendo Switch</plataforma>
+            <plataforma>PlayStation 4</plataforma>
+            <plataforma>Xbox One</plataforma>
+        </plataformas>
+        <genero>Metroidvania</genero>
+        <precio>14.99</precio>
+        <valoracion>9.1</valoracion>
+    </videojuego>
+    
+    <videojuego id="VJ010">
+        <titulo>FIFA 24</titulo>
+        <desarrolladora>EA Sports</desarrolladora>
+        <año>2023</año>
+        <plataformas>
+            <plataforma>PC</plataforma>
+            <plataforma>PlayStation 4</plataforma>
+            <plataforma>PlayStation 5</plataforma>
+            <plataforma>Xbox One</plataforma>
+            <plataforma>Xbox Series X</plataforma>
+            <plataforma>Nintendo Switch</plataforma>
+        </plataformas>
+        <genero>Deportes</genero>
+        <precio>69.99</precio>
+        <valoracion>6.5</valoracion>
+    </videojuego>
+    
+</catalogo>
