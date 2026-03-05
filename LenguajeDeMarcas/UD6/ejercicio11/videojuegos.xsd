@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:simpleType name="validarAnio">
+    <xs:restriction base="xs:integer">
+        <xs:minInclusive value="1970"/>
+        <xs:maxInclusive value="2100"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="valoracion">
+    <xs:restriction base="xs:decimal">
+        <xs:minInclusive value="0.0"></xs:minInclusive>
+        <xs:maxInclusive value="10.0"></xs:maxInclusive>
+        <xs:fractionDigits value="1"></xs:fractionDigits>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="tipoPrecio">
+    <xs:restriction base="xs:decimal">
+        <xs:minExclusive value="0.0"></xs:minExclusive>
+        <xs:fractionDigits value="2"></xs:fractionDigits>
+    </xs:restriction>
+</xs:simpleType>
+
     <xs:element name="catalogo">
         <xs:complexType>
             <xs:sequence>
-            <xs:element name="videojuego" maxOccurs="unbounded">
+            <xs:element name="videojuego" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="titulo" type="xs:string"></xs:element>
                         <xs:element name="desarrolladora" type="xs:string"></xs:element>
-                        <xs:element name="año" type="xs:integer"></xs:element>
+                        <xs:element name="año" type="validarAnio"></xs:element>
                         <xs:element name="plataformas">
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="plataforma" type="xs:string" maxOccurs="unbounded"></xs:element>
+                                    <xs:element name="plataforma" type="xs:string" minOccurs="1"  maxOccurs="unbounded"></xs:element>
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
                         <xs:element name="genero" type="xs:string"></xs:element>
-                        <xs:element name="precio" type="xs:decimal"></xs:element>
-                        <xs:element name="valoracion" type="xs:decimal"></xs:element>
+                        <xs:element name="precio" type="tipoPrecio"></xs:element>
+                        <xs:element name="valoracion" type="valoracion"></xs:element>
                     </xs:sequence>
                 <xs:attribute name="id" type="xs:ID" use="required"></xs:attribute>
                 </xs:complexType>
