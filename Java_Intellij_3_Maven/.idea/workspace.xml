@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4948590c-7ea7-485e-8396-cc73d49ecc30" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/Ejercicio10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/Ejercicio10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/archivo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ejercicios1/Ej10/archivo.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Alumnos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Demo1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Demo1Serializar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/programaAlumnosJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/programaAlumnosJSON.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +40,9 @@
     &quot;accountId&quot;: &quot;089f2652-e199-4291-9933-edd1d0e29166&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -52,6 +57,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Demo1.executor": "Run",
+    "Application.Demo1Serializar.executor": "Run",
+    "Application.Demo2Deserializar.executor": "Run",
     "Application.Ejercicio10.executor": "Run",
     "Application.Ejercicio7.executor": "Run",
     "Application.programaAlumnosJSON.executor": "Run",

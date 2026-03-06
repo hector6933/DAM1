@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Alumnos>
-    <alumnos>
-        <apellidos>Apellido 1</apellidos>
-        <dni>19491836R</dni>
-        <edad>33</edad>
-        <fechaMatricula>2025-01-01T00:00:00+01:00</fechaMatricula>
+<alumnos>
+    <alumno>
         <id>0</id>
         <nombre>Nombre 1</nombre>
-    </alumnos>
-    <alumnos>
-        <apellidos>Apellido 2</apellidos>
-        <dni>49030103T</dni>
-        <edad>69</edad>
-        <fechaMatricula>2009-12-03T00:00:00+01:00</fechaMatricula>
+        <apellidos>Apellido 1</apellidos>
+        <edad>33</edad>
+        <dni>19491836R</dni>
+        <fechaMatricula>2025-01-01T00:00:00+01:00</fechaMatricula>
+        <curso>DAM1</curso>
+        <notas/>
+    </alumno>
+    <alumno>
         <id>1</id>
         <nombre>Nombre 2</nombre>
-    </alumnos>
-    <alumnos>
-        <apellidos>Apellido 3</apellidos>
-        <dni>12312352F</dni>
-        <edad>22</edad>
-        <fechaMatricula>2020-12-03T00:00:00+01:00</fechaMatricula>
+        <apellidos>Apellido 2</apellidos>
+        <edad>69</edad>
+        <dni>49030103T</dni>
+        <fechaMatricula>2009-12-03T00:00:00+01:00</fechaMatricula>
+        <curso>DAM1</curso>
+        <notas/>
+    </alumno>
+    <alumno>
         <id>2</id>
         <nombre>Nombre 3</nombre>
-    </alumnos>
-    <alumnos>
-        <apellidos>Apellido 4</apellidos>
-        <dni>93898328R</dni>
-        <edad>5</edad>
-        <fechaMatricula>1990-12-03T00:00:00+01:00</fechaMatricula>
+        <apellidos>Apellido 3</apellidos>
+        <edad>22</edad>
+        <dni>12312352F</dni>
+        <fechaMatricula>2020-12-03T00:00:00+01:00</fechaMatricula>
+        <curso>DAM1</curso>
+        <notas/>
+    </alumno>
+    <alumno>
         <id>3</id>
         <nombre>Nombre 4</nombre>
-    </alumnos>
-    <alumnos>
-        <apellidos>Apellido 5</apellidos>
-        <dni>I293I3G</dni>
-        <edad>100</edad>
-        <fechaMatricula>2026-12-03T00:00:00+01:00</fechaMatricula>
+        <apellidos>Apellido 4</apellidos>
+        <edad>5</edad>
+        <dni>93898328R</dni>
+        <fechaMatricula>1990-12-03T00:00:00+01:00</fechaMatricula>
+        <curso>DAM1</curso>
+        <notas/>
+    </alumno>
+    <alumno>
         <id>4</id>
         <nombre>Nombre 5</nombre>
-    </alumnos>
-</Alumnos>
+        <apellidos>Apellido 5</apellidos>
+        <edad>100</edad>
+        <dni>I293I3G</dni>
+        <fechaMatricula>2026-12-03T00:00:00+01:00</fechaMatricula>
+        <curso>DAM1</curso>
+        <notas/>
+    </alumno>
+</alumnos>

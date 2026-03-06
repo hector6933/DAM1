@@ -6,8 +6,9 @@
     "edad" : 33,
     "dni" : "19491836R",
     "fechaMatricula" : 1735686000000,
-    "notas" : null,
-    "asignaturas" : null
+    "curso" : "DAM1",
+    "notas" : { },
+    "asignaturas" : [ ]
   }, {
     "id" : 1,
     "nombre" : "Nombre 2",
@@ -15,8 +16,9 @@
     "edad" : 69,
     "dni" : "49030103T",
     "fechaMatricula" : 1259794800000,
-    "notas" : null,
-    "asignaturas" : null
+    "curso" : "DAM1",
+    "notas" : { },
+    "asignaturas" : [ ]
   }, {
     "id" : 2,
     "nombre" : "Nombre 3",
@@ -24,8 +26,9 @@
     "edad" : 22,
     "dni" : "12312352F",
     "fechaMatricula" : 1606950000000,
-    "notas" : null,
-    "asignaturas" : null
+    "curso" : "DAM1",
+    "notas" : { },
+    "asignaturas" : [ ]
   }, {
     "id" : 3,
     "nombre" : "Nombre 4",
@@ -33,8 +36,9 @@
     "edad" : 5,
     "dni" : "93898328R",
     "fechaMatricula" : 660178800000,
-    "notas" : null,
-    "asignaturas" : null
+    "curso" : "DAM1",
+    "notas" : { },
+    "asignaturas" : [ ]
   }, {
     "id" : 4,
     "nombre" : "Nombre 5",
@@ -42,7 +46,8 @@
     "edad" : 100,
     "dni" : "I293I3G",
     "fechaMatricula" : 1796252400000,
-    "notas" : null,
-    "asignaturas" : null
+    "curso" : "DAM1",
+    "notas" : { },
+    "asignaturas" : [ ]
   } ]
 }

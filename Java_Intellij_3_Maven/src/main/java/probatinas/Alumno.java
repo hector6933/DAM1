@@ -1,12 +1,13 @@
 package probatinas;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-@XmlRootElement(name = "Alumno")
+@XmlRootElement
+@XmlType(propOrder = {"id","nombre","apellidos","edad","dni","fechaMatricula","curso","notas","asignaturas"})
 public class Alumno {
 
     private static int idSiguiente;
@@ -17,33 +18,43 @@ public class Alumno {
     private Integer edad;
     private String dni;
     private Date fechaMatricula;
+    private String curso;
 
     private HashMap<String, Double> notas;
     private ArrayList<String> asignaturas;
 
     public Alumno() {
-    }
 
-    public Alumno(String nombre, String apellidos, Integer edad, String dni, Date fechaMatricula) {
         id = idSiguiente;
         idSiguiente++;
+        this.notas = new HashMap<>();
+        this.asignaturas = new ArrayList<>();
+
+    }
+
+    public Alumno(String nombre, String apellidos, Integer edad, String dni, Date fechaMatricula, String curso) {
+
+        this();
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.edad = edad;
         this.dni = dni;
         this.fechaMatricula = fechaMatricula;
+        this.curso = curso;
     }
 
-    public Alumno(String nombre, String apellidos, Integer edad, String dni, Date fechaMatricula, HashMap<String, Double> notas, ArrayList<String> asignaturas) {
-        id = idSiguiente;
-        idSiguiente++;
+    public Alumno(String nombre, String apellidos, Integer edad, String dni, Date fechaMatricula, String curso, HashMap<String, Double> notas, ArrayList<String> asignaturas) {
+
+        this();
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.edad = edad;
         this.dni = dni;
         this.fechaMatricula = fechaMatricula;
+        this.curso = curso;
         this.notas = notas;
         this.asignaturas = asignaturas;
+
     }
 
     public String getNombre() {
@@ -118,14 +129,24 @@ public class Alumno {
         Alumno.idSiguiente = idSiguiente;
     }
 
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
     @Override
     public String toString() {
         return "Alumno{" +
-                "nombre='" + nombre + '\'' +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", edad=" + edad +
                 ", dni='" + dni + '\'' +
                 ", fechaMatricula=" + fechaMatricula +
+                ", curso='" + curso + '\'' +
                 ", notas=" + notas +
                 ", asignaturas=" + asignaturas +
                 '}';
