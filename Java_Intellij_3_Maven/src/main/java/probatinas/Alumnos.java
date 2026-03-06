@@ -48,7 +48,7 @@ public class Alumnos {
 
             }
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException x) {
 
             for (Alumno e: alumnos) {
 
