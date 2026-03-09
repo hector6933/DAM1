@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <alumnos>
     <alumno>
-        <id>0</id>
+        <id>ID0</id>
         <nombre>Nombre 1</nombre>
         <apellidos>Apellido 1</apellidos>
         <edad>33</edad>
@@ -11,7 +11,7 @@
         <notas/>
     </alumno>
     <alumno>
-        <id>1</id>
+        <id>ID1</id>
         <nombre>Nombre 2</nombre>
         <apellidos>Apellido 2</apellidos>
         <edad>69</edad>
@@ -21,7 +21,7 @@
         <notas/>
     </alumno>
     <alumno>
-        <id>2</id>
+        <id>ID2</id>
         <nombre>Nombre 3</nombre>
         <apellidos>Apellido 3</apellidos>
         <edad>22</edad>
@@ -31,7 +31,7 @@
         <notas/>
     </alumno>
     <alumno>
-        <id>3</id>
+        <id>ID3</id>
         <nombre>Nombre 4</nombre>
         <apellidos>Apellido 4</apellidos>
         <edad>5</edad>
@@ -41,7 +41,7 @@
         <notas/>
     </alumno>
     <alumno>
-        <id>4</id>
+        <id>ID4</id>
         <nombre>Nombre 5</nombre>
         <apellidos>Apellido 5</apellidos>
         <edad>100</edad>

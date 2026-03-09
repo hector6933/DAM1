@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +36,6 @@ public class Demo2Deserializar {
 
         // DESERIALIZAR DE XML
 
-
         Alumnos alumnosDam2 = null;
 
         try {
@@ -46,7 +44,6 @@ public class Demo2Deserializar {
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             alumnosDam2 = (Alumnos) unmarshaller.unmarshal(new File("src/main/java/probatinas/alumnos.xml"));
-
 
         } catch (JAXBException e) {
 
@@ -58,8 +55,6 @@ public class Demo2Deserializar {
         System.out.println("------------------------------");
         System.out.println("Alumnos DAM2: ");
         alumnosDam2.mostrarAlumnos();
-
-
 
 
     }

@@ -52,7 +52,7 @@ public class Alumnos {
 
             for (Alumno e: alumnos) {
 
-                if (e.getCurso().equalsIgnoreCase(parametro) || e.getDni().equalsIgnoreCase(parametro) || e.getNombre().equalsIgnoreCase(parametro)) {
+                if (e.getCurso().equalsIgnoreCase(parametro) || e.getDni().equalsIgnoreCase(parametro) || e.getNombre().equalsIgnoreCase(parametro) || e.getId().equalsIgnoreCase(parametro)) {
 
                     busqueda.add(e);
 

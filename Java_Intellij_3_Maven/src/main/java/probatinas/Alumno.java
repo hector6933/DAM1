@@ -12,7 +12,7 @@ public class Alumno {
 
     private static int idSiguiente;
 
-    private int id;
+    private String id;
     private String nombre;
     private String apellidos;
     private Integer edad;
@@ -25,7 +25,7 @@ public class Alumno {
 
     public Alumno() {
 
-        id = idSiguiente;
+        id = "ID" + idSiguiente;
         idSiguiente++;
         this.notas = new HashMap<>();
         this.asignaturas = new ArrayList<>();
@@ -113,12 +113,12 @@ public class Alumno {
         this.apellidos = apellidos;
     }
 
-    public int getId() {
-        return id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public static int getIdSiguiente() {
