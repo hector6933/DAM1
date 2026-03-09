@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4948590c-7ea7-485e-8396-cc73d49ecc30" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Alumnos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Demo1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Demo1Serializar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/programaAlumnosJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/programaAlumnosJSON.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

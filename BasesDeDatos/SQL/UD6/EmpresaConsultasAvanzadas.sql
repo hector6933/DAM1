@@ -57,12 +57,55 @@ FROM empleado WHERE CodEmp != ALL (SELECT CodEmpDir FROM departamento) AND CodEm
 
 -- 5:
 SELECT AVG(TIMESTAMPDIFF(YEAR, FecNaEmp, CURDATE())) 
-FROM empleado WHERE CodEmp = (SELECT CodEmp 
+FROM empleado emp WHERE CodDep = ANY (SELECT CodDep 
 FROM departamento WHERE CodCen = (SELECT CodCen FROM centro WHERE PobCen LIKE 'Murcia'));
 
+-- 6:
+SELECT SUM(PreAnu) FROM departamento WHERE CodCen IN (SELECT CodCen FROM centro WHERE PobCen LIKE 'Cartagena');
+
+-- 7:
+SELECT COUNT(*) FROM empleado WHERE CodEmp IN (SELECT CodEmp FROM habemp);
+
+-- 8:
+SELECT COUNT(*) FROM empleado WHERE CodEmp NOT IN (SELECT CodEmp FROM habemp);
+
+-- 9:
+SELECT CodDep, NomDep, MAX(e.SalEmp) AS 'Salario máximo', MIN(e.SalEmp) AS 'Salario mínimo', AVG(e.SalEmp) AS 'Salario medio' FROM departamento dep NATURAL JOIN empleado e GROUP BY dep.CodDep;
+
+-- 10:
+SELECT CodEmp, NomEmp, COUNT(*) AS 'Habilidades' FROM empleado emp NATURAL JOIN habemp hemp GROUP BY emp.CodEmp;
+
+-- 11:
+SELECT CodDep, NomDep, COUNT(*) AS 'Número de habilidades' FROM departamento dep NATURAL LEFT JOIN empleado emp NATURAL RIGHT JOIN habemp hemp GROUP BY dep.CodDep;
+
+-- 12:
+SELECT cen.CodCen, cen.NomCen, COUNT(*) FROM 
+centro cen LEFT JOIN departamento dep ON cen.CodCen=dep.CodCen
+NATURAL LEFT JOIN empleado emp NATURAL RIGHT JOIN habemp hemp 
+GROUP BY cen.CodCen;
+
+-- 13:
+SELECT dep.CodDep, dep.NomDep, cen.CodCen, cen.NomCen, COUNT(*) FROM centro cen LEFT JOIN departamento dep ON dep.CodCen=cen.CodCen NATURAL LEFT JOIN empleado emp NATURAL RIGHT JOIN habemp hemp GROUP BY dep.CodDep;
+
+-- 14:
+SELECT cen.NomCen, AVG(dep.PreAnu) FROM centro cen LEFT JOIN departamento dep ON cen.CodCen=dep.CodCen WHERE dep.PreAnu > 25000000 GROUP BY cen.CodCen ORDER BY AVG(dep.PreAnu) DESC;
+
+-- 15:
+SELECT cen.PobCen, SUM(emp.SalEmp) AS 'Total Salarios' FROM centro cen LEFT JOIN departamento dep ON cen.CodCen=dep.CodCen NATURAL LEFT JOIN empleado emp GROUP BY cen.PobCen;
+
+-- 16:
+SELECT dep.NomDep, (SELECT COUNT(*) FROM empleado emp WHERE dep.CodDep=emp.CodDep) AS 'Numero empleados' FROM departamento dep WHERE (SELECT COUNT(*) FROM empleado emp WHERE dep.CodDep=emp.CodDep) > 3;
+
+-- 17:
+SELECT cen.NomCen, (SELECT COUNT(*) FROM empleado NATURAL LEFT JOIN departamento dep WHERE dep.CodCen=cen.CodCen) FROM centro cen WHERE (SELECT COUNT(*) FROM empleado NATURAL LEFT JOIN departamento dep WHERE dep.CodCen=cen.CodCen) > 3;
+
+-- 18:
+
+
+SELECT * FROM centro;
 SELECT * FROM departamento;
 SELECT * FROM empleado;
-SELECT * FROM centro;
+SELECT * FROM habemp;
 
 
 
