@@ -46,7 +46,7 @@ public class Ejercicio4 {
 
         lista.sort(Map.Entry.comparingByValue());
 
-        System.out.println(lista.reversed().stream().limit(4).toList());
+        System.out.println(lista.reversed().stream().limit(3).toList());
 
 
 // Compruebo las 4 palabras más frecuentes mediante la forma que se me ha ocurrido
