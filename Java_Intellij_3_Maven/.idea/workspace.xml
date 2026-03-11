@@ -4,13 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="b6e24ce0-f5e9-48c6-b754-97d7b1d5c886" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/probatinas/Demo3RegistrosAleatorios.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnosBackup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Alumno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Alumnos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/DatabaseProoll2000_JSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/DatabaseProoll2000_JSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Demo1Serializar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Demo1Serializar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3AlmUUJCNu7aKosD7qjPOTl5ilh" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
@@ -24,6 +50,11 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/probatinas" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -33,8 +64,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="b6e24ce0-f5e9-48c6-b754-97d7b1d5c886" name="Changes" comment="" />
+      <created>1773175547075</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+      <updated>1773175547075</updated>
     </task>
     <servers />
   </component>

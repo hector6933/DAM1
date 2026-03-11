@@ -3,6 +3,8 @@ package probatinas;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @XmlRootElement
 public class Alumnos {
@@ -74,6 +76,33 @@ public class Alumnos {
         }
 
     }
+
+    public Integer devolverUltimoId(){
+
+        String ultimoId = alumnos.getLast().getId();
+
+        Matcher matcherId = Pattern.compile("\\d+").matcher(ultimoId);
+
+        int idActual = 0;
+
+        try {
+
+            if (matcherId.find()) {
+
+                idActual = Integer.parseInt(matcherId.group());
+
+            }
+
+        } catch (NumberFormatException e) {
+
+            System.out.println("Error al parsear el ID del alumno");
+
+        }
+
+        return idActual;
+
+    }
+
 
 
 }

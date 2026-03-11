@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+
+
 @XmlRootElement
 @XmlType(propOrder = {"id","nombre","apellidos","edad","dni","fechaMatricula","curso","notas","asignaturas"})
 public class Alumno {
@@ -136,6 +138,8 @@ public class Alumno {
     public void setCurso(String curso) {
         this.curso = curso;
     }
+
+
 
     @Override
     public String toString() {
