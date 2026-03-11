@@ -59,6 +59,52 @@ public class DatabaseProoll2000_JSON {
 
     }
 
+    public static void escribirRegistros(Alumnos alumnos) throws IOException {
+
+        // SERIALIZAR ALUMNOS A JSON
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/java/probatinas/alumnos.json"), alumnos);
+
+        } catch (IOException e) {
+
+            throw new IOException("Error al serializar a JSON");
+
+        }
+
+        System.out.println("Registros insertados correctamente !");
+
+    }
+
+    public static Alumnos devolverRegistros(String parametro){
+
+        Alumnos alumnos = getAlumnosJson();
+
+        if (alumnos == null) {
+
+            System.out.println("No hay alumnos en el archivo !!!");
+
+        }
+
+       alumnos.setAlumnos(alumnos.buscarAlumnos(parametro));
+
+        if (alumnos.getAlumnos().isEmpty()) {
+
+            System.out.println("No hay coincidencias con la búsqueda !!!");
+
+        } else {
+
+            return alumnos;
+
+        }
+
+        return null;
+
+    }
+
     public static void mostrarRegistros(String parametro) {
 
         Alumnos alumnos = getAlumnosJson();
@@ -114,6 +160,7 @@ public class DatabaseProoll2000_JSON {
                         break;
                     case 2:
                         System.out.println("Introduce un parámetro de búsqueda (Curso,DNI,Nombre,Edad,ID):");
+                        System.out.print("> ");
                         String parametro = leer.nextLine();
                         mostrarRegistros(parametro);
 
@@ -374,7 +421,7 @@ public class DatabaseProoll2000_JSON {
 
     }
 
-    public static void insertarRegistros(Alumnos insertar) throws IOException {
+    public static void addRegistros(Alumnos insertar) throws IOException {
 
         Alumnos alumnos = getAlumnosJson();
 
@@ -402,13 +449,170 @@ public class DatabaseProoll2000_JSON {
 
     }
 
+    public static void alterarAlumnos(Alumnos alumnos){
+
+        Scanner leer = new Scanner(System.in);
+
+        do {
+            System.out.println("Escribe el campo que quieres alterar: ");
+            System.out.println("Nombre, Apellidos, Edad, Dni, Curso");
+            System.out.print("> ");
+            String opt = leer.nextLine();
+
+            if (opt.equalsIgnoreCase("nombre")) {
+
+                String nombre = pedirNombre();
+                for (Alumno e: alumnos.getAlumnos()) {
+
+                    e.setNombre(nombre);
+
+                }
+
+            } else if (opt.equalsIgnoreCase("apellidos")) {
+
+                String apellidos = pedirApellidos();
+                for (Alumno e: alumnos.getAlumnos()) {
+
+                    e.setApellidos(apellidos);
+
+                }
+
+            } else if (opt.equalsIgnoreCase("edad")) {
+
+                int edad = pedirEdad();
+                for (Alumno e: alumnos.getAlumnos()) {
+
+                    e.setEdad(edad);
+
+                }
+
+            } else if (opt.equalsIgnoreCase("dni")) {
+
+                String dni = pedirDni();
+                for (Alumno e: alumnos.getAlumnos()) {
+
+                    e.setDni(dni);
+
+                }
+
+            } else if (opt.equalsIgnoreCase("curso")) {
+
+                String curso = pedirCurso();
+                for (Alumno e: alumnos.getAlumnos()) {
+
+                    e.setCurso(curso);
+
+                }
+
+            } else {
+
+                System.out.println("Opción inválida !!!");
+                continue;
+            }
+
+            break;
+
+        } while (true);
+
+
+        Alumnos alumnosJson = getAlumnosJson();
+        int i = 0;
+        for (Alumno e: alumnosJson.getAlumnos()) {
+
+            for (Alumno f: alumnos.getAlumnos()) {
+
+                if (e.getId().equals(f.getId())) {
+
+                    alumnosJson.getAlumnos().set(i,f);
+
+                }
+
+            }
+
+            i++;
+
+        }
+
+        try {
+
+            escribirRegistros(alumnosJson);
+
+        } catch (IOException e) {
+
+            System.out.println("Error al insertar los registros !!!");
+
+        }
+
+    }
+
+    public static Alumnos seleccionarRegistros(){
+
+        Scanner leer = new Scanner(System.in);
+
+        Alumnos alumnos = null;
+
+        do {
+
+            System.out.println("Selecciona los registros: ");
+            System.out.println("Introduce un parámetro de búsqueda (Curso,DNI,Nombre,Edad,ID):");
+            System.out.print("> ");
+            String parametro = leer.nextLine();
+
+            alumnos = devolverRegistros(parametro);
+
+            if (alumnos == null) {
+
+                continue;
+
+            }
+
+            System.out.println("Registros seleccionados: ");
+
+            alumnos.mostrarAlumnos();
+
+            boolean continuar = true;
+            do {
+
+                System.out.println("¿Continuar? (S/N)");
+                String opt = leer.nextLine();
+
+                if (opt.equalsIgnoreCase("S")) {
+
+                    break;
+
+                } else if (opt.equalsIgnoreCase("N")) {
+
+                    continuar = false;
+                    break;
+
+                } else {
+
+                    System.out.println("Opción inválida !");
+
+                }
+
+            } while (true);
+
+            if (continuar) {
+
+                break;
+
+            }
+
+        } while (true);
+
+        return alumnos;
+
+    }
+
+
     public static void modificarAlumnos(){
 
         Scanner leer = new Scanner(System.in);
 
-        System.out.println("1 - Insertar alumnos");
-        System.out.println("2 - Eliminar alumnos");
-        System.out.println("3 - Modificar alumnos");
+        System.out.println("1 - Insertar registros");
+        System.out.println("2 - Eliminar registros");
+        System.out.println("3 - Alterar registros");
         System.out.print("> ");
 
         try {
@@ -421,7 +625,7 @@ public class DatabaseProoll2000_JSON {
 
                     try {
 
-                        insertarRegistros(crearAlumnos());
+                        addRegistros(crearAlumnos());
 
                     } catch (IOException e) {
 
@@ -433,6 +637,7 @@ public class DatabaseProoll2000_JSON {
                 case 2:
                     break;
                 case 3:
+                    alterarAlumnos(seleccionarRegistros());
                     break;
                 default:
                     System.out.println("Opción inválida !!!");

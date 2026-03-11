@@ -1,7 +1,7 @@
 {
   "alumnos" : [ {
     "id" : "ID0",
-    "nombre" : "Nombre 1",
+    "nombre" : "Colegón",
     "apellidos" : "Apellido 1",
     "edad" : 33,
     "dni" : "19491836R",
@@ -21,7 +21,7 @@
     "asignaturas" : [ ]
   }, {
     "id" : "ID2",
-    "nombre" : "Nombre 3",
+    "nombre" : "Pascual",
     "apellidos" : "Apellido 3",
     "edad" : 22,
     "dni" : "12312352F",
@@ -47,46 +47,6 @@
     "dni" : "I293I3G",
     "fechaMatricula" : 1796252400000,
     "curso" : "DAM1",
-    "notas" : { },
-    "asignaturas" : [ ]
-  }, {
-    "id" : "ID5",
-    "nombre" : "pepe",
-    "apellidos" : "pepez",
-    "edad" : 67,
-    "dni" : "12345678A",
-    "fechaMatricula" : -2566515600000,
-    "curso" : "SMR2",
-    "notas" : { },
-    "asignaturas" : [ ]
-  }, {
-    "id" : "ID6",
-    "nombre" : "Pascuak",
-    "apellidos" : "Perez Bagán",
-    "edad" : 100,
-    "dni" : "67676767A",
-    "fechaMatricula" : 1741647600000,
-    "curso" : "DAM2",
-    "notas" : { },
-    "asignaturas" : [ ]
-  }, {
-    "id" : "ID7",
-    "nombre" : "Juan Manuel",
-    "apellidos" : "Moreno Sanz",
-    "edad" : 0,
-    "dni" : "87654321P",
-    "fechaMatricula" : -33736611600000,
-    "curso" : "DAM2",
-    "notas" : { },
-    "asignaturas" : [ ]
-  }, {
-    "id" : "ID8",
-    "nombre" : "Lidia",
-    "apellidos" : "Guillem",
-    "edad" : 20,
-    "dni" : "10293847R",
-    "fechaMatricula" : 1550185200000,
-    "curso" : "DAM2",
     "notas" : { },
     "asignaturas" : [ ]
   } ]
