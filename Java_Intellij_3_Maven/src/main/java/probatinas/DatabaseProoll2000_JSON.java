@@ -605,7 +605,6 @@ public class DatabaseProoll2000_JSON {
 
     }
 
-
     public static void modificarAlumnos(){
 
         Scanner leer = new Scanner(System.in);

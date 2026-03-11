@@ -49,5 +49,15 @@
     "curso" : "DAM1",
     "notas" : { },
     "asignaturas" : [ ]
+  }, {
+    "id" : "ID5",
+    "nombre" : "Alonso",
+    "apellidos" : "Soriano Maicas",
+    "edad" : 18,
+    "dni" : "29367194G",
+    "fechaMatricula" : 1596319200000,
+    "curso" : "SMR2",
+    "notas" : { },
+    "asignaturas" : [ ]
   } ]
 }
