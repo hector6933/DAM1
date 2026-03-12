@@ -111,6 +111,7 @@ public class Demo3RegistrosAleatorios {
             String dni = generarDni();
 
             Date fechaMatricula = null;
+
             try {
 
                 fechaMatricula = generarFecha();

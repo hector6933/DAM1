@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b6e24ce0-f5e9-48c6-b754-97d7b1d5c886" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../ED_UD4_Practica4" beforeDir="false" afterPath="$PROJECT_DIR$/../ED_UD4_Practica4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/DatabaseProoll2000_JSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/DatabaseProoll2000_JSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/Demo3RegistrosAleatorios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/Demo3RegistrosAleatorios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/probatinas/alumnos.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

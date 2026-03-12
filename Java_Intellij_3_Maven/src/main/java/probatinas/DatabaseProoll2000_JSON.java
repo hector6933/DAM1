@@ -651,6 +651,13 @@ public class DatabaseProoll2000_JSON {
 
     }
 
+    public static void eliminarRegistros(Alumnos alumnos){
+
+
+
+    }
+
+
     public static void main(String[] args) {
 
         Scanner leer = new Scanner(System.in);
