@@ -24,7 +24,7 @@ public class Ejercicio1 {
 
             if (randoms.stream().filter(a -> a.equals(e)).count() == 1) {
 
-                System.out.println("El primer número que NO se repite es el: " + e);
+                System.out.println("El primer número que no se repite es " + e);
                 return;
 
             }
