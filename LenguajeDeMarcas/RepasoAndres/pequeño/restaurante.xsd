@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="empresa">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="departamentos">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="departamento" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nombre"></xs:element>
+                                        <xs:element name="ubicacion"></xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:ID" use="required"></xs:attribute>
+                                    <xs:attribute name="codigo" type="xs:string" use="required"></xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="empleados">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="empleado" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nombreCompleto" type="xs:string"></xs:element>
+                                        <xs:element name="apellidos" type="xs:string"></xs:element>
+                                        <xs:element name="fechaNacimiento" type="xs:date"></xs:element>
+                                        <xs:element name="departamentoRef">
+                                            <xs:complexType>
+                                                <xs:attribute name="refDept" type="xs:IDREF" ></xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="email" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+                                        <xs:element name="telefono" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="dni" type="xs:ID"></xs:attribute>
+                                    <xs:attribute name="numEmpleado" type="xs:string"></xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,25 @@
+<!ELEMENT plataforma (cursos,estudiantes)>
+<!ELEMENT cursos (curso+)>
+<!ELEMENT curso (titulo,descripcion,duracion,nivel,precio,fechaInicio)>
+
+<!ELEMENT titulo (#PCDATA)>
+<!ELEMENT descripcion (#PCDATA)>
+<!ELEMENT duracion (#PCDATA)>
+<!ELEMENT nivel (#PCDATA)>
+<!ELEMENT precio (#PCDATA)>
+<!ELEMENT fechaInicio (#PCDATA)>
+<!ATTLIST curso id ID #REQUIRED>
+
+<!ELEMENT estudiantes (estudiante+)>
+
+<!ELEMENT estudiante (nombre,email,fechaNacimiento,cursosMatriculados)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT fechaNacimiento (#PCDATA)>
+<!ELEMENT cursosMatriculados (cursoRef+)>
+
+<!ELEMENT cursoRef (#PCDATA)>
+<!ATTLIST cursoRef refCurso IDREF #REQUIRED>
+
+
+<!ATTLIST estudiante id ID #REQUIRED>
