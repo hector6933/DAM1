@@ -1,4 +1,5 @@
 {
     "editor.fontWeight": "bold",
-    "editor.fontFamily": "JetBrains Mono Bold"
+    "editor.fontFamily": "JetBrains Mono Bold",
+    "editor.stickyTabStops": true
 }

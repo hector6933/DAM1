@@ -1,0 +1,31 @@
+<!ELEMENT libro (autores,editorial,sinopsis,categorias?,precio?)>
+<!ELEMENT autores (autor+)>
+
+<!ELEMENT autor (nombre,apellidos,nacionalidad,biografia?,foto?,web?)>
+
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT apellidos (#PCDATA)>
+<!ELEMENT nacionalidad (#PCDATA)>
+<!ELEMENT biografia (#PCDATA)>
+<!ELEMENT foto (#PCDATA)>
+<!ELEMENT web (#PCDATA)>
+
+<!ELEMENT editorial (#PCDATA)>
+<!ELEMENT sinopsis (#PCDATA)>
+
+<!ELEMENT categorias (categoria*)>
+
+<!ELEMENT categoria EMPTY>
+<!ELEMENT precio (#PCDATA)>
+
+
+<!ATTLIST libro isbn ID #REQUIRED>
+<!ATTLIST libro idioma (es | en | fr | de) #REQUIRED>
+<!ATTLIST libro formato (tapa_dura | tapa_blanda | ebook) "tapa_blanda">
+
+<!ATTLIST autor id ID #REQUIRED>
+<!ATTLIST autor rol (autor | coautor | traductor) "autor">
+
+<!ATTLIST categoria nombre CDATA #REQUIRED>
+
+<!ATTLIST precio moneda CDATA "EUR">

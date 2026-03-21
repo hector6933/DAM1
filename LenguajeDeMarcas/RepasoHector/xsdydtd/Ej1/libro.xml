@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE libro SYSTEM "libro.dtd">-->
+<libro isbn="ISBN-1234567890" idioma="es" formato="tapa_dura" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="libro.xsd">
+    <autores>
+        <autor id="A1" rol="coautor">
+            <nombre></nombre>
+            <apellidos></apellidos>
+            <nacionalidad></nacionalidad>
+            <web></web>
+        </autor>
+    </autores>
+    <editorial></editorial>
+    <sinopsis></sinopsis>
+    <categorias>
+        <categoria nombre=""></categoria>
+        <categoria nombre=""></categoria>
+        <categoria nombre=""></categoria>
+    </categorias>
+    <precio moneda="EUR">
+        <valor>2.2</valor>
+    </precio>
+</libro>
