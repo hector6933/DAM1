@@ -28,8 +28,9 @@ VALUES
 UPDATE factura SET 
 importe = importe + ((SELECT SUM(d1.PrecioUnitaro * d1.NumeroUnidades) FROM detallefactura d1 WHERE CodFactura = 4));
 
-UPDATE factura SET importe = 0 WHERE CodFactura = 4;
-SELECT * FROM factura WHERE CodFactura = 4;
+-- Probar
+-- UPDATE factura SET importe = 0 WHERE CodFactura = 4;
+-- SELECT * FROM factura WHERE CodFactura = 4;
 -- 7 
 
 SELECT * FROM detallefactura WHERE CodFactura = 4;
