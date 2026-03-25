@@ -28,12 +28,16 @@ VALUES
 UPDATE factura SET 
 importe = importe + ((SELECT SUM(d1.PrecioUnitaro * d1.NumeroUnidades) FROM detallefactura d1 WHERE CodFactura = 4));
 
--- Probar
+-- Probatinas
 -- UPDATE factura SET importe = 0 WHERE CodFactura = 4;
 -- SELECT * FROM factura WHERE CodFactura = 4;
--- 7 
 
-SELECT * FROM detallefactura WHERE CodFactura = 4;
+-- 7:
+INSERT INTO prestamo ()
+VALUES (6,1,CURDATE(),(SELECT DNI FROM cliente WHERE Nombre LIKE 'PEDRO MARTINEZ ROY')); 
+
+-- 8:
+
 
 
 
