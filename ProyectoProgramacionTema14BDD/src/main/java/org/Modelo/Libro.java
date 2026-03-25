@@ -26,4 +26,13 @@ public class Libro {
     public int getId_autor() {
         return id_autor;
     }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "titulo='" + titulo + '\'' +
+                ", precio=" + precio +
+                ", id_autor=" + id_autor +
+                '}';
+    }
 }

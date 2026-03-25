@@ -34,6 +34,7 @@ public class Demo1 {
             System.out.println("Elige: ");
             System.out.println("1 - Insertar");
             System.out.println("2 - Ver");
+            System.out.println("3 - Actualizar");
             System.out.println("0 - Salir");
             System.out.print("> ");
 
@@ -72,6 +73,7 @@ public class Demo1 {
                             } catch (NumberFormatException e) {
 
                                 System.out.println("Introduce un número !!!");
+                                salir2 = false;
 
                             }
 
@@ -83,8 +85,9 @@ public class Demo1 {
                         do {
 
                             salir2 = true;
-                            System.out.println("3 - Autores Y Libros");
+                            System.out.println("1 - Autores");
                             System.out.println("2 - Libros");
+                            System.out.println("3 - Autores Y Libros");
                             System.out.print("> ");
 
                             try {
@@ -93,8 +96,11 @@ public class Demo1 {
 
                                 switch (opt2) {
 
+                                    case 1:
+                                        AutorController.verAutores();
+                                        break;
                                     case 3:
-                                        AutorDAO.verAutoresConLibros();
+                                        AutorController.verAutoresConLibros();
                                         break;
                                     case 2:
                                         break;
@@ -107,10 +113,54 @@ public class Demo1 {
                             } catch (NumberFormatException e) {
 
                                 System.out.println("Introduce un número !!!");
+                                salir2 = false;
 
                             }
 
                         } while (!salir2);
+                        break;
+                    case 3:
+
+                        do {
+
+                            salir2 = true;
+
+                            System.out.println("¿Que quieres actualizar?");
+                            System.out.println("1 - Autores");
+                            System.out.println("2 - Libros");
+                            System.out.print("> ");
+
+                            try {
+
+                                int opt2 = Integer.parseInt(leer.nextLine());
+
+                                switch (opt2) {
+
+                                    case 1:
+
+                                        AutorController.actualizarAutores();
+
+                                        break;
+                                    case 3:
+
+                                        break;
+                                    case 2:
+                                        break;
+                                    default:
+                                        System.out.println("Opción inválida !!!");
+                                        salir2 = false;
+                                        break;
+                                }
+
+                            } catch (NumberFormatException e) {
+
+                                System.out.println("Introduce un número !!!");
+                                salir2 = false;
+
+                            }
+
+                        } while (!salir2);
+
                         break;
                     case 0:
                         System.out.println("Saliendo");
