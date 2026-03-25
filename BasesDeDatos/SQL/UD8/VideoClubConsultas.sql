@@ -10,7 +10,6 @@ INSERT INTO pelicula
 (CodPeli,Titulo,CodGenero,SegundaParte,CodActor) 
 VALUES
 (6,'Lo que el agua se llevó',(SELECT CodGenero FROM genero WHERE Descripcion LIKE 'Drama'),(SELECT p.CodPeli FROM pelicula p WHERE p.Titulo LIKE 'Lo que el viento se llev�'),(SELECT CodActor FROM actor WHERE Nombre LIKE 'Eva'));
-DELETE FROM pelicula WHERE CodPeli = 6;
 
 -- 4:
 INSERT INTO copia VALUES (1,6);
@@ -37,6 +36,11 @@ INSERT INTO prestamo ()
 VALUES (6,1,CURDATE(),(SELECT DNI FROM cliente WHERE Nombre LIKE 'PEDRO MARTINEZ ROY')); 
 
 -- 8:
+INSERT INTO interpretada ()
+VALUES (6,(SELECT CodActor FROM pelicula WHERE CodPeli = 6));
+
+-- 9:
+DELETE FROM pelicula WHERE CodPeli = 6;
 
 
 

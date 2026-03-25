@@ -1,0 +1,121 @@
+-- 1:
+DELETE FROM alum WHERE DNI IN (SELECT DNI FROM antiguo);
+
+-- 2:
+INSERT INTO emple ()
+VALUES
+(
+200,
+'saavedra',
+(SELECT e.OFICIO FROM emple e WHERE APELLIDO LIKE 'sala'),
+(SELECT e.DIR FROM emple e WHERE APELLIDO LIKE 'sala'), 
+CURDATE(),
+((SELECT e.SALARIO FROM emple e WHERE APELLIDO LIKE 'sala') * 1.20),
+(SELECT e.COMISION FROM emple e WHERE APELLIDO LIKE 'sala'),
+(SELECT e.DEPT_NO FROM emple e WHERE APELLIDO LIKE 'sala')
+);
+
+-- 3:
+UPDATE emple
+SET DEPT_NO = (SELECT d2.DEPT_NO FROM depart d2 WHERE d2.LOC LIKE 'BILBAO')
+WHERE
+APELLIDO = 'saavedra';
+
+-- 4:
+DELETE FROM depart WHERE DEPT_NO NOT IN (SELECT DEPT_NO FROM emple);
+
+-- 5:
+DELETE FROM centro WHERE COD_CENTRO NOT IN (SELECT COD_CENTRO FROM personal);
+
+-- 6:
+DELETE FROM personal pe WHERE COD_CENTRO 
+IN (SELECT COD_CENTRO FROM centro cen WHERE NUM_PLAZAS < 300)
+AND (SELECT COUNT(*) FROM profesor WHERE COD_CENTRO=pe.COD_CENTRO GROUP BY pe.COD_CENTRO) < 2;
+
+-- 7:
+DELETE FROM profesor p WHERE
+p.DNI NOT IN (SELECT DNI FROM personal);
+
+-- 8:
+INSERT INTO articulo ()
+VALUES
+(
+	'PI201',
+	'Pipas',
+	(SELECT f.COD FROM fabricante f WHERE NOMBRE LIKE 'PRESIDENT'),
+	1.00,
+	'Primera',
+	20.00,
+	10.00,
+	500
+	);
+	INSERT INTO venta ()
+	VALUES
+	(
+	(SELECT t.NIF FROM tienda t),
+	'PI201',
+	CURDATE(),
+	5
+);
+
+INSERT INTO pedido ()
+SELECT t.NIF, 'PI201',CURDATE(),5 FROM tienda t;
+
+-- 9:
+INSERT INTO tienda ()
+VALUES 
+(
+'6666-C',
+'Pascualería',
+'Calle Pascual Nº9 5C',
+'Madrid',
+'Madrid',
+'56009'
+);
+
+INSERT INTO pedido ()
+SELECT '6666-c', a.COD, CURDATE(), 20 FROM articulo a;
+
+-- 10:
+INSERT INTO tienda ()
+VALUES 
+(
+'7777-D',
+'Luisería',
+'Calle Luis Nº9 5C',
+'Sevilla',
+'Sevilla',
+'77220'
+),
+(
+'8888-F',
+'Alonsería',
+'Calle Alons Nº9 5C',
+'Sevilla',
+'Sevilla',
+'77220'
+);
+
+INSERT INTO pedido ()
+SELECT '7777-D', a.COD, CURDATE(), 20 FROM articulo a WHERE a.COD_FABRICANTE IN (SELECT COD FROM fabricante WHERE NOMBRE LIKE 'gallo');
+
+INSERT INTO pedido ()
+SELECT '8888-F', a.COD, CURDATE(), 20 FROM articulo a WHERE a.COD_FABRICANTE IN (SELECT COD FROM fabricante WHERE NOMBRE LIKE 'gallo');
+
+-- 11:
+UPDATE articulo a 
+SET a.CATEGORIA = 'Quinta'
+WHERE a.CATEGORIA LIKE 'Primera' 
+AND a.COD_FABRICANTE 
+IN (SELECT COD FROM fabricante WHERE PAIS LIKE 'ITALIA');
+
+-- 12:
+DELETE FROM articulo 
+WHERE
+COD NOT IN (SELECT COD_ARTICULO FROM venta) AND
+COD NOT IN (SELECT COD_ARTICULO FROM pedido);
+
+-- 13:
+UPDATE pedido
+SET UNIDADES_PEDIDAS = UNIDADES_PEDIDAS - 1 
+WHERE NIF LIKE '5555-B';
