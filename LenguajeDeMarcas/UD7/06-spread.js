@@ -51,4 +51,13 @@ const personaCompleta = {
 
 }
 
+const personaCompletisima = {
+
+    ...personaCompleta,
+    altura: 6.7,
+    peso: 0.0,
+    telefono: 6767676767
+
+}
+
 sout(personaCompleta)
