@@ -9,8 +9,7 @@ public final class Conexion {
 
     public static Connection conexionBase() throws SQLException {
 
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tienda_libros","root","1234");
-        return connection;
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/tienda_libros","root","1234");
 
 
     }
