@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="963fff05-88d6-40c2-b871-d9e7e1b245c6" name="Changes" comment="">
+    <list default="true" id="f03cdfc6-beb4-440c-9561-392bdffc30ff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-=======
-      <change beforePath="$PROJECT_DIR$/../Programacion Practica Temas 10 y 11/src/Ejercicio1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programacion Practica Temas 10 y 11/src/Ejercicio1.java" afterDir="false" />
->>>>>>> 6ecbb3fb94a36ca6d2a8c3d1da4626f91c923d53
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,11 +26,11 @@
     <commands />
     <urls />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
-  <component name="ProjectId" id="3At2Td5oQDeeL9ZHwQuz5zK9rmm" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3BR2NHeSLJUBoIDNvBdXYlpaP7c" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -42,21 +38,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Ej2.executor": "Run",
-    "Application.Ej3.executor": "Run",
-    "Application.Ej4.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Ejercicio10.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -66,11 +60,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="963fff05-88d6-40c2-b871-d9e7e1b245c6" name="Changes" comment="" />
-      <created>1773396800630</created>
+      <changelist id="f03cdfc6-beb4-440c-9561-392bdffc30ff" name="Changes" comment="" />
+      <created>1774437522574</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1773396800630</updated>
+      <updated>1774437522574</updated>
     </task>
     <servers />
   </component>

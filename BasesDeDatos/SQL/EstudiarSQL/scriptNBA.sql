@@ -1,0 +1,2 @@
+SELECT nombre FROM jugadores;
+

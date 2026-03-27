@@ -1,0 +1,95 @@
+-- Crear base de datos
+CREATE DATABASE concesionario;
+
+USE concesionario;
+
+-- =========================
+-- TABLA PERSONA
+-- =========================
+CREATE TABLE Persona (
+    dni VARCHAR(10) PRIMARY KEY,
+    nombre VARCHAR(50),
+    telefono VARCHAR(15),
+    edad INT
+);
+
+-- =========================
+-- TABLA VEHICULO
+-- =========================
+CREATE TABLE Vehiculo (
+    matricula VARCHAR(10) PRIMARY KEY,
+    propietario VARCHAR(10),
+    fecha_compra DATE,
+    modelo VARCHAR(50),
+
+    FOREIGN KEY (propietario) REFERENCES Persona(dni)
+);
+
+-- =========================
+-- TABLA MULTA
+-- =========================
+CREATE TABLE Multa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehiculo VARCHAR(10),
+    propietario VARCHAR(10),
+    fecha DATE,
+    euros DECIMAL(8,2),
+
+    FOREIGN KEY (vehiculo) REFERENCES Vehiculo(matricula),
+    FOREIGN KEY (propietario) REFERENCES Persona(dni)
+);
+
+-- =========================
+-- INSERTAR PERSONAS
+-- =========================
+
+INSERT INTO Persona VALUES
+('11111111A','Juan Perez','600111111',25),
+('22222222B','Maria Lopez','600222222',32),
+('33333333C','Carlos Ruiz','600333333',41),
+('44444444D','Ana Torres','600444444',29),
+('55555555E','Luis Gomez','600555555',37),
+('66666666F','Elena Diaz','600666666',45),
+('77777777G','Pedro Martin','600777777',22),
+('88888888H','Laura Sanchez','600888888',39),
+('99999999I','Jorge Romero','600999999',50),
+('10101010J','Sofia Navarro','601010101',27);
+
+
+-- =========================
+-- INSERTAR VEHICULOS
+-- =========================
+
+INSERT INTO Vehiculo VALUES
+('1234ABC','11111111A','2022-01-10','Toyota Corolla'),
+('2345BCD','22222222B','2021-05-12','Seat Ibiza'),
+('3456CDE','33333333C','2020-03-20','Ford Focus'),
+('4567DEF','44444444D','2023-02-15','BMW X1'),
+('5678EFG','55555555E','2019-11-01','Audi A3'),
+('6789FGH','66666666F','2018-07-07','Renault Clio'),
+('7890GHI','77777777G','2022-09-09','Kia Sportage'),
+('8901HIJ','88888888H','2021-12-12','Hyundai i30'),
+('9012IJK','99999999I','2020-06-30','Mercedes A'),
+('0123JKL','10101010J','2024-01-01','Tesla Model 3');
+
+
+-- =========================
+-- INSERTAR MULTAS
+-- =========================
+
+INSERT INTO Multa (vehiculo, propietario, fecha, euros) VALUES
+('1234ABC','11111111A','2024-01-10',100),
+('1234ABC','11111111A','2024-02-15',50),
+('2345BCD','22222222B','2023-12-01',200),
+('3456CDE','33333333C','2024-03-05',150),
+('4567DEF','44444444D','2024-01-20',80),
+('5678EFG','55555555E','2023-11-11',300),
+('6789FGH','66666666F','2024-02-02',120),
+('7890GHI','77777777G','2024-02-18',60),
+('8901HIJ','88888888H','2024-03-01',90),
+('9012IJK','99999999I','2024-03-03',500),
+('0123JKL','10101010J','2024-03-04',75),
+('4567DEF','44444444D','2024-03-06',40),
+('5678EFG','55555555E','2024-03-07',110),
+('6789FGH','66666666F','2024-03-08',95),
+('7890GHI','77777777G','2024-03-09',130);
