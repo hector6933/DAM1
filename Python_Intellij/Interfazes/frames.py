@@ -18,7 +18,16 @@ separacion = 20
 
 sexo = tk.BooleanVar(value=False)
 nivel = tk.BooleanVar(value=False)
-aficiones = tk.BooleanVar(value=False)
+
+cine = tk.BooleanVar(value=False)
+viaje = tk.BooleanVar(value=False)
+deportes = tk.BooleanVar(value=False)
+
+
+lunes = tk.BooleanVar(value=False)
+miercoles = tk.BooleanVar(value=False)
+viernes = tk.BooleanVar(value=False)
+
 frame.grid(row=0, column=0, padx=separacion, pady=separacion)
 etiqueta = tk.Label(frame, text="Sexo:")
 etiqueta.place(relx=0.15, rely=0.1)
@@ -33,14 +42,13 @@ frame2.grid(row=250, column=0, padx=separacion, pady=separacion)
 etiqueta2 = tk.Label(frame2, text="Aficiones:")
 etiqueta2.place(relx=0.15, rely=0.1)
 
-checkbutton1 = ttk.Checkbutton(frame2, text="Cine", variable=aficiones, onvalue=1)
-checkbutton2 = ttk.Checkbutton(frame2, text="Viajes", variable=aficiones,onvalue=2)
-checkbutton3 = ttk.Checkbutton(frame2, text="Deportes", variable=aficiones,onvalue=3)
+checkbutton1 = ttk.Checkbutton(frame2, text="Cine", variable=cine, onvalue=1, offvalue=0)
+checkbutton2 = ttk.Checkbutton(frame2, text="Viajes", variable=viaje, onvalue=2, offvalue=0)
+checkbutton3 = ttk.Checkbutton(frame2, text="Deportes", variable=deportes, onvalue=3, offvalue=0)
 
 checkbutton1.place(relx=0.15, rely=0.25)
 checkbutton2.place(relx=0.15, rely=0.40)
 checkbutton3.place(relx=0.15, rely=0.55)
-
 
 frame3.grid(row=0, column=250, padx=separacion, pady=separacion)
 etiqueta3 = tk.Label(frame3, text="Nivel de estudios:")
@@ -58,9 +66,9 @@ frame4.grid(row=250, column=250, padx=separacion, pady=separacion)
 etiqueta4 = tk.Label(frame4, text="Días disponibles:")
 etiqueta4.place(relx=0.15, rely=0.1)
 
-checkbutton3 = ttk.Checkbutton(frame4, text="Lunes")
-checkbutton4 = ttk.Checkbutton(frame4, text="Miércoles")
-checkbutton5 = ttk.Checkbutton(frame4, text="Viernes")
+checkbutton3 = ttk.Checkbutton(frame4, text="Lunes",variable=lunes, onvalue=3, offvalue=0)
+checkbutton4 = ttk.Checkbutton(frame4, text="Miércoles",variable=miercoles, onvalue=4, offvalue=0)
+checkbutton5 = ttk.Checkbutton(frame4, text="Viernes",variable=viernes, onvalue=5, offvalue=0)
 
 checkbutton3.place(relx=0.15, rely=0.25)
 checkbutton4.place(relx=0.15, rely=0.40)

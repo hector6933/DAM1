@@ -2,7 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import mainloop
 
+
 root = tk.Tk()
+
+contador = 0
 
 root.title("Ventana guapa")
 
