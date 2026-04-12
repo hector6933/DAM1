@@ -96,4 +96,51 @@ public final class ClienteDAO {
 
     }
 
+    public static Integer deleteCliente(String dni){
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("DELETE FROM cliente WHERE dni LIKE ?");
+
+            preparedStatement.setString(1,dni);
+
+            return preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+
+            System.out.println(ERROR);
+            e.printStackTrace();
+
+        }
+
+
+        return 0;
+
+    }
+
+    public static Integer updateCliente(String campoMod, String nuevoValor, String condicionColumna, String condicionValor){
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE cliente SET " + campoMod + " = ? WHERE "+ condicionColumna + " = ?");
+
+
+            preparedStatement.setString(1,nuevoValor);
+            preparedStatement.setString(2,condicionValor);
+
+            return preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+
+            System.out.println(ERROR);
+            e.printStackTrace();
+
+        }
+
+        return 0;
+
+    }
+
 }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public final class Conexion {
 
-    private static final String RUTA_BASE_DE_DATOS = "jdbc:mysql://localhost:3306/concesionariohector";
+    private static final String RUTA_BASE_DE_DATOS = "jdbc:mysql://localhost:3306/ConcesionarioHector";
     private static final String USUARIO_BASE = "root";
     private static final String PASSWD_BASE = "1234";
 

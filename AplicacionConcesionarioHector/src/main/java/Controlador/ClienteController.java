@@ -47,5 +47,19 @@ public final class ClienteController {
 
     }
 
+    public static boolean borrarCliente(String dni){
+
+        int rows = ClienteDAO.deleteCliente(dni);
+
+        return rows != 0;
+
+    }
+
+    public static Integer modificarCliente(String campoMod, String nuevoValor, String condicionColumna, String condicionValor){
+
+        return ClienteDAO.updateCliente(campoMod,nuevoValor,condicionColumna,condicionValor);
+
+    }
+
 
 }
