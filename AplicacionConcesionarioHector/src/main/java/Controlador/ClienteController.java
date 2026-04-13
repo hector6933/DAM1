@@ -3,11 +3,12 @@ package Controlador;
 import DAO.ClienteDAO;
 import Modelo.Cliente;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class ClienteController {
 
-    public static ArrayList<String> verClientes(){
+    public static ArrayList<String> verClientes() throws SQLException {
 
         ArrayList<String> tuplas = new ArrayList<>();
 

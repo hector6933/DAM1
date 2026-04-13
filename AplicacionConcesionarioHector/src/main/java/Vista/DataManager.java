@@ -1,14 +1,11 @@
-package Modelo;
+package Vista;
 
 import Controlador.ClienteController;
 import Controlador.EmpleadoController;
 import Controlador.VehiculoController;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -211,20 +208,63 @@ public final class DataManager {
 
             }
 
-
         } while (true);
 
     }
 
     public static String pedirValorCliente(String columna) {
 
-        return switch (columna.toLowerCase()) {
-            case "dni" -> pedirDni();
-            case "nombre" -> pedirNombre();
-            case "apellidos" -> pedirApellidos();
-            case "telefono" -> pedirTelefono();
-            default -> "";
-        };
+        switch (columna) {
+
+            case "dni":
+                do {
+
+                    String dni = DataManager.pedirDni();
+
+                    if (DataManager.comprobarDni(dni)) {
+
+                        break;
+
+                    } else {
+
+                        System.out.println("Ya existe ese cliente con ese DNI !");
+
+                    }
+
+                } while (true);
+            case "nombre":
+                return pedirNombre();
+            case "apellidos":
+                return pedirApellidos();
+            case "telefono":
+                return pedirTelefono();
+            default:
+                return "";
+
+        }
+
+    }
+
+    public static String pedirValorClienteCondicion(String columna) {
+
+        if (columna.equals("dni")) {
+            do {
+
+                String dni = DataManager.pedirDni();
+
+                if (DataManager.comprobarDni(dni)) {
+
+                    System.out.println("El dni introducido NO está registrado en la base de datos !");
+
+                } else {
+
+                    return dni;
+
+                }
+
+            } while (true);
+        }
+        return pedirValorCliente(columna);
 
     }
 
@@ -442,6 +482,150 @@ public final class DataManager {
             }
 
         } while (true);
+
+    }
+
+    public static String pedirColumnaVehiculo(){
+
+        do {
+
+            System.out.println("1 - Matrícula");
+            System.out.println("2 - Marca");
+            System.out.println("3 - Tipo Combustible");
+            System.out.println("4 - Precio");
+            System.out.println("5 - Dni cliente");
+            System.out.println("6 - Numero empleado");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        return "matricula";
+                    case 2:
+                        return "marca";
+                    case 3:
+                        return "tipoCombustible";
+                    case 4:
+                        return "precio";
+                    case 5:
+                        return "dni_cliente";
+                    case 6:
+                        return "numEmpleado";
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirValorVehiculo(String columna) {
+
+        switch (columna) {
+
+            case "matricula":
+
+                do {
+
+                    String matricula = pedirMatricula();
+
+                    if (comprobarMatricula(matricula)) {
+
+                        return matricula;
+
+                    } else {
+
+                        System.out.println("Esa matrícula ya está registrada en la base de datos !");
+
+                    }
+
+                } while (true);
+
+            case "marca":
+                return pedirMarca();
+
+            case "modelo":
+                return pedirModelo();
+
+            case "tipoCombustible":
+                return pedirTipoCombustible();
+
+            case "precio":
+                return pedirPrecio().toString();
+
+            case "dni_cliente":
+                do {
+
+                    String dniCliente = DataManager.pedirDni();
+
+                    if (!DataManager.comprobarDni(dniCliente)) {
+
+                        return dniCliente;
+
+                    } else {
+
+                        System.out.println("No existe ningún cliente con ese DNI !");
+
+                    }
+
+                } while (true);
+
+            case "numEmpleado":
+                do {
+
+                    Integer numEmpleado = DataManager.pedirNumEmpleado();
+
+                    if (DataManager.comprobarNumEmpleado(numEmpleado)) {
+
+                        return numEmpleado.toString();
+
+                    } else {
+
+                        System.out.println("No existe ningún empleado con ese número !");
+
+                    }
+
+                } while (true);
+
+            default:
+                return "";
+
+        }
+
+    }
+
+    public static String pedirValorVehiculoCondicion(String columna) {
+
+        if (columna.equals("matricula")) {
+            do {
+
+                String matricula = pedirMatricula();
+
+                if (comprobarMatricula(matricula)) {
+
+                    System.out.println("Esa matrícula NO está registrada en la base de datos !");
+
+                } else {
+
+                    return matricula;
+
+                }
+
+            } while (true);
+        }
+        return pedirValorVehiculo(columna);
 
     }
 

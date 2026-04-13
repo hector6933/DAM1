@@ -1,7 +1,6 @@
 package DAO;
 
-import Modelo.Cliente;
-import Modelo.Conexion;
+import Config.Conexion;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

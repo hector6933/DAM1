@@ -1,6 +1,6 @@
 package DAO;
 
-import Modelo.Conexion;
+import Config.Conexion;
 import Modelo.Vehiculo;
 
 import java.sql.*;
@@ -108,6 +108,30 @@ public final class VehiculoDAO {
             PreparedStatement preparedStatement = conexion.prepareStatement("DELETE FROM vehiculo WHERE matricula LIKE ?");
 
             preparedStatement.setString(1,matricula);
+
+            return preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+
+            System.out.println(ERROR);
+            e.printStackTrace();
+
+        }
+
+        return 0;
+
+    }
+
+    public static Integer updateVehiculo(String campoMod, String nuevoValor, String condicionColumna, String condicionValor){
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE vehiculo SET " + campoMod + " = ? WHERE "+ condicionColumna + " = ?");
+
+
+            preparedStatement.setString(1,nuevoValor);
+            preparedStatement.setString(2,condicionValor);
 
             return preparedStatement.executeUpdate();
 

@@ -1,18 +1,16 @@
 package DAO;
 
 import Modelo.Cliente;
-import Modelo.Conexion;
+import Config.Conexion;
 
-import java.lang.ref.Cleaner;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public final class ClienteDAO {
 
     private final static String ERROR = "Error en la conexión con la base de datos !";
 
-    public static ArrayList<Cliente> selectClientes(){
+    public static ArrayList<Cliente> selectClientes() throws SQLException {
 
         ArrayList<Cliente> resultados = new ArrayList<>();
 
@@ -31,12 +29,6 @@ public final class ClienteDAO {
                 resultados.add(new Cliente(dni,nombre,apellidos,telefono));
 
             }
-
-
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
 
         }
 
@@ -59,7 +51,6 @@ public final class ClienteDAO {
                 resultados.add(dni);
 
             }
-
 
         } catch (SQLException e) {
 

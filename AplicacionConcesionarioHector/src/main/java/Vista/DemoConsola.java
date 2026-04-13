@@ -3,8 +3,7 @@ package Vista;
 import Controlador.ClienteController;
 import Controlador.VehiculoController;
 import Modelo.Cliente;
-import Modelo.Conexion;
-import Modelo.DataManager;
+import Config.Conexion;
 import Modelo.Vehiculo;
 
 import java.sql.Connection;
@@ -63,18 +62,26 @@ public class DemoConsola {
 
     public static void verClientes() {
 
-        ArrayList<String> clientes = ClienteController.verClientes();
+        try {
 
-        if (clientes == null) {
+            ArrayList<String> clientes = ClienteController.verClientes();
 
-            System.out.println("No hay clientes que mostrar !");
-            return;
+            if (clientes == null) {
 
-        }
+                System.out.println("No hay clientes que mostrar !");
+                return;
 
-        for (String e : clientes) {
+            }
 
-            System.out.println(e);
+            for (String e: clientes) {
+
+                System.out.println(e);
+
+            }
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
 
         }
 
@@ -115,14 +122,14 @@ public class DemoConsola {
         System.out.println("Selecciona el campo que quieres modificar");
         String campoMod = DataManager.pedirColumnaCliente();
 
-        System.out.println("Introduce el nuevo valor a asignar ");
+        System.out.println("Introduce el nuevo valor a asignar");
         String nuevoValor = DataManager.pedirValorCliente(campoMod);
 
-        System.out.println("Selecciona la columna para la condicion de modificación ");
+        System.out.println("Selecciona la columna para la condicion de modificación");
         String condicionColumna = DataManager.pedirColumnaCliente();
 
-        System.out.println("Introduce el valor de condición de la columna  ");
-        String condicionValor = DataManager.pedirValorCliente(condicionColumna);
+        System.out.println("Introduce el valor de condición de la columna");
+        String condicionValor = DataManager.pedirValorClienteCondicion(condicionColumna);
 
         int rows = ClienteController.modificarCliente(campoMod, nuevoValor, condicionColumna, condicionValor);
 
@@ -289,6 +296,35 @@ public class DemoConsola {
 
     }
 
+    public static void modificarVehiculos(){
+
+        System.out.println("Selecciona el campo que quieres modificar:");
+        String columnaModificar = DataManager.pedirColumnaVehiculo();
+
+        System.out.println("Introduce el nuevo valor a asignar:");
+        String valorNuevo = DataManager.pedirValorVehiculo(columnaModificar);
+
+        System.out.println("Selecciona la columna para la condicion de modificación:");
+        String columnaCondicion = DataManager.pedirColumnaVehiculo();
+
+        System.out.println("Introduce el valor de condición de la columna:");
+        String valorCondicion = DataManager.pedirValorVehiculoCondicion(columnaCondicion);
+
+        int rows = VehiculoController.modificarVehiculos(columnaModificar, valorNuevo, columnaCondicion, valorCondicion);
+
+        if (rows == 0) {
+
+            System.out.println("No se ha actualizado ningún registro !");
+
+        } else {
+
+            System.out.println(rows + " registros actualizados correctamente !");
+
+        }
+
+    }
+
+
     public static void accionVehiculo(){
 
         do {
@@ -303,7 +339,7 @@ public class DemoConsola {
                     insertarVehiculos(crearVehiculos());
                     break;
                 case 3: // MODIFICAR VEHÍCULOS
-
+                    modificarVehiculos();
                     break;
                 case 4: // BORRAR VEHÍCULOS
                     borrarVehiculo();

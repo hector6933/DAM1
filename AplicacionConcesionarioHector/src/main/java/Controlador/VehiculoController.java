@@ -58,4 +58,10 @@ public final class VehiculoController {
 
     }
 
+    public static Integer modificarVehiculos(String campoMod, String nuevoValor, String condicionColumna, String condicionValor){
+
+        return VehiculoDAO.updateVehiculo(campoMod,nuevoValor,condicionColumna,condicionValor);
+
+    }
+
 }
