@@ -30,13 +30,13 @@ public final class ClienteController {
 
     }
 
-    public static ArrayList<String> verDnis(){
+    public static ArrayList<String> verDnis() throws SQLException {
 
         return ClienteDAO.selectDni();
 
     }
 
-    public static Integer insertarClientes(ArrayList<Cliente> clientes){
+    public static Integer insertarClientes(ArrayList<Cliente> clientes) throws SQLException {
 
         int rows = 0;
         for (Cliente c: clientes) {
@@ -48,7 +48,7 @@ public final class ClienteController {
 
     }
 
-    public static boolean borrarCliente(String dni){
+    public static boolean borrarCliente(String dni) throws SQLException {
 
         int rows = ClienteDAO.deleteCliente(dni);
 
@@ -56,7 +56,7 @@ public final class ClienteController {
 
     }
 
-    public static Integer modificarCliente(String campoMod, String nuevoValor, String condicionColumna, String condicionValor){
+    public static Integer modificarCliente(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
 
         return ClienteDAO.updateCliente(campoMod,nuevoValor,condicionColumna,condicionValor);
 

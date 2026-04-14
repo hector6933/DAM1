@@ -13,6 +13,10 @@ public class Departamento {
         this.nombre = nombre;
     }
 
+    public Departamento(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Integer getNumDep() {
         return numDep;
     }

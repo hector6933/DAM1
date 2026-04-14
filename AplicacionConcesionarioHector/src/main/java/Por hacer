@@ -1,7 +1,11 @@
-Validar que la longitud y los valores que introduce el usuario coinciden con los configurados en la base de datos --- Hecho
-
-Hacer el throws de cada DAO y controller
-Terminar de hacer empleado y empezar con departamento y usuarios
+-------------- HACER ----------------------
+Validar que la longitud y los valores que introduce el usuario coinciden con los configurados en la base de datos | Hecho
+Hacer el throws de cada DAO y controller | Hecho
+Terminar de hacer empleado y empezar con departamento y usuarios | Haciéndose...
 Hacer el login
 Hacer los logs
 Hacer la interfaz
+
+------------ RETOCAR ---------------------
+Hacer que al insertar un empleado pida si crear un usuario nuevo o asignar el ID a uno existente,
+y en caso de añadir el ID a uno existente comprobar que ese ID de usuario no está ya asignado a otro empleado.

@@ -10,7 +10,7 @@ public final class VehiculoDAO {
 
     private final static String ERROR = "Error en la conexión con la base de datos !";
 
-    public static ArrayList<Vehiculo> selectVehiculos(){
+    public static ArrayList<Vehiculo> selectVehiculos() throws SQLException {
 
         ArrayList<Vehiculo> resultados = new ArrayList<>();
 
@@ -34,19 +34,13 @@ public final class VehiculoDAO {
             }
 
 
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
 
         return resultados;
     }
 
-    public static Integer insertVehiculo(Vehiculo vehiculo){
+    public static Integer insertVehiculo(Vehiculo vehiculo) throws SQLException {
 
-        int rows = 0;
         try (Connection conexion = Conexion.conexion()) {
 
             PreparedStatement preparedStatement = conexion.prepareStatement("INSERT INTO vehiculo VALUES (?,?,?,?,?,?,?)");
@@ -59,20 +53,13 @@ public final class VehiculoDAO {
             preparedStatement.setString(6,vehiculo.getDniCliente());
             preparedStatement.setInt(7,vehiculo.getNumEmpleado());
 
-            rows = preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
+            return preparedStatement.executeUpdate();
 
         }
 
-        return rows;
-
     }
 
-    public static ArrayList<String> selectMatricula(){
+    public static ArrayList<String> selectMatricula() throws SQLException {
 
         ArrayList<String> resultados = new ArrayList<>();
 
@@ -90,18 +77,13 @@ public final class VehiculoDAO {
             }
 
 
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
 
         return resultados;
 
     }
 
-    public static Integer deleteVehiculo(String matricula){
+    public static Integer deleteVehiculo(String matricula) throws SQLException {
 
         try (Connection conexion = Conexion.conexion()) {
 
@@ -111,19 +93,11 @@ public final class VehiculoDAO {
 
             return preparedStatement.executeUpdate();
 
-
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
-
-        return 0;
 
     }
 
-    public static Integer updateVehiculo(String campoMod, String nuevoValor, String condicionColumna, String condicionValor){
+    public static Integer updateVehiculo(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
 
         try (Connection conexion = Conexion.conexion()) {
 
@@ -135,15 +109,7 @@ public final class VehiculoDAO {
 
             return preparedStatement.executeUpdate();
 
-
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
-
-        return 0;
 
     }
 

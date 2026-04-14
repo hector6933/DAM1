@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Empleado {
 
@@ -18,6 +18,16 @@ public class Empleado {
 
     public Empleado(Integer numEmpleado, String nombre, String apellidos, String telefono, Date fechaNacimiento, Integer numGerente, Integer numDep, Integer id_usuario) {
         this.numEmpleado = numEmpleado;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
+        this.numGerente = numGerente;
+        this.numDep = numDep;
+        this.id_usuario = id_usuario;
+    }
+
+    public Empleado(String nombre, String apellidos, String telefono, Date fechaNacimiento, Integer numGerente, Integer numDep, Integer id_usuario) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;

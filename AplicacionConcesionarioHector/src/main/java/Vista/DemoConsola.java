@@ -5,9 +5,11 @@ import Controlador.EmpleadoController;
 import Controlador.VehiculoController;
 import Modelo.Cliente;
 import Config.Conexion;
+import Modelo.Empleado;
 import Modelo.Vehiculo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +21,7 @@ public class DemoConsola {
     private static final String ERROR = "Error en la conexión de la base de datos !";
 
     // ---------------------- INICIO CLIENTE ----------------------------------------
-    public static void insertarClientes(ArrayList<Cliente> clientes) {
+    public static void insertarClientes(ArrayList<Cliente> clientes) throws SQLException {
 
         int rows = ClienteController.insertarClientes(clientes);
 
@@ -28,13 +30,14 @@ public class DemoConsola {
     }
 
 
-    public static ArrayList<Cliente> crearClientes() {
+    public static ArrayList<Cliente> crearClientes() throws SQLException {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
         do {
 
             String dni;
+
             do {
 
                 dni = DataManager.pedirDni();
@@ -63,34 +66,27 @@ public class DemoConsola {
 
     }
 
-    public static void verClientes() {
+    public static void verClientes() throws SQLException {
 
-        try {
 
-            ArrayList<String> clientes = ClienteController.verClientes();
+        ArrayList<String> clientes = ClienteController.verClientes();
 
-            if (clientes == null) {
+        if (clientes == null) {
 
-                System.out.println("No hay clientes que mostrar !");
-                return;
+            System.out.println("No hay clientes que mostrar !");
+            return;
 
-            }
+        }
 
-            for (String e: clientes) {
+        for (String e : clientes) {
 
-                System.out.println(e);
-
-            }
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
+            System.out.println(e);
 
         }
 
     }
 
-    public static void borrarCliente() {
+    public static void borrarCliente() throws SQLException {
 
         do {
 
@@ -120,7 +116,7 @@ public class DemoConsola {
 
     }
 
-    public static void modificarClientes() {
+    public static void modificarClientes() throws SQLException {
 
         System.out.println("Selecciona el campo que quieres modificar");
         String campoMod = DataManager.pedirColumnaCliente();
@@ -154,26 +150,34 @@ public class DemoConsola {
 
             int opt = DataManager.accion();
 
-            switch (opt) {
-                case 1: // SELECT CLIENTES
-                    verClientes();
-                    break;
-                case 2: // INSERTAR CLIENTES
-                    insertarClientes(crearClientes());
-                    break;
-                case 3: // MODIFICAR CLIENTES
-                    modificarClientes();
-                    break;
-                case 4: // BORRAR CLIENTES
-                    borrarCliente();
-                    break;
-                case 0:
-                    return;
+            try {
+
+                switch (opt) {
+                    case 1: // SELECT CLIENTES
+                        verClientes();
+                        break;
+                    case 2: // INSERTAR CLIENTES
+                        insertarClientes(crearClientes());
+                        break;
+                    case 3: // MODIFICAR CLIENTES
+                        modificarClientes();
+                        break;
+                    case 4: // BORRAR CLIENTES
+                        borrarCliente();
+                        break;
+                    case 0:
+                        return;
+
+                }
+
+            } catch (SQLException e) {
+
+                System.out.println(ERROR);
+                e.printStackTrace();
 
             }
 
         } while (true);
-
 
     }
     // ---------------------- FIN CLIENTE ----------------------------------------
@@ -181,7 +185,7 @@ public class DemoConsola {
 
     // ---------------------- INICIO VEHÍCULO ----------------------------------------
 
-    public static void verVehiculos() {
+    public static void verVehiculos() throws SQLException {
 
         ArrayList<String> vehiculos = VehiculoController.verVehiculos();
 
@@ -201,7 +205,7 @@ public class DemoConsola {
 
     }
 
-    public static void insertarVehiculos(ArrayList<Vehiculo> vehiculos) {
+    public static void insertarVehiculos(ArrayList<Vehiculo> vehiculos) throws SQLException {
 
         int rows = VehiculoController.insertarVehiculos(vehiculos);
 
@@ -209,7 +213,7 @@ public class DemoConsola {
 
     }
 
-    public static ArrayList<Vehiculo> crearVehiculos(){
+    public static ArrayList<Vehiculo> crearVehiculos() throws SQLException {
 
         ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
@@ -263,7 +267,7 @@ public class DemoConsola {
 
             do {
 
-                numEmpleado = DataManager.pedirNumEmpleado();
+                numEmpleado = DataManager.pedirNumEmpleado("empleado");
 
                 if (DataManager.comprobarNumEmpleado(numEmpleado)) {
 
@@ -277,7 +281,7 @@ public class DemoConsola {
 
             } while (true);
 
-            vehiculos.add(new Vehiculo(matricula,marca,modelo,tipoCombustible,precio,dniCliente,numEmpleado));
+            vehiculos.add(new Vehiculo(matricula, marca, modelo, tipoCombustible, precio, dniCliente, numEmpleado));
 
         } while (DataManager.continuarInsert());
 
@@ -285,7 +289,7 @@ public class DemoConsola {
 
     }
 
-    public static void borrarVehiculo(){
+    public static void borrarVehiculo() throws SQLException {
 
         if (VehiculoController.borrarVehiculo(DataManager.pedirMatricula())) {
 
@@ -299,7 +303,7 @@ public class DemoConsola {
 
     }
 
-    public static void modificarVehiculos(){
+    public static void modificarVehiculos() throws SQLException {
 
         System.out.println("Selecciona el campo que quieres modificar:");
         String columnaModificar = DataManager.pedirColumnaVehiculo();
@@ -328,27 +332,34 @@ public class DemoConsola {
     }
 
 
-    public static void accionVehiculo(){
+    public static void accionVehiculo() {
 
         do {
 
             int opt = DataManager.accion();
 
-            switch (opt) {
-                case 1: // SELECT VEHÍCULOS
-                    verVehiculos();
-                    break;
-                case 2: // INSERTAR VEHÍCULOS
-                    insertarVehiculos(crearVehiculos());
-                    break;
-                case 3: // MODIFICAR VEHÍCULOS
-                    modificarVehiculos();
-                    break;
-                case 4: // BORRAR VEHÍCULOS
-                    borrarVehiculo();
-                    break;
-                case 0:
-                    return;
+            try {
+                switch (opt) {
+                    case 1: // SELECT VEHÍCULOS
+                        verVehiculos();
+                        break;
+                    case 2: // INSERTAR VEHÍCULOS
+                        insertarVehiculos(crearVehiculos());
+                        break;
+                    case 3: // MODIFICAR VEHÍCULOS
+                        modificarVehiculos();
+                        break;
+                    case 4: // BORRAR VEHÍCULOS
+                        borrarVehiculo();
+                        break;
+                    case 0:
+                        return;
+
+                }
+            } catch (SQLException e) {
+
+                System.out.println(ERROR);
+                e.printStackTrace();
 
             }
 
@@ -362,7 +373,7 @@ public class DemoConsola {
 
     public static void verEmpleados() throws SQLException {
 
-        for (String e: EmpleadoController.verEmpleados()) {
+        for (String e : EmpleadoController.verEmpleados()) {
 
             System.out.println(e);
 
@@ -384,66 +395,141 @@ public class DemoConsola {
 
     }
 
-    public static void accionEmpleado(){
+    public static void insertarEmpleados(ArrayList<Empleado> empleados) throws SQLException {
+
+        int rows = EmpleadoController.insertarEmpleados(empleados);
+
+        System.out.println(rows + " empleados insertados !");
+
+
+    }
+
+    public static ArrayList<Empleado> crearEmpleados() throws SQLException {
+
+        ArrayList<Empleado> empleados = new ArrayList<>();
+
+        do {
+
+            String nombre = DataManager.pedirNombre();
+
+            String apellidos = DataManager.pedirApellidos();
+
+            String telefono = DataManager.pedirTelefono();
+
+            Date fecha = DataManager.pedirFecha("de nacimiento");
+
+            Integer numGerente;
+
+            do {
+
+                numGerente = DataManager.pedirNumEmpleado("gerente");
+
+                if (!DataManager.comprobarNumEmpleado(numGerente)) {
+
+                    System.out.println("Ese número de empleado NO existe en la base de datos !");
+
+                } else {
+
+                    break;
+
+                }
+
+            } while (true);
+
+            Integer numDep;
+
+            do {
+
+                numDep = DataManager.pedirNumDep();
+
+                if (!DataManager.comprobarNumDep(numDep)) {
+
+                    System.out.println("Ese número de departamento NO existe en la base de datos !");
+
+                } else {
+
+                    break;
+
+                }
+
+            } while (true);
+
+            // PONER AQUÍ LA OPCIÓN DE CREAR UN USUARIO O AÑADIR EL EMPLEADO A UN USUARIO EXISTENTE (aunque me toca los cojones hacerlo)
+            Integer idUsuario;
+
+            do {
+
+                idUsuario = DataManager.pedirIdUsuario();
+
+                if (!DataManager.comprobarIdUsuario(idUsuario)) {
+
+                    System.out.println("El ID de ese usuario NO existe !");
+
+                } else {
+
+                    break;
+
+                }
+
+            } while (true);
+
+            empleados.add(new Empleado(nombre,apellidos,telefono,fecha,numGerente,numDep,idUsuario));
+
+
+        } while (DataManager.continuarInsert());
+
+        return empleados;
+
+    }
+
+    public static void accionEmpleado() {
 
         do {
 
             int opt = DataManager.accion();
 
-            switch (opt) {
-                case 1: // SELECT EMPLEADOS
-
-                    try {
-
+            try {
+                switch (opt) {
+                    case 1: // SELECT EMPLEADOS
                         verEmpleados();
+                        break;
+                    case 2: // INSERTAR EMPLEADOS
+                        insertarEmpleados(crearEmpleados());
+                        break;
+                    case 3: // MODIFICAR EMPLEADOS
 
-                    } catch (SQLException e) {
+                        break;
+                    case 4: // BORRAR EMPLEADOS
 
-                        System.out.println(ERROR);
-                        e.printStackTrace();
+                        int num;
 
-                    }
+                        do {
 
-                    break;
-                case 2: // INSERTAR EMPLEADOS
+                            num = DataManager.pedirNumEmpleado("empleado");
 
-                    break;
-                case 3: // MODIFICAR EMPLEADOS
+                            if (!DataManager.comprobarNumEmpleado(num)) {
 
-                    break;
-                case 4: // BORRAR EMPLEADOS
+                                System.out.println("Ese número de empleado NO existe en la base de datos !");
 
-                    int num;
+                            } else {
 
-                    do {
+                                break;
 
-                        num = DataManager.pedirNumEmpleado();
+                            }
 
-                        if (!DataManager.comprobarNumEmpleado(num)) {
-
-                            System.out.println("Ese número de empleado NO existe en la base de datos !");
-
-                        } else {
-
-                            break;
-
-                        }
-
-                    } while (true);
-
-                    try {
+                        } while (true);
 
                         borrarEmpleado(num);
 
-                    } catch (SQLException e) {
+                        break;
+                    case 0:
+                        return;
 
-                        System.out.println(ERROR);
+                }
+            } catch (SQLException e) {
 
-                    }
-
-                    break;
-                case 0:
-                    return;
+                System.out.println(ERROR);
+                e.printStackTrace();
 
             }
 

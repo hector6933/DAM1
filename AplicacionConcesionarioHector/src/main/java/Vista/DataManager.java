@@ -1,9 +1,10 @@
 package Vista;
 
-import Controlador.ClienteController;
-import Controlador.EmpleadoController;
-import Controlador.VehiculoController;
+import Controlador.*;
 
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public final class DataManager {
 
     }
 
-    public static boolean comprobarDni(String dni){
+    public static boolean comprobarDni(String dni) throws SQLException {
 
         for (String e: ClienteController.verDnis()) {
 
@@ -73,7 +74,7 @@ public final class DataManager {
 
             if (!valirdarNombre(nombre)) {
 
-                System.out.println("Formato incorrecto ! \n Mínimo 3 y Máximo 20 letras del abecedario !");
+                System.out.println("Formato incorrecto ! \nMínimo 3 y Máximo 20 letras del abecedario !");
 
             } else {
 
@@ -103,7 +104,7 @@ public final class DataManager {
 
             if (!validarApellidos(apellidos)) {
 
-                System.out.println("Formato incorrecto ! \n Mínimo 3 y Máximo 50 letras del abecedario !");
+                System.out.println("Formato incorrecto ! \nMínimo 3 y Máximo 50 letras del abecedario !");
 
             } else {
 
@@ -255,7 +256,7 @@ public final class DataManager {
 
     }
 
-    public static String pedirValorCliente(String columna) {
+    public static String pedirValorCliente(String columna) throws SQLException {
 
         switch (columna) {
 
@@ -288,7 +289,7 @@ public final class DataManager {
 
     }
 
-    public static String pedirValorClienteCondicion(String columna) {
+    public static String pedirValorClienteCondicion(String columna) throws SQLException {
 
         if (columna.equals("dni")) {
             do {
@@ -311,7 +312,7 @@ public final class DataManager {
 
     }
 
-    public static boolean comprobarMatricula(String matricula){
+    public static boolean comprobarMatricula(String matricula) throws SQLException {
 
         for (String e: VehiculoController.verMatricula()) {
 
@@ -426,7 +427,7 @@ public final class DataManager {
 
             if (!validarModelo(modelo)) {
 
-                System.out.println("Formato incorrecto ! \n Mínimo 2 y Máximo 15 letras del abecedario !");
+                System.out.println("Formato incorrecto ! \nMínimo 2 y Máximo 15 letras del abecedario !");
 
             } else {
 
@@ -506,7 +507,7 @@ public final class DataManager {
 
                 if (!validarPrecio(precio)) {
 
-                    System.out.println("Formato incorrecto ! \n Mínimo 1 y Máximo 10 dígitos ! ");
+                    System.out.println("Formato incorrecto ! \nMínimo 1 y Máximo 10 dígitos ! ");
                     continue;
 
                 }
@@ -523,7 +524,7 @@ public final class DataManager {
 
     }
 
-    public static boolean comprobarNumEmpleado(Integer num){
+    public static boolean comprobarNumEmpleado(Integer num) throws SQLException {
 
         for (Integer e: EmpleadoController.verNums()) {
 
@@ -539,11 +540,11 @@ public final class DataManager {
 
     }
 
-    public static Integer pedirNumEmpleado(){
+    public static Integer pedirNumEmpleado(String persona){
 
         do {
 
-            System.out.println("Introduce el número del empleado:");
+            System.out.println("Introduce el número del " + persona + ":");
             System.out.print("> ");
 
             try {
@@ -606,7 +607,7 @@ public final class DataManager {
 
     }
 
-    public static String pedirValorVehiculo(String columna) {
+    public static String pedirValorVehiculo(String columna) throws SQLException {
 
         switch (columna) {
 
@@ -660,7 +661,7 @@ public final class DataManager {
             case "numEmpleado":
                 do {
 
-                    Integer numEmpleado = DataManager.pedirNumEmpleado();
+                    Integer numEmpleado = DataManager.pedirNumEmpleado("empleado");
 
                     if (DataManager.comprobarNumEmpleado(numEmpleado)) {
 
@@ -681,7 +682,7 @@ public final class DataManager {
 
     }
 
-    public static String pedirValorVehiculoCondicion(String columna) {
+    public static String pedirValorVehiculoCondicion(String columna) throws SQLException {
 
         if (columna.equals("matricula")) {
 
@@ -704,6 +705,150 @@ public final class DataManager {
         }
 
         return pedirValorVehiculo(columna);
+
+    }
+
+    public static boolean validarFecha(String fecha){
+
+        return Pattern.matches("^(\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",fecha);
+
+    }
+
+    public static Date pedirFecha(){
+
+        do {
+
+            System.out.println("Introduce la fecha (formato AAAA-MM-DD)");
+            System.out.print("> ");
+            String fecha = leer.nextLine();
+
+            if (!validarFecha(fecha)) {
+
+                System.out.println("Formato de fecha inválido ! Ej: 2025-04-15");
+
+            } else {
+
+                return Date.valueOf(fecha);
+
+            }
+
+        } while (true);
+
+    }
+
+    public static Date pedirFecha(String custom) {
+
+        do {
+
+            System.out.println("Introduce la fecha " + custom + " (formato AAAA-MM-DD)");
+            System.out.print("> ");
+            String fecha = leer.nextLine();
+
+            if (!validarFecha(fecha)) {
+
+                System.out.println("Formato de fecha inválido ! Ej: 2025-04-15");
+
+            } else {
+
+                return Date.valueOf(fecha);
+
+            }
+
+        } while (true);
+
+    }
+
+    public static boolean comprobarNumDep(Integer num) throws SQLException {
+
+        for (Integer e: DepartamentoController.verNumDeps()) {
+
+            if (e.equals(num)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public static Integer pedirNumDep(){
+
+        do {
+
+            System.out.println("Introduce el número del departamento:");
+            System.out.print("> ");
+
+            try {
+
+                int num = Integer.parseInt(leer.nextLine());
+
+                if (num < 0) {
+
+                    System.out.println("Introduce un número mayor que 0 !");
+
+                } else {
+
+                    return num;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número entero válido !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static boolean comprobarIdUsuario(Integer id) throws SQLException {
+
+        for (Integer e: UsuarioController.verIdsUsuario()) {
+
+            if (e.equals(id)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public static Integer pedirIdUsuario(){
+
+        do {
+
+            System.out.println("Introduce el ID del usuario:");
+            System.out.print("> ");
+
+            try {
+
+                int id = Integer.parseInt(leer.nextLine());
+
+                if (id < 0) {
+
+                    System.out.println("Introduce un número mayor que 0 !");
+
+                } else {
+
+                    return id;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número entero !!!");
+
+            }
+
+        } while (true);
 
     }
 

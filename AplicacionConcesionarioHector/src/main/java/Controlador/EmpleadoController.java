@@ -25,6 +25,19 @@ public final class EmpleadoController {
 
     }
 
+    public static Integer insertarEmpleados(ArrayList<Empleado> empleados) throws SQLException {
+
+        int rows = 0;
+        for (Empleado e: empleados) {
+
+            rows += EmpleadoDAO.insertEmpleado(e);
+
+        }
+
+        return rows;
+
+    }
+
     public static boolean borrarEmpleado(Integer numEmp) throws SQLException {
 
         Integer rows = EmpleadoDAO.deleteEmpleado(numEmp);
@@ -42,7 +55,7 @@ public final class EmpleadoController {
     }
 
 
-    public static ArrayList<Integer> verNums(){
+    public static ArrayList<Integer> verNums() throws SQLException {
 
         return EmpleadoDAO.selectNum();
 

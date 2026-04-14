@@ -35,7 +35,7 @@ public final class ClienteDAO {
         return resultados;
     }
 
-    public static ArrayList<String> selectDni(){
+    public static ArrayList<String> selectDni() throws SQLException {
 
         ArrayList<String> resultados = new ArrayList<>();
 
@@ -52,19 +52,13 @@ public final class ClienteDAO {
 
             }
 
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
 
         return resultados;
     }
 
-    public static Integer insertCliente(Cliente cliente){
+    public static Integer insertCliente(Cliente cliente) throws SQLException {
 
-        int rows = 0;
         try (Connection conexion = Conexion.conexion()) {
 
             PreparedStatement preparedStatement = conexion.prepareStatement("INSERT INTO cliente VALUES (?,?,?,?)");
@@ -74,20 +68,13 @@ public final class ClienteDAO {
             preparedStatement.setString(3,cliente.getApellidos());
             preparedStatement.setString(4,cliente.getTelefono());
 
-            rows = preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
+            return preparedStatement.executeUpdate();
 
         }
 
-        return rows;
-
     }
 
-    public static Integer deleteCliente(String dni){
+    public static Integer deleteCliente(String dni) throws SQLException {
 
         try (Connection conexion = Conexion.conexion()) {
 
@@ -98,18 +85,11 @@ public final class ClienteDAO {
             return preparedStatement.executeUpdate();
 
 
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
-
-        return 0;
 
     }
 
-    public static Integer updateCliente(String campoMod, String nuevoValor, String condicionColumna, String condicionValor){
+    public static Integer updateCliente(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
 
         try (Connection conexion = Conexion.conexion()) {
 
@@ -122,14 +102,7 @@ public final class ClienteDAO {
             return preparedStatement.executeUpdate();
 
 
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
-
-        return 0;
 
     }
 

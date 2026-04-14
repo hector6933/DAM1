@@ -6,7 +6,6 @@ import Modelo.Empleado;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 public final class EmpleadoDAO {
 
@@ -42,6 +41,27 @@ public final class EmpleadoDAO {
 
     }
 
+    public static Integer insertEmpleado(Empleado empleado) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("INSERT INTO empleado (nombre,apellidos,telefono,fechaNacimiento,numGerente,numDep,id_usuario) VALUES (?,?,?,?,?,?,?)");
+
+            preparedStatement.setString(1,empleado.getNombre());
+            preparedStatement.setString(2,empleado.getApellidos());
+            preparedStatement.setString(3,empleado.getTelefono());
+            preparedStatement.setDate(4,empleado.getFechaNacimiento());
+            preparedStatement.setInt(5,empleado.getNumGerente());
+            preparedStatement.setInt(6,empleado.getNumDep());
+            preparedStatement.setInt(7,empleado.getId_usuario());
+
+            return preparedStatement.executeUpdate();
+
+        }
+
+    }
+
+
     public static Integer deleteEmpleado(Integer numEmp) throws SQLException {
 
         try (Connection conexion = Conexion.conexion()) {
@@ -56,7 +76,7 @@ public final class EmpleadoDAO {
 
     }
 
-    public static ArrayList<Integer> selectNum(){
+    public static ArrayList<Integer> selectNum() throws SQLException {
 
         ArrayList<Integer> resultados = new ArrayList<>();
 
@@ -72,12 +92,6 @@ public final class EmpleadoDAO {
                 resultados.add(num);
 
             }
-
-        } catch (SQLException e) {
-
-            System.out.println(ERROR);
-            e.printStackTrace();
-
         }
 
         return resultados;
