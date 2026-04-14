@@ -11,11 +11,12 @@ public class Empleado {
     private Date fechaNacimiento;
     private Integer numGerente;
     private Integer numDep;
+    private Integer id_usuario;
 
     public Empleado() {
     }
 
-    public Empleado(Integer numEmpleado, String nombre, String apellidos, String telefono, Date fechaNacimiento, Integer numGerente, Integer numDep) {
+    public Empleado(Integer numEmpleado, String nombre, String apellidos, String telefono, Date fechaNacimiento, Integer numGerente, Integer numDep, Integer id_usuario) {
         this.numEmpleado = numEmpleado;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -23,6 +24,7 @@ public class Empleado {
         this.fechaNacimiento = fechaNacimiento;
         this.numGerente = numGerente;
         this.numDep = numDep;
+        this.id_usuario = id_usuario;
     }
 
     public Integer getNumEmpleado() {
@@ -53,6 +55,10 @@ public class Empleado {
         return numDep;
     }
 
+    public Integer getId_usuario() {
+        return id_usuario;
+    }
+
     @Override
     public String toString() {
         return "Empleado{" +
@@ -63,6 +69,7 @@ public class Empleado {
                 ", fechaNacimiento=" + fechaNacimiento +
                 ", numGerente=" + numGerente +
                 ", numDep=" + numDep +
+                ", id_usuario=" + id_usuario +
                 '}';
     }
 }

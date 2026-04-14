@@ -57,19 +57,62 @@ public final class DataManager {
 
     }
 
+    public static boolean valirdarNombre(String nom){
+
+        return Pattern.matches("^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{3,20}$",nom);
+
+    }
+
     public static String pedirNombre(){
 
-        System.out.println("Introduce el nombre:");
-        System.out.print("> ");
-        return leer.nextLine();
+        do {
+
+            System.out.println("Introduce el nombre:");
+            System.out.print("> ");
+            String nombre = leer.nextLine();
+
+            if (!valirdarNombre(nombre)) {
+
+                System.out.println("Formato incorrecto ! \n Mínimo 3 y Máximo 20 letras del abecedario !");
+
+            } else {
+
+                return nombre;
+
+            }
+
+
+        } while (true);
+
+
+    }
+
+    public static boolean validarApellidos(String nom){
+
+        return Pattern.matches("^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{3,50}$",nom);
 
     }
 
     public static String pedirApellidos(){
 
-        System.out.println("Introduce el/los apellido/s:");
-        System.out.print("> ");
-        return leer.nextLine();
+        do {
+
+            System.out.println("Introduce el/los apellido/s:");
+            System.out.print("> ");
+            String apellidos = leer.nextLine();
+
+            if (!validarApellidos(apellidos)) {
+
+                System.out.println("Formato incorrecto ! \n Mínimo 3 y Máximo 50 letras del abecedario !");
+
+            } else {
+
+                return apellidos;
+
+            }
+
+
+        } while (true);
 
     }
 
@@ -367,11 +410,31 @@ public final class DataManager {
 
     }
 
+    public static boolean validarModelo(String modelo){
+
+        return Pattern.matches("^\\w{2,15}$",modelo);
+
+    }
+
     public static String pedirModelo(){
 
-        System.out.println("Introduce el modelo:");
-        System.out.print("> ");
-        return leer.nextLine();
+        do {
+
+            System.out.println("Introduce el modelo:");
+            System.out.print("> ");
+            String modelo = leer.nextLine();
+
+            if (!validarModelo(modelo)) {
+
+                System.out.println("Formato incorrecto ! \n Mínimo 2 y Máximo 15 letras del abecedario !");
+
+            } else {
+
+                return modelo;
+
+            }
+
+        } while (true);
 
     }
 
@@ -417,6 +480,12 @@ public final class DataManager {
 
     }
 
+    public static boolean validarPrecio(Double precio){
+
+        return Pattern.matches("^[0-9]{1,10}$",precio.toString());
+
+    }
+
     public static Double pedirPrecio(){
 
         do {
@@ -431,12 +500,18 @@ public final class DataManager {
                 if (precio < 0) {
 
                     System.out.println("El precio debe de ser un número positivo !!!");
-
-                } else {
-
-                    return precio;
+                    continue;
 
                 }
+
+                if (!validarPrecio(precio)) {
+
+                    System.out.println("Formato incorrecto ! \n Mínimo 1 y Máximo 10 dígitos ! ");
+                    continue;
+
+                }
+
+                return precio;
 
             } catch (NumberFormatException e) {
 
@@ -609,6 +684,7 @@ public final class DataManager {
     public static String pedirValorVehiculoCondicion(String columna) {
 
         if (columna.equals("matricula")) {
+
             do {
 
                 String matricula = pedirMatricula();
@@ -624,7 +700,9 @@ public final class DataManager {
                 }
 
             } while (true);
+
         }
+
         return pedirValorVehiculo(columna);
 
     }

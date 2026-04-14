@@ -102,14 +102,14 @@ INSERT INTO cliente (dni, nombre, apellidos, telefono) VALUES
 ('55555555E', 'David', 'Morales', '655555555');
 
 INSERT INTO vehiculo (matricula, marca, modelo, tipoCombustible, precio, dni_cliente, numEmpleado) VALUES
-<<<<<<< HEAD
+
 ('1111-BBB', 'Toyota', 'Corolla', 'Gasolina', 18000, '11111111A', 2),
 ('2222-CCC', 'Ford', 'Focus', 'Diesel', 20000, '22222222B', 3),
 ('3333-DDD', 'Seat', 'Ibiza', 'Gasolina', 15000, '33333333C', 2),
 ('4444-FFF', 'BMW', 'X1', 'Diesel', 35000, '44444444D', 4),
 ('5555-GGG', 'Audi', 'A3', 'Gasolina', 30000, '55555555E', 5),
-('6666-HHH', 'Kia', 'Sportage', 'Hibrido', 28000, '11111111A', 6);
-=======
+('6666-HHH', 'Kia', 'Sportage', 'Hibrido', 28000, '11111111A', 6)
+
 ('1234-BCD', 'Toyota', 'Corolla', 'Gasolina', 18000, '11111111A', 3),
 ('2345-DFG', 'Ford', 'Focus', 'Diesel', 20000, '22222222B', 4),
 ('3456-HJK', 'SEAT', 'Ibiza', 'Gasolina', 15000, '33333333C', 3),
@@ -120,4 +120,4 @@ INSERT INTO vehiculo (matricula, marca, modelo, tipoCombustible, precio, dni_cli
 ('8901-BCF', 'Volkswagen', 'Golf', 'Gasolina', 25000, '33333333C', 9),
 ('9012-DGH', 'Peugeot', '308', 'Diesel', 22000, '44444444D', 10),
 ('1123-JKL', 'Renault', 'Megane', 'Hibrido', 26000, '55555555E', 11);
->>>>>>> 5761137 (no se)
+

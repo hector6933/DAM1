@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.ClienteController;
+import Controlador.EmpleadoController;
 import Controlador.VehiculoController;
 import Modelo.Cliente;
 import Config.Conexion;
@@ -14,6 +15,8 @@ import java.util.Scanner;
 public class DemoConsola {
 
     private static final Scanner leer = new Scanner(System.in);
+
+    private static final String ERROR = "Error en la conexión de la base de datos !";
 
     // ---------------------- INICIO CLIENTE ----------------------------------------
     public static void insertarClientes(ArrayList<Cliente> clientes) {
@@ -355,6 +358,101 @@ public class DemoConsola {
 
     // ---------------------- FIN VEHÍCULO ----------------------------------------
 
+    // ---------------------- INICIO EMPLEADO -------------------------------------
+
+    public static void verEmpleados() throws SQLException {
+
+        for (String e: EmpleadoController.verEmpleados()) {
+
+            System.out.println(e);
+
+        }
+
+    }
+
+    public static void borrarEmpleado(Integer numEmp) throws SQLException {
+
+        if (EmpleadoController.borrarEmpleado(numEmp)) {
+
+            System.out.println("Empleado con número " + numEmp + " borrado con éxito !");
+
+        } else {
+
+            System.out.printf("Error al borrar el empleado con número " + numEmp + " !");
+
+        }
+
+    }
+
+    public static void accionEmpleado(){
+
+        do {
+
+            int opt = DataManager.accion();
+
+            switch (opt) {
+                case 1: // SELECT EMPLEADOS
+
+                    try {
+
+                        verEmpleados();
+
+                    } catch (SQLException e) {
+
+                        System.out.println(ERROR);
+                        e.printStackTrace();
+
+                    }
+
+                    break;
+                case 2: // INSERTAR EMPLEADOS
+
+                    break;
+                case 3: // MODIFICAR EMPLEADOS
+
+                    break;
+                case 4: // BORRAR EMPLEADOS
+
+                    int num;
+
+                    do {
+
+                        num = DataManager.pedirNumEmpleado();
+
+                        if (!DataManager.comprobarNumEmpleado(num)) {
+
+                            System.out.println("Ese número de empleado NO existe en la base de datos !");
+
+                        } else {
+
+                            break;
+
+                        }
+
+                    } while (true);
+
+                    try {
+
+                        borrarEmpleado(num);
+
+                    } catch (SQLException e) {
+
+                        System.out.println(ERROR);
+
+                    }
+
+                    break;
+                case 0:
+                    return;
+
+            }
+
+        } while (true);
+
+    }
+
+    // ---------------------- FIN EMPLEADO ----------------------------------------
+
     public static void main(String[] args) {
 
         boolean salir;
@@ -378,6 +476,7 @@ public class DemoConsola {
             System.out.println("--- ELIGE ---");
             System.out.println("1 - Cliente");
             System.out.println("2 - Vehículo");
+            System.out.println("3 - Empleado");
             System.out.println("0 - SALIR");
             System.out.print("> ");
 
@@ -392,6 +491,9 @@ public class DemoConsola {
                         break;
                     case 2:
                         accionVehiculo();
+                        break;
+                    case 3:
+                        accionEmpleado();
                         break;
                     case 0:
                         System.out.println("Saliendo...");
@@ -410,6 +512,8 @@ public class DemoConsola {
             }
 
         } while (!salir);
+
+        DataManager.leer.close();
 
     }
 
