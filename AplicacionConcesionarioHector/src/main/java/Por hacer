@@ -1,0 +1,7 @@
+Validar que la longitud y los valores que introduce el usuario coinciden con los configurados en la base de datos --- Hecho
+
+Hacer el throws de cada DAO y controller
+Terminar de hacer empleado y empezar con departamento y usuarios
+Hacer el login
+Hacer los logs
+Hacer la interfaz
