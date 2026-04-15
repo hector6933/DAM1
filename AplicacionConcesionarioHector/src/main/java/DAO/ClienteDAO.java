@@ -101,7 +101,6 @@ public final class ClienteDAO {
 
             return preparedStatement.executeUpdate();
 
-
         }
 
     }

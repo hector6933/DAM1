@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.*;
-import com.fasterxml.jackson.core.JsonToken;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -58,9 +57,15 @@ public final class DataManager {
 
     }
 
-    public static boolean valirdarNombre(String nom){
+    public static boolean validarNombre(String nom){
 
         return Pattern.matches("^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{3,20}$",nom);
+
+    }
+
+    public static boolean validarNombre(String nom,Integer min, Integer max){
+
+        return Pattern.matches("^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{" + min +","+ max + "}$",nom);
 
     }
 
@@ -72,9 +77,33 @@ public final class DataManager {
             System.out.print("> ");
             String nombre = leer.nextLine();
 
-            if (!valirdarNombre(nombre)) {
+            if (!validarNombre(nombre)) {
 
                 System.out.println("Formato incorrecto ! \nMínimo 3 y Máximo 20 letras del abecedario !");
+
+            } else {
+
+                return nombre;
+
+            }
+
+
+        } while (true);
+
+
+    }
+
+    public static String pedirNombre(Integer min, Integer max){
+
+        do {
+
+            System.out.println("Introduce el nombre:");
+            System.out.print("> ");
+            String nombre = leer.nextLine();
+
+            if (!validarNombre(nombre,min,max)) {
+
+                System.out.println("Formato incorrecto ! \nMínimo " + min + " y Máximo " + max + " letras del abecedario !");
 
             } else {
 
@@ -1046,6 +1075,100 @@ public final class DataManager {
         }
 
         return pedirValorEmpleado(columna);
+
+    }
+
+    public static String pedirColumnaDepartamento(){
+
+        do {
+
+            System.out.println("1 - Nombre");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                if (opt == 1) {
+                    return "nombre";
+                } else {
+                    System.out.println("Opción inválida !!!");
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirValorDepartamento(String columna){
+
+        return pedirNombre(2, 50); // La única columna que puede introducir para cambiar el valor es el nombre
+
+
+    }
+
+    public static String pedirColumnaDepartamentoCondicion(){
+
+        do {
+
+            System.out.println("1 - Número departamento");
+            System.out.println("2 - Nombre");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        return "numDep";
+                    case 2:
+                        return "nombre";
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirValorDepartamentoCondicion(String columna) throws SQLException {
+
+        if (columna.equals("numDep")) {
+
+            do {
+
+                Integer numDep = pedirNumDep();
+
+                if (!comprobarNumDep(numDep)) {
+
+                    System.out.println("Ese número de departamento NO existe !");
+
+                } else {
+
+                    return numDep.toString();
+
+                }
+
+            } while (true);
+
+        }
+
+        return pedirValorDepartamento(columna);
 
     }
 

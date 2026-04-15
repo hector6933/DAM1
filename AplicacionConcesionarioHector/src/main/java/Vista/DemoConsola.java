@@ -1,10 +1,12 @@
 package Vista;
 
 import Controlador.ClienteController;
+import Controlador.DepartamentoController;
 import Controlador.EmpleadoController;
 import Controlador.VehiculoController;
 import Modelo.Cliente;
 import Config.Conexion;
+import Modelo.Departamento;
 import Modelo.Empleado;
 import Modelo.Vehiculo;
 
@@ -100,7 +102,7 @@ public class DemoConsola {
 
                 if (ClienteController.borrarCliente(dni)) {
 
-                    System.out.println("Cliente con DNI" + dni + " borrado con éxito !!!");
+                    System.out.println("Cliente con DNI " + dni + " borrado con éxito !!!");
 
                 } else {
 
@@ -473,7 +475,7 @@ public class DemoConsola {
 
             } while (true);
 
-            empleados.add(new Empleado(nombre,apellidos,telefono,fecha,numGerente,numDep,idUsuario));
+            empleados.add(new Empleado(nombre, apellidos, telefono, fecha, numGerente, numDep, idUsuario));
 
 
         } while (DataManager.continuarInsert());
@@ -491,12 +493,13 @@ public class DemoConsola {
         String nuevoValor = DataManager.pedirValorEmpleado(campoMod);
 
         System.out.println("Selecciona la columna para la condicion de modificación");
-        String condicionColumna = DataManager.pedirColumnaEmpleadoCondicion();;
+        String condicionColumna = DataManager.pedirColumnaEmpleadoCondicion();
+        ;
 
         System.out.println("Introduce el valor de condición de la columna");
         String condicionValor = DataManager.pedirValorEmpleadoCondicion(condicionColumna);
 
-        int rows = EmpleadoController.modificarEmpleados(campoMod,nuevoValor,condicionColumna,condicionValor);
+        int rows = EmpleadoController.modificarEmpleados(campoMod, nuevoValor, condicionColumna, condicionValor);
 
         if (rows == 0) {
 
@@ -568,6 +571,149 @@ public class DemoConsola {
 
     // ---------------------- FIN EMPLEADO ----------------------------------------
 
+    // ---------------------- INICIO DEPARTAMENTO ---------------------------------
+
+    public static void verDepartamentos() throws SQLException {
+
+        ArrayList<String> departamentos = DepartamentoController.verDepartamentos();
+
+        if (departamentos == null) {
+
+            System.out.println("No hay clientes que mostrar !");
+            return;
+
+        }
+
+        for (String e : departamentos) {
+
+            System.out.println(e);
+
+        }
+
+    }
+
+    public static void borrarDepartamento() throws SQLException {
+
+        do {
+
+            Integer numDep = DataManager.pedirNumDep();
+
+            if (!DataManager.comprobarNumDep(numDep)) {
+
+                System.out.println("El número de departamento introducido NO está registrado en la base de datos !");
+
+            } else {
+
+                if (DepartamentoController.borrarDepartamento(numDep)) {
+
+                    System.out.println("Departamento con número " + numDep + " borrado con éxito !!!");
+
+                } else {
+
+                    System.out.println("Error al borrar el departamento con número " + numDep);
+
+                }
+
+                return;
+
+            }
+
+        } while (true);
+
+    }
+
+    public static ArrayList<Departamento> crearDepartamentos() throws SQLException {
+
+        ArrayList<Departamento> departamentos = new ArrayList<>();
+
+        do {
+
+            String nombre = DataManager.pedirNombre(2, 50);
+
+            departamentos.add(new Departamento(nombre));
+
+        } while (DataManager.continuarInsert());
+
+        return departamentos;
+
+    }
+
+    public static void insertarDepartamentos(ArrayList<Departamento> departamentos) throws SQLException {
+
+        int rows = DepartamentoController.insertarDepartamentos(departamentos);
+
+        System.out.println(rows + " departamentos insertados !");
+
+
+    }
+
+    public static void modificarDepartamentos() throws SQLException {
+
+        System.out.println("Selecciona el campo que quieres modificar");
+        String campoMod = DataManager.pedirColumnaDepartamento();
+
+        System.out.println("Introduce el nuevo valor a asignar");
+        String nuevoValor = DataManager.pedirValorDepartamento(campoMod);
+
+        System.out.println("Selecciona la columna para la condicion de modificación");
+        String condicionColumna = DataManager.pedirColumnaDepartamentoCondicion();
+
+        System.out.println("Introduce el valor de condición de la columna");
+        String condicionValor = DataManager.pedirValorDepartamentoCondicion(condicionColumna);
+
+        int rows = DepartamentoController.modificarDepartamento(campoMod,nuevoValor,condicionColumna,condicionValor);
+
+        if (rows == 0) {
+
+            System.out.println("No se ha actualizado ningún registro !");
+
+        } else {
+
+            System.out.println(rows + " registros actualizados correctamente !");
+
+        }
+
+    }
+
+    public static void accionDepartamento() {
+
+        do {
+
+            int opt = DataManager.accion();
+
+            try {
+
+                switch (opt) {
+                    case 1: // SELECT DEPARTAMENTOS
+                        verDepartamentos();
+                        break;
+                    case 2: // INSERTAR DEPARTAMENTOS
+                        insertarDepartamentos(crearDepartamentos());
+                        break;
+                    case 3: // MODIFICAR DEPARTAMENTOS
+                        modificarDepartamentos();
+                        break;
+                    case 4: // BORRAR DEPARTAMENTOS
+                        borrarDepartamento();
+                        break;
+                    case 0:
+                        return;
+
+                }
+
+            } catch (SQLException e) {
+
+                System.out.println(ERROR);
+                e.printStackTrace();
+
+            }
+
+        } while (true);
+
+    }
+
+    // ---------------------- FIN DEPARTAMENTO ---------------------------------
+
     public static void main(String[] args) {
 
         boolean salir;
@@ -592,6 +738,7 @@ public class DemoConsola {
             System.out.println("1 - Cliente");
             System.out.println("2 - Vehículo");
             System.out.println("3 - Empleado");
+            System.out.println("4 - Departamento");
             System.out.println("0 - SALIR");
             System.out.print("> ");
 
@@ -609,6 +756,9 @@ public class DemoConsola {
                         break;
                     case 3:
                         accionEmpleado();
+                        break;
+                    case 4:
+                        accionDepartamento();
                         break;
                     case 0:
                         System.out.println("Saliendo...");
