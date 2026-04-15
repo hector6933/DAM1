@@ -1,10 +1,10 @@
 package Vista;
 
 import Controlador.*;
+import com.fasterxml.jackson.core.JsonToken;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -540,7 +540,7 @@ public final class DataManager {
 
     }
 
-    public static Integer pedirNumEmpleado(String persona){
+    public static Integer pedirNumPersona(String persona){
 
         do {
 
@@ -661,7 +661,7 @@ public final class DataManager {
             case "numEmpleado":
                 do {
 
-                    Integer numEmpleado = DataManager.pedirNumEmpleado("empleado");
+                    Integer numEmpleado = DataManager.pedirNumPersona("empleado");
 
                     if (DataManager.comprobarNumEmpleado(numEmpleado)) {
 
@@ -849,6 +849,203 @@ public final class DataManager {
             }
 
         } while (true);
+
+    }
+
+    public static String pedirColumnaEmpleado(){
+
+        do {
+
+            System.out.println("1 - Nombre");
+            System.out.println("2 - Apellidos");
+            System.out.println("3 - Telefono");
+            System.out.println("4 - Fecha nacimiento");
+            System.out.println("5 - Numero gerente");
+            System.out.println("6 - Numero departamento");
+            System.out.println("7 - ID usuario");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        return "nombre";
+                    case 2:
+                        return "apellidos";
+                    case 3:
+                        return "telefono";
+                    case 4:
+                        return "fechaNacimiento";
+                    case 5:
+                        return "numGerente";
+                    case 6:
+                        return "numDep";
+                    case 7:
+                        return "id_usuario";
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirColumnaEmpleadoCondicion(){
+
+        do {
+
+            System.out.println("1 - Numero empleado");
+            System.out.println("2 - Nombre");
+            System.out.println("3 - Apellidos");
+            System.out.println("4 - Telefono");
+            System.out.println("5 - Fecha nacimiento");
+            System.out.println("6 - Numero gerente");
+            System.out.println("7 - Numero departamento");
+            System.out.println("8 - ID usuario");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        return "numEmpleado";
+                    case 2:
+                        return "nombre";
+                    case 3:
+                        return "apellidos";
+                    case 4:
+                        return "telefono";
+                    case 5:
+                        return "fechaNacimiento";
+                    case 6:
+                        return "numGerente";
+                    case 7:
+                        return "numDep";
+                    case 8:
+                        return "id_usuario";
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirValorEmpleado(String columna) throws SQLException {
+
+        switch (columna) {
+
+            case "nombre":
+                return pedirNombre();
+            case "apellidos":
+                return pedirApellidos();
+            case "telefono":
+                return pedirTelefono();
+            case "fechaNacimiento":
+                return pedirFecha().toString();
+            case "numGerente":
+                do {
+
+                    Integer num = pedirNumPersona("gerente");
+
+                    if (!comprobarNumEmpleado(num)) {
+
+                        System.out.println("Ese número de empleado NO existe !");
+                        System.out.println("Introduce el número de un gerente válido");
+
+                    } else {
+
+                        return num.toString();
+
+                    }
+
+                } while (true);
+
+            case "numDep":
+                do {
+
+                    Integer num = pedirNumDep();
+
+                    if (!comprobarNumDep(num)) {
+
+                        System.out.println("Ese número de departamento NO existe !");
+
+                    } else {
+
+                        return num.toString();
+
+                    }
+
+                } while (true);
+
+            case "id_usuario":
+                do {
+
+                    Integer id = pedirIdUsuario();
+
+                    if (!comprobarIdUsuario(id)) {
+
+                        System.out.println("Ese ID de usuario NO existe !");
+
+                    } else {
+
+                        return id.toString();
+
+                    }
+
+                } while (true);
+            default:
+                return "";
+
+        }
+
+    }
+
+    public static String pedirValorEmpleadoCondicion(String columna) throws SQLException {
+
+        if (columna.equals("numEmpleado")) {
+
+            do {
+
+                Integer num = pedirNumPersona("empleado");
+
+                if (!comprobarNumEmpleado(num)) {
+
+                    System.out.println("Ese número de empleado NO existe");
+
+                } else {
+
+                    return num.toString();
+
+                }
+
+            } while (true);
+
+        }
+
+        return pedirValorEmpleado(columna);
 
     }
 

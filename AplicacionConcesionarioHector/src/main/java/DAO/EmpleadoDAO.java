@@ -61,6 +61,22 @@ public final class EmpleadoDAO {
 
     }
 
+    public static Integer updateEmpleado(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE empleado SET " + campoMod + " = ? WHERE "+ condicionColumna + " = ?");
+
+
+            preparedStatement.setString(1,nuevoValor);
+            preparedStatement.setString(2,condicionValor);
+
+            return preparedStatement.executeUpdate();
+
+
+        }
+
+    }
 
     public static Integer deleteEmpleado(Integer numEmp) throws SQLException {
 

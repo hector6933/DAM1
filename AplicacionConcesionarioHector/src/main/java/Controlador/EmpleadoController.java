@@ -2,6 +2,7 @@ package Controlador;
 
 import Config.Conexion;
 import DAO.EmpleadoDAO;
+import DAO.VehiculoDAO;
 import Modelo.Empleado;
 
 import java.sql.Connection;
@@ -35,6 +36,12 @@ public final class EmpleadoController {
         }
 
         return rows;
+
+    }
+
+    public static Integer modificarEmpleados(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
+
+        return EmpleadoDAO.updateEmpleado(campoMod,nuevoValor,condicionColumna,condicionValor);
 
     }
 

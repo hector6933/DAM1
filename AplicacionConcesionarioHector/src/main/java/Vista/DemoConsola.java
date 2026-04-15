@@ -267,7 +267,7 @@ public class DemoConsola {
 
             do {
 
-                numEmpleado = DataManager.pedirNumEmpleado("empleado");
+                numEmpleado = DataManager.pedirNumPersona("empleado");
 
                 if (DataManager.comprobarNumEmpleado(numEmpleado)) {
 
@@ -422,7 +422,7 @@ public class DemoConsola {
 
             do {
 
-                numGerente = DataManager.pedirNumEmpleado("gerente");
+                numGerente = DataManager.pedirNumPersona("gerente");
 
                 if (!DataManager.comprobarNumEmpleado(numGerente)) {
 
@@ -482,6 +482,34 @@ public class DemoConsola {
 
     }
 
+    public static void modificarEmpleado() throws SQLException {
+
+        System.out.println("Selecciona el campo que quieres modificar");
+        String campoMod = DataManager.pedirColumnaEmpleado();
+
+        System.out.println("Introduce el nuevo valor a asignar");
+        String nuevoValor = DataManager.pedirValorEmpleado(campoMod);
+
+        System.out.println("Selecciona la columna para la condicion de modificación");
+        String condicionColumna = DataManager.pedirColumnaEmpleadoCondicion();;
+
+        System.out.println("Introduce el valor de condición de la columna");
+        String condicionValor = DataManager.pedirValorEmpleadoCondicion(condicionColumna);
+
+        int rows = EmpleadoController.modificarEmpleados(campoMod,nuevoValor,condicionColumna,condicionValor);
+
+        if (rows == 0) {
+
+            System.out.println("No se ha actualizado ningún registro !");
+
+        } else {
+
+            System.out.println(rows + " registros actualizados correctamente !");
+
+        }
+
+    }
+
     public static void accionEmpleado() {
 
         do {
@@ -497,7 +525,7 @@ public class DemoConsola {
                         insertarEmpleados(crearEmpleados());
                         break;
                     case 3: // MODIFICAR EMPLEADOS
-
+                        modificarEmpleado();
                         break;
                     case 4: // BORRAR EMPLEADOS
 
@@ -505,7 +533,7 @@ public class DemoConsola {
 
                         do {
 
-                            num = DataManager.pedirNumEmpleado("empleado");
+                            num = DataManager.pedirNumPersona("empleado");
 
                             if (!DataManager.comprobarNumEmpleado(num)) {
 
@@ -526,6 +554,7 @@ public class DemoConsola {
                         return;
 
                 }
+
             } catch (SQLException e) {
 
                 System.out.println(ERROR);
