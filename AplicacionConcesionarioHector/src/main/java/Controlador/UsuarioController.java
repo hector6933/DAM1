@@ -1,8 +1,6 @@
 package Controlador;
 
-import DAO.DepartamentoDAO;
 import DAO.UsuarioDAO;
-import Modelo.Departamento;
 import Modelo.Usuario;
 
 import java.sql.SQLException;
@@ -37,6 +35,12 @@ public final class UsuarioController {
 
     }
 
+    public static Integer insertarUsuario(Usuario usuario) throws SQLException {
+
+        return UsuarioDAO.insertUsuario(usuario);
+
+    }
+
     public static Integer modificarUsuario(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
 
         return UsuarioDAO.updateUsuario(campoMod,nuevoValor,condicionColumna,condicionValor);
@@ -64,12 +68,6 @@ public final class UsuarioController {
         }
 
         return null;
-
-    }
-
-    public static ArrayList<Integer> verIdsUsuario() throws SQLException {
-
-        return UsuarioDAO.selectNumDeps();
 
     }
 

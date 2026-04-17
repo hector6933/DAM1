@@ -66,6 +66,7 @@ INSERT INTO usuario (nombre, passwd, rol) VALUES
 ('sara.ruiz', 'pass123', 'empleado'),
 ('david.morales', 'pass123', 'empleado'),
 ('pruebaBorrar', 'pass123', 'Admin'),
+('hecprooll', 'admin123', 'Admin'),
 ('elena.navarro', 'pass123', 'empleado');
 
 

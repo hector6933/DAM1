@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.*;
+import Modelo.Empleado;
 import Modelo.Usuario;
 
 import java.sql.Date;
@@ -8,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class DataManager {
@@ -34,6 +34,26 @@ public final class DataManager {
         }
 
         return true;
+
+    }
+
+    public static Integer pedirEntero(){
+
+        do {
+
+            System.out.print("> ");
+
+            try {
+
+                return Integer.parseInt(leer.nextLine());
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número entero!!!");
+
+            }
+
+        } while (true);
 
     }
 
@@ -181,6 +201,32 @@ public final class DataManager {
         do {
 
             System.out.println("¿Desea seguir insertando? (S/N)");
+            System.out.print("> ");
+            String opt = leer.nextLine();
+
+            if (opt.equalsIgnoreCase("S")) {
+
+                return true;
+
+            } else if (opt.equalsIgnoreCase("N")) {
+
+                return false;
+
+            } else {
+
+                System.out.println("Opción inválida !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static boolean continuarInsert(String param){
+
+        do {
+
+            System.out.println("¿Desea seguir insertando " + param + " ? (S/N)");
             System.out.print("> ");
             String opt = leer.nextLine();
 
@@ -838,9 +884,17 @@ public final class DataManager {
 
     public static boolean comprobarIdUsuario(Integer id) throws SQLException {
 
-        for (Integer e: UsuarioController.verIdsUsuario()) {
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
 
-            if (e.equals(id)) {
+        if (usuarios == null) {
+
+            return false;
+
+        }
+
+        for (Usuario e: usuarios) {
+
+            if (e.getId().equals(id)) {
 
                 return true;
 
@@ -1425,7 +1479,7 @@ public final class DataManager {
 
     }
 
-    public static boolean comprobarCredenciales(String user,String passwd) {
+    public static boolean comprobarCredencialesUsuario(String user, String passwd) {
 
         try {
 
@@ -1458,7 +1512,7 @@ public final class DataManager {
 
     }
 
-    public static String devolverRol(Integer id) throws SQLException {
+    public static String devolverRolUsuario(Integer id) throws SQLException {
 
         ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
 
@@ -1480,6 +1534,53 @@ public final class DataManager {
 
         return null;
 
+    }
+
+    public static Integer devolverIdUsuario(String username) throws SQLException {
+
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+        if (usuarios == null) {
+
+            return null;
+
+        }
+
+        for (Usuario e: usuarios) {
+
+            if (e.getNombre().equals(username)) {
+
+                return e.getId();
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public static boolean comprobarIdUsuarioEmpleado(Integer id) throws SQLException {
+
+        ArrayList<Empleado> empleados = EmpleadoController.verEmpleados();
+
+        if (empleados == null) {
+
+            return false;
+
+        }
+
+        for (Empleado e: empleados) {
+
+            if (e.getId_usuario().equals(id)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
     }
 
 }

@@ -1,7 +1,6 @@
 package DAO;
 
 import Config.Conexion;
-import Modelo.Departamento;
 import Modelo.Usuario;
 
 import java.sql.*;
@@ -34,7 +33,7 @@ public final class UsuarioDAO {
         return resultados;
     }
 
-    public static ArrayList<Integer> selectNumDeps() throws SQLException {
+    public static ArrayList<Integer> selectIds() throws SQLException {
 
         ArrayList<Integer> resultados = new ArrayList<>();
 
