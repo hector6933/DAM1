@@ -1,14 +1,9 @@
 package Vista;
 
-import Controlador.ClienteController;
-import Controlador.DepartamentoController;
-import Controlador.EmpleadoController;
-import Controlador.VehiculoController;
-import Modelo.Cliente;
+import Controlador.*;
+import DAO.UsuarioDAO;
+import Modelo.*;
 import Config.Conexion;
-import Modelo.Departamento;
-import Modelo.Empleado;
-import Modelo.Vehiculo;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -71,7 +66,7 @@ public class DemoConsola {
     public static void verClientes() throws SQLException {
 
 
-        ArrayList<String> clientes = ClienteController.verClientes();
+        ArrayList<Cliente> clientes = ClienteController.verClientes();
 
         if (clientes == null) {
 
@@ -80,7 +75,7 @@ public class DemoConsola {
 
         }
 
-        for (String e : clientes) {
+        for (Cliente e : clientes) {
 
             System.out.println(e);
 
@@ -189,7 +184,7 @@ public class DemoConsola {
 
     public static void verVehiculos() throws SQLException {
 
-        ArrayList<String> vehiculos = VehiculoController.verVehiculos();
+        ArrayList<Vehiculo> vehiculos = VehiculoController.verVehiculos();
 
         if (vehiculos == null) {
 
@@ -198,7 +193,7 @@ public class DemoConsola {
 
         }
 
-        for (String e : vehiculos) {
+        for (Vehiculo e : vehiculos) {
 
             System.out.println(e);
 
@@ -375,7 +370,16 @@ public class DemoConsola {
 
     public static void verEmpleados() throws SQLException {
 
-        for (String e : EmpleadoController.verEmpleados()) {
+        ArrayList<Empleado> empleados = EmpleadoController.verEmpleados();
+
+        if (empleados == null) {
+
+            System.out.println("No hay empleados que mostrar !");
+            return;
+
+        }
+
+        for (Empleado e : empleados) {
 
             System.out.println(e);
 
@@ -383,17 +387,34 @@ public class DemoConsola {
 
     }
 
-    public static void borrarEmpleado(Integer numEmp) throws SQLException {
+    public static void borrarEmpleado() throws SQLException {
 
-        if (EmpleadoController.borrarEmpleado(numEmp)) {
+        do {
 
-            System.out.println("Empleado con número " + numEmp + " borrado con éxito !");
+            Integer num = DataManager.pedirNumPersona("empleado");
 
-        } else {
+            if (!DataManager.comprobarNumEmpleado(num)) {
 
-            System.out.printf("Error al borrar el empleado con número " + numEmp + " !");
+                System.out.println("El número de empleado introducido NO está registrado en la base de datos !");
 
-        }
+            } else {
+
+                if (EmpleadoController.borrarEmpleado(num)) {
+
+                    System.out.println("Empleado con número " + num + " borrado con éxito !!!");
+
+                } else {
+
+                    System.out.println("Error al borrar el empleado con número " + num);
+
+                }
+
+                return;
+
+            }
+
+        } while (true);
+
 
     }
 
@@ -531,27 +552,7 @@ public class DemoConsola {
                         modificarEmpleado();
                         break;
                     case 4: // BORRAR EMPLEADOS
-
-                        int num;
-
-                        do {
-
-                            num = DataManager.pedirNumPersona("empleado");
-
-                            if (!DataManager.comprobarNumEmpleado(num)) {
-
-                                System.out.println("Ese número de empleado NO existe en la base de datos !");
-
-                            } else {
-
-                                break;
-
-                            }
-
-                        } while (true);
-
-                        borrarEmpleado(num);
-
+                        borrarEmpleado();
                         break;
                     case 0:
                         return;
@@ -575,16 +576,16 @@ public class DemoConsola {
 
     public static void verDepartamentos() throws SQLException {
 
-        ArrayList<String> departamentos = DepartamentoController.verDepartamentos();
+        ArrayList<Departamento> departamentos = DepartamentoController.verDepartamentos();
 
         if (departamentos == null) {
 
-            System.out.println("No hay clientes que mostrar !");
+            System.out.println("No hay departamentos que mostrar !");
             return;
 
         }
 
-        for (String e : departamentos) {
+        for (Departamento e : departamentos) {
 
             System.out.println(e);
 
@@ -714,6 +715,231 @@ public class DemoConsola {
 
     // ---------------------- FIN DEPARTAMENTO ---------------------------------
 
+    // ---------------------- INICIO USUARIO ------------------------------
+
+    public static void verUsuarios() throws SQLException {
+
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+        if (usuarios == null) {
+
+            System.out.println("No hay usuarios que mostrar !");
+            return;
+
+        }
+
+        for (Usuario e : usuarios) {
+
+            System.out.println(e);
+
+        }
+
+    }
+
+    public static void borrarUsuario() throws SQLException {
+
+        do {
+
+            Integer id = DataManager.pedirIdUsuario();
+
+            if (!DataManager.comprobarIdUsuario(id)) {
+
+                System.out.println("El ID de usuario introducido NO está registrado en la base de datos !");
+
+            } else {
+
+                if (UsuarioController.borrarUsuario(id)) {
+
+                    System.out.println("Usuario con id " + id + " borrado con éxito !!!");
+
+                } else {
+
+                    System.out.println("Error al borrar el usuario con id " + id);
+
+                }
+
+                return;
+
+            }
+
+        } while (true);
+
+    }
+
+    public static void insertarUsuarios(ArrayList<Usuario> usuarios) throws SQLException {
+
+        int rows = UsuarioController.insertarUsuarios(usuarios);
+
+        System.out.println(rows + " usuarios insertados !");
+
+    }
+
+    public static ArrayList<Usuario> crearUsuarios() throws SQLException {
+
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+
+        do {
+
+            String nombre;
+
+            do {
+
+                nombre = DataManager.pedirUsername(3, 20);
+
+                if (DataManager.comprobarUsername(nombre)) {
+
+                    System.out.println("Ese nombre de usuario ya existe !");
+
+                } else {
+
+                    break;
+
+                }
+
+            } while (true);
+
+            String passwd = DataManager.pedirPasswd();
+
+            String rol = DataManager.pedirRolUsuario();
+
+            usuarios.add(new Usuario(nombre,passwd,rol));
+
+        } while (DataManager.continuarInsert());
+
+        return usuarios;
+
+    }
+
+    public static void modificarUsuario() throws SQLException {
+
+        System.out.println("Selecciona el campo que quieres modificar");
+        String campoMod = DataManager.pedirColumnaUsuario();
+
+        System.out.println("Introduce el nuevo valor a asignar");
+        String nuevoValor = DataManager.pedirValorUsuario(campoMod);
+
+        System.out.println("Selecciona la columna para la condicion de modificación");
+        String condicionColumna = DataManager.pedirColumnaUsuarioCondicion();
+
+        System.out.println("Introduce el valor de condición de la columna");
+        String condicionValor = DataManager.pedirValorUsuarioCondicion(condicionColumna);
+
+        int rows = UsuarioController.modificarUsuario(campoMod,nuevoValor,condicionColumna,condicionValor);
+
+        if (rows == 0) {
+
+            System.out.println("No se ha actualizado ningún registro !");
+
+        } else {
+
+            System.out.println(rows + " registros actualizados correctamente !");
+
+        }
+
+    }
+
+    public static void accionUsuario() {
+
+        do {
+
+            int opt = DataManager.accion();
+
+            try {
+
+                switch (opt) {
+                    case 1: // SELECT USUARIOS
+                        verUsuarios();
+                        break;
+                    case 2: // INSERTAR USUARIOS
+                        insertarUsuarios(crearUsuarios());
+                        break;
+                    case 3: // MODIFICAR USUARIOS
+                        modificarUsuario();
+                        break;
+                    case 4: // BORRAR USUARIOS
+                        borrarUsuario();
+                        break;
+                    case 0:
+                        return;
+
+                }
+
+            } catch (SQLException e) {
+
+                System.out.println(ERROR);
+                e.printStackTrace();
+
+            }
+
+        } while (true);
+
+    }
+
+    // ---------------------- FIN USUARIO ---------------------------------
+
+    // ---------------------- INICIO LOGIN --------------------------------
+
+    public static boolean comprobarCredenciales(String user,String passwd) throws SQLException {
+
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+        if (usuarios == null) {
+
+            System.out.println("No hay usuarios en la base de datos !!!");
+            return false;
+
+        }
+
+        for (Usuario e: usuarios) {
+
+            if (e.getNombre().equals(user) && e.getPasswd().equals(passwd)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public static Integer login() throws SQLException {
+
+        do {
+
+            System.out.println("Introduzca las credenciales:");
+            System.out.println("Usuario: ");
+            String user = leer.nextLine();
+
+            System.out.println("Contraseña: ");
+            String passwd = leer.nextLine();
+
+            if (!comprobarCredenciales(user,passwd)) {
+
+                System.out.println("Credenciales incorrectas !!!");
+                continue;
+
+            }
+
+            Integer idUsuario = UsuarioController.getIdUsuario(user);
+
+            if (idUsuario == null) {
+
+                System.out.println("Error al obtener el usuario !!!");
+
+            } else {
+
+                return idUsuario;
+
+            }
+
+        } while (true);
+
+    }
+
+    // ---------------------- FIN LOGIN -----------------------------------
+
     public static void main(String[] args) {
 
         boolean salir;
@@ -739,6 +965,7 @@ public class DemoConsola {
             System.out.println("2 - Vehículo");
             System.out.println("3 - Empleado");
             System.out.println("4 - Departamento");
+            System.out.println("5 - Usuario");
             System.out.println("0 - SALIR");
             System.out.print("> ");
 
@@ -759,6 +986,9 @@ public class DemoConsola {
                         break;
                     case 4:
                         accionDepartamento();
+                        break;
+                    case 5:
+                        accionUsuario();
                         break;
                     case 0:
                         System.out.println("Saliendo...");

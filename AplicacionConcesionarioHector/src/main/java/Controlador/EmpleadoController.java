@@ -2,8 +2,10 @@ package Controlador;
 
 import Config.Conexion;
 import DAO.EmpleadoDAO;
+import DAO.UsuarioDAO;
 import DAO.VehiculoDAO;
 import Modelo.Empleado;
+import Modelo.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,17 +14,17 @@ import java.util.ArrayList;
 
 public final class EmpleadoController {
 
-    public static ArrayList<String> verEmpleados() throws SQLException {
+    public static ArrayList<Empleado> verEmpleados() throws SQLException {
 
-        ArrayList<String> tuplas = new ArrayList<>();
+        ArrayList<Empleado> empleados = EmpleadoDAO.selectEmpleados();
 
-        for (Empleado e: EmpleadoDAO.selectEmpleados()) {
+        if (empleados.isEmpty()) {
 
-            tuplas.add(e.toString());
+            return null;
 
         }
 
-        return tuplas;
+        return empleados;
 
     }
 

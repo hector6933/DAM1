@@ -8,9 +8,7 @@ import java.util.ArrayList;
 
 public final class ClienteController {
 
-    public static ArrayList<String> verClientes() throws SQLException {
-
-        ArrayList<String> tuplas = new ArrayList<>();
+    public static ArrayList<Cliente> verClientes() throws SQLException {
 
         ArrayList<Cliente> clientes = ClienteDAO.selectClientes();
 
@@ -20,13 +18,7 @@ public final class ClienteController {
 
         }
 
-        for (Cliente e: clientes) {
-
-            tuplas.add(e.toString());
-
-        }
-
-        return tuplas;
+        return clientes;
 
     }
 

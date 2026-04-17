@@ -10,9 +10,7 @@ import java.util.ArrayList;
 
 public final class VehiculoController {
 
-    public static ArrayList<String> verVehiculos() throws SQLException {
-
-        ArrayList<String> tuplas = new ArrayList<>();
+    public static ArrayList<Vehiculo> verVehiculos() throws SQLException {
 
         ArrayList<Vehiculo> vehiculos = VehiculoDAO.selectVehiculos();
 
@@ -22,13 +20,7 @@ public final class VehiculoController {
 
         }
 
-        for (Vehiculo e: vehiculos) {
-
-            tuplas.add(e.toString());
-
-        }
-
-        return tuplas;
+        return vehiculos;
 
     }
 

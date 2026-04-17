@@ -1,0 +1,10 @@
+-------- ADMIN -------
+Tiene acceso a TODO.
+
+-------- Gerente -------
+Tiene acceso a las tablas Empleado, Vehículo y Cliente.
+Y SOLO acceso de lectura en la tabla Departamento.
+
+-------- Empleado -------
+Tiene acceso a la la tabla Vehículo y Cliente.
+Y SOLO acceso de lectura en las tablas Empleado y Departamento.

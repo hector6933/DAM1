@@ -1,12 +1,14 @@
 package Vista;
 
 import Controlador.*;
+import Modelo.Usuario;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class DataManager {
@@ -1169,6 +1171,257 @@ public final class DataManager {
         }
 
         return pedirValorDepartamento(columna);
+
+    }
+
+    public static boolean validarUsername(String nom,Integer min, Integer max){
+
+        return Pattern.matches("^[A-Za-zñÑ0-9\\-_.]{" + min + ","+ max + "}$",nom);
+
+    }
+
+    public static String pedirUsername(Integer min, Integer max){
+
+        do {
+
+            System.out.println("Introduce el nombre de usuario:");
+            System.out.print("> ");
+            String nombre = leer.nextLine();
+
+            if (!validarUsername(nombre,min,max)) {
+
+                System.out.println("Formato incorrecto ! \nMínimo " + min + " y Máximo " + max + " letras (sin tíldes), números y símbolos (-_.) !");
+
+            } else {
+
+                return nombre;
+
+            }
+
+
+        } while (true);
+
+
+    }
+
+    public static boolean validarPasswd(String passwd) {
+
+        return Pattern.matches("^(?=\\S*[A-Z])(?=\\S*[._\\-$&@%/€#])(?=\\S*[0-9])\\S{8,}$",passwd);
+
+    }
+
+    public static String pedirPasswd(){
+
+        do {
+
+            System.out.println("Introduce la contraseña:");
+            System.out.print("> ");
+            String passwd = leer.nextLine();
+
+            if (!validarPasswd(passwd)) {
+
+                System.out.println("Formato de contraseña incorrecto !");
+                System.out.println("Debe de tener una longitud de 8 carácteres y mínimo contener: \nUna mayúscula, un carácter especial un número");
+
+            } else {
+
+                return passwd;
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirRolUsuario(){
+
+        do {
+
+            System.out.println("Introduce el rol del usuario: ");
+            System.out.println("1 - Admin");
+            System.out.println("2 - Gerente");
+            System.out.println("3 - Empleado");
+            System.out.print("> ");
+
+            try {
+
+                int rol = Integer.parseInt(leer.nextLine());
+
+                switch (rol) {
+
+                    case 1:
+                        return "Admin";
+                    case 2:
+                        return "Gerente";
+                    case 3:
+                        return "Empleado";
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirColumnaUsuario(){
+
+        do {
+
+            System.out.println("1 - Nombre");
+            System.out.println("2 - Contraseña/Passwd");
+            System.out.println("3 - rol");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        return "nombre";
+                    case 2:
+                        return "passwd";
+                    case 3:
+                        return "rol";
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirValorUsuario(String columna) throws SQLException {
+
+        switch (columna) {
+            case "nombre":
+
+                do {
+
+                    String username = pedirUsername(3, 20);
+
+                    if (comprobarUsername(username)) {
+
+                        System.out.println("Ese nombre de usuario ya existe !!!");
+
+                    } else {
+
+                        return username;
+
+                    }
+
+                } while (true);
+            case "passwd":
+                return pedirPasswd();
+            case "rol":
+                return pedirRolUsuario();
+            default:
+                return "";
+        }
+
+    }
+
+    public static String pedirColumnaUsuarioCondicion(){
+
+        do {
+
+            System.out.println("1 - ID");
+            System.out.println("2 - Nombre");
+            System.out.println("3 - Contraseña/Passwd");
+            System.out.println("4 - rol");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        return "id";
+                    case 2:
+                        return "nombre";
+                    case 3:
+                        return "passwd";
+                    case 4:
+                        return "rol";
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número !!!");
+
+            }
+
+        } while (true);
+
+    }
+
+    public static String pedirValorUsuarioCondicion(String columna) throws SQLException {
+
+        if (columna.equals("id")) {
+            do {
+
+                Integer id = pedirIdUsuario();
+
+                if (!comprobarIdUsuario(id)) {
+
+                    System.out.println("Ese ID de usuario NO está registrado en la base de datos !");
+
+                } else {
+
+                    return id.toString();
+
+                }
+
+            } while (true);
+        }
+        return pedirValorUsuario(columna);
+
+    }
+
+    public static boolean comprobarUsername(String username) throws SQLException {
+
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+        if (usuarios == null) {
+
+            return false;
+
+        }
+
+        for (Usuario e: usuarios) {
+
+            if (e.getNombre().equals(username)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
 
     }
 

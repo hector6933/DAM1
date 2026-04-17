@@ -65,6 +65,7 @@ INSERT INTO usuario (nombre, passwd, rol) VALUES
 ('miguel.torres', 'pass123', 'empleado'),
 ('sara.ruiz', 'pass123', 'empleado'),
 ('david.morales', 'pass123', 'empleado'),
+('pruebaBorrar', 'pass123', 'Admin'),
 ('elena.navarro', 'pass123', 'empleado');
 
 
@@ -108,7 +109,7 @@ INSERT INTO vehiculo (matricula, marca, modelo, tipoCombustible, precio, dni_cli
 ('3333-DDD', 'Seat', 'Ibiza', 'Gasolina', 15000, '33333333C', 2),
 ('4444-FFF', 'BMW', 'X1', 'Diesel', 35000, '44444444D', 4),
 ('5555-GGG', 'Audi', 'A3', 'Gasolina', 30000, '55555555E', 5),
-('6666-HHH', 'Kia', 'Sportage', 'Hibrido', 28000, '11111111A', 6)
+('6666-HHH', 'Kia', 'Sportage', 'Hibrido', 28000, '11111111A', 6),
 
 ('1234-BCD', 'Toyota', 'Corolla', 'Gasolina', 18000, '11111111A', 3),
 ('2345-DFG', 'Ford', 'Focus', 'Diesel', 20000, '22222222B', 4),

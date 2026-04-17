@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 public final class DepartamentoController {
 
-    public static ArrayList<String> verDepartamentos() throws SQLException {
-
-        ArrayList<String> tuplas = new ArrayList<>();
+    public static ArrayList<Departamento> verDepartamentos() throws SQLException {
 
         ArrayList<Departamento> departamentos = DepartamentoDAO.selectDepartamentos();
 
@@ -23,13 +21,7 @@ public final class DepartamentoController {
 
         }
 
-        for (Departamento e: departamentos) {
-
-            tuplas.add(e.toString());
-
-        }
-
-        return tuplas;
+        return departamentos;
 
     }
 
