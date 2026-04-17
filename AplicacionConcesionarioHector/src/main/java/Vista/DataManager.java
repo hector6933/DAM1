@@ -1425,4 +1425,61 @@ public final class DataManager {
 
     }
 
+    public static boolean comprobarCredenciales(String user,String passwd) {
+
+        try {
+
+            ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+            if (usuarios == null) {
+
+                System.out.println("No hay usuarios en la base de datos !!!");
+                return false;
+
+            }
+
+            for (Usuario e: usuarios) {
+
+                if (e.getNombre().equals(user) && e.getPasswd().equals(passwd)) {
+
+                    return true;
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al comprobar las credenciales !!!");
+
+        }
+
+        return false;
+
+    }
+
+    public static String devolverRol(Integer id) throws SQLException {
+
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+        if (usuarios == null) {
+
+            return null;
+
+        }
+
+        for (Usuario e: usuarios ) {
+
+            if (e.getId().equals(id)) {
+
+                return e.getRol();
+
+            }
+
+        }
+
+        return null;
+
+    }
+
 }

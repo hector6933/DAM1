@@ -17,6 +17,8 @@ public class DemoConsola {
 
     private static final String ERROR = "Error en la conexión de la base de datos !";
 
+    private static Integer idUsuario = null;
+
     // ---------------------- INICIO CLIENTE ----------------------------------------
     public static void insertarClientes(ArrayList<Cliente> clientes) throws SQLException {
 
@@ -879,60 +881,44 @@ public class DemoConsola {
 
     // ---------------------- INICIO LOGIN --------------------------------
 
-    public static boolean comprobarCredenciales(String user,String passwd) throws SQLException {
-
-        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
-
-        if (usuarios == null) {
-
-            System.out.println("No hay usuarios en la base de datos !!!");
-            return false;
-
-        }
-
-        for (Usuario e: usuarios) {
-
-            if (e.getNombre().equals(user) && e.getPasswd().equals(passwd)) {
-
-                return true;
-
-            }
-
-        }
-
-        return false;
-
-    }
-
-    public static Integer login() throws SQLException {
+    public static Integer login() {
 
         do {
 
             System.out.println("Introduzca las credenciales:");
-            System.out.println("Usuario: ");
+            System.out.print("Usuario: ");
             String user = leer.nextLine();
 
-            System.out.println("Contraseña: ");
+            System.out.print("Contraseña: ");
             String passwd = leer.nextLine();
 
-            if (!comprobarCredenciales(user,passwd)) {
+            if (!DataManager.comprobarCredenciales(user,passwd)) {
 
                 System.out.println("Credenciales incorrectas !!!");
                 continue;
 
             }
 
-            Integer idUsuario = UsuarioController.getIdUsuario(user);
+            try {
 
-            if (idUsuario == null) {
+                Integer idUsuario = UsuarioController.getIdUsuario(user);
+
+                if (idUsuario == null) {
+
+                    throw new SQLException();
+
+                } else {
+
+                    return idUsuario;
+
+                }
+
+            } catch (SQLException e) {
 
                 System.out.println("Error al obtener el usuario !!!");
 
-            } else {
-
-                return idUsuario;
-
             }
+
 
         } while (true);
 
@@ -940,26 +926,26 @@ public class DemoConsola {
 
     // ---------------------- FIN LOGIN -----------------------------------
 
-    public static void main(String[] args) {
+    // ---------------------- INICIO MENÚ -----------------------------------
+
+    public static void menuEmpleado(){
 
         boolean salir;
-
-        try (Connection conexion = Conexion.conexion()) {
-
-            System.out.println("Conexión EXITOSA a la base de datos");
-
-        } catch (SQLException e) {
-
-            System.out.println("Error en la conexión con la base de datos !!!");
-            e.printStackTrace();
-
-        }
 
         do {
 
             salir = false;
 
-            System.out.println("Bienvenido a la base de datos del Concesionario !");
+        } while (true);
+
+    }
+
+    public static void menuAdmin(){
+
+        boolean salir;
+        do {
+
+            salir = false;
             System.out.println("--- ELIGE ---");
             System.out.println("1 - Cliente");
             System.out.println("2 - Vehículo");
@@ -1003,6 +989,102 @@ public class DemoConsola {
             } catch (NumberFormatException e) {
 
                 System.out.println("Introduce un número entero !");
+
+            }
+
+        } while (!salir);
+
+    }
+
+    public static void menu(String rol) {
+
+        switch (rol.toLowerCase()) {
+
+            case "admin":
+                menuAdmin();
+                break;
+            case "gerente":
+                break;
+            case "empleado":
+                break;
+            default:
+                System.out.println("Error con los roles del menú !!!");
+                break;
+
+        }
+
+    }
+
+    // ---------------------- FIN MENÚ ------------------------------------
+
+    public static void main(String[] args) {
+
+        boolean salir;
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            System.out.println("Conexión EXITOSA a la base de datos");
+
+        } catch (SQLException e) {
+
+            System.out.println("Error en la conexión con la base de datos !!!");
+            e.printStackTrace();
+
+        }
+
+        do {
+
+            salir = false;
+            System.out.println("Bienvenido a la base de datos del Concesionario !");
+            System.out.println("--- ELIGE ---");
+            System.out.println("1 - Iniciar sesión");
+            System.out.println("0 - SALIR");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+
+                        idUsuario = login();
+
+                        String rol;
+                        
+                        try {
+
+                            rol = DataManager.devolverRol(idUsuario);
+
+                            if (rol == null) {
+
+                                throw new SQLException();
+
+                            }
+
+                        } catch (SQLException e) {
+
+                            System.out.println("Error al obtener el rol del usuario !!!");
+                            continue;
+
+                        }
+
+                        menu(rol);
+
+                        break;
+                    case 0:
+                        System.out.println("Saliendo...");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+                }
+
+            } catch (RuntimeException e) {
+
+                System.out.println("Introduce un número entero !!!");
 
             }
 
