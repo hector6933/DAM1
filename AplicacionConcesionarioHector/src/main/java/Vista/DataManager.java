@@ -1165,7 +1165,6 @@ public final class DataManager {
 
         return pedirNombre(2, 50); // La única columna que puede introducir para cambiar el valor es el nombre
 
-
     }
 
     public static String pedirColumnaDepartamentoCondicion(){
