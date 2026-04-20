@@ -1,12 +1,11 @@
-package Vista;
+package Pruebas;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DemoGUI {
+public class ProbatinaGUI_1 {
 
     static int clicks = 0;
 
@@ -17,9 +16,9 @@ public class DemoGUI {
         JFrame frame = new JFrame("BoxLayout Example");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 300);
-// Create a panel to hold the buttons
+
         JPanel panel = new JPanel();
-// Set the panel layout to BoxLayout
+
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JButton boton = new JButton("Click me");

@@ -1,4 +1,4 @@
-package PruebasIA;
+package Pruebas;
 
 import Controlador.*;
 import Modelo.*;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
  * Los nombres de columna SQL (CAMPO_MOD, etc.) deben coincidir con los que
  * usa DataManager.pedirColumnaXxx() – revísalos en la región COLUMNAS.
  */
-public class DemoGUI {
+public class DemoGUI_IA {
 
     // =========================================================
     //  TEMA VISUAL
