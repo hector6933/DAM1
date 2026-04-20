@@ -101,10 +101,15 @@ SELECT cen.NomCen, (SELECT COUNT(*) FROM empleado NATURAL LEFT JOIN departamento
 
 -- 18:
 
+-- 20:
+SELECT c.* FROM 
+centro c INNER JOIN departamento d ON d.CodCen = c.CodCen 
+INNER JOIN empleado e ON e.CodDep = d.CodDep GROUP BY c.CodCen 
+HAVING AVG(DATEDIFF(NOW(),e.FecInEmp)/365) > 10;
 
 SELECT * FROM centro;
 SELECT * FROM departamento;
-SELECT * FROM empleado;
+SELECT DATEDIFF(NOW(),FecNaEmp)/365 FROM empleado;
 SELECT * FROM habemp;
 
 

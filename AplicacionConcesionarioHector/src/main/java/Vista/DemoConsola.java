@@ -1241,6 +1241,7 @@ public class DemoConsola {
 
         do {
 
+            idUsuarioActual = 0;
             salir = false;
             System.out.println("Bienvenido a la base de datos del Concesionario !");
             System.out.println("--- ELIGE ---");

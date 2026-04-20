@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.regex.Pattern;
+
 public class Cliente {
 
     private String dni;
@@ -15,6 +17,12 @@ public class Cliente {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
+    }
+
+    public static boolean validarDni(String dni){
+
+        return Pattern.matches("^[0-9]{8}[A-Z]$",dni);
+
     }
 
     public String getDni() {

@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.regex.Pattern;
+
 public class Usuario {
 
     private Integer id;
@@ -21,6 +23,18 @@ public class Usuario {
         this.nombre = nombre;
         this.passwd = passwd;
         this.rol = rol;
+    }
+
+    public static boolean validarUsername(String nom,Integer min, Integer max){
+
+        return Pattern.matches("^[A-Za-zñÑ0-9\\-_.]{" + min + ","+ max + "}$",nom);
+
+    }
+
+    public static boolean validarPasswd(String passwd) {
+
+        return Pattern.matches("^(?=\\S*[A-Z])(?=\\S*[._\\-$&@%/€#])(?=\\S*[0-9])\\S{8,}$",passwd);
+
     }
 
     public Integer getId() {

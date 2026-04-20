@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.regex.Pattern;
+
 public class Vehiculo {
 
     private String matricula;
@@ -21,6 +23,18 @@ public class Vehiculo {
         this.precio = precio;
         this.dniCliente = dniCliente;
         this.numEmpleado = numEmpleado;
+    }
+
+    public static boolean validarModelo(String modelo){
+
+        return Pattern.matches("^\\w{2,15}$",modelo);
+
+    }
+
+    public static boolean validarMatricula(String matricula){
+
+        return Pattern.matches("^[0-9]{4}-[BCDFGHJKLMNPQRSTVWXYZ]{3}$",matricula);
+
     }
 
     public String getMatricula() {

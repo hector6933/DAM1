@@ -1,8 +1,10 @@
 package Vista;
 
 import Controlador.*;
+import Modelo.Cliente;
 import Modelo.Empleado;
 import Modelo.Usuario;
+import Modelo.Vehiculo;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -14,12 +16,6 @@ import java.util.regex.Pattern;
 public final class DataManager {
 
     public static Scanner leer = new Scanner(System.in);
-
-    public static boolean validarDni(String dni){
-
-        return Pattern.matches("^[0-9]{8}[A-Z]$",dni);
-
-    }
 
     public static boolean comprobarDni(String dni) throws SQLException {
 
@@ -65,7 +61,7 @@ public final class DataManager {
             System.out.print("> ");
             String dni = leer.nextLine();
 
-            if (!validarDni(dni)) {
+            if (!Cliente.validarDni(dni)) {
 
                 System.out.println("Formato de DNI inválido !!! Ej: 67676767L");
 
@@ -404,11 +400,6 @@ public final class DataManager {
 
     }
 
-    public static boolean validarMatricula(String matricula){
-
-        return Pattern.matches("^[0-9]{4}-[BCDFGHJKLMNPQRSTVWXYZ]{3}$",matricula);
-
-    }
 
     public static String pedirMatricula(){
 
@@ -419,7 +410,7 @@ public final class DataManager {
 
             String matricula = leer.nextLine().toUpperCase();
 
-            if (!validarMatricula(matricula)) {
+            if (!Vehiculo.validarMatricula(matricula)) {
 
                 System.out.println("Formato de matrícula inválido ! Ej: 1234-BCD");
 
@@ -488,12 +479,6 @@ public final class DataManager {
 
     }
 
-    public static boolean validarModelo(String modelo){
-
-        return Pattern.matches("^\\w{2,15}$",modelo);
-
-    }
-
     public static String pedirModelo(){
 
         do {
@@ -502,7 +487,7 @@ public final class DataManager {
             System.out.print("> ");
             String modelo = leer.nextLine();
 
-            if (!validarModelo(modelo)) {
+            if (!Vehiculo.validarModelo(modelo)) {
 
                 System.out.println("Formato incorrecto ! \nMínimo 2 y Máximo 15 letras del abecedario !");
 
@@ -1227,12 +1212,6 @@ public final class DataManager {
 
     }
 
-    public static boolean validarUsername(String nom,Integer min, Integer max){
-
-        return Pattern.matches("^[A-Za-zñÑ0-9\\-_.]{" + min + ","+ max + "}$",nom);
-
-    }
-
     public static String pedirUsername(Integer min, Integer max){
 
         do {
@@ -1241,7 +1220,7 @@ public final class DataManager {
             System.out.print("> ");
             String nombre = leer.nextLine();
 
-            if (!validarUsername(nombre,min,max)) {
+            if (!Usuario.validarUsername(nombre,min,max)) {
 
                 System.out.println("Formato incorrecto ! \nMínimo " + min + " y Máximo " + max + " letras (sin tíldes), números y símbolos (-_.) !");
 
@@ -1257,12 +1236,6 @@ public final class DataManager {
 
     }
 
-    public static boolean validarPasswd(String passwd) {
-
-        return Pattern.matches("^(?=\\S*[A-Z])(?=\\S*[._\\-$&@%/€#])(?=\\S*[0-9])\\S{8,}$",passwd);
-
-    }
-
     public static String pedirPasswd(){
 
         do {
@@ -1271,7 +1244,7 @@ public final class DataManager {
             System.out.print("> ");
             String passwd = leer.nextLine();
 
-            if (!validarPasswd(passwd)) {
+            if (!Usuario.validarPasswd(passwd)) {
 
                 System.out.println("Formato de contraseña incorrecto !");
                 System.out.println("Debe de tener una longitud de 8 carácteres y mínimo contener: \nUna mayúscula, un carácter especial un número");
