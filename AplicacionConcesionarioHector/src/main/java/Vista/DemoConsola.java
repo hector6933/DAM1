@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.*;
-import DAO.UsuarioDAO;
 import Modelo.*;
 import Config.Conexion;
 
@@ -17,7 +16,7 @@ public class DemoConsola {
 
     private static final String ERROR = "Error en la conexión de la base de datos !";
 
-    private static Integer idUsuario = null;
+    private static Integer idUsuarioActual = null;
 
     // ---------------------- INICIO CLIENTE ----------------------------------------
     public static void insertarClientes(ArrayList<Cliente> clientes) throws SQLException {
@@ -429,7 +428,7 @@ public class DemoConsola {
 
     }
 
-    public static ArrayList<Empleado> crearEmpleados() throws SQLException {
+    public static ArrayList<Empleado> crearEmpleados(String rol) throws SQLException {
 
         ArrayList<Empleado> empleados = new ArrayList<>();
 
@@ -479,29 +478,90 @@ public class DemoConsola {
 
             } while (true);
 
-            // PONER AQUÍ LA OPCIÓN DE CREAR UN USUARIO O AÑADIR EL EMPLEADO A UN USUARIO EXISTENTE (aunque me toca los cojones hacerlo)
             Integer idUsuario;
+            if (rol.equalsIgnoreCase("admin")) {
 
-            do {
+                do {
 
-                idUsuario = DataManager.pedirIdUsuario();
+                    System.out.println("¿Desea relacionar el empleado a un nuevo usuario o a uno existente?");
+                    System.out.println("1 - Crear un nuevo usuario");
+                    System.out.println("2 - Asignar el ID a uno existente");
 
-                if (!DataManager.comprobarIdUsuario(idUsuario)) {
+                    int opt = DataManager.pedirEntero();
 
-                    System.out.println("El ID de ese usuario NO existe !");
+                    switch (opt) {
 
-                } else {
+                        case 1:
+                            Usuario user = crearUsuario();
+
+                            insertarUsuario(user);
+
+                            idUsuario = DataManager.devolverIdUsuario(user.getNombre());
+
+                            break;
+                        case 2:
+                            do {
+
+                                idUsuario = DataManager.pedirIdUsuario();
+
+                                if (!DataManager.comprobarIdUsuario(idUsuario)) {
+
+                                    System.out.println("El ID de ese usuario NO existe !");
+                                    continue;
+
+                                }
+
+                                if (DataManager.comprobarIdUsuarioEmpleado(idUsuario)) {
+
+                                    System.out.println("Ese usuario ya tiene un empleado asignado !!!");
+
+                                } else {
+
+                                    break;
+
+                                }
+
+                            } while (true);
+                            break;
+                        default:
+                            System.out.println("Opción inválida !!!");
+                            continue;
+
+                    }
 
                     break;
 
-                }
+                } while (true);
 
-            } while (true);
+            } else {
+
+                do {
+
+                    idUsuario = DataManager.pedirIdUsuario();
+
+                    if (!DataManager.comprobarIdUsuario(idUsuario)) {
+
+                        System.out.println("El ID de ese usuario NO existe !");
+                        continue;
+                    }
+
+                    if (DataManager.comprobarIdUsuarioEmpleado(idUsuario)) {
+
+                        System.out.println("Ese usuario ya tiene un empleado asignado !!!");
+
+                    } else {
+
+                        break;
+
+                    }
+
+                } while (true);
+
+            }
 
             empleados.add(new Empleado(nombre, apellidos, telefono, fecha, numGerente, numDep, idUsuario));
 
-
-        } while (DataManager.continuarInsert());
+        } while (DataManager.continuarInsert("empleados"));
 
         return empleados;
 
@@ -517,7 +577,6 @@ public class DemoConsola {
 
         System.out.println("Selecciona la columna para la condicion de modificación");
         String condicionColumna = DataManager.pedirColumnaEmpleadoCondicion();
-        ;
 
         System.out.println("Introduce el valor de condición de la columna");
         String condicionValor = DataManager.pedirValorEmpleadoCondicion(condicionColumna);
@@ -548,7 +607,7 @@ public class DemoConsola {
                         verEmpleados();
                         break;
                     case 2: // INSERTAR EMPLEADOS
-                        insertarEmpleados(crearEmpleados());
+                        insertarEmpleados(crearEmpleados(DataManager.devolverRolUsuario(idUsuarioActual)));
                         break;
                     case 3: // MODIFICAR EMPLEADOS
                         modificarEmpleado();
@@ -776,35 +835,57 @@ public class DemoConsola {
 
     }
 
+    public static void insertarUsuario(Usuario usuario) throws SQLException {
+
+        int rows = UsuarioController.insertarUsuario(usuario);
+
+        if (rows == 0) {
+
+            System.out.println("No se ha podido insertar el usuario !!!");
+
+        } else {
+
+            System.out.println("Usuario insertado correctamente !!!");
+
+        }
+
+    }
+
+    public static Usuario crearUsuario() throws SQLException {
+
+        String nombre;
+
+        do {
+
+            nombre = DataManager.pedirUsername(3, 20);
+
+            if (DataManager.comprobarUsername(nombre)) {
+
+                System.out.println("Ese nombre de usuario ya existe !");
+
+            } else {
+
+                break;
+
+            }
+
+        } while (true);
+
+        String passwd = DataManager.pedirPasswd();
+
+        String rol = DataManager.pedirRolUsuario();
+
+        return new Usuario(nombre,passwd,rol);
+
+    }
+
     public static ArrayList<Usuario> crearUsuarios() throws SQLException {
 
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
         do {
 
-            String nombre;
-
-            do {
-
-                nombre = DataManager.pedirUsername(3, 20);
-
-                if (DataManager.comprobarUsername(nombre)) {
-
-                    System.out.println("Ese nombre de usuario ya existe !");
-
-                } else {
-
-                    break;
-
-                }
-
-            } while (true);
-
-            String passwd = DataManager.pedirPasswd();
-
-            String rol = DataManager.pedirRolUsuario();
-
-            usuarios.add(new Usuario(nombre,passwd,rol));
+            usuarios.add(crearUsuario());
 
         } while (DataManager.continuarInsert());
 
@@ -892,7 +973,7 @@ public class DemoConsola {
             System.out.print("Contraseña: ");
             String passwd = leer.nextLine();
 
-            if (!DataManager.comprobarCredenciales(user,passwd)) {
+            if (!DataManager.comprobarCredencialesUsuario(user,passwd)) {
 
                 System.out.println("Credenciales incorrectas !!!");
                 continue;
@@ -931,12 +1012,136 @@ public class DemoConsola {
     public static void menuEmpleado(){
 
         boolean salir;
-
         do {
 
             salir = false;
+            System.out.println("--- ELIGE ---");
+            System.out.println("1 - Cliente");
+            System.out.println("2 - Vehículo");
+            System.out.println("3 - Empleado");
+            System.out.println("4 - Departamento");
+            System.out.println("0 - SALIR");
+            System.out.print("> ");
 
-        } while (true);
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        accionCliente();
+                        break;
+                    case 2:
+                        accionVehiculo();
+                        break;
+                    case 3:
+                        try {
+
+                            verEmpleados();
+
+                        } catch (SQLException e) {
+
+                            System.out.println("Error al mostrar los empleados !!!");
+
+                        }
+                        break;
+                    case 4:
+                        try {
+
+                            verDepartamentos();
+
+                        } catch (SQLException e) {
+
+                            System.out.println("Errpr al mostrar los departamentos !!!");
+
+                        }
+
+                        break;
+                    case 5:
+                        accionUsuario();
+                        break;
+                    case 0:
+                        System.out.println("Saliendo...");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número entero !");
+
+            }
+
+        } while (!salir);
+
+    }
+
+    public static void menuGerente(){
+
+        boolean salir;
+        do {
+
+            salir = false;
+            System.out.println("--- ELIGE ---");
+            System.out.println("1 - Cliente");
+            System.out.println("2 - Vehículo");
+            System.out.println("3 - Empleado");
+            System.out.println("4 - Departamento");
+            System.out.println("0 - SALIR");
+            System.out.print("> ");
+
+            try {
+
+                int opt = Integer.parseInt(leer.nextLine());
+
+                switch (opt) {
+
+                    case 1:
+                        accionCliente();
+                        break;
+                    case 2:
+                        accionVehiculo();
+                        break;
+                    case 3:
+                        accionEmpleado();
+                        break;
+                    case 4:
+                        try {
+
+                            verDepartamentos();
+
+                        } catch (SQLException e) {
+
+                            System.out.println("Errpr al mostrar los departamentos !!!");
+
+                        }
+
+                        break;
+                    case 5:
+                        accionUsuario();
+                        break;
+                    case 0:
+                        System.out.println("Saliendo...");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción inválida !!!");
+                        break;
+
+                }
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Introduce un número entero !");
+
+            }
+
+        } while (!salir);
 
     }
 
@@ -1004,8 +1209,10 @@ public class DemoConsola {
                 menuAdmin();
                 break;
             case "gerente":
+                menuGerente();
                 break;
             case "empleado":
+                menuEmpleado();
                 break;
             default:
                 System.out.println("Error con los roles del menú !!!");
@@ -1049,13 +1256,13 @@ public class DemoConsola {
 
                     case 1:
 
-                        idUsuario = login();
+                        idUsuarioActual = login();
 
                         String rol;
                         
                         try {
 
-                            rol = DataManager.devolverRol(idUsuario);
+                            rol = DataManager.devolverRolUsuario(idUsuarioActual);
 
                             if (rol == null) {
 
@@ -1094,4 +1301,7 @@ public class DemoConsola {
 
     }
 
+    public static Integer getIdUsuarioActual() {
+        return idUsuarioActual;
+    }
 }
