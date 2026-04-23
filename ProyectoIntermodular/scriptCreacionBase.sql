@@ -52,6 +52,12 @@ CREATE TABLE vehiculo(
 );
 
 -- FALTA LA ISA DE VEHICULO DE COCHE MOTO Y CAMIÓN
+INSERT INTO departamento (numDep, nombre) VALUES
+(1, 'Ventas'),
+(2, 'Marketing'),
+(3, 'Finanzas'),
+(4, 'Recursos Humanos'),
+(5, 'IT');
 
 INSERT INTO usuario (nombre, passwd, rol) VALUES
 ('carlos.ramirez', 'pass123', 'gerente'),
@@ -69,13 +75,8 @@ INSERT INTO usuario (nombre, passwd, rol) VALUES
 ('hecprooll', 'admin123', 'Admin'),
 ('elena.navarro', 'pass123', 'empleado');
 
+/*
 
-INSERT INTO departamento (numDep, nombre) VALUES
-(1, 'Ventas'),
-(2, 'Marketing'),
-(3, 'Finanzas'),
-(4, 'Recursos Humanos'),
-(5, 'IT');
 
 -- GERENTES
 INSERT INTO empleado (nombre, apellidos, telefono, fechaNacimiento, numGerente, numDep, id_usuario) VALUES
@@ -121,5 +122,92 @@ INSERT INTO vehiculo (matricula, marca, modelo, tipoCombustible, precio, dni_cli
 ('7890-XYZ', 'Hyundai', 'Tucson', 'Diesel', 27000, '22222222B', 8),
 ('8901-BCF', 'Volkswagen', 'Golf', 'Gasolina', 25000, '33333333C', 9),
 ('9012-DGH', 'Peugeot', '308', 'Diesel', 22000, '44444444D', 10),
-('1123-JKL', 'Renault', 'Megane', 'Hibrido', 26000, '55555555E', 11);
+('1123-JKL', 'Renault', 'Megane', 'Hibrido', 26000, '55555555E', 11);*/
 
+
+-- INSERTS MASIVOS IA:
+
+-- USUARIOS
+SET @row := 0;
+
+INSERT INTO usuario (nombre, passwd, rol)
+SELECT 
+    CONCAT('user', @row := @row + 1),
+    'pass123',
+    CASE 
+        WHEN @row <= 20 THEN 'gerente'
+        ELSE 'empleado'
+    END
+FROM 
+    (SELECT 0 FROM dual LIMIT 200) t1,
+    (SELECT 0 FROM dual LIMIT 200) t2
+LIMIT 200;
+
+-- EMPLEADOS:
+SET @row := 0;
+
+INSERT INTO empleado (nombre, apellidos, telefono, fechaNacimiento, numGerente, numDep, id_usuario)
+SELECT 
+    CONCAT('Nombre', @row := @row + 1),
+    CONCAT('Apellido', @row),
+    600000000 + @row,
+    DATE_ADD('1980-01-01', INTERVAL @row DAY),
+    CASE 
+        WHEN @row <= 20 THEN NULL
+        ELSE FLOOR(1 + RAND()*20)
+    END,
+    FLOOR(1 + RAND()*3),
+    @row
+FROM 
+    (SELECT 0 FROM dual LIMIT 200) t1,
+    (SELECT 0 FROM dual LIMIT 200) t2
+LIMIT 200;
+
+-- CLIENTES
+SET @row := 0;
+
+INSERT INTO cliente (dni, nombre, apellidos, telefono)
+SELECT 
+    CONCAT(LPAD(@row := @row + 1,8,'0'), CHAR(65 + (@row % 26))),
+    CONCAT('Cliente', @row),
+    CONCAT('Apellido', @row),
+    610000000 + @row
+FROM 
+    (SELECT 0 UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) t1,
+    (SELECT 0 UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) t2,
+    (SELECT 0 UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) t3
+LIMIT 200;
+
+-- VEHÍCULOS
+SET @row := 0;
+
+INSERT INTO vehiculo (matricula, marca, modelo, tipoCombustible, precio, dni_cliente, numEmpleado)
+SELECT
+    CONCAT(
+        LPAD(@row := @row + 1,4,'0'), '-',
+        SUBSTRING('BCDFGHJKLMNPQRSTVWXYZ', FLOOR(1 + RAND()*21), 1),
+        SUBSTRING('BCDFGHJKLMNPQRSTVWXYZ', FLOOR(1 + RAND()*21), 1),
+        SUBSTRING('BCDFGHJKLMNPQRSTVWXYZ', FLOOR(1 + RAND()*21), 1)
+    ),
+    ELT(FLOOR(1 + RAND()*10), 
+        'Toyota','Ford','BMW','Audi','Kia',
+        'Hyundai','Seat','Renault','Peugeot','Volkswagen'),
+    CONCAT('Modelo', @row),
+    ELT(FLOOR(1 + RAND()*3), 'Gasolina','Diesel','Hibrido'),
+    FLOOR(15000 + RAND()*20000),
+
+    -- cliente válido
+    (SELECT dni FROM cliente ORDER BY RAND() LIMIT 1),
+
+    -- empleado válido 🔥
+    (SELECT numEmpleado FROM empleado ORDER BY RAND() LIMIT 1)
+
+FROM 
+    (SELECT 0 FROM dual LIMIT 300) t1,
+    (SELECT 0 FROM dual LIMIT 300) t2
+LIMIT 300;
+
+-- FIN IA
