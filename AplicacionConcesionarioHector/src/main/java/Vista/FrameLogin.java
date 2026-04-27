@@ -121,7 +121,6 @@ public class FrameLogin extends JFrame {
                     menu();
                     dispose();
 
-
                 } else {
 
                     mostrarErrorCredenciales();

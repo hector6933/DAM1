@@ -25,7 +25,7 @@ public class FrameMenu extends JFrame {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10)); // Panel de los botones con un flowlayout para que se centren
 
         JButton btnEmpleados = new JButton("Empleados");
         JButton btnDepartamentos = new JButton("Departamentos");
@@ -81,6 +81,7 @@ public class FrameMenu extends JFrame {
 
         panelTabla.revalidate(); // Esto es para que vuelva a construir el layout de una nueva tabla
         panelTabla.repaint(); // Para que visualmente se actualize a la nueva tabla
+
     }
 
     // -------------------- EMPLEADO --------------------
@@ -234,6 +235,7 @@ public class FrameMenu extends JFrame {
         return modelo;
     }
 
+    // Ventana con el error SQL en caso de que falle alguna conexion con la base de datos
     private void mostrarErrorBD(SQLException ex) {
         JOptionPane.showMessageDialog(
                 this,
