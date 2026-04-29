@@ -15,7 +15,7 @@ public class FrameLogin extends JFrame {
         setTitle("Login");
         setSize(x, y);
         setLocationRelativeTo(null);
-        setLocation( (int) getLocation().getX()-(x/2),(int) getLocation().getY()-(y/2));
+        //setLocation( (int) getLocation().getX()-(x/2),(int) getLocation().getY()-(y/2));
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(3,1));
