@@ -12,6 +12,12 @@ root.title("cosa")
 color = tk.StringVar()
 color.set("white")
 
+tocadoRandom = tk.IntVar()
+tocadoRandom.set(0)
+
+textoColoresTocados = tk.StringVar()
+textoColoresTocados.set("0/551")
+
 root.config(width=500, height=500, background=color.get())
 
 colores = [
@@ -36,6 +42,9 @@ colores = [
     'wheat', 'wheat1', 'wheat2', 'wheat3', 'wheat4', 'white', 'WhiteSmoke',
     'yellow', 'yellow1', 'yellow2', 'yellow3', 'yellow4', 'YellowGreen'
 ]
+
+coloresTocados = [""]
+
 print(len(colores))
 def cambiarColor():
     root.config(background=color.get())
@@ -44,7 +53,16 @@ def colorRandom():
     numRandom = random.randint(1, len(colores)-1)
     root.config(background=colores[numRandom])
     color.set(colores[numRandom])
+
     print(colores[numRandom])
+    tocadoRandom.set(tocadoRandom.get() + 1)
+
+    if coloresTocados.__contains__(colores[numRandom]):
+        hola = "hola" + "hola"
+    else:
+        coloresTocados.append(colores[numRandom])
+        prueba = len(coloresTocados).__str__() + "/551"
+        textoColoresTocados.set(prueba)
 
 labelTexto1 = tk.Label(text="Escribe el color:", bg="white", fg="black", font=("JetBrains Mono", 15))
 inputColor = tk.Entry(width=20, bg="white", fg="black", textvariable=color, font=("JetBrains Mono", 11))
@@ -52,9 +70,27 @@ botonColor = tk.Button(text="Cambiar", bg="white", fg="black", font=("JetBrains 
 
 botonColorRandom = tk.Button(text="Random", bg="white", fg="black", font=("JetBrains Mono", 11), command=colorRandom)
 
+labelTexto2 = tk.Label(text="Colores totales: ", bg="white", fg="black", font=("JetBrains Mono", 10))
+labelTexto3 = tk.Label(text=len(colores), bg="white", fg="black", font=("JetBrains Mono", 10))
+
+labelTexto4 = tk.Label(text="Veces tocado\nrandom: \n", bg="white", fg="black", font=("JetBrains Mono", 10))
+labelTexto5 = tk.Label(textvariable=tocadoRandom, bg="white", fg="black", font=("JetBrains Mono", 10))
+
+labelTexto6 = tk.Label(text="Colores descubiertos:", bg="white", fg="black", font=("JetBrains Mono", 11))
+labelTexto7 = tk.Label(textvariable=textoColoresTocados, bg="white", fg="black", font=("JetBrains Mono", 11))
+
 labelTexto1.place(x=190,y=10)
 inputColor.place(x=190,y=50)
 botonColor.place(x=190,y=90)
 botonColorRandom.place(x=290,y=90)
+
+labelTexto2.place(x=20,y=20)
+labelTexto3.place(x=50,y=40)
+
+labelTexto4.place(x=20,y=60)
+labelTexto5.place(x=55,y=100)
+
+labelTexto6.place(x=185,y=140)
+labelTexto7.place(x=250,y=160)
 
 root.mainloop()
