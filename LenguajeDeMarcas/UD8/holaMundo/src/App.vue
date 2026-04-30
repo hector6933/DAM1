@@ -1,98 +1,113 @@
 <script setup>
-import { setBlockTracking } from 'vue'
+import { computed, ref } from 'vue'
 
-const sout = (a) => console.log(a)
 
-const nombre = "Vue 3"
+const estiloHr = "margin: 10px 0px; border-color: red; border-width: 2px"
+const estiloHr2 = "margin: 10px 0px;"
 
-const styleHr = "margin: 20px 0;"
+const click = ( mensaje ) => {
 
-const arrayFrutas = ["🍎", "🍌", "🍉", "🍓", "🍒"]
-
-const descargaFrutas = [
-  {
-    name: "Manzana",
-    price: "1.00€",
-    description: "Manzana Golden",
-    stock: 0
-  },
-  {
-    name: "Pera",
-    price: "2.00€",
-    description: "Pera Conferencia",
-    stock: 10
-  },
-  {
-    name: "Naranja",
-    price: "3.00€",
-    description: "Naranjas de Valencia",
-    stock: 20
-  }
-]
-
-const fruta = {
-
-  name: "Fresa",
-  price: "4.00€",
-  description: "Fresón de Palos"
+    console.log(mensaje)
 
 }
 
+const click2 = () => {
+
+    console.log("Mensaje click 2")
+
+}
+
+const incrementar = () => {
+
+    contador.value++
+
+}
+
+const decrementar = () => {
+
+    contador.value--
+
+}
+
+const reset = () => {
+
+    contador.value = 0
+
+}
+
+const favoritos = ref([])
+
+const fav = () => {
+
+    if (!favoritos.value.includes(contador.value)) {
+
+        favoritos.value.push(contador.value) 
+
+    }
+    
+}
+
+const clearFav = () => {
+
+    favoritos.value.length = 0
+
+}
+
+const contador = ref(0)
+
+const claseContador = computed( () => {
+    if (contador.value === 0) {
+
+        return 'color: yellow'
+
+    }
+
+    return contador.value > 0 ? 'color: lime' : 'color: red'
+})
+
 </script>
+
+
 
 <template>
 
-  <div style="padding: 20px;">
+    <div style="padding: 10px;">
 
-    <h1>Hola {{ nombre }}</h1>
-    
-    <hr :style="styleHr">
+        <h1>Botones y cosas</h1>
 
-    <h1>Directiva v-for</h1>
-    <ul>
-      <li v-for="(fruta, index) in arrayFrutas" :key="index">
-        
-        {{ index }} - {{ fruta }}
-      </li>
-    </ul>
+        <hr :style="`${estiloHr}`">
 
-    <hr :style="styleHr">
+        <br>
+        <button v-on:click="click('Mensaje click 1')">Click Aquí</button>
+        <button @click.middle="click2">Click Aquí</button>
+        <br>
+        <br>
 
-    <h1>Recorremos un Array de objetos</h1>
+        <h1>Contador</h1>
+        <div class="d-flex gap-1">
+            <button v-on:click="incrementar" class="btn btn-success">Aumentar</button>
+            <button v-on:click="decrementar" class="btn btn-danger">Disminuir</button>
+            <button v-on:click="reset" class="btn btn-secondary">Cero</button>
+            <button v-on:click="fav" class="btn btn-info">Favorito</button>
+            <button v-on:click="clearFav" class="btn btn-warning">Borrar Favoritos</button>
+        </div>
+        <!-- <h2 :style=" contador >= 0 ? 'color: green' : 'color: red'">{{ contador }}</h2>-->
+        <h2 :style="claseContador">{{ contador }}</h2> <!-- Para que la lógica se haga en el script en vez de en el html-->
 
-    <ul>
-      <li v-for="fruta in descargaFrutas" :key="fruta.name">
-          {{ fruta.name }} - {{ fruta.description }} - {{ fruta.price }}
-      </li>
-    </ul>
+        <h2>Números favoritos:</h2>
+        <ul>
+            
+            <li v-for="numero in favoritos" class="fs-5">
+                {{ numero }}
+            </li>
 
-    <hr :style="styleHr">
+        </ul>
 
-    <h1>Recorremos un objeto</h1>
-
-    <ul>
-      <li v-for="(valor, propiedad, index) in fruta">
-       {{ index }} - {{ propiedad }} - {{ valor }}
-      </li>
-    </ul>
-
-    <hr :style="styleHr">
-
-    <h1>Lista de productos con 10 o más unidades</h1>
-    <ul>
-      <li v-for="(valor, propiedad, index) in fruta">
-       {{ index }} - {{ propiedad }} - {{ valor }}
-      </li>
-    </ul>
-  </div>
+    </div>
 
 </template>
 
-<style>
-  h1 {
 
-    color: white;
-    font-weight: bold;
-  
-  }
+<style>
+
 </style>
