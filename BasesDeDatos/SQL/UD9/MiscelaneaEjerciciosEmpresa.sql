@@ -99,8 +99,108 @@ SET NumHi = (SELECT recuento FROM (SELECT COUNT(*) AS recuento FROM hijo WHERE C
 UPDATE empleado e
 SET NumHi = (SELECT recuento FROM (SELECT COUNT(*) AS recuento FROM hijo WHERE CodEmp = e.CodEmp) AS cosa);
 
-SELECT e.*,h.* FROM empleado e INNER JOIN hijo h ON e.CodEmp = h.CodEmp;
-SELECT e.*,h.* FROM empleado e LEFT JOIN hijo h ON e.CodEmp = h.CodEmp;
+-- 16:
+DELETE FROM habemp WHERE CodHab LIKE 'PROYE';
+
+-- 17:
+DELETE FROM habilidad WHERE CodHab LIKE 'PROYE';
+
+-- 18:
+DELETE FROM hijo WHERE CodEmp NOT IN (SELECT CodEmp FROM empleado);
+
+-- 19:
+DELETE FROM habemp WHERE CodEmp IN (SELECT CodEmp FROM empleado WHERE CodDep LIKE 'DEVZS');
+DELETE FROM hijo WHERE CodEmp IN (SELECT CodEmp FROM empleado WHERE CodDep LIKE 'DEVZS');
+UPDATE departamento SET CodEmpDir = NULL WHERE CodDep LIKE 'DEVZS';
+DELETE FROM empleado WHERE CodDep LIKE 'DEVZS';
+
+-- 20:
+DELETE FROM habemp WHERE CodEmp IN (SELECT CodEmp FROM empleado e WHERE SalEmp < (
+									SELECT AVG(SalEmp) FROM empleado WHERE CodDep = e.CodDep));
+
+-- 21:
+DELETE FROM departamento WHERE CodDep LIKE 'DEVZS';
+DELETE FROM centro WHERE CodCen LIKE 'CENZ';
+
+-- VISTAS 
+-- 1:
+DROP VIEW v_empleados_sobre_media;
+CREATE VIEW v_empleados_sobre_media AS 
+	SELECT NomEmp, SalEmp, CodDep FROM empleado WHERE SalEmp > (SELECT AVG(SalEmp) FROM empleado);
+
+SELECT * FROM v_empleados_sobre_media;
+
+-- 2:
+DROP VIEW v_dep_sin_empleados;
+CREATE VIEW v_dep_sin_empleados AS 
+	SELECT CodDep, NomDep FROM departamento p WHERE NOT EXISTS (SELECT 1 FROM empleado WHERE CodDep = p.CodDep);
+
+SELECT * FROM v_dep_sin_empleados;
+
+-- 3:
+DROP VIEW v_centros_presupuesto;
+CREATE VIEW v_centros_presupuesto AS
+	SELECT c.CodCen, c.NomCen, SUM(d.PreAnu) FROM centro c INNER JOIN departamento d ON c.CodCen = d.CodCen GROUP BY c.CodCen;
+
+SELECT * FROM v_centros_presupuesto;
+
+-- 4:
+DROP VIEW v_directorio;
+CREATE VIEW v_directorio AS
+	SELECT e.NomEmp, d.NomDep, c.NomCen, e.SalEmp, e.NumHi 
+		FROM empleado e INNER JOIN departamento d ON e.CodDep=d.CodDep INNER JOIN centro c ON d.CodCen=c.CodCen;
+
+SELECT * FROM v_directorio;
+
+-- 5:
+DROP VIEW v_emp_habilidades;
+CREATE VIEW v_emp_habilidades AS
+	SELECT e.NomEmp, h.DesHab, he.NivHab 
+		FROM empleado e INNER JOIN habemp he ON e.CodEmp=he.CodEmp INNER JOIN habilidad h ON he.CodHab=h.CodHab;
+
+SELECT * FROM v_emp_habilidades;
+
+-- 6:
+DROP VIEW v_resumen_dep;
+CREATE VIEW v_resumen_dep AS
+	SELECT d.NomDep, c.NomCen, (SELECT NomEmp FROM empleado WHERE CodEmp=d.CodEmpDir) AS 'Director', COUNT(e.CodEmp), MIN(e.SalEmp), MAX(e.SalEmp)
+		FROM empleado e INNER JOIN departamento d ON e.CodDep=d.CodDep 
+			INNER JOIN centro c ON d.CodCen=c.CodCen GROUP BY d.CodDep;
+
+SELECT * FROM v_resumen_dep;
+
+-- 7:
+DROP VIEW v_emp_hijos;
+CREATE VIEW v_emp_hijos AS
+	SELECT NomEmp, NomHi, FecNaHi 
+		FROM empleado e NATURAL LEFT JOIN hijo h;
+
+SELECT * FROM v_emp_hijos;
+
+-- 8:
+DROP VIEW v_top_sal_centro;
+CREATE VIEW v_top_sal_centro AS
+	SELECT c.NomCen, 
+		(SELECT NomEmp FROM empleado WHERE SalEmp = (SELECT MAX(SalEmp) FROM empleado WHERE CodDep IN (SELECT CodDep FROM departamento WHERE CodCen=c.CodCen))) AS 'Empleado mejor pagado'
+		FROM empleado e INNER JOIN departamento d ON e.CodDep=d.CodDep 
+			INNER JOIN centro c ON d.CodCen=c.CodCen GROUP BY c.CodCen;
+SELECT * FROM v_top_sal_centro;
+
+-- 9:
+DROP VIEW v_habilidades_populares;
+CREATE VIEW v_habilidades_populares AS
+	SELECT DesHab, COUNT(he.CodEmp)
+		FROM habilidad h NATURAL JOIN habemp he GROUP BY CodHab HAVING COUNT(he.CodEmp) >= 2;
+SELECT * FROM v_habilidades_populares;
+
+
+
+
+
+
+
+
+
 
 
 
