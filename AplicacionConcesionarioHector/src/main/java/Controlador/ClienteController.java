@@ -40,6 +40,13 @@ public final class ClienteController {
 
     }
 
+    public static boolean insertarCliente(Cliente cliente) throws SQLException {
+
+        return ClienteDAO.insertCliente(cliente) != 0;
+
+    }
+
+
     public static boolean borrarCliente(String dni) throws SQLException {
 
         int rows = ClienteDAO.deleteCliente(dni);
