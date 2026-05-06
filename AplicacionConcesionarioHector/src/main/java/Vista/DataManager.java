@@ -5,6 +5,8 @@ import Modelo.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -1613,6 +1615,51 @@ public final class DataManager {
         }
 
         return usuarios.getLast().getId();
+
+    }
+
+    public static ArrayList<Empleado> getGerentes() throws SQLException {
+
+        ArrayList<Empleado> gerentes = new ArrayList<>();
+
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+        if (usuarios == null) {
+
+            return null;
+
+        }
+
+        ArrayList<Empleado> empleados = EmpleadoController.verEmpleados();
+
+        if (empleados == null) {
+
+            return null;
+
+        }
+
+        for (Usuario u: usuarios) {
+
+            for (Empleado e: empleados) {
+
+                if (u.getRol().equals("gerente") && ( u.getId().equals(e.getId_usuario()) ) ) {
+
+                    gerentes.add(e);
+
+                }
+
+            }
+
+        }
+
+        return gerentes;
+
+    }
+
+    public static boolean validarFechaNacimiento(LocalDate fecha){
+
+        // Comprobar que la edad de la persona esté entre 16 y 100 años
+        return !fecha.isAfter(LocalDate.now().minusYears(16)) && !fecha.isBefore(LocalDate.now().minusYears(100));
 
     }
 

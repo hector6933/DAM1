@@ -3,6 +3,7 @@ package Vista;
 import Controlador.*;
 import Modelo.*;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -10,8 +11,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FrameMenu extends JFrame {
 
@@ -19,6 +24,12 @@ public class FrameMenu extends JFrame {
     private JTable tablaActual;
     private String entidadActual;
     private JButton btnEliminar;
+
+    private JButton btnEmpleados;
+    private JButton btnDepartamentos;
+    private JButton btnVehiculos;
+    private JButton btnClientes;
+    private JButton btnUsuarios;
 
     public FrameMenu() {
 
@@ -31,11 +42,11 @@ public class FrameMenu extends JFrame {
         // -------------------- BOTONES SUPERIORES --------------------
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
 
-        JButton btnEmpleados = new JButton("Empleados");
-        JButton btnDepartamentos = new JButton("Departamentos");
-        JButton btnVehiculos = new JButton("Vehículos");
-        JButton btnClientes = new JButton("Clientes");
-        JButton btnUsuarios = new JButton("Usuarios");
+        btnEmpleados = new JButton("Empleados");
+        btnDepartamentos = new JButton("Departamentos");
+        btnVehiculos = new JButton("Vehículos");
+        btnClientes = new JButton("Clientes");
+        btnUsuarios = new JButton("Usuarios");
 
         panelBotones.add(btnEmpleados);
         panelBotones.add(btnDepartamentos);
@@ -66,11 +77,44 @@ public class FrameMenu extends JFrame {
         add(panelAcciones, BorderLayout.SOUTH);
 
         // -------------------- LISTENERS SUPERIORES --------------------
-        btnEmpleados.addActionListener(e     -> { entidadActual = "empleado"; mostrarTabla(obtenerModeloEmpleados()); });
-        btnDepartamentos.addActionListener(e -> { entidadActual = "departamento"; mostrarTabla(obtenerModeloDepartamentos()); });
-        btnVehiculos.addActionListener(e     -> { entidadActual = "vehiculo"; mostrarTabla(obtenerModeloVehiculos()); });
-        btnClientes.addActionListener(e      -> { entidadActual = "cliente"; mostrarTabla(obtenerModeloClientes()); });
-        btnUsuarios.addActionListener(e      -> { entidadActual = "usuario"; mostrarTabla(obtenerModeloUsuarios()); });
+        btnEmpleados.addActionListener(e -> {
+
+            entidadActual = "empleado";
+            resaltarBoton(btnEmpleados);
+            mostrarTabla(obtenerModeloEmpleados());
+        });
+
+        btnDepartamentos.addActionListener(e -> {
+
+            entidadActual = "departamento";
+            resaltarBoton(btnDepartamentos);
+            mostrarTabla(obtenerModeloDepartamentos());
+
+        });
+
+        btnVehiculos.addActionListener(e -> {
+
+            entidadActual = "vehiculo";
+            resaltarBoton(btnVehiculos);
+            mostrarTabla(obtenerModeloVehiculos());
+
+        });
+
+        btnClientes.addActionListener(e -> {
+
+            entidadActual = "cliente";
+            resaltarBoton(btnClientes);
+            mostrarTabla(obtenerModeloClientes());
+
+        });
+
+        btnUsuarios.addActionListener(e -> {
+
+            entidadActual = "usuario";
+            resaltarBoton(btnUsuarios);
+            mostrarTabla(obtenerModeloUsuarios());
+
+        });
 
         // -------------------- LISTENER ELIMINAR --------------------
         btnEliminar.addActionListener(e -> eliminarSeleccionado());
@@ -90,6 +134,7 @@ public class FrameMenu extends JFrame {
                 case "cliente" -> mostrarDialogoInsertarCliente();
                 case "usuario" -> mostrarDialogoInsertarUsuario();
                 case "departamento" -> mostrarDialogoInsertarDepartamento();
+                case "empleado" -> mostrarDialogoInsertarEmpleado();
                 default -> JOptionPane.showMessageDialog(this, "Inserción de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
             }
@@ -963,8 +1008,8 @@ public class FrameMenu extends JFrame {
     private void mostrarDialogoInsertarEmpleado() {
 
         // Me creo el dialog principal con sus respectivas características para la insercción del ciente
-        JDialog dialog = new JDialog(this, "Insertar Cliente", true);
-        dialog.setSize(420, 380);
+        JDialog dialog = new JDialog(this, "Insertar Empleado", true);
+        dialog.setSize(450, 410);
         dialog.setLocationRelativeTo(this);
         dialog.setResizable(false);
         dialog.setLayout(new BorderLayout());
@@ -977,33 +1022,68 @@ public class FrameMenu extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(2, 5, 0, 5);
 
-        JTextField campoDni = new JTextField();
+        JLabel numEmp = new JLabel();
         JTextField campoNombre = new JTextField();
         JTextField campoApellidos = new JTextField();
-        JTextField campoTelefono = new JTextField();
+        JTextField campoTelef = new JTextField();
+        DatePicker campoFechaNacimiento = new DatePicker();
+        JComboBox<String> campoGerente = new JComboBox<>();
+        JComboBox<String> campoDep = new JComboBox<>();
+        JTextField campoIdUsuario = new JTextField();
+
+        campoGerente.addItem("-- Selecciona un gerente --");
+        try {
+
+            for (Empleado e: DataManager.getGerentes()) {
+
+                campoGerente.addItem(e.getNumEmpleado() + " | " + e.getNombre() + " " + e.getApellidos());
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay gerentes disponibles !");
+            dispose();
+
+        }
+
+        campoDep.addItem("-- Selecciona un departamento --");
+        try {
+
+            for (Departamento e: DepartamentoController.verDepartamentos()) {
+
+                campoDep.addItem(e.getNumDep() +" | " + e.getNombre());
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay departamentos disponibles !");
+            dispose();
+
+        }
 
         // Labels de error para cada campo
-        JLabel errDni = crearLabelError();
+        JLabel rellenoNumEmp = crearLabelError();
         JLabel errNombre = crearLabelError();
         JLabel errApellidos = crearLabelError();
-        JLabel errTelefono = crearLabelError();
-
-        // ---- DNI ----
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 0;
-        panelForm.add(new JLabel("DNI:"), gbc);
-        gbc.gridx = 1;
-        gbc.weightx = 1;
-        panelForm.add(campoDni, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panelForm.add(errDni, gbc);
+        JLabel errTelef = crearLabelError();
+        JLabel errFecha = crearLabelError();
+        JLabel errGerente = crearLabelError();
+        JLabel errDep = crearLabelError();
+        JLabel errIdUsuario = crearLabelError();
 
         // ---- Nombre ----
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 0;
         gbc.weightx = 0;
         panelForm.add(new JLabel("Nombre:"), gbc);
         gbc.gridx = 1;
@@ -1011,12 +1091,12 @@ public class FrameMenu extends JFrame {
         panelForm.add(campoNombre, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         panelForm.add(errNombre, gbc);
 
         // ---- Apellidos ----
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 2;
         gbc.weightx = 0;
         panelForm.add(new JLabel("Apellidos:"), gbc);
         gbc.gridx = 1;
@@ -1024,21 +1104,73 @@ public class FrameMenu extends JFrame {
         panelForm.add(campoApellidos, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 3;
         panelForm.add(errApellidos, gbc);
 
-        // ---- Teléfono ----
+        // ---- Telefono ----
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 4;
         gbc.weightx = 0;
         panelForm.add(new JLabel("Teléfono:"), gbc);
         gbc.gridx = 1;
         gbc.weightx = 1;
-        panelForm.add(campoTelefono, gbc);
+        panelForm.add(campoTelef, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errTelef, gbc);
+
+        // ---- Fecha de nacimiento ----
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Fecha de nacimiento:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoFechaNacimiento, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 7;
-        panelForm.add(errTelefono, gbc);
+        panelForm.add(errFecha, gbc);
+
+        // ---- Num gerente ----
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Gerente:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoGerente, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 9;
+        panelForm.add(errGerente, gbc);
+
+        // ---- Num departamento ----
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Departamento:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoDep, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 11;
+        panelForm.add(errDep, gbc);
+
+        // ---- Num gerente ----
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("ID Usuario:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoIdUsuario, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 13;
+        panelForm.add(errIdUsuario, gbc);
 
         // ---- Botones ----
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -1056,42 +1188,24 @@ public class FrameMenu extends JFrame {
         btnAceptar.addActionListener(e -> {
 
             // Recogo los campos introducidos por el usuario
-            String dni = campoDni.getText().trim();
             String nombre = campoNombre.getText().trim();
             String apellidos = campoApellidos.getText().trim();
-            String telefono = campoTelefono.getText().trim();
+            String telefono = campoTelef.getText().trim();
+            LocalDate fechaNacimiento = campoFechaNacimiento.getDate();
+            String gerente = (String) campoGerente.getSelectedItem();
+            String dep = (String) campoDep.getSelectedItem();
+            String idUsuario = campoIdUsuario.getText().trim();
 
             // Antes de volver a validar reseto cualquier error anterior que pudiera haber
-            limpiarError(campoDni, errDni);
             limpiarError(campoNombre, errNombre);
             limpiarError(campoApellidos, errApellidos);
-            limpiarError(campoTelefono, errTelefono);
+            limpiarError(campoTelef, errTelef);
+            limpiarError(errFecha);
+            limpiarError(campoGerente, errGerente);
+            limpiarError(campoDep, errDep);
+            limpiarError(campoIdUsuario, errIdUsuario);
 
             boolean hayError = false;
-
-            if (!Cliente.validarDni(dni)) {
-
-                mostrarError(campoDni, errDni, "Formato inválido. Ej: 12345678A");
-                hayError = true;
-
-            } else {
-
-                try {
-
-                    if (!DataManager.comprobarDni(dni)) {
-
-                        mostrarError(campoDni, errDni, "Ya existe un cliente con ese DNI.");
-                        hayError = true;
-
-                    }
-
-                } catch (SQLException ex) {
-
-                    mostrarErrorBD(ex);
-                    return;
-
-                }
-            }
 
             if (!DataManager.validarNombre(nombre, 3, 20)) {
 
@@ -1109,7 +1223,84 @@ public class FrameMenu extends JFrame {
 
             if (!DataManager.validartelefono(telefono)) {
 
-                mostrarError(campoTelefono, errTelefono, "Formato inválido. Ej: 676767676");
+                mostrarError(campoTelef, errTelef, "Formato inválido. Tiene que ser 9 Números");
+                hayError = true;
+
+            }
+
+            if (campoFechaNacimiento.getDate() == null || !DataManager.validarFechaNacimiento(campoFechaNacimiento.getDate())) {
+
+                mostrarError(errFecha,"La edad debe estar comprendida entre 16 y 100");
+                hayError = true;
+
+            }
+
+            Integer numGerente = 0;
+            if (gerente.equals("-- Selecciona un gerente --")) {
+
+                mostrarError(campoGerente, errGerente, "Selecciona un gerente");
+                hayError = true;
+
+            } else {
+
+                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(gerente);
+
+                if (encontrarNum.find()) {
+
+                    numGerente = Integer.parseInt(encontrarNum.group());
+
+                }
+
+            }
+
+            Integer numDep = 0;
+            if (dep.equals("-- Selecciona un departamento --")) {
+
+                mostrarError(campoDep, errDep, "Selecciona un departamento");
+                hayError = true;
+
+            } else {
+
+                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(dep);
+
+                if (encontrarNum.find()) {
+
+                    numDep = Integer.parseInt(encontrarNum.group());
+
+                }
+
+
+            }
+
+            Integer idUsuarioInt = 0;
+            try {
+
+                idUsuarioInt = Integer.parseInt(idUsuario);
+
+                try {
+
+                    if (!DataManager.comprobarIdUsuario(idUsuarioInt)) {
+
+                        mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario NO existe");
+                        hayError = true;
+
+                    } else if (DataManager.comprobarIdUsuarioEmpleado(idUsuarioInt)) {
+
+                        mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario YA está asignado");
+                        hayError = true;
+
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+                    return;
+
+                }
+
+            } catch (NumberFormatException ex) {
+
+                mostrarError(campoIdUsuario,errIdUsuario, "Introduce un número");
                 hayError = true;
 
             }
@@ -1118,20 +1309,20 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = ClienteController.insertarCliente(new Cliente(dni, nombre, apellidos, telefono)); // Intento insertar el cliente con los datos proporcionados
+                boolean insertado = EmpleadoController.insertarEmpleado(new Empleado(nombre,apellidos,telefono, Date.valueOf(fechaNacimiento),numGerente,numDep,idUsuarioInt)); // Intento insertar el Empleado con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
-                    JOptionPane.showMessageDialog(dialog, "Cliente insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog, "Empleado insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el cliente
-                    mostrarTabla(obtenerModeloClientes());
+                    mostrarTabla(obtenerModeloEmpleados());
 
                 } else {
 
                     // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
-                    JOptionPane.showMessageDialog(dialog, "No se pudo insertar el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog, "No se pudo insertar el empleado.", "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
 
@@ -1176,15 +1367,47 @@ public class FrameMenu extends JFrame {
 
     }
 
+    private void limpiarError(JLabel labelError) {
+
+        labelError.setText(" ");
+
+    }
+
     // Gestión del error pero para el combobox en vez de para un JTextlabel
     private void mostrarError(JComboBox<?> campo, JLabel labelError, String mensaje) {
+
         labelError.setText(mensaje);
         campo.setBorder(BorderFactory.createLineBorder(Color.RED));
+
+    }
+
+    private void mostrarError(JLabel labelError, String mensaje) {
+
+        labelError.setText(mensaje);
+
     }
 
     private void limpiarError(JComboBox<?> campo, JLabel labelError) {
+
         labelError.setText(" ");
         campo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("ComboBox.border"));
+
+    }
+
+    private void resaltarBoton(JButton botonActivo) {
+
+        // Quitar el color de resaltado a todos
+        for (JButton btn : new JButton[]{btnEmpleados, btnDepartamentos, btnVehiculos, btnClientes, btnUsuarios}) {
+
+            btn.setBackground(null);    // color por defecto
+            btn.setForeground(null);    // texto por defecto
+
+        }
+        // Resaltar botón activo
+        botonActivo.setBackground(new Color(70, 130, 180)); // Color azul
+        botonActivo.setForeground(Color.WHITE);
+
+
     }
 
 }

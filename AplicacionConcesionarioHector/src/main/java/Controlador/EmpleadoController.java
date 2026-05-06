@@ -41,6 +41,12 @@ public final class EmpleadoController {
 
     }
 
+    public static boolean insertarEmpleado(Empleado empleado) throws SQLException {
+
+        return EmpleadoDAO.insertEmpleado(empleado) != 0;
+
+    }
+
     public static Integer modificarEmpleados(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
 
         return EmpleadoDAO.updateEmpleado(campoMod,nuevoValor,condicionColumna,condicionValor);
