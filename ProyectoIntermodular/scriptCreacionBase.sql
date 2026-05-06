@@ -52,12 +52,12 @@ CREATE TABLE vehiculo(
 );
 
 -- FALTA LA ISA DE VEHICULO DE COCHE MOTO Y CAMIÓN
-INSERT INTO departamento (numDep, nombre) VALUES
-(1, 'Ventas'),
-(2, 'Marketing'),
-(3, 'Finanzas'),
-(4, 'Recursos Humanos'),
-(5, 'IT');
+INSERT INTO departamento (nombre) VALUES
+('Ventas'),
+('Marketing'),
+('Finanzas'),
+('Recursos Humanos'),
+('IT');
 
 INSERT INTO usuario (nombre, passwd, rol) VALUES
 ('carlos.ramirez', 'pass123', 'gerente'),
