@@ -2,12 +2,12 @@ package Vista;
 
 import Controlador.*;
 import Modelo.*;
-import Vista.DataManager;
-import Vista.FrameLogin;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -18,6 +18,7 @@ public class FrameMenu extends JFrame {
     private JPanel panelTabla;
     private JTable tablaActual;
     private String entidadActual;
+    private JButton btnEliminar;
 
     public FrameMenu() {
 
@@ -30,11 +31,11 @@ public class FrameMenu extends JFrame {
         // -------------------- BOTONES SUPERIORES --------------------
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
 
-        JButton btnEmpleados     = new JButton("Empleados");
+        JButton btnEmpleados = new JButton("Empleados");
         JButton btnDepartamentos = new JButton("Departamentos");
-        JButton btnVehiculos     = new JButton("Vehículos");
-        JButton btnClientes      = new JButton("Clientes");
-        JButton btnUsuarios      = new JButton("Usuarios");
+        JButton btnVehiculos = new JButton("Vehículos");
+        JButton btnClientes = new JButton("Clientes");
+        JButton btnUsuarios = new JButton("Usuarios");
 
         panelBotones.add(btnEmpleados);
         panelBotones.add(btnDepartamentos);
@@ -52,9 +53,9 @@ public class FrameMenu extends JFrame {
         // -------------------- BOTONES INFERIORES --------------------
         JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
 
-        JButton btnInsertar   = new JButton("Insertar");
-        JButton btnModificar  = new JButton("Modificar");
-        JButton btnEliminar   = new JButton("Eliminar");
+        JButton btnInsertar = new JButton("Insertar");
+        JButton btnModificar = new JButton("Modificar");
+        btnEliminar = new JButton("Eliminar");
         JButton btnActualizar = new JButton("Actualizar");
 
         panelAcciones.add(btnInsertar);
@@ -76,29 +77,42 @@ public class FrameMenu extends JFrame {
 
         // -------------------- LISTENER INSERTAR --------------------
         btnInsertar.addActionListener(e -> {
+
             if (entidadActual == null) {
+
                 JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
+
             }
+
             switch (entidadActual) {
+
                 case "cliente" -> mostrarDialogoInsertarCliente();
-                // Aquí irán los demás cuando los implementes
+                case "usuario" -> mostrarDialogoInsertarUsuario();
                 default -> JOptionPane.showMessageDialog(this, "Inserción de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+
             }
+
         });
 
         // -------------------- LISTENER ACTUALIZAR --------------------
         btnActualizar.addActionListener(e -> {
+
             if (entidadActual == null) {
+
                 JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
+
             }
+
             switch (entidadActual) {
+
                 case "empleado"     -> mostrarTabla(obtenerModeloEmpleados());
                 case "departamento" -> mostrarTabla(obtenerModeloDepartamentos());
                 case "vehiculo"     -> mostrarTabla(obtenerModeloVehiculos());
                 case "cliente"      -> mostrarTabla(obtenerModeloClientes());
                 case "usuario"      -> mostrarTabla(obtenerModeloUsuarios());
+
             }
         });
 
@@ -220,6 +234,16 @@ public class FrameMenu extends JFrame {
                 }
 
             };
+
+            // KeyListnener para que si le da a la tecla suprimir accione el botón btnEliminar
+            tablaActual.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                        btnEliminar.doClick();
+                    }
+                }
+            });
 
             JScrollPane scroll = new JScrollPane(tablaActual);
             scroll.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -490,7 +514,8 @@ public class FrameMenu extends JFrame {
         JButton btnAceptar = new JButton("Aceptar");
         JButton btnCancelar = new JButton("Cancelar");
         panelBotones.add(btnAceptar);
-        panelBotones.add(btnCancelar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
 
         dialog.add(panelForm, BorderLayout.CENTER);
         dialog.add(panelBotones, BorderLayout.SOUTH);
@@ -526,6 +551,7 @@ public class FrameMenu extends JFrame {
 
                         mostrarError(campoDni, errDni, "Ya existe un cliente con ese DNI.");
                         hayError = true;
+
                     }
 
                 } catch (SQLException ex) {
@@ -557,13 +583,14 @@ public class FrameMenu extends JFrame {
 
             }
 
-            if (hayError) return; // si hay algún error no continuamos
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
 
             try {
 
                 boolean insertado = ClienteController.insertarCliente(new Cliente(dni, nombre, apellidos, telefono)); // Intento insertar el cliente con los datos proporcionados
 
                 if (insertado) {
+
                     // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Cliente insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
@@ -574,6 +601,154 @@ public class FrameMenu extends JFrame {
 
                     // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
                     JOptionPane.showMessageDialog(dialog, "No se pudo insertar el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+
+            } catch (SQLException ex) {
+
+                // En caso de que haya habido algún error SQL o con la conexión a la base de datos lo muestro en un dialog
+                mostrarErrorBD(ex);
+
+            }
+        });
+
+        dialog.setVisible(true);
+    }
+
+    private void mostrarDialogoInsertarUsuario() {
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del ciente
+        JDialog dialog = new JDialog(this, "Insertar Usuario", true);
+        dialog.setSize(420, 380);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+        JTextField campoNombre = new JTextField();
+        JPasswordField campoPasswd = new JPasswordField();
+        // El objeto comobox es un desplegable a partir de un array de strings
+        // El primer valor es el que se pone por defecto, entonces si el usuario no elige nada validaré si el primer valor está seleccionado
+        JComboBox<String> campoRol = new JComboBox<>(new String[]{"-- Selecciona un rol --", "Admin", "Gerente", "Empleado"});
+
+        // Labels de error para cada campo
+        JLabel errNombre = crearLabelError();
+        JLabel errPasswd = crearLabelError();
+        JLabel errRol = crearLabelError();
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Nombre:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(errNombre, gbc);
+
+        // ---- Contraseña ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Contraseña:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoPasswd, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errPasswd, gbc);
+
+        // ---- ROL ----
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Rol:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoRol, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errRol, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+        panelBotones.add(btnCancelar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recogo los campos introducidos por el usuario
+            String nombre = campoNombre.getText().trim();
+            String passwd = String.valueOf(campoPasswd.getPassword()).trim();
+            String rol = (String) campoRol.getSelectedItem();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoNombre, errNombre);
+            limpiarError(campoPasswd, errPasswd);
+            limpiarError(campoRol,errRol);
+
+            boolean hayError = false;
+
+            if (!DataManager.validarNombre(nombre, 3, 20)) {
+
+                mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras.");
+                hayError = true;
+
+            }
+
+            if (!Usuario.validarPasswd(passwd)) {
+
+                mostrarError(campoPasswd, errPasswd, "Requisitos: 8 carácteres, 1 mayúscula, 1 carácter especial y 1 número");
+                hayError = true;
+
+            }
+
+            if (rol.equals("-- Selecciona un rol --")) {
+
+                mostrarError(campoRol,errRol, "¡ Selecciona un rol !");
+                hayError = true;
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos por lo que salimos del actionlistener
+
+            try {
+
+                boolean insertado = UsuarioController.insertarUsuario(new Usuario(nombre,passwd,rol)); // Intento insertar el cliente con los datos proporcionados
+
+                if (insertado) {
+
+                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    JOptionPane.showMessageDialog(dialog, "Usuario insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dialog.dispose();
+                    // Actualizo la tabla con los nuevos registros una vez insertado el cliente
+                    mostrarTabla(obtenerModeloUsuarios());
+
+                } else {
+
+                    // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
+                    JOptionPane.showMessageDialog(dialog, "No se pudo insertar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
 
@@ -609,12 +784,24 @@ public class FrameMenu extends JFrame {
 
     }
 
-    // Función para restablezer el label y el input a su color y forma normal
+
+    // Función para restablecer el label y el input a su color y forma normal
     private void limpiarError(JTextField campo, JLabel labelError) {
 
         labelError.setText(" ");
         campo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
 
+    }
+
+    // Gestión del error pero para el combobox en vez de para un JTextlabel
+    private void mostrarError(JComboBox<?> campo, JLabel labelError, String mensaje) {
+        labelError.setText(mensaje);
+        campo.setBorder(BorderFactory.createLineBorder(Color.RED));
+    }
+
+    private void limpiarError(JComboBox<?> campo, JLabel labelError) {
+        labelError.setText(" ");
+        campo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("ComboBox.border"));
     }
 
 }

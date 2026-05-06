@@ -35,9 +35,9 @@ public final class UsuarioController {
 
     }
 
-    public static Integer insertarUsuario(Usuario usuario) throws SQLException {
+    public static boolean insertarUsuario(Usuario usuario) throws SQLException {
 
-        return UsuarioDAO.insertUsuario(usuario);
+        return UsuarioDAO.insertUsuario(usuario) != 0;
 
     }
 

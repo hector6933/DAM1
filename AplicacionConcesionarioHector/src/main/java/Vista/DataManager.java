@@ -1259,6 +1259,17 @@ public final class DataManager {
 
     }
 
+    public static boolean validarRolUsuario(String input){
+
+        return switch (input.toLowerCase()) {
+            case "admin" -> true;
+            case "gerente" -> true;
+            case "empleado" -> true;
+            default -> false;
+        };
+
+    }
+
     public static String pedirRolUsuario(){
 
         do {

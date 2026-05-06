@@ -837,9 +837,7 @@ public class DemoConsola {
 
     public static void insertarUsuario(Usuario usuario) throws SQLException {
 
-        int rows = UsuarioController.insertarUsuario(usuario);
-
-        if (rows == 0) {
+        if (!UsuarioController.insertarUsuario(usuario)) {
 
             System.out.println("No se ha podido insertar el usuario !!!");
 
