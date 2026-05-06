@@ -66,11 +66,11 @@ public class FrameMenu extends JFrame {
         add(panelAcciones, BorderLayout.SOUTH);
 
         // -------------------- LISTENERS SUPERIORES --------------------
-        btnEmpleados.addActionListener(e     -> { entidadActual = "empleado";     mostrarTabla(obtenerModeloEmpleados()); });
+        btnEmpleados.addActionListener(e     -> { entidadActual = "empleado"; mostrarTabla(obtenerModeloEmpleados()); });
         btnDepartamentos.addActionListener(e -> { entidadActual = "departamento"; mostrarTabla(obtenerModeloDepartamentos()); });
-        btnVehiculos.addActionListener(e     -> { entidadActual = "vehiculo";     mostrarTabla(obtenerModeloVehiculos()); });
-        btnClientes.addActionListener(e      -> { entidadActual = "cliente";      mostrarTabla(obtenerModeloClientes()); });
-        btnUsuarios.addActionListener(e      -> { entidadActual = "usuario";      mostrarTabla(obtenerModeloUsuarios()); });
+        btnVehiculos.addActionListener(e     -> { entidadActual = "vehiculo"; mostrarTabla(obtenerModeloVehiculos()); });
+        btnClientes.addActionListener(e      -> { entidadActual = "cliente"; mostrarTabla(obtenerModeloClientes()); });
+        btnUsuarios.addActionListener(e      -> { entidadActual = "usuario"; mostrarTabla(obtenerModeloUsuarios()); });
 
         // -------------------- LISTENER ELIMINAR --------------------
         btnEliminar.addActionListener(e -> eliminarSeleccionado());
@@ -89,6 +89,7 @@ public class FrameMenu extends JFrame {
 
                 case "cliente" -> mostrarDialogoInsertarCliente();
                 case "usuario" -> mostrarDialogoInsertarUsuario();
+                case "departamento" -> mostrarDialogoInsertarDepartamento();
                 default -> JOptionPane.showMessageDialog(this, "Inserción de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
             }
@@ -116,7 +117,7 @@ public class FrameMenu extends JFrame {
             }
         });
 
-        // -------------------- WINDOW LISTENER --------------------
+        // -------------------- CERRAR VENTANA LISTENER --------------------
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -429,6 +430,17 @@ public class FrameMenu extends JFrame {
 
     }
 
+    private void dialogError(String error) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                error,
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+
+    }
+
     private void mostrarDialogoInsertarCliente() {
 
         // Me creo el dialog principal con sus respectivas características para la insercción del ciente
@@ -632,20 +644,47 @@ public class FrameMenu extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(2, 5, 0, 5);
 
+        JLabel campoId = new JLabel();
         JTextField campoNombre = new JTextField();
         JPasswordField campoPasswd = new JPasswordField();
+
         // El objeto comobox es un desplegable a partir de un array de strings
         // El primer valor es el que se pone por defecto, entonces si el usuario no elige nada validaré si el primer valor está seleccionado
         JComboBox<String> campoRol = new JComboBox<>(new String[]{"-- Selecciona un rol --", "Admin", "Gerente", "Empleado"});
 
         // Labels de error para cada campo
+        JLabel rellenoId = crearLabelError();
         JLabel errNombre = crearLabelError();
         JLabel errPasswd = crearLabelError();
         JLabel errRol = crearLabelError();
 
-        // ---- Nombre ----
+        // ---- ID ----
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("ID:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoId, gbc);
+
+        try {
+
+            campoId.setText(String.valueOf(DataManager.getUltimoIdUsuario() + 1));
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        }
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(rellenoId, gbc);
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         gbc.weightx = 0;
         panelForm.add(new JLabel("Nombre:"), gbc);
         gbc.gridx = 1;
@@ -653,12 +692,12 @@ public class FrameMenu extends JFrame {
         panelForm.add(campoNombre, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 3;
         panelForm.add(errNombre, gbc);
 
         // ---- Contraseña ----
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 4;
         gbc.weightx = 0;
         panelForm.add(new JLabel("Contraseña:"), gbc);
         gbc.gridx = 1;
@@ -666,12 +705,12 @@ public class FrameMenu extends JFrame {
         panelForm.add(campoPasswd, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 5;
         panelForm.add(errPasswd, gbc);
 
         // ---- ROL ----
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.weightx = 0;
         panelForm.add(new JLabel("Rol:"), gbc);
         gbc.gridx = 1;
@@ -679,7 +718,7 @@ public class FrameMenu extends JFrame {
         panelForm.add(campoRol, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 7;
         panelForm.add(errRol, gbc);
 
         // ---- Botones ----
@@ -710,10 +749,28 @@ public class FrameMenu extends JFrame {
 
             boolean hayError = false;
 
-            if (!DataManager.validarNombre(nombre, 3, 20)) {
+            if (!Usuario.validarUsername(nombre, 3, 20)) {
 
                 mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras.");
                 hayError = true;
+
+            } else {
+
+                try {
+
+                    if (DataManager.comprobarUsername(nombre)) {
+
+                        mostrarError(campoNombre, errNombre, "¡ Ese nombre de usuario ya existe !");
+                        hayError = true;
+
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+                    return;
+
+                }
 
             }
 
@@ -763,6 +820,333 @@ public class FrameMenu extends JFrame {
         dialog.setVisible(true);
     }
 
+    private void mostrarDialogoInsertarDepartamento() {
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del ciente
+        JDialog dialog = new JDialog(this, "Insertar Departamento", true);
+        dialog.setSize(280, 240);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+        JLabel campoId = new JLabel();
+        JTextField campoNombre = new JTextField();
+
+        // Labels de error para cada campo
+        JLabel rellenoId = crearLabelError();
+        JLabel errNombre = crearLabelError();
+
+        // ---- ID ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("ID:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoId, gbc);
+
+        try {
+
+            campoId.setText(String.valueOf(DataManager.getUltimoNumDep() + 1));
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        }
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(rellenoId, gbc);
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Nombre:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errNombre, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recogo los campos introducidos por el usuario
+            String nombre = campoNombre.getText().trim();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoNombre, errNombre);
+
+            boolean hayError = false;
+
+            if (!DataManager.validarNombre(nombre, 2, 50)) {
+
+                mostrarError(campoNombre, errNombre, "Mínimo 2 y máximo 50 letras.");
+                hayError = true;
+
+            } else {
+
+                try {
+
+                    if (DataManager.comprobarNombreDepartamento(nombre)) {
+
+                        mostrarError(campoNombre, errNombre, "¡ Ese departamento YA existe !");
+                        hayError = true;
+
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+
+                }
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+
+            try {
+
+                boolean insertado = DepartamentoController.insertarDepartamento(new Departamento(nombre));  // Intento insertar el cliente con los datos proporcionados
+
+                if (insertado) {
+
+                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    JOptionPane.showMessageDialog(dialog, "Departamento insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dialog.dispose();
+                    // Actualizo la tabla con los nuevos registros una vez insertado el cliente
+                    mostrarTabla(obtenerModeloDepartamentos());
+
+                } else {
+
+                    // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
+                    JOptionPane.showMessageDialog(dialog, "No se pudo insertar el departamento.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+
+            } catch (SQLException ex) {
+
+                // En caso de que haya habido algún error SQL o con la conexión a la base de datos lo muestro en un dialog
+                mostrarErrorBD(ex);
+
+            }
+        });
+
+        dialog.setVisible(true);
+    }
+
+    private void mostrarDialogoInsertarEmpleado() {
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del ciente
+        JDialog dialog = new JDialog(this, "Insertar Cliente", true);
+        dialog.setSize(420, 380);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+        JTextField campoDni = new JTextField();
+        JTextField campoNombre = new JTextField();
+        JTextField campoApellidos = new JTextField();
+        JTextField campoTelefono = new JTextField();
+
+        // Labels de error para cada campo
+        JLabel errDni = crearLabelError();
+        JLabel errNombre = crearLabelError();
+        JLabel errApellidos = crearLabelError();
+        JLabel errTelefono = crearLabelError();
+
+        // ---- DNI ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("DNI:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoDni, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(errDni, gbc);
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Nombre:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errNombre, gbc);
+
+        // ---- Apellidos ----
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Apellidos:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoApellidos, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errApellidos, gbc);
+
+        // ---- Teléfono ----
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Teléfono:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoTelefono, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        panelForm.add(errTelefono, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recogo los campos introducidos por el usuario
+            String dni = campoDni.getText().trim();
+            String nombre = campoNombre.getText().trim();
+            String apellidos = campoApellidos.getText().trim();
+            String telefono = campoTelefono.getText().trim();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoDni, errDni);
+            limpiarError(campoNombre, errNombre);
+            limpiarError(campoApellidos, errApellidos);
+            limpiarError(campoTelefono, errTelefono);
+
+            boolean hayError = false;
+
+            if (!Cliente.validarDni(dni)) {
+
+                mostrarError(campoDni, errDni, "Formato inválido. Ej: 12345678A");
+                hayError = true;
+
+            } else {
+
+                try {
+
+                    if (!DataManager.comprobarDni(dni)) {
+
+                        mostrarError(campoDni, errDni, "Ya existe un cliente con ese DNI.");
+                        hayError = true;
+
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+                    return;
+
+                }
+            }
+
+            if (!DataManager.validarNombre(nombre, 3, 20)) {
+
+                mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras.");
+                hayError = true;
+
+            }
+
+            if (!DataManager.validarApellidos(apellidos)) {
+
+                mostrarError(campoApellidos, errApellidos, "Mínimo 3 y máximo 50 letras.");
+                hayError = true;
+
+            }
+
+            if (!DataManager.validartelefono(telefono)) {
+
+                mostrarError(campoTelefono, errTelefono, "Formato inválido. Ej: 676767676");
+                hayError = true;
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+
+            try {
+
+                boolean insertado = ClienteController.insertarCliente(new Cliente(dni, nombre, apellidos, telefono)); // Intento insertar el cliente con los datos proporcionados
+
+                if (insertado) {
+
+                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    JOptionPane.showMessageDialog(dialog, "Cliente insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dialog.dispose();
+                    // Actualizo la tabla con los nuevos registros una vez insertado el cliente
+                    mostrarTabla(obtenerModeloClientes());
+
+                } else {
+
+                    // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
+                    JOptionPane.showMessageDialog(dialog, "No se pudo insertar el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+
+            } catch (SQLException ex) {
+
+                // En caso de que haya habido algún error SQL o con la conexión a la base de datos lo muestro en un dialog
+                mostrarErrorBD(ex);
+
+            }
+        });
+
+        dialog.setVisible(true);
+    }
+
+
     // Crea un JLabel de error vacío con estilo rojo y cursiva
     private JLabel crearLabelError() {
 
@@ -783,7 +1167,6 @@ public class FrameMenu extends JFrame {
         campo.setBorder(BorderFactory.createLineBorder(Color.RED)); // Le cambio el color del borde al input
 
     }
-
 
     // Función para restablecer el label y el input a su color y forma normal
     private void limpiarError(JTextField campo, JLabel labelError) {

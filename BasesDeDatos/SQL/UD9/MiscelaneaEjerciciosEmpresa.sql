@@ -263,5 +263,3 @@ SELECT * FROM v_habilidades_populares;
 
 
 
-
-

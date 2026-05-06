@@ -38,6 +38,12 @@ public final class DepartamentoController {
 
     }
 
+    public static boolean insertarDepartamento(Departamento departamento) throws SQLException {
+
+        return DepartamentoDAO.insertDepartamento(departamento) != 0;
+
+    }
+
     public static Integer modificarDepartamento(String campoMod, String nuevoValor, String condicionColumna, String condicionValor) throws SQLException {
 
         return DepartamentoDAO.updateDepartamento(campoMod,nuevoValor,condicionColumna,condicionValor);

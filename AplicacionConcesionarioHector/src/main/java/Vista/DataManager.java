@@ -1,10 +1,7 @@
 package Vista;
 
 import Controlador.*;
-import Modelo.Cliente;
-import Modelo.Empleado;
-import Modelo.Usuario;
-import Modelo.Vehiculo;
+import Modelo.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -1564,6 +1561,59 @@ public final class DataManager {
         }
 
         return false;
+
+    }
+
+    public static boolean comprobarNombreDepartamento(String nombre) throws SQLException {
+
+        ArrayList<Departamento> departamentos = DepartamentoController.verDepartamentos();
+
+        if (departamentos == null) {
+
+            return false;
+
+        }
+
+        for (Departamento e: departamentos) {
+
+            if (e.getNombre().equals(nombre)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public static Integer getUltimoNumDep() throws SQLException {
+
+        ArrayList<Departamento> departamentos = DepartamentoController.verDepartamentos();
+
+        if (departamentos == null) {
+
+            return 1;
+
+        }
+
+        return departamentos.getLast().getNumDep();
+
+    }
+
+    public static Integer getUltimoIdUsuario() throws SQLException {
+
+        ArrayList<Usuario> usuarios = UsuarioController.verUsuarios();
+
+        if (usuarios == null) {
+
+            return 1;
+
+        }
+
+        return usuarios.getLast().getId();
+
     }
 
 }
