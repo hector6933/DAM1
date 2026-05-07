@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.*;
+import DAO.UsuarioDAO;
 import Modelo.*;
 
 import com.github.lgooddatepicker.components.DatePicker;
@@ -1322,6 +1323,20 @@ public class FrameMenu extends JFrame {
                         mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario YA está asignado");
                         hayError = true;
 
+                    } else {
+
+                        for (Usuario u: UsuarioController.verUsuarios()) {
+
+                            if (u.getId().equals(idUsuarioInt) && u.getRol().equalsIgnoreCase("Admin")) {
+
+                                mostrarError(campoIdUsuario, errIdUsuario, "Ese usuario NO es un empleado/gerente");
+                                hayError = true;
+                                break;
+
+                            }
+
+                        }
+
                     }
 
                 } catch (SQLException ex) {
@@ -1716,10 +1731,12 @@ public class FrameMenu extends JFrame {
 
         try {
 
+            System.out.println((String) clavePrimaria);
             for (Cliente e : ClienteController.verClientes()) {
 
-                if (e.getDni().equals((String) clavePrimaria)) {
+                if (e.getDni().equals(clavePrimaria)) {
 
+                    clienteBuscar = e;
                     encontrado = true;
                     break;
 
@@ -1870,10 +1887,14 @@ public class FrameMenu extends JFrame {
 
                 try {
 
-                    if (!DataManager.comprobarDni(dni)) {
+                    if (!dni.equals(cliente.getDni())) {
 
-                        mostrarError(campoDni, errDni, "Ya existe un cliente con ese DNI.");
-                        hayError = true;
+                        if (!DataManager.comprobarDni(dni)) {
+
+                            mostrarError(campoDni, errDni, "Ya existe un cliente con ese DNI.");
+                            hayError = true;
+
+                        }
 
                     }
 
@@ -1920,7 +1941,7 @@ public class FrameMenu extends JFrame {
 
             }
 
-            if (!telefono.isEmpty()) {
+            if (!telefono.equals(cliente.getTelefono())) {
 
                 cliente.setTelefono(telefono);
 
@@ -1928,10 +1949,12 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                if (!dni.isEmpty()) {
+                if (!dni.equals(cliente.getDni())) {
 
-                    modificado = ClienteController.modificarCliente(cliente, cliente.getDni());
+                    String viejoDni = cliente.getDni();
                     cliente.setDni(dni);
+                    modificado = ClienteController.modificarCliente(cliente, viejoDni);
+
 
                 } else {
 
@@ -1946,12 +1969,11 @@ public class FrameMenu extends JFrame {
 
             }
 
-
             // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
             if (modificado) {
 
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
+                dialog.dispose();
                 // Actualización de la tabla:
                 mostrarTabla(obtenerModeloClientes());
 
