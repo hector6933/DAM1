@@ -85,6 +85,7 @@ public class FrameMenu extends JFrame {
             entidadActual = "empleado";
             resaltarBoton(btnEmpleados);
             mostrarTabla(obtenerModeloEmpleados());
+
         });
 
         btnDepartamentos.addActionListener(e -> {
@@ -141,6 +142,26 @@ public class FrameMenu extends JFrame {
                 case "vehiculo" -> mostrarDialogoInsertarVehiculo();
                 default ->
                         JOptionPane.showMessageDialog(this, "Inserción de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+
+            }
+
+        });
+
+        // -------------------- LISTENER MODIFICAR --------------------
+        btnModificar.addActionListener(e -> {
+
+            if (entidadActual == null) {
+
+                JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+
+            }
+
+            switch (entidadActual) {
+
+                case "cliente" -> mostrarDialogoModificarCliente();
+                default ->
+                        JOptionPane.showMessageDialog(this, "Modificación de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
             }
 
@@ -681,7 +702,7 @@ public class FrameMenu extends JFrame {
 
         // Me creo el dialog principal con sus respectivas características para la inserción del usuario
         JDialog dialog = new JDialog(this, "Insertar Usuario", true);
-        dialog.setSize(480, 380);
+        dialog.setSize(500, 380);
         dialog.setLocationRelativeTo(this);
         dialog.setResizable(false);
         dialog.setLayout(new BorderLayout());
@@ -1665,6 +1686,286 @@ public class FrameMenu extends JFrame {
         });
 
         dialog.setVisible(true);
+    }
+
+    private void mostrarDialogoModificarCliente(){
+
+        // Compruebo que hay una tabla/entidad seleccionada
+        // En caso de que no la haya muestro una ventana de aviso
+        if (tablaActual == null || entidadActual == null) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Si la tupla seleccionada es -1 significa que no hay ninguna seleccionada por lo que muestro un aviso
+        int filaSeleccionada = tablaActual.getSelectedRow();
+        if (filaSeleccionada == -1) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una fila para modificar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Cojo la clave primaria que está en la primera columna de cada entidad
+        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+
+        Cliente clienteBuscar = new Cliente();
+        boolean encontrado = false;
+
+        try {
+
+            for (Cliente e : ClienteController.verClientes()) {
+
+                if (e.getDni().equals((String) clavePrimaria)) {
+
+                    encontrado = true;
+                    break;
+
+                }
+
+            }
+
+            if (!encontrado) {
+
+                dialogError("¡ NO se ha encontrado el cliente !");
+                return;
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay clientes en la base de datos !");
+            return;
+
+        }
+
+        final Cliente cliente = clienteBuscar;
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del ciente
+        JDialog dialog = new JDialog(this, "Insertar Cliente", true);
+        dialog.setSize(420, 380);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+        JTextField campoDni = new JTextField();
+        JTextField campoNombre = new JTextField();
+        JTextField campoApellidos = new JTextField();
+        JTextField campoTelefono = new JTextField();
+
+        campoDni.setText(cliente.getDni());
+        campoNombre.setText(cliente.getNombre());
+        campoApellidos.setText(cliente.getApellidos());
+        campoTelefono.setText(cliente.getTelefono());
+
+        // Labels de error para cada campo
+        JLabel errDni = crearLabelError();
+        JLabel errNombre = crearLabelError();
+        JLabel errApellidos = crearLabelError();
+        JLabel errTelefono = crearLabelError();
+
+        // ---- DNI ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("DNI:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoDni, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(errDni, gbc);
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Nombre:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errNombre, gbc);
+
+        // ---- Apellidos ----
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Apellidos:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoApellidos, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errApellidos, gbc);
+
+        // ---- Teléfono ----
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Teléfono:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoTelefono, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        panelForm.add(errTelefono, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recogo los campos introducidos por el usuario
+            String dni = campoDni.getText().trim();
+            String nombre = campoNombre.getText().trim();
+            String apellidos = campoApellidos.getText().trim();
+            String telefono = campoTelefono.getText().trim();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoDni, errDni);
+            limpiarError(campoNombre, errNombre);
+            limpiarError(campoApellidos, errApellidos);
+            limpiarError(campoTelefono, errTelefono);
+
+            boolean hayError = false;
+            boolean modificado = false;
+
+            if (!Cliente.validarDni(dni)) {
+
+                mostrarError(campoDni, errDni, "Formato inválido. Ej: 12345678A");
+                hayError = true;
+
+            } else {
+
+                try {
+
+                    if (!DataManager.comprobarDni(dni)) {
+
+                        mostrarError(campoDni, errDni, "Ya existe un cliente con ese DNI.");
+                        hayError = true;
+
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+                    return;
+
+                }
+            }
+
+            if (!DataManager.validarNombre(nombre, 3, 20)) {
+
+                mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras.");
+                hayError = true;
+
+            }
+
+            if (!DataManager.validarApellidos(apellidos)) {
+
+                mostrarError(campoApellidos, errApellidos, "Mínimo 3 y máximo 50 letras.");
+                hayError = true;
+
+            }
+
+            if (!DataManager.validartelefono(telefono)) {
+
+                mostrarError(campoTelefono, errTelefono, "Formato inválido. Tiene que ser 9 números");
+                hayError = true;
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+
+            if (!nombre.equals(cliente.getNombre())) {
+
+                cliente.setNombre(nombre);
+
+            }
+
+            if (!apellidos.equals(cliente.getApellidos())) {
+
+                cliente.setApellidos(apellidos);
+
+            }
+
+            if (!telefono.isEmpty()) {
+
+                cliente.setTelefono(telefono);
+
+            }
+
+            try {
+
+                if (!dni.isEmpty()) {
+
+                    modificado = ClienteController.modificarCliente(cliente, cliente.getDni());
+                    cliente.setDni(dni);
+
+                } else {
+
+                    modificado = ClienteController.modificarCliente(cliente, cliente.getDni());
+
+                }
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+
+            // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
+            if (modificado) {
+
+                JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                // Actualización de la tabla:
+                mostrarTabla(obtenerModeloClientes());
+
+            } else {
+
+                // En caso de que por algún motivo no se haya podido borrar la entidad muestro un panel indicándolo
+                JOptionPane.showMessageDialog(this, "No se pudo modificar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
+        dialog.setVisible(true);
+
     }
 
     // Crea un JLabel de error vacío con estilo rojo y cursiva

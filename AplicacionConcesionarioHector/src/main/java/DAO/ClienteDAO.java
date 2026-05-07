@@ -105,4 +105,39 @@ public final class ClienteDAO {
 
     }
 
+    public static Integer updateAllCliente(Cliente cliente, String dniWhere) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE cliente SET dni = ?, nombre = ?, apellidos = ?, telefono = ? WHERE dni = ?");
+
+            preparedStatement.setString(1, cliente.getDni());
+            preparedStatement.setString(2, cliente.getNombre());
+            preparedStatement.setString(3, cliente.getApellidos());
+            preparedStatement.setString(4, cliente.getTelefono());
+            preparedStatement.setString(5, dniWhere);
+
+            return preparedStatement.executeUpdate();
+
+        }
+
+    }
+
+    public static Integer updateAllCliente(Cliente cliente) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE cliente SET nombre = ?, apellidos = ?, telefono = ? WHERE dni = ?");
+
+            preparedStatement.setString(1, cliente.getNombre());
+            preparedStatement.setString(2, cliente.getApellidos());
+            preparedStatement.setString(3, cliente.getTelefono());
+            preparedStatement.setString(4, cliente.getDni());
+
+            return preparedStatement.executeUpdate();
+
+        }
+
+    }
+
 }

@@ -61,5 +61,17 @@ public final class ClienteController {
 
     }
 
+    public static boolean modificarCliente(Cliente cliente, String dniWhere) throws SQLException {
+
+        return ClienteDAO.updateAllCliente(cliente,dniWhere) != 0;
+
+    }
+
+    public static boolean modificarCliente(Cliente cliente) throws SQLException {
+
+        return ClienteDAO.updateAllCliente(cliente) != 0;
+
+    }
+
 
 }

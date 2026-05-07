@@ -155,10 +155,8 @@ public class FrameLogin extends JFrame {
         dialog.setResizable(false);
         dialog.setLayout(new GridLayout(2, 1, 10, 10));
 
-
         JLabel mensaje = new JLabel("¡¡¡ Credenciales incorrectas !!!", SwingConstants.CENTER);
         mensaje.setFont(new Font("JetBrains Mono", Font.BOLD, 14));
-
 
         JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton botonOk = new JButton("Ok");
@@ -170,6 +168,8 @@ public class FrameLogin extends JFrame {
 
         dialog.add(mensaje);
         dialog.add(panelBoton);
+
+        dialog.getRootPane().setDefaultButton(botonOk);
 
         dialog.setVisible(true);
 
