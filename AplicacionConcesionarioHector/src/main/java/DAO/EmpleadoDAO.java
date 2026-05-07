@@ -51,7 +51,15 @@ public final class EmpleadoDAO {
             preparedStatement.setString(2,empleado.getApellidos());
             preparedStatement.setString(3,empleado.getTelefono());
             preparedStatement.setDate(4,empleado.getFechaNacimiento());
-            preparedStatement.setInt(5,empleado.getNumGerente());
+            if (empleado.getNumGerente() == null) {
+
+                preparedStatement.setNull(5, Types.INTEGER);
+
+            } else {
+
+                preparedStatement.setInt(5, empleado.getNumGerente());
+
+            }
             preparedStatement.setInt(6,empleado.getNumDep());
             preparedStatement.setInt(7,empleado.getId_usuario());
 

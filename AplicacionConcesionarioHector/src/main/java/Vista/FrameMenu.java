@@ -52,6 +52,12 @@ public class FrameMenu extends JFrame {
         btnClientes = new JButton("Clientes");
         btnUsuarios = new JButton("Usuarios");
 
+        btnEmpleados.setFocusPainted(false);
+        btnDepartamentos.setFocusPainted(false);
+        btnVehiculos.setFocusPainted(false);
+        btnClientes.setFocusPainted(false);
+        btnUsuarios.setFocusPainted(false);
+
         panelBotones.add(btnEmpleados);
         panelBotones.add(btnDepartamentos);
         panelBotones.add(btnVehiculos);
@@ -1066,6 +1072,7 @@ public class FrameMenu extends JFrame {
         config.setDefaultYearMonth(YearMonth.now().minusYears(26));
 
         campoGerente.addItem("-- Selecciona un gerente --");
+        campoGerente.addItem("-- Sin gerente --");
         try {
 
             for (Empleado e : DataManager.getGerentes()) {
@@ -1274,6 +1281,10 @@ public class FrameMenu extends JFrame {
 
                 mostrarError(campoGerente, errGerente, "Selecciona un gerente");
                 hayError = true;
+
+            } else if (gerente.equals("-- Sin gerente --")) {
+
+                numGerente = null;
 
             } else {
 
