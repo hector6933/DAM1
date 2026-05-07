@@ -34,12 +34,12 @@ CREATE TABLE empleado(
 	numGerente INT,
 	numDep INT,
 	id_usuario INT NOT NULL,
-	CONSTRAINT fk_id_usuario_empleado FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE CASCADE,
-	CONSTRAINT fk_departamento_empleado FOREIGN KEY (numDep) REFERENCES departamento (numDep) ON DELETE SET NULL,
-	CONSTRAINT fk_gerente_empleado FOREIGN KEY (NumGerente) REFERENCES empleado (NumEmpleado) ON DELETE SET NULL
+	CONSTRAINT fk_id_usuario_empleado FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_departamento_empleado FOREIGN KEY (numDep) REFERENCES departamento (numDep) ON DELETE SET NULL ON UPDATE CASCADE,
+	CONSTRAINT fk_gerente_empleado FOREIGN KEY (NumGerente) REFERENCES empleado (NumEmpleado) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE TABLE vehiculo(
+CREATE TABLE vehiculo (
 	matricula CHAR(8) PRIMARY KEY,
 	marca VARCHAR(15) NOT NULL,
 	modelo VARCHAR(30) NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE vehiculo(
 	precio DOUBLE(10,2),
 	dni_cliente CHAR(9),
 	numEmpleado INT,
-	CONSTRAINT fk_dni_cliente_vehiculo FOREIGN KEY (dni_cliente) REFERENCES cliente (dni) ON DELETE CASCADE,
-	CONSTRAINT fk_empleado_vehiculo FOREIGN KEY (NumEmpleado) REFERENCES empleado (NumEmpleado) ON DELETE SET NULL
+	CONSTRAINT fk_dni_cliente_vehiculo FOREIGN KEY (dni_cliente) REFERENCES cliente (dni) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_empleado_vehiculo FOREIGN KEY (NumEmpleado) REFERENCES empleado (NumEmpleado) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- FALTA LA ISA DE VEHICULO DE COCHE MOTO Y CAMIÓN
@@ -75,8 +75,8 @@ INSERT INTO usuario (nombre, passwd, rol) VALUES
 ('hecprooll', 'admin123', 'Admin'),
 ('elena.navarro', 'pass123', 'empleado');
 
-/*
 
+/*
 
 -- GERENTES
 INSERT INTO empleado (nombre, apellidos, telefono, fechaNacimiento, numGerente, numDep, id_usuario) VALUES

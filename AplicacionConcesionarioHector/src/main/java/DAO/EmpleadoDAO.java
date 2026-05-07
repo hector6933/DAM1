@@ -53,6 +53,7 @@ public final class EmpleadoDAO {
             preparedStatement.setDate(4,empleado.getFechaNacimiento());
             if (empleado.getNumGerente() == null) {
 
+                // Aunque el valor sea nulo al parecer es buena práctica poner de qué tipo es, para ello pongo Types.INTEGER
                 preparedStatement.setNull(5, Types.INTEGER);
 
             } else {
