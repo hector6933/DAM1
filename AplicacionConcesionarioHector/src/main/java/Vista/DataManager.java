@@ -391,6 +391,7 @@ public final class DataManager {
             if (e.equalsIgnoreCase(matricula)) {
 
                 return false;
+
             }
 
         }
@@ -544,7 +545,8 @@ public final class DataManager {
 
     public static boolean validarPrecio(Double precio){
 
-        return Pattern.matches("^[0-9]{1,10}$",precio.toString());
+        // El interrogante es porque el precio puede tener o no decimales
+        return Pattern.matches("^\\d{1,10}(\\.\\d{1,2})?$", precio.toString());
 
     }
 

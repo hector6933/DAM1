@@ -42,13 +42,13 @@ CREATE TABLE empleado(
 CREATE TABLE vehiculo(
 	matricula CHAR(8) PRIMARY KEY,
 	marca VARCHAR(15) NOT NULL,
-	modelo VARCHAR(15) NOT NULL,
+	modelo VARCHAR(30) NOT NULL,
 	tipoCombustible VARCHAR(20),
 	precio DOUBLE(10,2),
 	dni_cliente CHAR(9),
 	numEmpleado INT,
 	CONSTRAINT fk_dni_cliente_vehiculo FOREIGN KEY (dni_cliente) REFERENCES cliente (dni) ON DELETE CASCADE,
-	CONSTRAINT fk_empleado_vehiculo FOREIGN KEY (NumEmpleado) REFERENCES empleado (NumEmpleado) ON DELETE CASCADE
+	CONSTRAINT fk_empleado_vehiculo FOREIGN KEY (NumEmpleado) REFERENCES empleado (NumEmpleado) ON DELETE SET NULL
 );
 
 -- FALTA LA ISA DE VEHICULO DE COCHE MOTO Y CAMIÓN

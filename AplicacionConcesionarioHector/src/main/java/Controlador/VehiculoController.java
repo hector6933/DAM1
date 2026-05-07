@@ -37,6 +37,12 @@ public final class VehiculoController {
 
     }
 
+    public static boolean insertarVehiculo(Vehiculo vehiculo) throws SQLException {
+
+        return VehiculoDAO.insertVehiculo(vehiculo) != 0;
+
+    }
+
     public static ArrayList<String> verMatricula() throws SQLException {
 
         return VehiculoDAO.selectMatricula();

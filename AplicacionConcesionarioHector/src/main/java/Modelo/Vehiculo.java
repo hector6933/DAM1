@@ -27,7 +27,7 @@ public class Vehiculo {
 
     public static boolean validarModelo(String modelo){
 
-        return Pattern.matches("^\\w{2,15}$",modelo);
+        return Pattern.matches("^[\\w \\-_.]{2,30}$",modelo);
 
     }
 

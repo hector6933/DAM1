@@ -4,6 +4,8 @@ import Controlador.*;
 import Modelo.*;
 
 import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -14,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -135,7 +138,9 @@ public class FrameMenu extends JFrame {
                 case "usuario" -> mostrarDialogoInsertarUsuario();
                 case "departamento" -> mostrarDialogoInsertarDepartamento();
                 case "empleado" -> mostrarDialogoInsertarEmpleado();
-                default -> JOptionPane.showMessageDialog(this, "Inserción de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                case "vehiculo" -> mostrarDialogoInsertarVehiculo();
+                default ->
+                        JOptionPane.showMessageDialog(this, "Inserción de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
             }
 
@@ -153,11 +158,11 @@ public class FrameMenu extends JFrame {
 
             switch (entidadActual) {
 
-                case "empleado"     -> mostrarTabla(obtenerModeloEmpleados());
+                case "empleado" -> mostrarTabla(obtenerModeloEmpleados());
                 case "departamento" -> mostrarTabla(obtenerModeloDepartamentos());
-                case "vehiculo"     -> mostrarTabla(obtenerModeloVehiculos());
-                case "cliente"      -> mostrarTabla(obtenerModeloClientes());
-                case "usuario"      -> mostrarTabla(obtenerModeloUsuarios());
+                case "vehiculo" -> mostrarTabla(obtenerModeloVehiculos());
+                case "cliente" -> mostrarTabla(obtenerModeloClientes());
+                case "usuario" -> mostrarTabla(obtenerModeloUsuarios());
 
             }
         });
@@ -215,11 +220,11 @@ public class FrameMenu extends JFrame {
 
             boolean eliminado = switch (entidadActual) {
 
-                case "empleado"     -> EmpleadoController.borrarEmpleado((Integer) clavePrimaria);
+                case "empleado" -> EmpleadoController.borrarEmpleado((Integer) clavePrimaria);
                 case "departamento" -> DepartamentoController.borrarDepartamento((Integer) clavePrimaria);
-                case "vehiculo"     -> VehiculoController.borrarVehiculo((String) clavePrimaria);
-                case "cliente"      -> ClienteController.borrarCliente((String) clavePrimaria);
-                case "usuario"      -> UsuarioController.borrarUsuario((Integer) clavePrimaria);
+                case "vehiculo" -> VehiculoController.borrarVehiculo((String) clavePrimaria);
+                case "cliente" -> ClienteController.borrarCliente((String) clavePrimaria);
+                case "usuario" -> UsuarioController.borrarUsuario((Integer) clavePrimaria);
                 default -> false;
 
             };
@@ -232,11 +237,11 @@ public class FrameMenu extends JFrame {
                 // Actualización de la tabla:
                 switch (entidadActual) {
 
-                    case "empleado"     -> mostrarTabla(obtenerModeloEmpleados());
+                    case "empleado" -> mostrarTabla(obtenerModeloEmpleados());
                     case "departamento" -> mostrarTabla(obtenerModeloDepartamentos());
-                    case "vehiculo"     -> mostrarTabla(obtenerModeloVehiculos());
-                    case "cliente"      -> mostrarTabla(obtenerModeloClientes());
-                    case "usuario"      -> mostrarTabla(obtenerModeloUsuarios());
+                    case "vehiculo" -> mostrarTabla(obtenerModeloVehiculos());
+                    case "cliente" -> mostrarTabla(obtenerModeloClientes());
+                    case "usuario" -> mostrarTabla(obtenerModeloUsuarios());
 
                 }
 
@@ -635,7 +640,7 @@ public class FrameMenu extends JFrame {
 
             if (!DataManager.validartelefono(telefono)) {
 
-                mostrarError(campoTelefono, errTelefono, "Formato inválido. Ej: 676767676");
+                mostrarError(campoTelefono, errTelefono, "Formato inválido. Tiene que ser 9 números");
                 hayError = true;
 
             }
@@ -674,9 +679,9 @@ public class FrameMenu extends JFrame {
 
     private void mostrarDialogoInsertarUsuario() {
 
-        // Me creo el dialog principal con sus respectivas características para la insercción del ciente
+        // Me creo el dialog principal con sus respectivas características para la inserción del usuario
         JDialog dialog = new JDialog(this, "Insertar Usuario", true);
-        dialog.setSize(420, 380);
+        dialog.setSize(480, 380);
         dialog.setLocationRelativeTo(this);
         dialog.setResizable(false);
         dialog.setLayout(new BorderLayout());
@@ -790,7 +795,7 @@ public class FrameMenu extends JFrame {
             // Antes de volver a validar reseto cualquier error anterior que pudiera haber
             limpiarError(campoNombre, errNombre);
             limpiarError(campoPasswd, errPasswd);
-            limpiarError(campoRol,errRol);
+            limpiarError(campoRol, errRol);
 
             boolean hayError = false;
 
@@ -828,28 +833,28 @@ public class FrameMenu extends JFrame {
 
             if (rol.equals("-- Selecciona un rol --")) {
 
-                mostrarError(campoRol,errRol, "¡ Selecciona un rol !");
+                mostrarError(campoRol, errRol, "¡ Selecciona un rol !");
                 hayError = true;
 
             }
 
-            if (hayError) return; // si hay algún error no continuamos por lo que salimos del actionlistener
+            if (hayError) return; // si hay algún error no continuamos por lo que salimos del action listener
 
             try {
 
-                boolean insertado = UsuarioController.insertarUsuario(new Usuario(nombre,passwd,rol)); // Intento insertar el cliente con los datos proporcionados
+                boolean insertado = UsuarioController.insertarUsuario(new Usuario(nombre, passwd, rol)); // Intento insertar el usuario con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Usuario insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
-                    // Actualizo la tabla con los nuevos registros una vez insertado el cliente
+                    // Actualizo la tabla con los nuevos registros una vez insertado el usuario
                     mostrarTabla(obtenerModeloUsuarios());
 
                 } else {
 
-                    // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
+                    // En caso de que no se haya podido insertar el usuario muestro un error en un dialog
                     JOptionPane.showMessageDialog(dialog, "No se pudo insertar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
@@ -867,7 +872,7 @@ public class FrameMenu extends JFrame {
 
     private void mostrarDialogoInsertarDepartamento() {
 
-        // Me creo el dialog principal con sus respectivas características para la insercción del ciente
+        // Me creo el dialog principal con sus respectivas características para la insercción del departamento
         JDialog dialog = new JDialog(this, "Insertar Departamento", true);
         dialog.setSize(280, 240);
         dialog.setLocationRelativeTo(this);
@@ -977,19 +982,19 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = DepartamentoController.insertarDepartamento(new Departamento(nombre));  // Intento insertar el cliente con los datos proporcionados
+                boolean insertado = DepartamentoController.insertarDepartamento(new Departamento(nombre));  // Intento insertar el departamento con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Departamento insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
-                    // Actualizo la tabla con los nuevos registros una vez insertado el cliente
+                    // Actualizo la tabla con los nuevos registros una vez insertado el departamento
                     mostrarTabla(obtenerModeloDepartamentos());
 
                 } else {
 
-                    // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
+                    // En caso de que no se haya podido insertar el departamento muestro un error en un dialog
                     JOptionPane.showMessageDialog(dialog, "No se pudo insertar el departamento.", "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
@@ -1007,7 +1012,7 @@ public class FrameMenu extends JFrame {
 
     private void mostrarDialogoInsertarEmpleado() {
 
-        // Me creo el dialog principal con sus respectivas características para la insercción del ciente
+        // Me creo el dialog principal con sus respectivas características para la insercción del empleado
         JDialog dialog = new JDialog(this, "Insertar Empleado", true);
         dialog.setSize(450, 410);
         dialog.setLocationRelativeTo(this);
@@ -1022,19 +1027,26 @@ public class FrameMenu extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(2, 5, 0, 5);
 
+        // Configuración del campo de fecha para que la edad solo pueda estar comprendida entre 100 y 16 años
+        DatePickerSettings config = new DatePickerSettings();
+
         JLabel numEmp = new JLabel();
         JTextField campoNombre = new JTextField();
         JTextField campoApellidos = new JTextField();
         JTextField campoTelef = new JTextField();
-        DatePicker campoFechaNacimiento = new DatePicker();
+        DatePicker campoFechaNacimiento = new DatePicker(config);
         JComboBox<String> campoGerente = new JComboBox<>();
         JComboBox<String> campoDep = new JComboBox<>();
         JTextField campoIdUsuario = new JTextField();
 
+        // Tengo que aplicar la configuración después de construir el DatePicker con el config porque si no me da error
+        config.setDateRangeLimits(LocalDate.now().minusYears(100), LocalDate.now().minusYears(16));
+        config.setDefaultYearMonth(YearMonth.now().minusYears(26));
+
         campoGerente.addItem("-- Selecciona un gerente --");
         try {
 
-            for (Empleado e: DataManager.getGerentes()) {
+            for (Empleado e : DataManager.getGerentes()) {
 
                 campoGerente.addItem(e.getNumEmpleado() + " | " + e.getNombre() + " " + e.getApellidos());
 
@@ -1054,9 +1066,9 @@ public class FrameMenu extends JFrame {
         campoDep.addItem("-- Selecciona un departamento --");
         try {
 
-            for (Departamento e: DepartamentoController.verDepartamentos()) {
+            for (Departamento e : DepartamentoController.verDepartamentos()) {
 
-                campoDep.addItem(e.getNumDep() +" | " + e.getNombre());
+                campoDep.addItem(e.getNumDep() + " | " + e.getNombre());
 
             }
 
@@ -1159,7 +1171,7 @@ public class FrameMenu extends JFrame {
         gbc.gridy = 11;
         panelForm.add(errDep, gbc);
 
-        // ---- Num gerente ----
+        // ---- ID Usuario ----
         gbc.gridx = 0;
         gbc.gridy = 12;
         gbc.weightx = 0;
@@ -1230,7 +1242,7 @@ public class FrameMenu extends JFrame {
 
             if (campoFechaNacimiento.getDate() == null || !DataManager.validarFechaNacimiento(campoFechaNacimiento.getDate())) {
 
-                mostrarError(errFecha,"La edad debe estar comprendida entre 16 y 100");
+                mostrarError(errFecha, "La edad debe estar comprendida entre 16 y 100 años");
                 hayError = true;
 
             }
@@ -1300,7 +1312,7 @@ public class FrameMenu extends JFrame {
 
             } catch (NumberFormatException ex) {
 
-                mostrarError(campoIdUsuario,errIdUsuario, "Introduce un número");
+                mostrarError(campoIdUsuario, errIdUsuario, "Introduce un número válido");
                 hayError = true;
 
             }
@@ -1309,19 +1321,19 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = EmpleadoController.insertarEmpleado(new Empleado(nombre,apellidos,telefono, Date.valueOf(fechaNacimiento),numGerente,numDep,idUsuarioInt)); // Intento insertar el Empleado con los datos proporcionados
+                boolean insertado = EmpleadoController.insertarEmpleado(new Empleado(nombre, apellidos, telefono, Date.valueOf(fechaNacimiento), numGerente, numDep, idUsuarioInt)); // Intento insertar el Empleado con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Empleado insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
-                    // Actualizo la tabla con los nuevos registros una vez insertado el cliente
+                    // Actualizo la tabla con los nuevos registros una vez insertado el empleado
                     mostrarTabla(obtenerModeloEmpleados());
 
                 } else {
 
-                    // En caso de que no se haya podido insertar el cliente muestro un error en un dialog
+                    // En caso de que no se haya podido insertar el empleado muestro un error en un dialog
                     JOptionPane.showMessageDialog(dialog, "No se pudo insertar el empleado.", "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
@@ -1337,6 +1349,323 @@ public class FrameMenu extends JFrame {
         dialog.setVisible(true);
     }
 
+    private void mostrarDialogoInsertarVehiculo() {
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del vehículo
+        JDialog dialog = new JDialog(this, "Insertar Vehículo", true);
+        dialog.setSize(450, 410);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+
+        JTextField campoMatricula = new JTextField();
+
+        JComboBox<String> campoMarca = new JComboBox<>(new String[]{"-- Selecciona una marca --","Toyota", "Volkswagen", "Ford", "Honda", "Chevrolet", "Nissan",
+                "Hyundai", "Kia", "Mercedes-Benz", "BMW", "Audi", "Peugeot",
+                "Renault", "Citroën", "Fiat", "Jeep", "Dodge", "Chrysler",
+                "Tesla", "Volvo", "Mazda", "Subaru", "Mitsubishi", "Suzuki",
+                "Lexus", "Infiniti", "Acura", "Porsche", "Ferrari", "Lamborghini",
+                "Bentley", "Rolls-Royce", "Aston Martin", "Jaguar", "Land Rover",
+                "Mini", "Alfa Romeo", "Maserati", "Bugatti", "McLaren",
+                "Pagani", "Koenigsegg", "Cupra", "SEAT", "Skoda", "Dacia",
+                "Opel", "Vauxhall", "Genesis", "Rivian", "Lucid Motors",
+                "BYD", "Geely", "Chery", "Great Wall", "Haval", "NIO",
+                "XPeng", "Polestar", "Saab"});
+
+        JTextField campoModelo = new JTextField();
+        JComboBox<String> campoTipoCombust = new JComboBox<>(new String[]{"-- Selecciona un combustible --","Gasolina", "Diésel","GLP", "GNC", "Eléctrico", "Hidrógeno", "Biocombustibles"});
+        JTextField campoPrecio = new JTextField();
+        JTextField campoDniCliente = new JTextField();
+        JTextField campoNumEmp = new JTextField();
+
+        // Labels de error para cada campo
+        JLabel errMatricula = crearLabelError();
+        JLabel errMarca = crearLabelError();
+        JLabel errModelo = crearLabelError();
+        JLabel errTipoCombust = crearLabelError();
+        JLabel errPrecio = crearLabelError();
+        JLabel errDniCliente = crearLabelError();
+        JLabel errNumEmp = crearLabelError();
+
+        // ---- Matrícula ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Matrícula:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoMatricula, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(errMatricula, gbc);
+
+        // ---- Marca ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Marca:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoMarca, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errMarca, gbc);
+
+        // ---- Modelo ----
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Modelo:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoModelo, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errModelo, gbc);
+
+        // ---- Tipo combustible----
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Tipo combustible:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoTipoCombust, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        panelForm.add(errTipoCombust, gbc);
+
+        // ---- Precio ----
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Precio:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoPrecio, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 9;
+        panelForm.add(errPrecio, gbc);
+
+        // ---- DNI Cliente ----
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("DNI Cliente:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoDniCliente, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 11;
+        panelForm.add(errDniCliente, gbc);
+
+        // ---- Num Empleado ----
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Num Empleado:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNumEmp, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 13;
+        panelForm.add(errNumEmp, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recojo los campos introducidos por el usuario
+            String matricula = campoMatricula.getText().trim();
+            String marca = (String) campoMarca.getSelectedItem();
+            String modelo = campoModelo.getText().trim();
+            String combustible = (String) campoTipoCombust.getSelectedItem();
+            String precio  = campoPrecio.getText().trim();
+            String dniCliente = campoDniCliente.getText().trim();
+            String numEmp = campoNumEmp.getText().trim();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoMatricula, errMatricula);
+            limpiarError(campoMarca, errMarca);
+            limpiarError(campoModelo, errModelo);
+            limpiarError(campoTipoCombust, errTipoCombust);
+            limpiarError(campoPrecio, errPrecio);
+            limpiarError(campoDniCliente, errDniCliente);
+            limpiarError(campoNumEmp, errNumEmp);
+
+            boolean hayError = false;
+
+            try {
+
+                if (!Vehiculo.validarMatricula(matricula)) {
+
+                    mostrarError(campoMatricula, errMatricula, "Formato de matrícula inválido Ej: 1234-BCD");
+                    hayError = true;
+
+                } else if (!DataManager.comprobarMatricula(matricula)) {
+
+                    mostrarError(campoMatricula, errMatricula, "Esa matrícula ya está registrada en la base de datos");
+                    hayError = true;
+                }
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+            if (marca.equals("-- Selecciona una marca --")) {
+
+                mostrarError(campoMarca, errMarca, "Selecciona una marca");
+                hayError = true;
+
+            }
+
+            if (!Vehiculo.validarModelo(modelo)) {
+
+                mostrarError(campoModelo, errModelo, "Mínimo 3 y máximo 30 letras.");
+                hayError = true;
+
+            }
+
+            if (combustible.equals("-- Selecciona un combustible --")) {
+
+                mostrarError(campoTipoCombust, errTipoCombust, "Selecciona un combustible");
+                hayError = true;
+
+            }
+
+            double precioDouble = 0.0;
+            try {
+
+                precioDouble = Double.parseDouble(precio);
+
+                if (precioDouble < 0) {
+
+                    mostrarError(campoPrecio, errPrecio, "El precio debe de ser un número positivo");
+                    hayError = true;
+
+                } else if (!DataManager.validarPrecio(precioDouble)) {
+
+                    mostrarError(campoPrecio, errPrecio, "Mínimo 1, máximo 10 dígitos y máximo 2 decimales");
+                    hayError = true;
+
+                }
+
+            } catch (NumberFormatException ex) {
+
+                mostrarError(campoPrecio, errPrecio, "Introduce un número decimal");
+                hayError = true;
+
+            }
+
+            try {
+
+                if (!Cliente.validarDni(dniCliente)) {
+
+                    mostrarError(campoDniCliente, errDniCliente, "Formato de DNI incorrecto. Ej: 12345678A");
+                    hayError = true;
+
+                } else if (DataManager.comprobarDni(dniCliente)) {
+
+                    mostrarError(campoDniCliente, errDniCliente, "Ese DNI NO está registrado");
+                    hayError = true;
+
+                }
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+            Integer numEmpInt = 0;
+            try {
+
+                numEmpInt = Integer.parseInt(numEmp);
+
+                try {
+
+                    if (!DataManager.comprobarNumEmpleado(numEmpInt)) {
+
+                        mostrarError(campoNumEmp, errNumEmp, "No existe ningún empleado con ese número");
+                        hayError = true;
+
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+                    return;
+                }
+
+            } catch (NumberFormatException ex) {
+
+                mostrarError(campoNumEmp, errNumEmp, "Introduce un número");
+                hayError = true;
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+
+            try {
+
+                boolean insertado =  VehiculoController.insertarVehiculo(new Vehiculo(matricula,marca,modelo,combustible,precioDouble,dniCliente,numEmpInt)); // Intento insertar el Empleado con los datos proporcionados
+
+                if (insertado) {
+
+                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    JOptionPane.showMessageDialog(dialog, "Vehículo insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dialog.dispose();
+                    // Actualizo la tabla con los nuevos registros una vez insertado el vehículo
+                    mostrarTabla(obtenerModeloVehiculos());
+
+                } else {
+
+                    // En caso de que no se haya podido insertar el vehículo muestro un error en un dialog
+                    JOptionPane.showMessageDialog(dialog, "No se pudo insertar el vehículo.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+
+            } catch (SQLException ex) {
+
+                // En caso de que haya habido algún error SQL o con la conexión a la base de datos lo muestro en un dialog
+                mostrarErrorBD(ex);
+
+            }
+        });
+
+        dialog.setVisible(true);
+    }
 
     // Crea un JLabel de error vacío con estilo rojo y cursiva
     private JLabel crearLabelError() {
@@ -1406,7 +1735,6 @@ public class FrameMenu extends JFrame {
         // Resaltar botón activo
         botonActivo.setBackground(new Color(70, 130, 180)); // Color azul
         botonActivo.setForeground(Color.WHITE);
-
 
     }
 
