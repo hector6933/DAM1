@@ -1,6 +1,7 @@
 package DAO;
 
 import Config.Conexion;
+import Modelo.Cliente;
 import Modelo.Usuario;
 
 import java.sql.*;
@@ -100,5 +101,23 @@ public final class UsuarioDAO {
         }
 
     }
+
+    public static Integer updateAllUsuario(Usuario usuario) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE usuario SET nombre = ?, passwd = ?, rol = ? WHERE id = ?");
+
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(2, usuario.getPasswd());
+            preparedStatement.setString(3, usuario.getRol());
+            preparedStatement.setInt(4, usuario.getId());
+
+            return preparedStatement.executeUpdate();
+
+        }
+
+    }
+
 
 }

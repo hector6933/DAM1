@@ -3,6 +3,7 @@ package DAO;
 import Config.Conexion;
 import Modelo.Cliente;
 import Modelo.Empleado;
+import Modelo.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -120,6 +121,36 @@ public final class EmpleadoDAO {
         }
 
         return resultados;
+
+    }
+
+    public static Integer updateAllEmpleado(Empleado empleado) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE empleado SET nombre = ?, apellidos = ?, telefono = ?, fechaNacimiento = ?, numGerente = ?, numDep = ?, id_usuario = ? WHERE numEmpleado = ?");
+
+            preparedStatement.setString(1, empleado.getNombre());
+            preparedStatement.setString(2, empleado.getApellidos());
+            preparedStatement.setString(3, empleado.getTelefono());
+            preparedStatement.setDate(4, empleado.getFechaNacimiento());
+            if (empleado.getNumGerente() == null) {
+
+                // Aunque el valor sea nulo al parecer es buena práctica poner de qué tipo es, para ello pongo Types.INTEGER
+                preparedStatement.setNull(5, Types.INTEGER);
+
+            } else {
+
+                preparedStatement.setInt(5, empleado.getNumGerente());
+
+            }
+            preparedStatement.setInt(6, empleado.getNumDep());
+            preparedStatement.setInt(7, empleado.getId_usuario());
+            preparedStatement.setInt(8, empleado.getNumEmpleado());
+
+            return preparedStatement.executeUpdate();
+
+        }
 
     }
 

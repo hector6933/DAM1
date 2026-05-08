@@ -1,6 +1,8 @@
 package Controlador;
 
+import DAO.ClienteDAO;
 import DAO.UsuarioDAO;
+import Modelo.Cliente;
 import Modelo.Usuario;
 
 import java.sql.SQLException;
@@ -68,6 +70,12 @@ public final class UsuarioController {
         }
 
         return null;
+
+    }
+
+    public static boolean modificarUsuario(Usuario usuario) throws SQLException {
+
+        return UsuarioDAO.updateAllUsuario(usuario) != 0;
 
     }
 

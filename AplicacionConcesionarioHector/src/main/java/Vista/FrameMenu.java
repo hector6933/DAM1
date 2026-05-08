@@ -167,6 +167,7 @@ public class FrameMenu extends JFrame {
             switch (entidadActual) {
 
                 case "cliente" -> mostrarDialogoModificarCliente();
+                case "usuario" -> mostrarDialogoModificarUsuario();
                 default ->
                         JOptionPane.showMessageDialog(this, "Modificación de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
@@ -1887,7 +1888,7 @@ public class FrameMenu extends JFrame {
             limpiarError(campoTelefono, errTelefono);
 
             boolean hayError = false;
-            boolean modificado = false;
+            boolean modificado;
 
             if (!Cliente.validarDni(dni)) {
 
@@ -1969,7 +1970,7 @@ public class FrameMenu extends JFrame {
 
                 } else {
 
-                    modificado = ClienteController.modificarCliente(cliente, cliente.getDni());
+                    modificado = ClienteController.modificarCliente(cliente);
 
                 }
 
@@ -1987,6 +1988,314 @@ public class FrameMenu extends JFrame {
                 dialog.dispose();
                 // Actualización de la tabla:
                 mostrarTabla(obtenerModeloClientes());
+
+            } else {
+
+                // En caso de que por algún motivo no se haya podido borrar la entidad muestro un panel indicándolo
+                JOptionPane.showMessageDialog(this, "No se pudo modificar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
+        dialog.setVisible(true);
+
+    }
+
+
+    private void mostrarDialogoModificarUsuario(){
+
+        // Compruebo que hay una tabla/entidad seleccionada
+        // En caso de que no la haya muestro una ventana de aviso
+        if (tablaActual == null || entidadActual == null) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Si la tupla seleccionada es -1 significa que no hay ninguna seleccionada por lo que muestro un aviso
+        int filaSeleccionada = tablaActual.getSelectedRow();
+        if (filaSeleccionada == -1) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una fila para modificar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Cojo la clave primaria que está en la primera columna de cada entidad
+        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+
+        Usuario usuarioBuscar = new Usuario();
+        boolean encontrado = false;
+
+        try {
+
+            for (Usuario e: UsuarioController.verUsuarios()) {
+
+                if (e.getId() == clavePrimaria) {
+
+                    usuarioBuscar = e;
+                    encontrado = true;
+                    break;
+
+                }
+
+            }
+
+            if (!encontrado) {
+
+                dialogError("¡ NO se ha encontrado el cliente !");
+                return;
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay clientes en la base de datos !");
+            return;
+
+        }
+
+        final Usuario usuario = usuarioBuscar;
+
+        // Me creo el dialog principal con sus respectivas características para la inserción del usuario
+        JDialog dialog = new JDialog(this, "Insertar Usuario", true);
+        dialog.setSize(500, 380);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+        JLabel campoId = new JLabel();
+        JTextField campoNombre = new JTextField();
+        JPasswordField campoPasswd = new JPasswordField();
+
+        // El objeto comobox es un desplegable a partir de un array de strings
+        // El primer valor es el que se pone por defecto, entonces si el usuario no elige nada validaré si el primer valor está seleccionado
+        JComboBox<String> campoRol = new JComboBox<>(new String[]{"-- Selecciona un rol --", "Admin", "Gerente", "Empleado"});
+
+        // Labels de error para cada campo
+        JLabel rellenoId = crearLabelError();
+        JLabel errNombre = crearLabelError();
+        JLabel errPasswd = crearLabelError();
+        JLabel errRol = crearLabelError();
+
+        campoId.setText(usuario.getId().toString());
+        campoNombre.setText(usuario.getNombre());
+        campoPasswd.setText(usuario.getPasswd());
+        campoRol.setSelectedItem(usuario.getRol());
+
+        // ---- ID ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("ID:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoId, gbc);
+
+        try {
+
+            campoId.setText(String.valueOf(DataManager.getUltimoIdUsuario() + 1));
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        }
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(rellenoId, gbc);
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Nombre:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errNombre, gbc);
+
+        // ---- Contraseña ----
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Contraseña:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoPasswd, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errPasswd, gbc);
+
+        // ---- ROL ----
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Rol:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoRol, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        panelForm.add(errRol, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+        panelBotones.add(btnCancelar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recogo los campos introducidos por el usuario
+            String nombre = campoNombre.getText().trim();
+            String passwd = String.valueOf(campoPasswd.getPassword()).trim();
+            String rol = (String) campoRol.getSelectedItem();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoNombre, errNombre);
+            limpiarError(campoPasswd, errPasswd);
+            limpiarError(campoRol, errRol);
+
+            boolean hayError = false;
+            boolean modificado;
+
+            if (!nombre.equals(usuario.getNombre())) {
+
+                if (!Usuario.validarUsername(nombre, 3, 20)) {
+
+                    mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras.");
+                    hayError = true;
+
+                } else {
+
+                    try {
+
+                        if (DataManager.comprobarUsername(nombre)) {
+
+                            mostrarError(campoNombre, errNombre, "¡ Ese nombre de usuario ya existe !");
+                            hayError = true;
+
+                        }
+
+                    } catch (SQLException ex) {
+
+                        mostrarErrorBD(ex);
+                        return;
+
+                    }
+
+                }
+
+            }
+
+            if (!Usuario.validarPasswd(passwd)) {
+
+                mostrarError(campoPasswd, errPasswd, "Requisitos: 8 carácteres, 1 mayúscula, 1 carácter especial y 1 número");
+                hayError = true;
+
+            }
+
+            if (rol.equals("-- Selecciona un rol --")) {
+
+                mostrarError(campoRol, errRol, "¡ Selecciona un rol !");
+                hayError = true;
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos por lo que salimos del action listener
+
+            if (!nombre.equals(usuario.getNombre())) {
+
+                usuario.setNombre(nombre);
+
+            }
+
+            if (!passwd.equals(usuario.getPasswd())) {
+
+                usuario.setPasswd(passwd);
+
+            }
+
+            if (!rol.equals(usuario.getRol())) {
+
+                usuario.setRol(rol);
+
+                if (rol.equalsIgnoreCase("gerente")){
+
+                    try {
+
+                        for (Empleado emp : EmpleadoController.verEmpleados()) {
+
+                            if (usuario.getId().equals(emp.getId_usuario())) {
+
+                                emp.setNumGerente(null);
+                                EmpleadoController.modificarEmpleado(emp);
+                                break;
+
+                            }
+
+                        }
+
+                    } catch (SQLException ex) {
+
+                        mostrarErrorBD(ex);
+                        return;
+
+                    }
+
+                }
+
+            }
+
+            try {
+
+                modificado = UsuarioController.modificarUsuario(usuario);
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+            // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
+            if (modificado) {
+
+                JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dialog.dispose();
+                // Actualización de la tabla:
+                mostrarTabla(obtenerModeloUsuarios());
 
             } else {
 

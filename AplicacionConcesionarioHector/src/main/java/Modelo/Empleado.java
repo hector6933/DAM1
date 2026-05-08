@@ -69,6 +69,38 @@ public class Empleado {
         return id_usuario;
     }
 
+    public void setNumEmpleado(Integer numEmpleado) {
+        this.numEmpleado = numEmpleado;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public void setNumGerente(Integer numGerente) {
+        this.numGerente = numGerente;
+    }
+
+    public void setNumDep(Integer numDep) {
+        this.numDep = numDep;
+    }
+
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
     @Override
     public String toString() {
         return "Empleado{" +

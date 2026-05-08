@@ -69,10 +69,15 @@ public final class EmpleadoController {
 
     }
 
-
     public static ArrayList<Integer> verNums() throws SQLException {
 
         return EmpleadoDAO.selectNum();
+
+    }
+
+    public static boolean modificarEmpleado(Empleado empleado) throws SQLException {
+
+        return EmpleadoDAO.updateAllEmpleado(empleado) != 0;
 
     }
 
