@@ -3,6 +3,7 @@ package DAO;
 import Config.Conexion;
 import Modelo.Cliente;
 import Modelo.Departamento;
+import Modelo.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -91,6 +92,21 @@ public final class DepartamentoDAO {
             PreparedStatement preparedStatement = conexion.prepareStatement("DELETE FROM departamento WHERE numDep LIKE ?");
 
             preparedStatement.setInt(1,numDep);
+
+            return preparedStatement.executeUpdate();
+
+        }
+
+    }
+
+    public static Integer updateAllDepartamento(Departamento departamento) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE departamento SET nombre = ? WHERE numDep = ?");
+
+            preparedStatement.setString(1, departamento.getNombre());
+            preparedStatement.setInt(2, departamento.getNumDep());
 
             return preparedStatement.executeUpdate();
 

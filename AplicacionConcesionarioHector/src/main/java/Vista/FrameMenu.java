@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -168,6 +169,7 @@ public class FrameMenu extends JFrame {
 
                 case "cliente" -> mostrarDialogoModificarCliente();
                 case "usuario" -> mostrarDialogoModificarUsuario();
+                case "empleado" -> mostrarDialogoModificarEmpleado();
                 default ->
                         JOptionPane.showMessageDialog(this, "Modificación de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
@@ -2045,7 +2047,7 @@ public class FrameMenu extends JFrame {
 
             if (!encontrado) {
 
-                dialogError("¡ NO se ha encontrado el cliente !");
+                dialogError("¡ NO se ha encontrado el usuario !");
                 return;
 
             }
@@ -2057,7 +2059,7 @@ public class FrameMenu extends JFrame {
 
         } catch (NullPointerException e) {
 
-            dialogError("¡ No hay clientes en la base de datos !");
+            dialogError("¡ No hay usuarios en la base de datos !");
             return;
 
         }
@@ -2309,6 +2311,778 @@ public class FrameMenu extends JFrame {
         dialog.setVisible(true);
 
     }
+
+    private void mostrarDialogoModificarEmpleado(){
+
+        // Compruebo que hay una tabla/entidad seleccionada
+        // En caso de que no la haya muestro una ventana de aviso
+        if (tablaActual == null || entidadActual == null) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Si la tupla seleccionada es -1 significa que no hay ninguna seleccionada por lo que muestro un aviso
+        int filaSeleccionada = tablaActual.getSelectedRow();
+        if (filaSeleccionada == -1) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una fila para modificar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Cojo la clave primaria que está en la primera columna de cada entidad
+        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+
+        Empleado empleadoBuscar = new Empleado();
+        boolean encontrado = false;
+
+        try {
+
+            for (Empleado e: EmpleadoController.verEmpleados()) {
+
+                if (e.getNumEmpleado() == clavePrimaria) {
+
+                    empleadoBuscar = e;
+                    encontrado = true;
+                    break;
+
+                }
+
+            }
+
+            if (!encontrado) {
+
+                dialogError("¡ NO se ha encontrado el empleado !");
+                return;
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay empleados en la base de datos !");
+            return;
+
+        }
+
+        final Empleado empleado = empleadoBuscar;
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del empleado
+        JDialog dialog = new JDialog(this, "Modificar Empleado", true);
+        dialog.setSize(450, 410);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+        // Configuración del campo de fecha para que la edad solo pueda estar comprendida entre 100 y 16 años
+        DatePickerSettings config = new DatePickerSettings();
+
+        JLabel numEmp = new JLabel();
+        JTextField campoNombre = new JTextField();
+        JTextField campoApellidos = new JTextField();
+        JTextField campoTelef = new JTextField();
+        DatePicker campoFechaNacimiento = new DatePicker(config);
+        JComboBox<String> campoGerente = new JComboBox<>();
+        JComboBox<String> campoDep = new JComboBox<>();
+        JTextField campoIdUsuario = new JTextField();
+
+        // Tengo que aplicar la configuración después de construir el DatePicker con el config porque si no me da error
+        config.setDateRangeLimits(LocalDate.now().minusYears(100), LocalDate.now().minusYears(16));
+        config.setDefaultYearMonth(YearMonth.now().minusYears(26));
+
+        campoGerente.addItem("-- Selecciona un gerente --");
+        campoGerente.addItem("-- Sin gerente --");
+        try {
+
+            for (Empleado e : DataManager.getGerentes()) {
+
+                campoGerente.addItem(e.getNumEmpleado() + " | " + e.getNombre() + " " + e.getApellidos());
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay gerentes disponibles !");
+            dispose();
+
+        }
+
+        campoDep.addItem("-- Selecciona un departamento --");
+        try {
+
+            for (Departamento e : DepartamentoController.verDepartamentos()) {
+
+                campoDep.addItem(e.getNumDep() + " | " + e.getNombre());
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay departamentos disponibles !");
+            dispose();
+
+        }
+
+        numEmp.setText(empleado.getNumEmpleado().toString());
+        campoNombre.setText(empleado.getNombre());
+        campoApellidos.setText(empleado.getApellidos());
+        campoTelef.setText(empleado.getTelefono());
+        campoFechaNacimiento.setDate(empleado.getFechaNacimiento().toLocalDate());
+        boolean tieneGerente = false;
+        try {
+
+            for (Empleado e : DataManager.getGerentes()) {
+
+                if (Objects.equals(e.getNumEmpleado(), empleado.getNumGerente())) {
+
+                    campoGerente.setSelectedItem(e.getNumEmpleado() + " | " + e.getNombre() + " " + e.getApellidos());
+                    tieneGerente = true;
+                    break;
+                }
+
+            }
+            if (!tieneGerente) {
+
+                campoGerente.setSelectedItem("-- Sin gerente --");
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay gerentes disponibles !");
+            dispose();
+
+        }
+
+        try {
+
+            for (Departamento e : DepartamentoController.verDepartamentos()) {
+
+                if (e.getNumDep().equals(empleado.getNumDep())) {
+
+                    campoDep.setSelectedItem(e.getNumDep() + " | " + e.getNombre());
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay departamentos disponibles !");
+            dispose();
+
+        }
+        campoIdUsuario.setText(empleado.getId_usuario().toString());
+
+        // Labels de error para cada campo
+        JLabel rellenoNumEmp = crearLabelError();
+        JLabel errNombre = crearLabelError();
+        JLabel errApellidos = crearLabelError();
+        JLabel errTelef = crearLabelError();
+        JLabel errFecha = crearLabelError();
+        JLabel errGerente = crearLabelError();
+        JLabel errDep = crearLabelError();
+        JLabel errIdUsuario = crearLabelError();
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Nombre:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(errNombre, gbc);
+
+        // ---- Apellidos ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Apellidos:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoApellidos, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errApellidos, gbc);
+
+        // ---- Telefono ----
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Teléfono:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoTelef, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errTelef, gbc);
+
+        // ---- Fecha de nacimiento ----
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Fecha de nacimiento:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoFechaNacimiento, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        panelForm.add(errFecha, gbc);
+
+        // ---- Num gerente ----
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Gerente:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoGerente, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 9;
+        panelForm.add(errGerente, gbc);
+
+        // ---- Num departamento ----
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Departamento:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoDep, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 11;
+        panelForm.add(errDep, gbc);
+
+        // ---- ID Usuario ----
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("ID Usuario:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoIdUsuario, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 13;
+        panelForm.add(errIdUsuario, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recogo los campos introducidos por el usuario
+            String nombre = campoNombre.getText().trim();
+            String apellidos = campoApellidos.getText().trim();
+            String telefono = campoTelef.getText().trim();
+            LocalDate fechaNacimiento = campoFechaNacimiento.getDate();
+            String gerente = (String) campoGerente.getSelectedItem();
+            String dep = (String) campoDep.getSelectedItem();
+            String idUsuario = campoIdUsuario.getText().trim();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoNombre, errNombre);
+            limpiarError(campoApellidos, errApellidos);
+            limpiarError(campoTelef, errTelef);
+            limpiarError(errFecha);
+            limpiarError(campoGerente, errGerente);
+            limpiarError(campoDep, errDep);
+            limpiarError(campoIdUsuario, errIdUsuario);
+
+            boolean hayError = false;
+            boolean modificado;
+
+            if (!DataManager.validarNombre(nombre, 3, 20)) {
+
+                mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras.");
+                hayError = true;
+
+            }
+
+            if (!DataManager.validarApellidos(apellidos)) {
+
+                mostrarError(campoApellidos, errApellidos, "Mínimo 3 y máximo 50 letras.");
+                hayError = true;
+
+            }
+
+            if (!DataManager.validartelefono(telefono)) {
+
+                mostrarError(campoTelef, errTelef, "Formato inválido. Tiene que ser 9 Números");
+                hayError = true;
+
+            }
+
+            if (campoFechaNacimiento.getDate() == null || !DataManager.validarFechaNacimiento(campoFechaNacimiento.getDate())) {
+
+                mostrarError(errFecha, "La edad debe estar comprendida entre 16 y 100 años");
+                hayError = true;
+
+            }
+
+            Integer numGerente = 0;
+            if (gerente.equals("-- Selecciona un gerente --")) {
+
+                mostrarError(campoGerente, errGerente, "Selecciona un gerente");
+                hayError = true;
+
+            } else if (gerente.equals("-- Sin gerente --")) {
+
+                numGerente = null;
+
+            } else {
+
+                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(gerente);
+
+                if (encontrarNum.find()) {
+
+                    numGerente = Integer.parseInt(encontrarNum.group());
+
+                }
+
+            }
+
+            Integer numDep = 0;
+            if (dep.equals("-- Selecciona un departamento --")) {
+
+                mostrarError(campoDep, errDep, "Selecciona un departamento");
+                hayError = true;
+
+            } else {
+
+                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(dep);
+
+                if (encontrarNum.find()) {
+
+                    numDep = Integer.parseInt(encontrarNum.group());
+
+                }
+
+
+            }
+
+            Integer idUsuarioInt = 0;
+            if (!idUsuario.equals(empleado.getId_usuario().toString())) {
+
+                try {
+
+                    idUsuarioInt = Integer.parseInt(idUsuario);
+
+                    try {
+
+                        if (!DataManager.comprobarIdUsuario(idUsuarioInt)) {
+
+                            mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario NO existe");
+                            hayError = true;
+
+                        } else if (DataManager.comprobarIdUsuarioEmpleado(idUsuarioInt)) {
+
+                            mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario YA está asignado");
+                            hayError = true;
+
+                        } else {
+
+                            for (Usuario u: UsuarioController.verUsuarios()) {
+
+                                if (u.getId().equals(idUsuarioInt) && u.getRol().equalsIgnoreCase("Admin")) {
+
+                                    mostrarError(campoIdUsuario, errIdUsuario, "Ese usuario NO es un empleado/gerente");
+                                    hayError = true;
+                                    break;
+
+                                }
+
+                            }
+
+                        }
+
+                    } catch (SQLException ex) {
+
+                        mostrarErrorBD(ex);
+                        return;
+
+                    }
+
+                } catch (NumberFormatException ex) {
+
+                    mostrarError(campoIdUsuario, errIdUsuario, "Introduce un número válido");
+                    hayError = true;
+
+                }
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+
+            if (!nombre.equals(empleado.getNombre())) {
+
+                empleado.setNombre(nombre);
+
+            }
+
+            if (!apellidos.equals(empleado.getApellidos())) {
+
+                empleado.setApellidos(apellidos);
+
+            }
+
+            if (!telefono.equals(empleado.getTelefono())) {
+
+                empleado.setTelefono(telefono);
+
+            }
+
+            if (!fechaNacimiento.equals(empleado.getFechaNacimiento().toLocalDate())) {
+
+                empleado.setFechaNacimiento(Date.valueOf(fechaNacimiento));
+
+            }
+
+            if (!Objects.equals(numGerente, empleado.getNumGerente())) {
+
+                empleado.setNumGerente(numGerente);
+
+            }
+
+            if (!numDep.equals(empleado.getNumDep())) {
+
+                empleado.setNumDep(numDep);
+
+            }
+
+            if (!idUsuario.equals(empleado.getId_usuario().toString())) {
+
+                empleado.setId_usuario(idUsuarioInt);
+
+            }
+
+            try {
+
+                modificado = EmpleadoController.modificarEmpleado(empleado);
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+            // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
+            if (modificado) {
+
+                JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dialog.dispose();
+                // Actualización de la tabla:
+                mostrarTabla(obtenerModeloEmpleados());
+
+            } else {
+
+                // En caso de que por algún motivo no se haya podido borrar la entidad muestro un panel indicándolo
+                JOptionPane.showMessageDialog(this, "No se pudo modificar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
+        dialog.setVisible(true);
+
+    }
+
+//    private void mostrarDialogoModificarDepartamento(){
+//
+//        // Compruebo que hay una tabla/entidad seleccionada
+//        // En caso de que no la haya muestro una ventana de aviso
+//        if (tablaActual == null || entidadActual == null) {
+//
+//            JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
+//            return;
+//
+//        }
+//
+//        // Si la tupla seleccionada es -1 significa que no hay ninguna seleccionada por lo que muestro un aviso
+//        int filaSeleccionada = tablaActual.getSelectedRow();
+//        if (filaSeleccionada == -1) {
+//
+//            JOptionPane.showMessageDialog(this, "Selecciona una fila para modificar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+//            return;
+//
+//        }
+//
+//        // Cojo la clave primaria que está en la primera columna de cada entidad
+//        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+//
+//        Departamento departamentoBuscar = new Departamento();
+//        boolean encontrado = false;
+//
+//        try {
+//
+//            for (Departamento e: DepartamentoController.verDepartamentos()) {
+//
+//                if (e.getNumDep() == clavePrimaria) {
+//
+//                    departamentoBuscar = e;
+//                    encontrado = true;
+//                    break;
+//
+//                }
+//
+//            }
+//
+//            if (!encontrado) {
+//
+//                dialogError("¡ NO se ha encontrado el usuario !");
+//                return;
+//
+//            }
+//
+//        } catch (SQLException e) {
+//
+//            mostrarErrorBD(e);
+//            return;
+//
+//        } catch (NullPointerException e) {
+//
+//            dialogError("¡ No hay usuarios en la base de datos !");
+//            return;
+//
+//        }
+//
+//        final Departamento departamento = departamentoBuscar;
+//
+//        // Me creo el dialog principal con sus respectivas características para la insercción del departamento
+//        JDialog dialog = new JDialog(this, "Modificar Departamento", true);
+//        dialog.setSize(280, 240);
+//        dialog.setLocationRelativeTo(this);
+//        dialog.setResizable(false);
+//        dialog.setLayout(new BorderLayout());
+//
+//        // Me creo el panel donde va a ir el formulario con los campos a insertar
+//        JPanel panelForm = new JPanel(new GridBagLayout());
+//        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+//
+//        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        gbc.insets = new Insets(2, 5, 0, 5);
+//
+//        JLabel campoId = new JLabel();
+//        JTextField campoNombre = new JTextField();
+//
+//        // Labels de error para cada campo
+//        JLabel rellenoId = crearLabelError();
+//        JLabel errNombre = crearLabelError();
+//
+//        // ---- ID ----
+//        gbc.gridx = 0;
+//        gbc.gridy = 0;
+//        gbc.weightx = 0;
+//        panelForm.add(new JLabel("ID:"), gbc);
+//        gbc.gridx = 1;
+//        gbc.weightx = 1;
+//        panelForm.add(campoId, gbc);
+//
+//        try {
+//
+//            campoId.setText(String.valueOf(DataManager.getUltimoNumDep() + 1));
+//
+//        } catch (SQLException e) {
+//
+//            mostrarErrorBD(e);
+//            return;
+//
+//        }
+//
+//        gbc.gridx = 1;
+//        gbc.gridy = 1;
+//        panelForm.add(rellenoId, gbc);
+//
+//        // ---- Nombre ----
+//        gbc.gridx = 0;
+//        gbc.gridy = 2;
+//        gbc.weightx = 0;
+//        panelForm.add(new JLabel("Nombre:"), gbc);
+//        gbc.gridx = 1;
+//        gbc.weightx = 1;
+//        panelForm.add(campoNombre, gbc);
+//
+//        gbc.gridx = 1;
+//        gbc.gridy = 3;
+//        panelForm.add(errNombre, gbc);
+//
+//        // ---- Botones ----
+//        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+//        JButton btnAceptar = new JButton("Aceptar");
+//        JButton btnCancelar = new JButton("Cancelar");
+//        panelBotones.add(btnAceptar);
+//
+//        dialog.getRootPane().setDefaultButton(btnAceptar);
+//
+//        dialog.add(panelForm, BorderLayout.CENTER);
+//        dialog.add(panelBotones, BorderLayout.SOUTH);
+//
+//        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+//
+//        btnAceptar.addActionListener(e -> {
+//
+//            // Recogo los campos introducidos por el usuario
+//            String nombre = campoNombre.getText().trim();
+//
+//            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+//            limpiarError(campoNombre, errNombre);
+//
+//            boolean hayError = false;
+//            boolean modificar;
+//
+//            if (nombre.equals(departamento.getNombre()))
+//            if (!DataManager.validarNombre(nombre, 2, 50)) {
+//
+//                mostrarError(campoNombre, errNombre, "Mínimo 2 y máximo 50 letras.");
+//                hayError = true;
+//
+//            } else {
+//
+//                try {
+//
+//                    if (DataManager.comprobarNombreDepartamento(nombre)) {
+//
+//                        mostrarError(campoNombre, errNombre, "¡ Ese departamento YA existe !");
+//                        hayError = true;
+//
+//                    }
+//
+//                } catch (SQLException ex) {
+//
+//                    mostrarErrorBD(ex);
+//
+//                }
+//
+//            }
+//
+//            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+//
+//            if (!nombre.equals(usuario.getNombre())) {
+//
+//                usuario.setNombre(nombre);
+//
+//            }
+//
+//            if (!passwd.equals(usuario.getPasswd())) {
+//
+//                usuario.setPasswd(passwd);
+//
+//            }
+//
+//            if (!rol.equals(usuario.getRol())) {
+//
+//                usuario.setRol(rol);
+//
+//                if (rol.equalsIgnoreCase("gerente")){
+//
+//                    try {
+//
+//                        for (Empleado emp : EmpleadoController.verEmpleados()) {
+//
+//                            if (usuario.getId().equals(emp.getId_usuario())) {
+//
+//                                emp.setNumGerente(null);
+//                                EmpleadoController.modificarEmpleado(emp);
+//                                break;
+//
+//                            }
+//
+//                        }
+//
+//                    } catch (SQLException ex) {
+//
+//                        mostrarErrorBD(ex);
+//                        return;
+//
+//                    }
+//
+//                }
+//
+//            }
+//
+//            try {
+//
+//                modificado = UsuarioController.modificarUsuario(usuario);
+//
+//            } catch (SQLException ex) {
+//
+//                mostrarErrorBD(ex);
+//                return;
+//
+//            }
+//
+//            // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
+//            if (modificado) {
+//
+//                JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+//                dialog.dispose();
+//                // Actualización de la tabla:
+//                mostrarTabla(obtenerModeloUsuarios());
+//
+//            } else {
+//
+//                // En caso de que por algún motivo no se haya podido borrar la entidad muestro un panel indicándolo
+//                JOptionPane.showMessageDialog(this, "No se pudo modificar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+//
+//            }
+//
+//        });
+//
+//        dialog.setVisible(true);
+//
+//
+//    }
 
     // Crea un JLabel de error vacío con estilo rojo y cursiva
     private JLabel crearLabelError() {

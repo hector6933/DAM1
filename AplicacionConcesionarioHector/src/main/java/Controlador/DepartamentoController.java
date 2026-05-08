@@ -2,8 +2,10 @@ package Controlador;
 
 import DAO.ClienteDAO;
 import DAO.DepartamentoDAO;
+import DAO.UsuarioDAO;
 import DAO.VehiculoDAO;
 import Modelo.Departamento;
+import Modelo.Usuario;
 import Modelo.Vehiculo;
 
 import java.sql.SQLException;
@@ -61,6 +63,12 @@ public final class DepartamentoController {
     public static ArrayList<Integer> verNumDeps() throws SQLException {
 
         return DepartamentoDAO.selectNumDeps();
+
+    }
+
+    public static boolean modificarDepartamento(Departamento departamento) throws SQLException {
+
+        return DepartamentoDAO.updateAllDepartamento(departamento) != 0;
 
     }
 
