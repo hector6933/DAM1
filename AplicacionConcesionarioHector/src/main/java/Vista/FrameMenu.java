@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.*;
-import DAO.UsuarioDAO;
 import Modelo.*;
 
 import com.github.lgooddatepicker.components.DatePicker;
@@ -171,6 +170,7 @@ public class FrameMenu extends JFrame {
                 case "usuario" -> mostrarDialogoModificarUsuario();
                 case "empleado" -> mostrarDialogoModificarEmpleado();
                 case "departamento" -> mostrarDialogoModificarDepartamento();
+                case "vehiculo" -> mostrarDialogoModificarVehiculo();
                 default ->
                         JOptionPane.showMessageDialog(this, "Modificación de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
@@ -685,7 +685,7 @@ public class FrameMenu extends JFrame {
 
                 if (insertado) {
 
-                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Cliente insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el cliente
@@ -878,7 +878,7 @@ public class FrameMenu extends JFrame {
 
                 if (insertado) {
 
-                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Usuario insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el usuario
@@ -1018,7 +1018,7 @@ public class FrameMenu extends JFrame {
 
                 if (insertado) {
 
-                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Departamento insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el departamento
@@ -1302,7 +1302,7 @@ public class FrameMenu extends JFrame {
 
             }
 
-            Integer numDep = 0;
+            int numDep = 0;
             if (dep.equals("-- Selecciona un departamento --")) {
 
                 mostrarError(campoDep, errDep, "Selecciona un departamento");
@@ -1376,7 +1376,7 @@ public class FrameMenu extends JFrame {
 
                 if (insertado) {
 
-                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Empleado insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el empleado
@@ -1659,7 +1659,7 @@ public class FrameMenu extends JFrame {
 
             }
 
-            Integer numEmpInt = 0;
+            int numEmpInt = 0;
             try {
 
                 numEmpInt = Integer.parseInt(numEmp);
@@ -1694,7 +1694,7 @@ public class FrameMenu extends JFrame {
 
                 if (insertado) {
 
-                    // En caso de que se inserte muestro un dialog y cuando le de a OK salgo del dialog principal,
+                    // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Vehículo insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el vehículo
@@ -3050,6 +3050,447 @@ public class FrameMenu extends JFrame {
         });
 
         dialog.setVisible(true);
+
+    }
+
+    private void mostrarDialogoModificarVehiculo(){
+
+        // Compruebo que hay una tabla/entidad seleccionada
+        // En caso de que no la haya muestro una ventana de aviso
+        if (tablaActual == null || entidadActual == null) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Si la tupla seleccionada es -1 significa que no hay ninguna seleccionada por lo que muestro un aviso
+        int filaSeleccionada = tablaActual.getSelectedRow();
+        if (filaSeleccionada == -1) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una fila para modificar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Cojo la clave primaria que está en la primera columna de cada entidad
+        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+
+        Vehiculo vehiculoBuscar = new Vehiculo();
+        boolean encontrado = false;
+
+        try {
+
+            for (Vehiculo e: VehiculoController.verVehiculos()) {
+
+                if (e.getMatricula().equals(clavePrimaria)) {
+
+                    vehiculoBuscar = e;
+                    encontrado = true;
+                    break;
+
+                }
+
+            }
+
+            if (!encontrado) {
+
+                dialogError("¡ NO se ha encontrado el vehículo !");
+                return;
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay vehículos en la base de datos !");
+            return;
+
+        }
+
+        final Vehiculo vehiculo = vehiculoBuscar;
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del vehículo
+        JDialog dialog = new JDialog(this, "Modificar Vehículo", true);
+        dialog.setSize(450, 410);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+
+        JTextField campoMatricula = new JTextField();
+
+        JComboBox<String> campoMarca = new JComboBox<>(new String[]{"-- Selecciona una marca --","Toyota", "Volkswagen", "Ford", "Honda", "Chevrolet", "Nissan",
+                "Hyundai", "Kia", "Mercedes-Benz", "BMW", "Audi", "Peugeot",
+                "Renault", "Citroën", "Fiat", "Jeep", "Dodge", "Chrysler",
+                "Tesla", "Volvo", "Mazda", "Subaru", "Mitsubishi", "Suzuki",
+                "Lexus", "Infiniti", "Acura", "Porsche", "Ferrari", "Lamborghini",
+                "Bentley", "Rolls-Royce", "Aston Martin", "Jaguar", "Land Rover",
+                "Mini", "Alfa Romeo", "Maserati", "Bugatti", "McLaren",
+                "Pagani", "Koenigsegg", "Cupra", "SEAT", "Skoda", "Dacia",
+                "Opel", "Vauxhall", "Genesis", "Rivian", "Lucid Motors",
+                "BYD", "Geely", "Chery", "Great Wall", "Haval", "NIO",
+                "XPeng", "Polestar", "Saab"});
+
+        JTextField campoModelo = new JTextField();
+        JComboBox<String> campoTipoCombust = new JComboBox<>(new String[]{"-- Selecciona un combustible --","Gasolina", "Diésel","GLP", "GNC", "Eléctrico", "Hidrógeno", "Biocombustibles"});
+        JTextField campoPrecio = new JTextField();
+        JTextField campoDniCliente = new JTextField();
+        JTextField campoNumEmp = new JTextField();
+
+        campoMatricula.setText(vehiculo.getMatricula());
+        campoMarca.setSelectedItem(vehiculo.getMarca());
+        campoModelo.setText(vehiculo.getModelo());
+        campoTipoCombust.setSelectedItem(vehiculo.getTipoCombustible());
+        campoPrecio.setText(vehiculo.getPrecio().toString());
+        campoDniCliente.setText(vehiculo.getDniCliente());
+        campoNumEmp.setText(vehiculo.getNumEmpleado().toString());
+
+        // Labels de error para cada campo
+        JLabel errMatricula = crearLabelError();
+        JLabel errMarca = crearLabelError();
+        JLabel errModelo = crearLabelError();
+        JLabel errTipoCombust = crearLabelError();
+        JLabel errPrecio = crearLabelError();
+        JLabel errDniCliente = crearLabelError();
+        JLabel errNumEmp = crearLabelError();
+
+        // ---- Matrícula ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Matrícula:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoMatricula, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(errMatricula, gbc);
+
+        // ---- Marca ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Marca:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoMarca, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errMarca, gbc);
+
+        // ---- Modelo ----
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Modelo:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoModelo, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panelForm.add(errModelo, gbc);
+
+        // ---- Tipo combustible----
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Tipo combustible:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoTipoCombust, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        panelForm.add(errTipoCombust, gbc);
+
+        // ---- Precio ----
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Precio:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoPrecio, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 9;
+        panelForm.add(errPrecio, gbc);
+
+        // ---- DNI Cliente ----
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("DNI Cliente:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoDniCliente, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 11;
+        panelForm.add(errDniCliente, gbc);
+
+        // ---- Num Empleado ----
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Num Empleado:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNumEmp, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 13;
+        panelForm.add(errNumEmp, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recojo los campos introducidos por el usuario
+            String matricula = campoMatricula.getText().trim();
+            String marca = (String) campoMarca.getSelectedItem();
+            String modelo = campoModelo.getText().trim();
+            String combustible = (String) campoTipoCombust.getSelectedItem();
+            String precio  = campoPrecio.getText().trim();
+            String dniCliente = campoDniCliente.getText().trim();
+            String numEmp = campoNumEmp.getText().trim();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoMatricula, errMatricula);
+            limpiarError(campoMarca, errMarca);
+            limpiarError(campoModelo, errModelo);
+            limpiarError(campoTipoCombust, errTipoCombust);
+            limpiarError(campoPrecio, errPrecio);
+            limpiarError(campoDniCliente, errDniCliente);
+            limpiarError(campoNumEmp, errNumEmp);
+
+            boolean hayError = false;
+            boolean modificado;
+
+            if (!matricula.equals(vehiculo.getMatricula())) {
+
+                try {
+
+                    if (!Vehiculo.validarMatricula(matricula)) {
+
+                        mostrarError(campoMatricula, errMatricula, "Formato de matrícula inválido Ej: 1234-BCD");
+                        hayError = true;
+
+                    } else if (!DataManager.comprobarMatricula(matricula)) {
+
+                        mostrarError(campoMatricula, errMatricula, "Esa matrícula ya está registrada en la base de datos");
+                        hayError = true;
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+                    return;
+
+                }
+
+            }
+
+
+            if (marca.equals("-- Selecciona una marca --")) {
+
+                mostrarError(campoMarca, errMarca, "Selecciona una marca");
+                hayError = true;
+
+            }
+
+            if (!Vehiculo.validarModelo(modelo)) {
+
+                mostrarError(campoModelo, errModelo, "Mínimo 3 y máximo 30 letras.");
+                hayError = true;
+
+            }
+
+            if (combustible.equals("-- Selecciona un combustible --")) {
+
+                mostrarError(campoTipoCombust, errTipoCombust, "Selecciona un combustible");
+                hayError = true;
+
+            }
+
+            double precioDouble = 0.0;
+            try {
+
+                precioDouble = Double.parseDouble(precio);
+
+                if (precioDouble < 0) {
+
+                    mostrarError(campoPrecio, errPrecio, "El precio debe de ser un número positivo");
+                    hayError = true;
+
+                } else if (!DataManager.validarPrecio(precioDouble)) {
+
+                    mostrarError(campoPrecio, errPrecio, "Mínimo 1, máximo 10 dígitos y máximo 2 decimales");
+                    hayError = true;
+
+                }
+
+            } catch (NumberFormatException ex) {
+
+                mostrarError(campoPrecio, errPrecio, "Introduce un número decimal");
+                hayError = true;
+
+            }
+
+            try {
+
+                if (!Cliente.validarDni(dniCliente)) {
+
+                    mostrarError(campoDniCliente, errDniCliente, "Formato de DNI incorrecto. Ej: 12345678A");
+                    hayError = true;
+
+                } else if (DataManager.comprobarDni(dniCliente)) {
+
+                    mostrarError(campoDniCliente, errDniCliente, "Ese DNI NO está registrado");
+                    hayError = true;
+
+                }
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+            int numEmpInt = 0;
+            try {
+
+                numEmpInt = Integer.parseInt(numEmp);
+
+                try {
+
+                    if (!DataManager.comprobarNumEmpleado(numEmpInt)) {
+
+                        mostrarError(campoNumEmp, errNumEmp, "No existe ningún empleado con ese número");
+                        hayError = true;
+
+                    }
+
+                } catch (SQLException ex) {
+
+                    mostrarErrorBD(ex);
+                    return;
+                }
+
+            } catch (NumberFormatException ex) {
+
+                mostrarError(campoNumEmp, errNumEmp, "Introduce un número");
+                hayError = true;
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+
+            if (!marca.equals(vehiculo.getMarca())) {
+
+                vehiculo.setMarca(marca);
+
+            }
+
+            if (!modelo.equals(vehiculo.getModelo())) {
+
+                vehiculo.setModelo(modelo);
+
+            }
+
+            if (!combustible.equals(vehiculo.getTipoCombustible())) {
+
+                vehiculo.setTipoCombustible(combustible);
+
+            }
+
+            if (precioDouble != vehiculo.getPrecio()) {
+
+                vehiculo.setPrecio(precioDouble);
+
+            }
+
+            if (!dniCliente.equals(vehiculo.getDniCliente())) {
+
+                vehiculo.setDniCliente(dniCliente);
+
+            }
+
+            if (numEmpInt != vehiculo.getNumEmpleado()) {
+
+                vehiculo.setNumEmpleado(numEmpInt);
+
+            }
+
+            try {
+
+                if (!matricula.equals(vehiculo.getMatricula())) {
+
+                    String matriculaAntigua = vehiculo.getMatricula();
+                    vehiculo.setMatricula(matricula);
+                    modificado = VehiculoController.modificarVehiculo(vehiculo,matriculaAntigua);
+
+                } else {
+
+                    modificado = VehiculoController.modificarVehiculo(vehiculo);
+
+                }
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+            // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
+            if (modificado) {
+
+                JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dialog.dispose();
+                // Actualización de la tabla:
+                mostrarTabla(obtenerModeloVehiculos());
+
+            } else {
+
+                // En caso de que por algún motivo no se haya podido borrar la entidad muestro un panel indicándolo
+                JOptionPane.showMessageDialog(this, "No se pudo modificar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
+        dialog.setVisible(true);
+
+
 
     }
 

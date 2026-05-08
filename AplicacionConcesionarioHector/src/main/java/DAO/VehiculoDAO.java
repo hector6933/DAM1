@@ -1,6 +1,7 @@
 package DAO;
 
 import Config.Conexion;
+import Modelo.Cliente;
 import Modelo.Vehiculo;
 
 import java.sql.*;
@@ -106,6 +107,47 @@ public final class VehiculoDAO {
 
             preparedStatement.setString(1,nuevoValor);
             preparedStatement.setString(2,condicionValor);
+
+            return preparedStatement.executeUpdate();
+
+        }
+
+    }
+
+    public static Integer updateAllVehiculo(Vehiculo vehiculo, String matriculaWhere) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE vehiculo SET matricula = ?, marca = ?, modelo = ?, tipoCombustible = ?, precio = ?, dni_cliente = ?, numEmpleado = ?  WHERE matricula = ?");
+
+            preparedStatement.setString(1, vehiculo.getMatricula());
+            preparedStatement.setString(2, vehiculo.getMarca());
+            preparedStatement.setString(3, vehiculo.getModelo());
+            preparedStatement.setString(4, vehiculo.getTipoCombustible());
+            preparedStatement.setDouble(5, vehiculo.getPrecio());
+            preparedStatement.setString(6, vehiculo.getDniCliente());
+            preparedStatement.setInt(7, vehiculo.getNumEmpleado());
+            preparedStatement.setString(8, vehiculo.getMatricula());
+
+            return preparedStatement.executeUpdate();
+
+        }
+
+    }
+
+    public static Integer updateAllVehiculo(Vehiculo vehiculo) throws SQLException {
+
+        try (Connection conexion = Conexion.conexion()) {
+
+            PreparedStatement preparedStatement = conexion.prepareStatement("UPDATE vehiculo SET marca = ?, modelo = ?, tipoCombustible = ?, precio = ?, dni_cliente = ?, numEmpleado = ?  WHERE matricula = ?");
+
+            preparedStatement.setString(1, vehiculo.getMarca());
+            preparedStatement.setString(2, vehiculo.getModelo());
+            preparedStatement.setString(3, vehiculo.getTipoCombustible());
+            preparedStatement.setDouble(4, vehiculo.getPrecio());
+            preparedStatement.setString(5, vehiculo.getDniCliente());
+            preparedStatement.setInt(6, vehiculo.getNumEmpleado());
+            preparedStatement.setString(7, vehiculo.getMatricula());
 
             return preparedStatement.executeUpdate();
 

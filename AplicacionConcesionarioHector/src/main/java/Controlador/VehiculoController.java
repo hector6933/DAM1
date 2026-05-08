@@ -63,4 +63,16 @@ public final class VehiculoController {
 
     }
 
+    public static boolean modificarVehiculo(Vehiculo vehiculo, String matriculaWhere) throws SQLException {
+
+        return VehiculoDAO.updateAllVehiculo(vehiculo,matriculaWhere) != 0;
+
+    }
+
+    public static boolean modificarVehiculo(Vehiculo vehiculo) throws SQLException {
+
+        return VehiculoDAO.updateAllVehiculo(vehiculo) != 0;
+
+    }
+
 }

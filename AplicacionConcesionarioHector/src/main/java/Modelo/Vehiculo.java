@@ -65,6 +65,34 @@ public class Vehiculo {
         return numEmpleado;
     }
 
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setTipoCombustible(String tipoCombustible) {
+        this.tipoCombustible = tipoCombustible;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public void setDniCliente(String dniCliente) {
+        this.dniCliente = dniCliente;
+    }
+
+    public void setNumEmpleado(Integer numEmpleado) {
+        this.numEmpleado = numEmpleado;
+    }
+
     @Override
     public String toString() {
         return "Vehiculo{" +
