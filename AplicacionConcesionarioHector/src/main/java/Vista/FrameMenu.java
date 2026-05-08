@@ -170,6 +170,7 @@ public class FrameMenu extends JFrame {
                 case "cliente" -> mostrarDialogoModificarCliente();
                 case "usuario" -> mostrarDialogoModificarUsuario();
                 case "empleado" -> mostrarDialogoModificarEmpleado();
+                case "departamento" -> mostrarDialogoModificarDepartamento();
                 default ->
                         JOptionPane.showMessageDialog(this, "Modificación de esta entidad aún no implementada.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
@@ -2837,252 +2838,220 @@ public class FrameMenu extends JFrame {
 
     }
 
-//    private void mostrarDialogoModificarDepartamento(){
-//
-//        // Compruebo que hay una tabla/entidad seleccionada
-//        // En caso de que no la haya muestro una ventana de aviso
-//        if (tablaActual == null || entidadActual == null) {
-//
-//            JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//            return;
-//
-//        }
-//
-//        // Si la tupla seleccionada es -1 significa que no hay ninguna seleccionada por lo que muestro un aviso
-//        int filaSeleccionada = tablaActual.getSelectedRow();
-//        if (filaSeleccionada == -1) {
-//
-//            JOptionPane.showMessageDialog(this, "Selecciona una fila para modificar.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//            return;
-//
-//        }
-//
-//        // Cojo la clave primaria que está en la primera columna de cada entidad
-//        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
-//
-//        Departamento departamentoBuscar = new Departamento();
-//        boolean encontrado = false;
-//
-//        try {
-//
-//            for (Departamento e: DepartamentoController.verDepartamentos()) {
-//
-//                if (e.getNumDep() == clavePrimaria) {
-//
-//                    departamentoBuscar = e;
-//                    encontrado = true;
-//                    break;
-//
-//                }
-//
-//            }
-//
-//            if (!encontrado) {
-//
-//                dialogError("¡ NO se ha encontrado el usuario !");
-//                return;
-//
-//            }
-//
-//        } catch (SQLException e) {
-//
-//            mostrarErrorBD(e);
-//            return;
-//
-//        } catch (NullPointerException e) {
-//
-//            dialogError("¡ No hay usuarios en la base de datos !");
-//            return;
-//
-//        }
-//
-//        final Departamento departamento = departamentoBuscar;
-//
-//        // Me creo el dialog principal con sus respectivas características para la insercción del departamento
-//        JDialog dialog = new JDialog(this, "Modificar Departamento", true);
-//        dialog.setSize(280, 240);
-//        dialog.setLocationRelativeTo(this);
-//        dialog.setResizable(false);
-//        dialog.setLayout(new BorderLayout());
-//
-//        // Me creo el panel donde va a ir el formulario con los campos a insertar
-//        JPanel panelForm = new JPanel(new GridBagLayout());
-//        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
-//
-//        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//        gbc.insets = new Insets(2, 5, 0, 5);
-//
-//        JLabel campoId = new JLabel();
-//        JTextField campoNombre = new JTextField();
-//
-//        // Labels de error para cada campo
-//        JLabel rellenoId = crearLabelError();
-//        JLabel errNombre = crearLabelError();
-//
-//        // ---- ID ----
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-//        gbc.weightx = 0;
-//        panelForm.add(new JLabel("ID:"), gbc);
-//        gbc.gridx = 1;
-//        gbc.weightx = 1;
-//        panelForm.add(campoId, gbc);
-//
-//        try {
-//
-//            campoId.setText(String.valueOf(DataManager.getUltimoNumDep() + 1));
-//
-//        } catch (SQLException e) {
-//
-//            mostrarErrorBD(e);
-//            return;
-//
-//        }
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 1;
-//        panelForm.add(rellenoId, gbc);
-//
-//        // ---- Nombre ----
-//        gbc.gridx = 0;
-//        gbc.gridy = 2;
-//        gbc.weightx = 0;
-//        panelForm.add(new JLabel("Nombre:"), gbc);
-//        gbc.gridx = 1;
-//        gbc.weightx = 1;
-//        panelForm.add(campoNombre, gbc);
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 3;
-//        panelForm.add(errNombre, gbc);
-//
-//        // ---- Botones ----
-//        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-//        JButton btnAceptar = new JButton("Aceptar");
-//        JButton btnCancelar = new JButton("Cancelar");
-//        panelBotones.add(btnAceptar);
-//
-//        dialog.getRootPane().setDefaultButton(btnAceptar);
-//
-//        dialog.add(panelForm, BorderLayout.CENTER);
-//        dialog.add(panelBotones, BorderLayout.SOUTH);
-//
-//        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
-//
-//        btnAceptar.addActionListener(e -> {
-//
-//            // Recogo los campos introducidos por el usuario
-//            String nombre = campoNombre.getText().trim();
-//
-//            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
-//            limpiarError(campoNombre, errNombre);
-//
-//            boolean hayError = false;
-//            boolean modificar;
-//
-//            if (nombre.equals(departamento.getNombre()))
-//            if (!DataManager.validarNombre(nombre, 2, 50)) {
-//
-//                mostrarError(campoNombre, errNombre, "Mínimo 2 y máximo 50 letras.");
-//                hayError = true;
-//
-//            } else {
-//
-//                try {
-//
-//                    if (DataManager.comprobarNombreDepartamento(nombre)) {
-//
-//                        mostrarError(campoNombre, errNombre, "¡ Ese departamento YA existe !");
-//                        hayError = true;
-//
-//                    }
-//
-//                } catch (SQLException ex) {
-//
-//                    mostrarErrorBD(ex);
-//
-//                }
-//
-//            }
-//
-//            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
-//
-//            if (!nombre.equals(usuario.getNombre())) {
-//
-//                usuario.setNombre(nombre);
-//
-//            }
-//
-//            if (!passwd.equals(usuario.getPasswd())) {
-//
-//                usuario.setPasswd(passwd);
-//
-//            }
-//
-//            if (!rol.equals(usuario.getRol())) {
-//
-//                usuario.setRol(rol);
-//
-//                if (rol.equalsIgnoreCase("gerente")){
-//
-//                    try {
-//
-//                        for (Empleado emp : EmpleadoController.verEmpleados()) {
-//
-//                            if (usuario.getId().equals(emp.getId_usuario())) {
-//
-//                                emp.setNumGerente(null);
-//                                EmpleadoController.modificarEmpleado(emp);
-//                                break;
-//
-//                            }
-//
-//                        }
-//
-//                    } catch (SQLException ex) {
-//
-//                        mostrarErrorBD(ex);
-//                        return;
-//
-//                    }
-//
-//                }
-//
-//            }
-//
-//            try {
-//
-//                modificado = UsuarioController.modificarUsuario(usuario);
-//
-//            } catch (SQLException ex) {
-//
-//                mostrarErrorBD(ex);
-//                return;
-//
-//            }
-//
-//            // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
-//            if (modificado) {
-//
-//                JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-//                dialog.dispose();
-//                // Actualización de la tabla:
-//                mostrarTabla(obtenerModeloUsuarios());
-//
-//            } else {
-//
-//                // En caso de que por algún motivo no se haya podido borrar la entidad muestro un panel indicándolo
-//                JOptionPane.showMessageDialog(this, "No se pudo modificar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
-//
-//            }
-//
-//        });
-//
-//        dialog.setVisible(true);
-//
-//
-//    }
+    private void mostrarDialogoModificarDepartamento(){
+
+        // Compruebo que hay una tabla/entidad seleccionada
+        // En caso de que no la haya muestro una ventana de aviso
+        if (tablaActual == null || entidadActual == null) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una entidad primero.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Si la tupla seleccionada es -1 significa que no hay ninguna seleccionada por lo que muestro un aviso
+        int filaSeleccionada = tablaActual.getSelectedRow();
+        if (filaSeleccionada == -1) {
+
+            JOptionPane.showMessageDialog(this, "Selecciona una fila para modificar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        // Cojo la clave primaria que está en la primera columna de cada entidad
+        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+
+        Departamento departamentoBuscar = new Departamento();
+        boolean encontrado = false;
+
+        try {
+
+            for (Departamento e: DepartamentoController.verDepartamentos()) {
+
+                if (e.getNumDep() == clavePrimaria) {
+
+                    departamentoBuscar = e;
+                    encontrado = true;
+                    break;
+
+                }
+
+            }
+
+            if (!encontrado) {
+
+                dialogError("¡ NO se ha encontrado el departamento !");
+                return;
+
+            }
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        } catch (NullPointerException e) {
+
+            dialogError("¡ No hay departamentos en la base de datos !");
+            return;
+
+        }
+
+        final Departamento departamento = departamentoBuscar;
+
+        // Me creo el dialog principal con sus respectivas características para la insercción del departamento
+        JDialog dialog = new JDialog(this, "Modificar Departamento", true);
+        dialog.setSize(280, 240);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+        dialog.setLayout(new BorderLayout());
+
+        // Me creo el panel donde va a ir el formulario con los campos a insertar
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20)); // Padding para el formulario
+
+        GridBagConstraints gbc = new GridBagConstraints(); // Me creo el objeto GridBagConstraints para poder posicionar cada elemento en el panel del formulario
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 0, 5);
+
+        JLabel campoId = new JLabel();
+        JTextField campoNombre = new JTextField();
+
+        campoId.setText(departamento.getNumDep().toString());
+        campoNombre.setText(departamento.getNombre());
+
+        // Labels de error para cada campo
+        JLabel rellenoId = crearLabelError();
+        JLabel errNombre = crearLabelError();
+
+        // ---- ID ----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("ID:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoId, gbc);
+
+        try {
+
+            campoId.setText(String.valueOf(DataManager.getUltimoNumDep() + 1));
+
+        } catch (SQLException e) {
+
+            mostrarErrorBD(e);
+            return;
+
+        }
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panelForm.add(rellenoId, gbc);
+
+        // ---- Nombre ----
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panelForm.add(new JLabel("Nombre:"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        panelForm.add(campoNombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panelForm.add(errNombre, gbc);
+
+        // ---- Botones ----
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnAceptar = new JButton("Aceptar");
+        JButton btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnAceptar);
+
+        dialog.getRootPane().setDefaultButton(btnAceptar);
+
+        dialog.add(panelForm, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnCancelar.addActionListener(e -> dialog.dispose()); // En caso de que cancele cierro el dialog
+
+        btnAceptar.addActionListener(e -> {
+
+            // Recogo los campos introducidos por el usuario
+            String nombre = campoNombre.getText().trim();
+
+            // Antes de volver a validar reseto cualquier error anterior que pudiera haber
+            limpiarError(campoNombre, errNombre);
+
+            boolean hayError = false;
+            boolean modificado;
+
+            if (!nombre.equals(departamento.getNombre())) {
+
+                if (!DataManager.validarNombre(nombre, 2, 50)) {
+
+                    mostrarError(campoNombre, errNombre, "Mínimo 2 y máximo 50 letras.");
+                    hayError = true;
+
+                } else {
+
+                    try {
+
+                        if (DataManager.comprobarNombreDepartamento(nombre)) {
+
+                            mostrarError(campoNombre, errNombre, "¡ Ese departamento YA existe !");
+                            hayError = true;
+
+                        }
+
+                    } catch (SQLException ex) {
+
+                        mostrarErrorBD(ex);
+
+                    }
+
+                }
+
+            }
+
+            if (hayError) return; // si hay algún error no continuamos, el return sale el action listener
+
+            if (!nombre.equals(departamento.getNombre())) {
+
+                departamento.setNombre(nombre);
+
+            }
+
+            try {
+
+                modificado = DepartamentoController.modificarDepartamento(departamento);
+
+            } catch (SQLException ex) {
+
+                mostrarErrorBD(ex);
+                return;
+
+            }
+
+            // En caso de que se modifique correcatmente muestro una ventana indicandolo y vuelvo a construir la tabla con los nuevos registros
+            if (modificado) {
+
+                JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dialog.dispose();
+                // Actualización de la tabla:
+                mostrarTabla(obtenerModeloDepartamentos());
+
+            } else {
+
+                // En caso de que por algún motivo no se haya podido borrar la entidad muestro un panel indicándolo
+                JOptionPane.showMessageDialog(this, "No se pudo modificar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
+        dialog.setVisible(true);
+
+    }
 
     // Crea un JLabel de error vacío con estilo rojo y cursiva
     private JLabel crearLabelError() {
