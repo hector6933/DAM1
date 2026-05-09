@@ -68,7 +68,7 @@ public class FrameLogin extends JFrame {
         JTextField campoUsername = new JTextField(20);
         panelLogin.add(campoUsername);
 
-        campoUsername.setText("hecprooll"); // BORRAR
+        // campoUsername.setText("hecprooll"); // BORRAR
 
         slayoutLogin.putConstraint(SpringLayout.HORIZONTAL_CENTER, campoUsername, -8,
                 SpringLayout.HORIZONTAL_CENTER, panelLogin);
@@ -93,7 +93,7 @@ public class FrameLogin extends JFrame {
         JPasswordField campoPasswd = new JPasswordField(20);
         panelLogin.add(campoPasswd);
 
-        campoPasswd.setText("admin123");
+        // campoPasswd.setText("admin123");
 
         slayoutLogin.putConstraint(SpringLayout.HORIZONTAL_CENTER, campoPasswd, -8,
                 SpringLayout.HORIZONTAL_CENTER, panelLogin);

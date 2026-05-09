@@ -1816,7 +1816,7 @@ public class FrameMenu extends JFrame {
 
         try {
 
-            System.out.println((String) clavePrimaria);
+
             for (Cliente e : ClienteController.verClientes()) {
 
                 if (e.getDni().equals(clavePrimaria)) {
@@ -3679,7 +3679,6 @@ public class FrameMenu extends JFrame {
 
         String rol = usuario.getRol().toLowerCase();
 
-        System.out.println(rol);
         if (rol.equals("gerente")) {
 
             btnUsuarios.setEnabled(false);
