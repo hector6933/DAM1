@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Este es el archivo de configuracín de los logs
+Explicación:
+Un appender es el destino donde de los logs
+Dentro de los appenders me creo un File que es archivo donde se guardan con su Nombre para poder llamarlo desde el AppenderRef y su ruta para crearlo
+El append true es para que añada y no socreescriba
+El PatternLayout es como va a estar distribuido el log,
+dentro de %d especifco el formato de la fecha y la hora que dentrá el log
+%p es el tipo de log que es, ya sea INFO WARN ERROR o cualquier otro, creo que solo usaré esos tres
+%c es la clase desde donde se ha creado el log, serán llamados de FrameMenu o FrameLogin
+%m es el mensaje del log
+%n es el salto de linea
+
+El logger es básicamente donde se define los loggers que existen con su configuarción
+el level de root es el nivel mínimo de los logs, que van en este orden DEBUG, INFO, WARN, ERROR, FATAL en mi caso le he puesto info ya que no teno pensado registrar logs de debug
+El appenderRef es para indicar a que appender, en mi caso un archivo, se van a enviar los logs
+-->
+<Configuration>
+    <Appenders>
+        <File name="ArchivoLog" fileName="logs/aplicacion.log" append="true">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} [%p] %c - %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="ArchivoLog"/>
+        </Root>
+    </Loggers>
+</Configuration>

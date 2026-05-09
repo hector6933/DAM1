@@ -1,11 +1,19 @@
 package Vista;
 
+import Controlador.UsuarioController;
+import Modelo.Usuario;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class FrameLogin extends JFrame {
+
+    private static final Logger logger = LogManager.getLogger(FrameLogin.class);
 
     public FrameLogin(){
 
@@ -118,11 +126,42 @@ public class FrameLogin extends JFrame {
 
                 if (DataManager.comprobarCredencialesUsuario(campoUsername.getText(),String.valueOf(campoPasswd.getPassword()))) {
 
-                    menu();
+                    Usuario usuario = null;
+                    try {
+
+                        for (Usuario u: UsuarioController.verUsuarios()) {
+
+                            if (u.getNombre().equals(campoUsername.getText())) {
+
+                                usuario = u;
+
+                            }
+
+                        }
+
+                    } catch (SQLException ex) {
+
+                        mostrarErrorBD(ex);
+                        return;
+
+                    }
+
+                    try {
+
+                        menu(usuario);
+
+                    } catch (SQLException ex) {
+
+                        mostrarErrorBD(ex);
+                        return;
+
+                    }
+
                     dispose();
 
                 } else {
 
+                    logger.warn("Fallo al iniciar sesión con user {}",campoUsername.getText());
                     mostrarErrorCredenciales();
 
                 }
@@ -138,9 +177,9 @@ public class FrameLogin extends JFrame {
         
     }
 
-    private void menu(){
+    private void menu(Usuario usuario) throws SQLException {
 
-        FrameMenu menu = new FrameMenu();
+        FrameMenu menu = new FrameMenu(usuario);
         menu.setVisible(true);
 
     }
@@ -172,6 +211,16 @@ public class FrameLogin extends JFrame {
         dialog.getRootPane().setDefaultButton(botonOk);
 
         dialog.setVisible(true);
+
+    }
+    private void mostrarErrorBD(SQLException ex) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Error al conectar con la base de datos:\n" + ex.getMessage(),
+                "Error BD",
+                JOptionPane.ERROR_MESSAGE
+        );
 
     }
     

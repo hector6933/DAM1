@@ -5,6 +5,8 @@ import Modelo.*;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,27 +23,60 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class FrameMenu extends JFrame {
+
+    private static final Logger logger = LogManager.getLogger(FrameMenu.class);
 
     private JPanel panelTabla;
     private JTable tablaActual;
     private String entidadActual;
     private JButton btnEliminar;
+    private JButton btnInsertar;
+    private JButton btnModificar;
 
     private JButton btnEmpleados;
     private JButton btnDepartamentos;
     private JButton btnVehiculos;
     private JButton btnClientes;
     private JButton btnUsuarios;
+    private JButton btnLogs;
 
-    public FrameMenu() {
+    private Usuario usuario;
 
+    public FrameMenu(Usuario usuario) {
+
+        logger.info("Usuario {} ha iniciado sesión", usuario.getNombre());
+
+        this.usuario = usuario;
         setTitle("Menú");
-        setSize(950, 600);
+        setSize(1100, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLayout(new BorderLayout());
+
+        // Panel con la información del usuario actual
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+
+        JPanel panelUsuario = new JPanel();
+        panelUsuario.setLayout(new BoxLayout(panelUsuario, BoxLayout.Y_AXIS));
+        panelUsuario.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // padding
+
+        JLabel labelNombre = new JLabel("Usuario: " + this.usuario.getNombre());
+        JLabel labelRol = new JLabel("Rol: " + this.usuario.getRol());
+        labelNombre.setFont(new Font("JetBrains Mono", Font.BOLD, 11));
+        labelRol.setFont(new Font("JetBrains Mono", Font.PLAIN, 13));
+
+        // Ajusto el ancho exacto del panel del usuario
+        Dimension tamanoUsuario = new Dimension(200, panelUsuario.getPreferredSize().height);
+        panelUsuario.setPreferredSize(tamanoUsuario);
+
+        panelUsuario.add(labelNombre);
+        panelUsuario.add(labelRol);
 
         // -------------------- BOTONES SUPERIORES --------------------
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
@@ -51,6 +86,7 @@ public class FrameMenu extends JFrame {
         btnVehiculos = new JButton("Vehículos");
         btnClientes = new JButton("Clientes");
         btnUsuarios = new JButton("Usuarios");
+        btnLogs = new JButton("Logs");
 
         btnEmpleados.setFocusPainted(false);
         btnDepartamentos.setFocusPainted(false);
@@ -64,7 +100,16 @@ public class FrameMenu extends JFrame {
         panelBotones.add(btnClientes);
         panelBotones.add(btnUsuarios);
 
-        add(panelBotones, BorderLayout.NORTH);
+        JPanel panelLogs = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        panelLogs.setPreferredSize(panelUsuario.getPreferredSize());
+        panelLogs.add(btnLogs);
+
+
+        panelSuperior.add(panelUsuario, BorderLayout.WEST);
+        panelSuperior.add(panelBotones, BorderLayout.CENTER);
+        panelSuperior.add(panelLogs, BorderLayout.EAST);
+        add(panelSuperior, BorderLayout.NORTH);
+
 
         // -------------------- PANEL TABLA --------------------
         panelTabla = new JPanel(new BorderLayout());
@@ -74,8 +119,8 @@ public class FrameMenu extends JFrame {
         // -------------------- BOTONES INFERIORES --------------------
         JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
 
-        JButton btnInsertar = new JButton("Insertar");
-        JButton btnModificar = new JButton("Modificar");
+        btnInsertar = new JButton("Insertar");
+        btnModificar = new JButton("Modificar");
         btnEliminar = new JButton("Eliminar");
         JButton btnActualizar = new JButton("Actualizar");
 
@@ -86,10 +131,13 @@ public class FrameMenu extends JFrame {
 
         add(panelAcciones, BorderLayout.SOUTH);
 
+        actualizarBotonesEntidad();
+
         // -------------------- LISTENERS SUPERIORES --------------------
         btnEmpleados.addActionListener(e -> {
 
             entidadActual = "empleado";
+            actualizarBotonesAccion(entidadActual);
             resaltarBoton(btnEmpleados);
             mostrarTabla(obtenerModeloEmpleados());
 
@@ -98,14 +146,17 @@ public class FrameMenu extends JFrame {
         btnDepartamentos.addActionListener(e -> {
 
             entidadActual = "departamento";
+            actualizarBotonesAccion(entidadActual);
             resaltarBoton(btnDepartamentos);
             mostrarTabla(obtenerModeloDepartamentos());
+
 
         });
 
         btnVehiculos.addActionListener(e -> {
 
             entidadActual = "vehiculo";
+            actualizarBotonesAccion(entidadActual);
             resaltarBoton(btnVehiculos);
             mostrarTabla(obtenerModeloVehiculos());
 
@@ -114,6 +165,7 @@ public class FrameMenu extends JFrame {
         btnClientes.addActionListener(e -> {
 
             entidadActual = "cliente";
+            actualizarBotonesAccion(entidadActual);
             resaltarBoton(btnClientes);
             mostrarTabla(obtenerModeloClientes());
 
@@ -122,10 +174,13 @@ public class FrameMenu extends JFrame {
         btnUsuarios.addActionListener(e -> {
 
             entidadActual = "usuario";
+            actualizarBotonesAccion(entidadActual);
             resaltarBoton(btnUsuarios);
             mostrarTabla(obtenerModeloUsuarios());
 
         });
+
+        btnLogs.addActionListener(e -> mostrarDialogoLogs());
 
         // -------------------- LISTENER ELIMINAR --------------------
         btnEliminar.addActionListener(e -> eliminarSeleccionado());
@@ -204,6 +259,7 @@ public class FrameMenu extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
 
+                logger.info("Usuario {} ha cerrado sesión", usuario.getNombre());
                 dispose();
                 new FrameLogin().setVisible(true);
 
@@ -503,6 +559,7 @@ public class FrameMenu extends JFrame {
     // Ventana con el error SQL en caso de que falle alguna conexion o algún error SQL en la base de datos
     private void mostrarErrorBD(SQLException ex) {
 
+        logger.error("Error al conectar con la base de datos {}", ex.getMessage());
         JOptionPane.showMessageDialog(
                 this,
                 "Error al conectar con la base de datos:\n" + ex.getMessage(),
@@ -833,7 +890,7 @@ public class FrameMenu extends JFrame {
 
             if (!Usuario.validarUsername(nombre, 3, 20)) {
 
-                mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras.");
+                mostrarError(campoNombre, errNombre, "Mínimo 3 y máximo 20 letras, números y carácteres (-_.)");
                 hayError = true;
 
             } else {
@@ -1280,27 +1337,6 @@ public class FrameMenu extends JFrame {
 
             }
 
-            Integer numGerente = 0;
-            if (gerente.equals("-- Selecciona un gerente --")) {
-
-                mostrarError(campoGerente, errGerente, "Selecciona un gerente");
-                hayError = true;
-
-            } else if (gerente.equals("-- Sin gerente --")) {
-
-                numGerente = null;
-
-            } else {
-
-                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(gerente);
-
-                if (encontrarNum.find()) {
-
-                    numGerente = Integer.parseInt(encontrarNum.group());
-
-                }
-
-            }
 
             int numDep = 0;
             if (dep.equals("-- Selecciona un departamento --")) {
@@ -1322,6 +1358,7 @@ public class FrameMenu extends JFrame {
             }
 
             Integer idUsuarioInt = 0;
+            Usuario usuarioEmp = new Usuario();
             try {
 
                 idUsuarioInt = Integer.parseInt(idUsuario);
@@ -1340,15 +1377,21 @@ public class FrameMenu extends JFrame {
 
                     } else {
 
-                        for (Usuario u: UsuarioController.verUsuarios()) {
+                        for (Usuario u : UsuarioController.verUsuarios()) {
 
-                            if (u.getId().equals(idUsuarioInt) && u.getRol().equalsIgnoreCase("Admin")) {
+                            if (u.getId().equals(idUsuarioInt)) {
 
-                                mostrarError(campoIdUsuario, errIdUsuario, "Ese usuario NO es un empleado/gerente");
-                                hayError = true;
-                                break;
+                                usuarioEmp = u;
+                                if (u.getRol().equalsIgnoreCase("Admin")) {
+
+                                    mostrarError(campoIdUsuario, errIdUsuario, "Ese usuario NO es un empleado/gerente");
+                                    hayError = true;
+                                    break;
+
+                                }
 
                             }
+
 
                         }
 
@@ -1365,6 +1408,33 @@ public class FrameMenu extends JFrame {
 
                 mostrarError(campoIdUsuario, errIdUsuario, "Introduce un número válido");
                 hayError = true;
+
+            }
+
+            Integer numGerente = 0;
+            if (gerente.equals("-- Selecciona un gerente --")) {
+
+                mostrarError(campoGerente, errGerente, "Selecciona un gerente");
+                hayError = true;
+
+            } else if (gerente.equals("-- Sin gerente --")) {
+
+                numGerente = null;
+
+            } else if (usuarioEmp.getRol().equalsIgnoreCase("gerente")) {
+
+                mostrarError(campoGerente, errGerente, "El usuario es un gerente, NO puede tener gerente");
+                hayError = true;
+
+            } else {
+
+                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(gerente);
+
+                if (encontrarNum.find()) {
+
+                    numGerente = Integer.parseInt(encontrarNum.group());
+
+                }
 
             }
 
@@ -1420,7 +1490,7 @@ public class FrameMenu extends JFrame {
 
         JTextField campoMatricula = new JTextField();
 
-        JComboBox<String> campoMarca = new JComboBox<>(new String[]{"-- Selecciona una marca --","Toyota", "Volkswagen", "Ford", "Honda", "Chevrolet", "Nissan",
+        JComboBox<String> campoMarca = new JComboBox<>(new String[]{"-- Selecciona una marca --", "Toyota", "Volkswagen", "Ford", "Honda", "Chevrolet", "Nissan",
                 "Hyundai", "Kia", "Mercedes-Benz", "BMW", "Audi", "Peugeot",
                 "Renault", "Citroën", "Fiat", "Jeep", "Dodge", "Chrysler",
                 "Tesla", "Volvo", "Mazda", "Subaru", "Mitsubishi", "Suzuki",
@@ -1433,7 +1503,7 @@ public class FrameMenu extends JFrame {
                 "XPeng", "Polestar", "Saab"});
 
         JTextField campoModelo = new JTextField();
-        JComboBox<String> campoTipoCombust = new JComboBox<>(new String[]{"-- Selecciona un combustible --","Gasolina", "Diésel","GLP", "GNC", "Eléctrico", "Hidrógeno", "Biocombustibles"});
+        JComboBox<String> campoTipoCombust = new JComboBox<>(new String[]{"-- Selecciona un combustible --", "Gasolina", "Diésel", "GLP", "GNC", "Eléctrico", "Hidrógeno", "Biocombustibles"});
         JTextField campoPrecio = new JTextField();
         JTextField campoDniCliente = new JTextField();
         JTextField campoNumEmp = new JTextField();
@@ -1558,7 +1628,7 @@ public class FrameMenu extends JFrame {
             String marca = (String) campoMarca.getSelectedItem();
             String modelo = campoModelo.getText().trim();
             String combustible = (String) campoTipoCombust.getSelectedItem();
-            String precio  = campoPrecio.getText().trim();
+            String precio = campoPrecio.getText().trim();
             String dniCliente = campoDniCliente.getText().trim();
             String numEmp = campoNumEmp.getText().trim();
 
@@ -1690,7 +1760,7 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado =  VehiculoController.insertarVehiculo(new Vehiculo(matricula,marca,modelo,combustible,precioDouble,dniCliente,numEmpInt)); // Intento insertar el Empleado con los datos proporcionados
+                boolean insertado = VehiculoController.insertarVehiculo(new Vehiculo(matricula, marca, modelo, combustible, precioDouble, dniCliente, numEmpInt)); // Intento insertar el Empleado con los datos proporcionados
 
                 if (insertado) {
 
@@ -1718,7 +1788,7 @@ public class FrameMenu extends JFrame {
         dialog.setVisible(true);
     }
 
-    private void mostrarDialogoModificarCliente(){
+    private void mostrarDialogoModificarCliente() {
 
         // Compruebo que hay una tabla/entidad seleccionada
         // En caso de que no la haya muestro una ventana de aviso
@@ -2006,7 +2076,7 @@ public class FrameMenu extends JFrame {
     }
 
 
-    private void mostrarDialogoModificarUsuario(){
+    private void mostrarDialogoModificarUsuario() {
 
         // Compruebo que hay una tabla/entidad seleccionada
         // En caso de que no la haya muestro una ventana de aviso
@@ -2034,7 +2104,7 @@ public class FrameMenu extends JFrame {
 
         try {
 
-            for (Usuario e: UsuarioController.verUsuarios()) {
+            for (Usuario e : UsuarioController.verUsuarios()) {
 
                 if (e.getId() == clavePrimaria) {
 
@@ -2254,7 +2324,7 @@ public class FrameMenu extends JFrame {
 
                 usuario.setRol(rol);
 
-                if (rol.equalsIgnoreCase("gerente")){
+                if (rol.equalsIgnoreCase("gerente")) {
 
                     try {
 
@@ -2313,7 +2383,7 @@ public class FrameMenu extends JFrame {
 
     }
 
-    private void mostrarDialogoModificarEmpleado(){
+    private void mostrarDialogoModificarEmpleado() {
 
         // Compruebo que hay una tabla/entidad seleccionada
         // En caso de que no la haya muestro una ventana de aviso
@@ -2341,9 +2411,9 @@ public class FrameMenu extends JFrame {
 
         try {
 
-            for (Empleado e: EmpleadoController.verEmpleados()) {
+            for (Empleado e : EmpleadoController.verEmpleados()) {
 
-                if (e.getNumEmpleado() == clavePrimaria) {
+                if (Objects.equals(e.getNumEmpleado(), (Integer) clavePrimaria)) {
 
                     empleadoBuscar = e;
                     encontrado = true;
@@ -2670,28 +2740,6 @@ public class FrameMenu extends JFrame {
 
             }
 
-            Integer numGerente = 0;
-            if (gerente.equals("-- Selecciona un gerente --")) {
-
-                mostrarError(campoGerente, errGerente, "Selecciona un gerente");
-                hayError = true;
-
-            } else if (gerente.equals("-- Sin gerente --")) {
-
-                numGerente = null;
-
-            } else {
-
-                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(gerente);
-
-                if (encontrarNum.find()) {
-
-                    numGerente = Integer.parseInt(encontrarNum.group());
-
-                }
-
-            }
-
             Integer numDep = 0;
             if (dep.equals("-- Selecciona un departamento --")) {
 
@@ -2712,29 +2760,35 @@ public class FrameMenu extends JFrame {
             }
 
             Integer idUsuarioInt = 0;
-            if (!idUsuario.equals(empleado.getId_usuario().toString())) {
+            Usuario usuarioEmp = new Usuario();
+            try {
+
+                idUsuarioInt = Integer.parseInt(idUsuario);
 
                 try {
 
-                    idUsuarioInt = Integer.parseInt(idUsuario);
+                    if (!DataManager.comprobarIdUsuario(idUsuarioInt)) {
 
-                    try {
+                        mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario NO existe");
+                        hayError = true;
 
-                        if (!DataManager.comprobarIdUsuario(idUsuarioInt)) {
+                    } else if (!idUsuario.equals(empleado.getId_usuario().toString())) {
 
-                            mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario NO existe");
-                            hayError = true;
-
-                        } else if (DataManager.comprobarIdUsuarioEmpleado(idUsuarioInt)) {
+                        if (DataManager.comprobarIdUsuarioEmpleado(idUsuarioInt)) {
 
                             mostrarError(campoIdUsuario, errIdUsuario, "Ese ID de usuario YA está asignado");
                             hayError = true;
 
-                        } else {
+                        }
 
-                            for (Usuario u: UsuarioController.verUsuarios()) {
+                    } else {
 
-                                if (u.getId().equals(idUsuarioInt) && u.getRol().equalsIgnoreCase("Admin")) {
+                        for (Usuario u : UsuarioController.verUsuarios()) {
+
+                            if (u.getId().equals(idUsuarioInt)) {
+
+                                usuarioEmp = u;
+                                if (u.getRol().equalsIgnoreCase("Admin")) {
 
                                     mostrarError(campoIdUsuario, errIdUsuario, "Ese usuario NO es un empleado/gerente");
                                     hayError = true;
@@ -2746,17 +2800,45 @@ public class FrameMenu extends JFrame {
 
                         }
 
-                    } catch (SQLException ex) {
-
-                        mostrarErrorBD(ex);
-                        return;
-
                     }
 
-                } catch (NumberFormatException ex) {
+                } catch (SQLException ex) {
 
-                    mostrarError(campoIdUsuario, errIdUsuario, "Introduce un número válido");
-                    hayError = true;
+                    mostrarErrorBD(ex);
+                    return;
+
+                }
+
+
+            } catch (NumberFormatException ex) {
+
+                mostrarError(campoIdUsuario, errIdUsuario, "Introduce un número válido");
+                hayError = true;
+
+            }
+
+            Integer numGerente = 0;
+            if (gerente.equals("-- Selecciona un gerente --")) {
+
+                mostrarError(campoGerente, errGerente, "Selecciona un gerente");
+                hayError = true;
+
+            } else if (gerente.equals("-- Sin gerente --")) {
+
+                numGerente = null;
+
+            } else if (usuarioEmp.getRol().equalsIgnoreCase("gerente")) {
+
+                mostrarError(campoGerente, errGerente, "El usuario es un gerente, NO puede tener gerente");
+                hayError = true;
+
+            } else {
+
+                Matcher encontrarNum = Pattern.compile("^(\\d+)").matcher(gerente);
+
+                if (encontrarNum.find()) {
+
+                    numGerente = Integer.parseInt(encontrarNum.group());
 
                 }
 
@@ -2838,7 +2920,7 @@ public class FrameMenu extends JFrame {
 
     }
 
-    private void mostrarDialogoModificarDepartamento(){
+    private void mostrarDialogoModificarDepartamento() {
 
         // Compruebo que hay una tabla/entidad seleccionada
         // En caso de que no la haya muestro una ventana de aviso
@@ -2866,7 +2948,7 @@ public class FrameMenu extends JFrame {
 
         try {
 
-            for (Departamento e: DepartamentoController.verDepartamentos()) {
+            for (Departamento e : DepartamentoController.verDepartamentos()) {
 
                 if (e.getNumDep() == clavePrimaria) {
 
@@ -3053,7 +3135,7 @@ public class FrameMenu extends JFrame {
 
     }
 
-    private void mostrarDialogoModificarVehiculo(){
+    private void mostrarDialogoModificarVehiculo() {
 
         // Compruebo que hay una tabla/entidad seleccionada
         // En caso de que no la haya muestro una ventana de aviso
@@ -3081,7 +3163,7 @@ public class FrameMenu extends JFrame {
 
         try {
 
-            for (Vehiculo e: VehiculoController.verVehiculos()) {
+            for (Vehiculo e : VehiculoController.verVehiculos()) {
 
                 if (e.getMatricula().equals(clavePrimaria)) {
 
@@ -3132,7 +3214,7 @@ public class FrameMenu extends JFrame {
 
         JTextField campoMatricula = new JTextField();
 
-        JComboBox<String> campoMarca = new JComboBox<>(new String[]{"-- Selecciona una marca --","Toyota", "Volkswagen", "Ford", "Honda", "Chevrolet", "Nissan",
+        JComboBox<String> campoMarca = new JComboBox<>(new String[]{"-- Selecciona una marca --", "Toyota", "Volkswagen", "Ford", "Honda", "Chevrolet", "Nissan",
                 "Hyundai", "Kia", "Mercedes-Benz", "BMW", "Audi", "Peugeot",
                 "Renault", "Citroën", "Fiat", "Jeep", "Dodge", "Chrysler",
                 "Tesla", "Volvo", "Mazda", "Subaru", "Mitsubishi", "Suzuki",
@@ -3145,7 +3227,7 @@ public class FrameMenu extends JFrame {
                 "XPeng", "Polestar", "Saab"});
 
         JTextField campoModelo = new JTextField();
-        JComboBox<String> campoTipoCombust = new JComboBox<>(new String[]{"-- Selecciona un combustible --","Gasolina", "Diésel","GLP", "GNC", "Eléctrico", "Hidrógeno", "Biocombustibles"});
+        JComboBox<String> campoTipoCombust = new JComboBox<>(new String[]{"-- Selecciona un combustible --", "Gasolina", "Diésel", "GLP", "GNC", "Eléctrico", "Hidrógeno", "Biocombustibles"});
         JTextField campoPrecio = new JTextField();
         JTextField campoDniCliente = new JTextField();
         JTextField campoNumEmp = new JTextField();
@@ -3278,7 +3360,7 @@ public class FrameMenu extends JFrame {
             String marca = (String) campoMarca.getSelectedItem();
             String modelo = campoModelo.getText().trim();
             String combustible = (String) campoTipoCombust.getSelectedItem();
-            String precio  = campoPrecio.getText().trim();
+            String precio = campoPrecio.getText().trim();
             String dniCliente = campoDniCliente.getText().trim();
             String numEmp = campoNumEmp.getText().trim();
 
@@ -3456,7 +3538,7 @@ public class FrameMenu extends JFrame {
 
                     String matriculaAntigua = vehiculo.getMatricula();
                     vehiculo.setMatricula(matricula);
-                    modificado = VehiculoController.modificarVehiculo(vehiculo,matriculaAntigua);
+                    modificado = VehiculoController.modificarVehiculo(vehiculo, matriculaAntigua);
 
                 } else {
 
@@ -3489,7 +3571,6 @@ public class FrameMenu extends JFrame {
         });
 
         dialog.setVisible(true);
-
 
 
     }
@@ -3561,8 +3642,145 @@ public class FrameMenu extends JFrame {
         }
         // Resaltar botón activo
         botonActivo.setBackground(new Color(70, 130, 180)); // Color azul
-        botonActivo.setForeground(Color.WHITE);
+        botonActivo.setForeground(Color.WHITE); // Texto blanco
 
+    }
+
+    private void actualizarBotonesAccion(String entidad) {
+
+        String rol = usuario.getRol().toLowerCase();
+
+        // Por defecto tendrá permisos para todos los botones
+        btnInsertar.setEnabled(true);
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+
+        // Y dependiendo de su rol los deshabilito o no
+        // Para volverlos a habilitar simplemente tiene ser la entidad adecuada en la tabla adecuada
+        if (rol.equals("gerente") && entidad.equals("departamento")) {
+
+            btnInsertar.setEnabled(false);
+            btnModificar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+
+        }
+
+        if (rol.equals("empleado") && (entidad.equals("empleado") || entidad.equals("departamento"))) {
+
+            btnInsertar.setEnabled(false);
+            btnModificar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+
+        }
+
+    }
+
+    private void actualizarBotonesEntidad() {
+
+        String rol = usuario.getRol().toLowerCase();
+
+        System.out.println(rol);
+        if (rol.equals("gerente")) {
+
+            btnUsuarios.setEnabled(false);
+            btnLogs.setVisible(false);
+
+        }
+
+        if (rol.equals("empleado")) {
+
+            btnUsuarios.setEnabled(false);
+            btnLogs.setVisible(false);
+
+        }
+
+    }
+
+    private void mostrarDialogoLogs() {
+
+        JDialog dialog = new JDialog(this, "Logs", true);
+        dialog.setSize(800, 500);
+        dialog.setLocationRelativeTo(this);
+        dialog.setLayout(new BorderLayout());
+
+        // Donde van a ir los logs
+        JTextArea areaLogs = new JTextArea();
+        areaLogs.setEditable(false);
+        areaLogs.setFont(new Font("JetBrains Mono", Font.PLAIN, 12));
+
+        // Modifico el arealogs para insertar todos los logs en él, a partir del archivo de logs
+        cargarLogs(areaLogs);
+
+        // Scroll para poder verlos todos
+        JScrollPane scroll = new JScrollPane(areaLogs);
+        scroll.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Botones
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JButton btnActualizar = new JButton("Actualizar");
+        JButton btnLimpiar = new JButton("Limpiar logs");
+        JButton btnCerrar = new JButton("Cerrar");
+
+        panelBotones.add(btnActualizar);
+        panelBotones.add(btnLimpiar);
+        panelBotones.add(btnCerrar);
+
+        dialog.add(scroll, BorderLayout.CENTER);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        btnActualizar.addActionListener(e -> cargarLogs(areaLogs));
+
+        btnCerrar.addActionListener(e -> dialog.dispose());
+
+        btnLimpiar.addActionListener(e -> {
+            int confirmar = JOptionPane.showConfirmDialog(
+                    dialog,
+                    "¿Seguro que quieres limpiar todos los logs?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirmar != JOptionPane.YES_OPTION) return;
+
+            // En caso de que quiera borarr los logs sobreescribo el fichero poniendo append false y escribiendo un string vacio
+            try (FileWriter fw = new FileWriter("logs/aplicacion.log", false)) {
+
+                fw.write("");
+                areaLogs.setText(""); // Además de vaciar el fichero vación el Jtextarea donde iban los logs
+
+                // Registro quién ha borrado los logs
+                logger.info("Logs limpiados por el usuario {}", usuario.getNombre());
+
+                // Vuelvo a cargar los logs en caso de haber nuevos logs y para mostrar el log anterior
+                cargarLogs(areaLogs);
+
+            } catch (IOException ex) {
+
+                JOptionPane.showMessageDialog(dialog, "Error al limpiar los logs:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
+        dialog.setVisible(true);
+    }
+
+    private void cargarLogs(JTextArea areaLogs) {
+
+        try {
+
+            // Recogo el contenido del fichero con los logs
+            String contenido = new String(Files.readAllBytes(Paths.get("logs/aplicacion.log")));
+            areaLogs.setText(contenido);
+
+            // Automáticamente que se posicione al final para ver los últimos logs
+            areaLogs.setCaretPosition(areaLogs.getDocument().getLength());
+
+        } catch (IOException ex) {
+
+            areaLogs.setText("No se encontró el fichero de logs.");
+
+        }
     }
 
 }
