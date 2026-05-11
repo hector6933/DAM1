@@ -38,16 +38,27 @@ SELECT c.*, COUNT(l.id_llamada) FROM
 llamadas l INNER JOIN clientes c ON l.id_cliente=c.id_cliente 
 INNER JOIN tarifas t ON c.tarifa=t.id_tarifa
 GROUP BY c.id_cliente 
-HAVING COUNT(l.id_llamada) >
-AVG(
-(SELECT COUNT(l2.id_llamada) FROM llamadas l2 INNER JOIN clientes c2 ON l2.id_cliente=c2.id_cliente WHERE c2.tarifa=c.tarifa)
-);
+HAVING COUNT(l.id_llamada) > (SELECT AVG(conteo) FROM (SELECT COUNT(l2.id_llamada) AS conteo FROM llamadas l2 INNER JOIN clientes c2 ON l2.id_cliente=c2.id_cliente WHERE c2.tarifa=c.tarifa) AS tabla);
 
-SELECT * FROM llamadas;
-INSERT INTO llamadas (id_llamada,id_cliente,destino,duracion) VALUES (27,4,'nose',33);
-SELECT * FROM clientes;
-SELECT * FROM tarifas;
 
-SELECT AVG((SELECT COUNT(l.id_cliente) FROM llamadas l));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

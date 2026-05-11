@@ -193,6 +193,26 @@ CREATE VIEW v_habilidades_populares AS
 		FROM habilidad h NATURAL JOIN habemp he GROUP BY CodHab HAVING COUNT(he.CodEmp) >= 2;
 SELECT * FROM v_habilidades_populares;
 
+-- ÍNDICES Y COMANDO EXPLAIN
+-- Los índices se utilizaban para cuando haces consultas por un campo que no es la clave primaria
+-- para facilitar la consulta y que vaya más rápido.
+
+-- 1:
+CREATE INDEX indx_sal ON empleado (SalEmp);
+EXPLAIN SELECT * FROM empleado WHERE SalEmp > 3000000;
+
+-- 3:
+CREATE INDEX idx_fecinc ON empleado (FecInEmp);
+EXPLAIN SELECT * FROM empleado WHERE FecInEmp>'2000-01-01';
+EXPLAIN SELECT * FROM empleado WHERE YEAR(FecInEmp)=2000; -- Aquí NO lo usa porque está consultando por el año de la fecha NO por el campo fecha
+
+-- TRANSACCIONES
+-- Hay que desactivar el autocommit (SET autocommit=0)
+-- Cuando no haces un commit NO puedes hacer un rollback, ya que commit confirma los cambios, en caso de que haya algún error no se confirman los cambios y se hace un rollback 
+SET autocommit = 0;
+INSERT INTO empleado VALUES (1234, 'PROZS', NULL, CURDATE(), '1904-02-02','11111111J','LOLI',0,19839842);
+SELECT * FROM empleado WHERE NomEmp LIKE 'LOLI';
+ROLLBACK;
 
 
 
