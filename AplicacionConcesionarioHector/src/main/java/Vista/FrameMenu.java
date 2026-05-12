@@ -2106,7 +2106,7 @@ public class FrameMenu extends JFrame {
 
             for (Usuario e : UsuarioController.verUsuarios()) {
 
-                if (e.getId() == clavePrimaria) {
+                if (e.getId().equals(clavePrimaria)) {
 
                     usuarioBuscar = e;
                     encontrado = true;
