@@ -105,3 +105,19 @@
 12-05-2026 15:45:28 [INFO] Vista.FrameMenu - Usuario hecprooll ha iniciado sesión
 12-05-2026 15:49:22 [INFO] Vista.FrameMenu - Usuario hecprooll ha iniciado sesión
 12-05-2026 15:49:54 [INFO] Vista.FrameMenu - Usuario hecprooll ha cerrado sesión
+12-05-2026 15:50:52 [INFO] Vista.FrameMenu - Usuario hecprooll ha iniciado sesión
+12-05-2026 16:23:07 [INFO] Vista.FrameMenu - Usuario hecprooll ha iniciado sesión
+12-05-2026 16:23:13 [INFO] Vista.FrameMenu - El usuario hecprooll ha borrado un empleado con clave: 199
+12-05-2026 16:23:24 [INFO] Vista.FrameMenu - El usuario hecprooll ha insertado un nuevo departamento: Departamento{numDep=null, nombre='makslodmasldmas'}
+12-05-2026 16:23:44 [INFO] Vista.FrameMenu - El usuario hecprooll ha borrado un departamento con clave: 6
+12-05-2026 16:23:55 [INFO] Vista.FrameMenu - El usuario hecprooll ha borrado un vehiculo con clave: 0300-WXZ
+12-05-2026 16:24:11 [INFO] Vista.FrameMenu - El usuario hecprooll ha borrado un cliente con clave: 00000200S
+12-05-2026 16:24:25 [INFO] Vista.FrameMenu - El usuario hecprooll ha borrado un usuario con clave: 274
+12-05-2026 16:25:06 [INFO] Vista.FrameMenu - El usuario hecprooll ha insertado un nuevo usuario: Usuario{id=null, nombre='maskdasldsakldasld', passwd='Sor2425$', rol='Empleado'}
+12-05-2026 16:25:30 [INFO] Vista.FrameMenu - El usuario hecprooll ha insertado un nuevo empleado: Empleado{numEmpleado=null, nombre='awndioan', apellidos='amsdkdams', telefono='111111111', fechaNacimiento=2000-05-17, numGerente=null, numDep=5, id_usuario=275}
+12-05-2026 16:25:45 [INFO] Vista.FrameMenu - El usuario hecprooll ha modificado un empleado: Empleado{numEmpleado=201, nombre='awndioana', apellidos='amsdkdams', telefono='111111111', fechaNacimiento=2000-05-17, numGerente=null, numDep=5, id_usuario=275}
+12-05-2026 16:26:05 [INFO] Vista.FrameMenu - El usuario hecprooll ha modificado departamento: Departamento{numDep=4, nombre='Recursos Humanoss'}
+12-05-2026 16:26:27 [INFO] Vista.FrameMenu - El usuario hecprooll ha modificado un vehículo: Vehiculo{matricula='0106-WSX', marca='Kia', modelo='Modelo106', tipoCombustible='Diésel', precio=301063.0, dniCliente='00000199R', numEmpleado=101}
+12-05-2026 16:26:49 [INFO] Vista.FrameMenu - El usuario hecprooll ha modificado un cliente: Cliente{dni='00000199R', nombre='Clientasdasd', apellidos='Apelasdasd', telefono='610000199'}
+12-05-2026 16:27:08 [INFO] Vista.FrameMenu - El usuario hecprooll ha modificado un usuario: Usuario{id=275, nombre='maskdaslds', passwd='Sor2425$', rol='Empleado'}
+12-05-2026 16:27:17 [INFO] Vista.FrameMenu - Usuario hecprooll ha cerrado sesión

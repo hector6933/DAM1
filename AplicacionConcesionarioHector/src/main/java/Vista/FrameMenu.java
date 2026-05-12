@@ -322,6 +322,8 @@ public class FrameMenu extends JFrame {
 
                 JOptionPane.showMessageDialog(this, "Registro eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
+                logger.info("El usuario {} ha borrado un {} con clave: {}", this.usuario.getNombre(), entidadActual, clavePrimaria);
+
                 // Actualización de la tabla:
                 switch (entidadActual) {
 
@@ -738,12 +740,14 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = ClienteController.insertarCliente(new Cliente(dni, nombre, apellidos, telefono)); // Intento insertar el cliente con los datos proporcionados
+                Cliente cliente = new Cliente(dni, nombre, apellidos, telefono);
+                boolean insertado = ClienteController.insertarCliente(cliente); // Intento insertar el cliente con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Cliente insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    logger.info("El usuario {} ha insertado un nuevo cliente: {}", this.usuario.getNombre(), cliente.toString());
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el cliente
                     mostrarTabla(obtenerModeloClientes());
@@ -931,12 +935,14 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = UsuarioController.insertarUsuario(new Usuario(nombre, passwd, rol)); // Intento insertar el usuario con los datos proporcionados
+                Usuario usuario1 = new Usuario(nombre, passwd, rol);
+                boolean insertado = UsuarioController.insertarUsuario(usuario1); // Intento insertar el usuario con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Usuario insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    logger.info("El usuario {} ha insertado un nuevo usuario: {}", this.usuario.getNombre(), usuario1.toString());
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el usuario
                     mostrarTabla(obtenerModeloUsuarios());
@@ -1071,12 +1077,14 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = DepartamentoController.insertarDepartamento(new Departamento(nombre));  // Intento insertar el departamento con los datos proporcionados
+                Departamento departamento = new Departamento(nombre);
+                boolean insertado = DepartamentoController.insertarDepartamento(departamento);  // Intento insertar el departamento con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Departamento insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    logger.info("El usuario {} ha insertado un nuevo departamento: {}", this.usuario.getNombre(), departamento.toString());
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el departamento
                     mostrarTabla(obtenerModeloDepartamentos());
@@ -1442,12 +1450,14 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = EmpleadoController.insertarEmpleado(new Empleado(nombre, apellidos, telefono, Date.valueOf(fechaNacimiento), numGerente, numDep, idUsuarioInt)); // Intento insertar el Empleado con los datos proporcionados
+                Empleado empleado = new Empleado(nombre, apellidos, telefono, Date.valueOf(fechaNacimiento), numGerente, numDep, idUsuarioInt);
+                boolean insertado = EmpleadoController.insertarEmpleado(empleado); // Intento insertar el Empleado con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Empleado insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    logger.info("El usuario {} ha insertado un nuevo empleado: {}", this.usuario.getNombre(), empleado.toString());
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el empleado
                     mostrarTabla(obtenerModeloEmpleados());
@@ -1760,12 +1770,14 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                boolean insertado = VehiculoController.insertarVehiculo(new Vehiculo(matricula, marca, modelo, combustible, precioDouble, dniCliente, numEmpInt)); // Intento insertar el Empleado con los datos proporcionados
+                Vehiculo vehiculo = new Vehiculo(matricula, marca, modelo, combustible, precioDouble, dniCliente, numEmpInt);
+                boolean insertado = VehiculoController.insertarVehiculo(vehiculo); // Intento insertar el Empleado con los datos proporcionados
 
                 if (insertado) {
 
                     // En caso de que se inserte muestro un dialog y cuando le dé a OK salgo del dialog principal,
                     JOptionPane.showMessageDialog(dialog, "Vehículo insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    logger.info("El usuario {} ha insertado un nuevo vehículo: {}", this.usuario.getNombre(), vehiculo.toString());
                     dialog.dispose();
                     // Actualizo la tabla con los nuevos registros una vez insertado el vehículo
                     mostrarTabla(obtenerModeloVehiculos());
@@ -2058,6 +2070,7 @@ public class FrameMenu extends JFrame {
             if (modificado) {
 
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("El usuario {} ha modificado un cliente: {}", this.usuario.getNombre(), cliente.toString());
                 dialog.dispose();
                 // Actualización de la tabla:
                 mostrarTabla(obtenerModeloClientes());
@@ -2135,7 +2148,7 @@ public class FrameMenu extends JFrame {
 
         }
 
-        final Usuario usuario = usuarioBuscar;
+        final Usuario usuario1 = usuarioBuscar;
 
         // Me creo el dialog principal con sus respectivas características para la inserción del usuario
         JDialog dialog = new JDialog(this, "Insertar Usuario", true);
@@ -2166,10 +2179,10 @@ public class FrameMenu extends JFrame {
         JLabel errPasswd = crearLabelError();
         JLabel errRol = crearLabelError();
 
-        campoId.setText(usuario.getId().toString());
-        campoNombre.setText(usuario.getNombre());
-        campoPasswd.setText(usuario.getPasswd());
-        campoRol.setSelectedItem(usuario.getRol());
+        campoId.setText(usuario1.getId().toString());
+        campoNombre.setText(usuario1.getNombre());
+        campoPasswd.setText(usuario1.getPasswd());
+        campoRol.setSelectedItem(usuario1.getRol());
 
         // ---- ID ----
         gbc.gridx = 0;
@@ -2263,7 +2276,7 @@ public class FrameMenu extends JFrame {
             boolean hayError = false;
             boolean modificado;
 
-            if (!nombre.equals(usuario.getNombre())) {
+            if (!nombre.equals(usuario1.getNombre())) {
 
                 if (!Usuario.validarUsername(nombre, 3, 20)) {
 
@@ -2308,21 +2321,21 @@ public class FrameMenu extends JFrame {
 
             if (hayError) return; // si hay algún error no continuamos por lo que salimos del action listener
 
-            if (!nombre.equals(usuario.getNombre())) {
+            if (!nombre.equals(usuario1.getNombre())) {
 
-                usuario.setNombre(nombre);
-
-            }
-
-            if (!passwd.equals(usuario.getPasswd())) {
-
-                usuario.setPasswd(passwd);
+                usuario1.setNombre(nombre);
 
             }
 
-            if (!rol.equals(usuario.getRol())) {
+            if (!passwd.equals(usuario1.getPasswd())) {
 
-                usuario.setRol(rol);
+                usuario1.setPasswd(passwd);
+
+            }
+
+            if (!rol.equals(usuario1.getRol())) {
+
+                usuario1.setRol(rol);
 
                 if (rol.equalsIgnoreCase("gerente")) {
 
@@ -2330,7 +2343,7 @@ public class FrameMenu extends JFrame {
 
                         for (Empleado emp : EmpleadoController.verEmpleados()) {
 
-                            if (usuario.getId().equals(emp.getId_usuario())) {
+                            if (usuario1.getId().equals(emp.getId_usuario())) {
 
                                 emp.setNumGerente(null);
                                 EmpleadoController.modificarEmpleado(emp);
@@ -2353,7 +2366,7 @@ public class FrameMenu extends JFrame {
 
             try {
 
-                modificado = UsuarioController.modificarUsuario(usuario);
+                modificado = UsuarioController.modificarUsuario(usuario1);
 
             } catch (SQLException ex) {
 
@@ -2366,6 +2379,7 @@ public class FrameMenu extends JFrame {
             if (modificado) {
 
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("El usuario {} ha modificado un usuario: {}", this.usuario.getNombre(), usuario1.toString());
                 dialog.dispose();
                 // Actualización de la tabla:
                 mostrarTabla(obtenerModeloUsuarios());
@@ -2903,6 +2917,7 @@ public class FrameMenu extends JFrame {
             if (modificado) {
 
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("El usuario {} ha modificado un empleado: {}", this.usuario.getNombre(), empleado.toString());
                 dialog.dispose();
                 // Actualización de la tabla:
                 mostrarTabla(obtenerModeloEmpleados());
@@ -2950,7 +2965,7 @@ public class FrameMenu extends JFrame {
 
             for (Departamento e : DepartamentoController.verDepartamentos()) {
 
-                if (e.getNumDep() == clavePrimaria) {
+                if (e.getNumDep().equals(clavePrimaria)) {
 
                     departamentoBuscar = e;
                     encontrado = true;
@@ -3118,6 +3133,7 @@ public class FrameMenu extends JFrame {
             if (modificado) {
 
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("El usuario {} ha modificado departamento: {}", this.usuario.getNombre(), departamento.toString());
                 dialog.dispose();
                 // Actualización de la tabla:
                 mostrarTabla(obtenerModeloDepartamentos());
@@ -3557,6 +3573,7 @@ public class FrameMenu extends JFrame {
             if (modificado) {
 
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("El usuario {} ha modificado un vehículo: {}", this.usuario.getNombre(), vehiculo.toString());
                 dialog.dispose();
                 // Actualización de la tabla:
                 mostrarTabla(obtenerModeloVehiculos());
@@ -3571,7 +3588,6 @@ public class FrameMenu extends JFrame {
         });
 
         dialog.setVisible(true);
-
 
     }
 
