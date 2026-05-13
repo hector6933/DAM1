@@ -51,6 +51,42 @@ CREATE TABLE vehiculo (
 	CONSTRAINT fk_empleado_vehiculo FOREIGN KEY (NumEmpleado) REFERENCES empleado (NumEmpleado) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE coche (
+	matricula CHAR(8) PRIMARY KEY,
+	plazas INT,
+	CONSTRAINT	pk_fk_matricula_coche FOREIGN KEY (matricula) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE moto (
+	matricula CHAR(8) PRIMARY KEY,
+	cilindrada INT,
+	CONSTRAINT	pk_fk_matricula_moto FOREIGN KEY (matricula) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE camion (
+	matricula CHAR(8) PRIMARY KEY,
+	mma FLOAT,
+	CONSTRAINT pk_fk_matricula_camion FOREIGN KEY (matricula) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE reparacion (
+	IdReparacion INT AUTO_INCREMENT,
+	precio FLOAT,
+	matriculaVehiculo CHAR(8),
+	CONSTRAINT pk_reparacion PRIMARY KEY (IdReparacion,matriculaVehiculo),
+	CONSTRAINT fk_matricula_vehiculo_reparacion FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE
+
+);
+
+CREATE TABLE repara (
+	IdReparacion INT,
+	matriculaVehiculo CHAR(8),
+	CONSTRAINT pk_reparacion PRIMARY KEY (IdReparacion,matriculaVehiculo),
+	CONSTRAINT fk_IdReparacion_repara FOREIGN KEY (pk_reparacion) REFERENCES reparacion (IdReparacion) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_matricula_vehiculo_repara FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
 -- FALTA LA ISA DE VEHICULO DE COCHE MOTO Y CAMIÓN
 INSERT INTO departamento (nombre) VALUES
 ('Ventas'),
@@ -60,21 +96,21 @@ INSERT INTO departamento (nombre) VALUES
 ('IT');
 
 INSERT INTO usuario (nombre, passwd, rol) VALUES
-('carlos.ramirez', 'pass123', 'gerente'),
-('pedro.herrera', 'pass123', 'gerente'),
-('ana.lopez', 'pass123', 'empleado'),
-('luis.martinez', 'pass123', 'empleado'),
-('marta.gomez', 'pass123', 'empleado'),
-('jorge.fernandez', 'pass123', 'empleado'),
-('lucia.sanchez', 'pass123', 'empleado'),
-('laura.diaz', 'pass123', 'empleado'),
-('miguel.torres', 'pass123', 'empleado'),
-('sara.ruiz', 'pass123', 'empleado'),
-('david.morales', 'pass123', 'empleado'),
-('pruebaBorrar', 'pass123', 'Admin'),
+('carlos.ramirez', 'Sor2425$', 'gerente'),
+('pedro.herrera', 'Sor2425$', 'gerente'),
+('ana.lopez', 'Sor2425$', 'empleado'),
+('luis.martinez', 'Sor2425$', 'empleado'),
+('marta.gomez', 'Sor2425$', 'empleado'),
+('jorge.fernandez', 'Sor2425$', 'empleado'),
+('lucia.sanchez', 'Sor2425$', 'empleado'),
+('laura.diaz', 'Sor2425$', 'empleado'),
+('miguel.torres', 'Sor2425$', 'empleado'),
+('sara.ruiz', 'Sor2425$', 'empleado'),
+('david.morales', 'Sor2425$', 'empleado'),
+('pruebaBorrar', 'Sor2425$', 'Admin'),
 ('hecprooll', 'admin123', 'Admin'),
 ('Test', 'Test1234$', 'Admin'),
-('elena.navarro', 'pass123', 'empleado');
+('elena.navarro', 'Sor2425$', 'empleado');
 
 
 /*

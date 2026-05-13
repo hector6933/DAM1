@@ -28,7 +28,9 @@ fun main() {
 //    }
     
     var cadenaInvertida = ""
+
     cadena.toCharArray().forEach {
+        
         cadenaInvertida = it + cadenaInvertida
 
     }
