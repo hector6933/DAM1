@@ -1,2 +1,18 @@
 13-05-2026 16:28:47 [INFO] Vista.FrameMenu - Logs limpiados por el usuario Test
 13-05-2026 16:28:50 [INFO] Vista.FrameMenu - Usuario Test ha cerrado sesión
+14-05-2026 16:25:31 [WARN] Vista.FrameLogin - Fallo al iniciar sesión con user hecprooll
+14-05-2026 16:25:33 [WARN] Vista.FrameLogin - Fallo al iniciar sesión con user hecprooll
+14-05-2026 16:25:38 [WARN] Vista.FrameLogin - Fallo al iniciar sesión con user hecprooll
+14-05-2026 16:26:43 [WARN] Vista.FrameLogin - Fallo al iniciar sesión con user hecprooll
+14-05-2026 16:26:45 [WARN] Vista.FrameLogin - Fallo al iniciar sesión con user hecprooll
+14-05-2026 16:26:46 [INFO] Vista.FrameMenu - Usuario hecprooll ha iniciado sesión
+14-05-2026 16:27:02 [INFO] Vista.FrameMenu - El usuario hecprooll ha insertado un nuevo departamento: Departamento{numDep=null, nombre='AlonsoDep'}
+14-05-2026 16:27:07 [INFO] Vista.FrameMenu - El usuario hecprooll ha modificado departamento: Departamento{numDep=6, nombre='AlonsoDepo'}
+14-05-2026 16:27:10 [INFO] Vista.FrameMenu - El usuario hecprooll ha borrado un departamento con clave: 6
+14-05-2026 16:27:23 [INFO] Vista.FrameMenu - El usuario hecprooll ha insertado un nuevo usuario: Usuario{id=null, nombre='alonso', passwd='Sor2425$', rol='Gerente'}
+14-05-2026 16:27:57 [INFO] Vista.FrameMenu - El usuario hecprooll ha modificado un usuario: Usuario{id=272, nombre='Almnonso', passwd='Sor2425$', rol='Gerente'}
+14-05-2026 16:28:05 [INFO] Vista.FrameMenu - Usuario hecprooll ha cerrado sesión
+14-05-2026 16:28:12 [WARN] Vista.FrameLogin - Fallo al iniciar sesión con user almonso
+14-05-2026 16:28:14 [WARN] Vista.FrameLogin - Fallo al iniciar sesión con user Almonso
+14-05-2026 16:29:07 [INFO] Vista.FrameMenu - Usuario hecprooll ha iniciado sesión
+14-05-2026 16:29:15 [INFO] Vista.FrameMenu - Usuario hecprooll ha cerrado sesión

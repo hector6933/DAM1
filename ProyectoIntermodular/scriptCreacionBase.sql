@@ -77,7 +77,7 @@ CREATE TABLE reparacion (
 	CONSTRAINT fk_matricula_vehiculo_reparacion FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE
 
 );
-
+/*
 CREATE TABLE repara (
 	IdReparacion INT,
 	matriculaVehiculo CHAR(8),
@@ -85,7 +85,7 @@ CREATE TABLE repara (
 	CONSTRAINT fk_IdReparacion_repara FOREIGN KEY (pk_reparacion) REFERENCES reparacion (IdReparacion) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT fk_matricula_vehiculo_repara FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
+*/
 
 -- FALTA LA ISA DE VEHICULO DE COCHE MOTO Y CAMIÓN
 INSERT INTO departamento (nombre) VALUES

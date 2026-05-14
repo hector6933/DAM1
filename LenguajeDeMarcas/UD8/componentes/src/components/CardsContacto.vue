@@ -7,11 +7,12 @@
         especialidad: String
 
     })
+
 </script>
 
 <template>
 
-    <div class="card my-3 mx-3 bg-warning bg-opacity-25">
+    <div class="card my-3 mx-3 bg-warning bg-opacity-25 ">
         <div class="card-body">
             <h4 class="card-title">
                 <strong> {{ title }} </strong>

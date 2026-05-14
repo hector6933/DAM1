@@ -1,27 +1,58 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import BlogPost from './components/BlogPost.vue';
 import BotonContador from './components/BotonContador.vue';
 import CardsContacto from './components/CardsContacto.vue';
+import PaginatePosts from './components/PaginatePosts.vue';
+import LoadingSpinner from './components/LoadingSpinner.vue';
 
 
-const posts = ref([
-  { id: 1, title: "Post 01", body: "Contenido del post 01" },
-  { id: 2, title: "Post 02", body: "Contenido del post 02" },
-  { id: 3, title: "Post 03", body: "Contenido del post 03" },
-  { id: 4, title: "Post 04", body: "Contenido del post 04" },
-  { id: 5, title: "Post 05", body: "Contenido del post 05" },
-  { id: 6, title: "Post 06", body: "Contenido del post 06" },
-  { id: 7, title: "Post 07", body: "Contenido del post 07" },
-  { id: 8, title: "Post 08", body: "Contenido del post 08" }
+const posts = ref([])
+const loading = ref(true)
 
-])
+fetch('https://jsonplaceholder.typicode.com/posts').then(response => response.json()).then(data => posts.value = data)
+  .finally(() => {
 
+
+    setTimeout(() => {
+      console.log("3 segundos de espera")
+      loading.value = false
+    }, 3000)
+
+
+  }
+  )
+const tam = computed(() => posts.value.length)
 const personas = ref([
   { id: 1, title: "Juan Pérez", email: "juan@example.com", especialidad: "Desarrollador" },
   { id: 2, title: "María García", email: "maria@example.com", especialidad: "Diseñadora" },
   { id: 3, title: "Carlos López", email: "carlos@example.com", especialidad: "Usuario" }
 ])
+
+const postPorPagina = 10
+const inicio = ref(0)
+const fin = ref(postPorPagina)
+
+
+const siguientePost = () => {
+
+  if (fin.value < posts.value.length) {
+    inicio.value += 10
+    fin.value += 10
+  }
+
+}
+
+const anteriorPost = () => {
+
+  if (inicio.value > 0) {
+
+    inicio.value -= 10
+    fin.value -= 10
+
+  }
+
+}
 
 const miFavorito = ref("")
 
@@ -46,22 +77,35 @@ const cambiarContacto = (titulo) => {
 
     <div class="container-fluid">
 
+      <div class="row justify-content-center">
+        <BotonContador class="btn btn-primary col-3"></BotonContador>
+      </div>
+
+
       <h1>Contactar con: {{ contacto }} </h1>
-      <div class="row justify-content-start">
+      <div class="row justify-content-center">
         <CardsContacto v-for="post in personas" :key="post.id" :title="post.title" :email="post.email"
-          :especialidad="post.especialidad" class="col-3 " @contacto="cambiarContacto"/>
+          :especialidad="post.especialidad" class="col-3 " @contacto="cambiarContacto" />
       </div>
 
       <hr>
 
-      <h2>Mi post favorito: {{ miFavorito }}</h2>
-      <BlogPost v-for="post in posts" :key="post.id" :title="post.title" :body="post.body" :id="post.id"
-        @cambiarFavorito="cambiarFavorito" />
+      <LoadingSpinner v-if="loading"></LoadingSpinner>
+      <div v-else>
+        
+        <h2>Mi post favorito: {{ miFavorito }}</h2>
+
+
+        <PaginatePosts @anteriorPost="anteriorPost" @siguientePost="siguientePost" :inicio="inicio" :fin="fin"
+          :tamanio="tam"></PaginatePosts>
+
+        <BlogPost v-for="post in posts.slice(inicio, fin)" :key="post.id" :title="post.title" :body="post.body"
+          :id="post.id" @cambiarFavorito="cambiarFavorito" />
+
+      </div>
+
 
     </div>
-
-
-
 
   </div>
 
