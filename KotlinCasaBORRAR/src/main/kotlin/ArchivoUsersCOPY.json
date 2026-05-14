@@ -1,0 +1,54 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "nombre": "Juan",
+            "apellidos": "Pérez García"
+        },
+        {
+            "id": 2,
+            "nombre": "María",
+            "apellidos": "López Fernández"
+        },
+        {
+            "id": 3,
+            "nombre": "Carlos",
+            "apellidos": "Martín Ruiz"
+        },
+        {
+            "id": 4,
+            "nombre": "Lucía",
+            "apellidos": "Sánchez Gómez"
+        },
+        {
+            "id": 5,
+            "nombre": "Pedro",
+            "apellidos": "Navarro Díaz"
+        },
+        {
+            "id": 6,
+            "nombre": "Ana",
+            "apellidos": "Torres Romero"
+        },
+        {
+            "id": 7,
+            "nombre": "Miguel",
+            "apellidos": "Castro Morales"
+        },
+        {
+            "id": 8,
+            "nombre": "Laura",
+            "apellidos": "Vega Jiménez"
+        },
+        {
+            "id": 9,
+            "nombre": "Javier",
+            "apellidos": "Ortega Silva"
+        },
+        {
+            "id": 10,
+            "nombre": "Sofía",
+            "apellidos": "Herrera Molina"
+        }
+    ]
+}

@@ -1,0 +1,1 @@
+class DineroNoSuficienteException(mensaje: String) : Exception(mensaje)
