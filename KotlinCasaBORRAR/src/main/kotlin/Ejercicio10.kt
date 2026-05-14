@@ -6,7 +6,7 @@ fun main() {
 
     println("Introduce una cadena")
     print("> ")
-    var cadena = leer.nextLine()
+    val cadena = leer.nextLine()
 
 //    var cadenaInvertida = ArrayList<Char>()
 //
@@ -19,12 +19,18 @@ fun main() {
 //    cadena = cadenaInvertida.joinToString("")
 //    println(cadena)
 
+//    var cadenaInvertida = ""
+//    // El downTo 0 significa "contar hacia abajo hasta" por eso le pongo 0
+//    for (i in cadena.length - 1 downTo 0) {
+//
+//        cadenaInvertida += cadena[i]
+//
+//    }
+
     var cadenaInvertida = ""
-    // El downTo 0 significa "contar hacia abajo hasta" por eso le pongo 0
-    for (i in cadena.length - 1 downTo 0) {
 
-        cadenaInvertida += cadena[i]
-
+    cadena.toCharArray().forEach {
+        cadenaInvertida = it + cadenaInvertida
     }
 
     println(cadenaInvertida)
