@@ -19,6 +19,17 @@ fun main() {
         7, 8, 9, 12, 1
     )
 
+    val palabras = arrayOf("hola","que","tal","pascual")
+
+    val texto = "hola pascual que tal estas hola hola "
+
+    println(numeros.groupingBy { it }.eachCount()) // Cuantas veces aparece cada número en un Array
+    println(texto.groupingBy { it }.eachCount().toSortedMap()) // Cuántas veces aparece cada carácter en un texto
+    println(palabras.associateWith { it.length }) // Asociar cada palabra a su longitud
+
+    println(Regex("[a-zA-Z]+").findAll(texto).groupingBy { it.value }.eachCount()) // Encontrar palabras en un texto y agruparlas por las veces que se repite
+    println(Regex("[a-zA-Z]+").findAll(texto).map { it.value }.associateWith { it.length }) // Encontrar palabras en un texto y agruparlas por su longitud
+
     println("La moda de esta lista es: ${devolverModa(numeros)}")
 
 }
