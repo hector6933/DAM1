@@ -1,0 +1,104 @@
+{
+    "personas": [
+        {
+            "nombre": "Juan",
+            "apellidos": "Pérez García",
+            "edad": 25
+        },
+        {
+            "nombre": "María",
+            "apellidos": "López Sánchez",
+            "edad": 30
+        },
+        {
+            "nombre": "Carlos",
+            "apellidos": "Ruiz Fernández",
+            "edad": 22
+        },
+        {
+            "nombre": "Ana",
+            "apellidos": "García Martín",
+            "edad": 28
+        },
+        {
+            "nombre": "Luis",
+            "apellidos": "Fernández Gómez",
+            "edad": 35
+        },
+        {
+            "nombre": "Laura",
+            "apellidos": "Sánchez Díaz",
+            "edad": 19
+        },
+        {
+            "nombre": "Pedro",
+            "apellidos": "Martín Torres",
+            "edad": 41
+        },
+        {
+            "nombre": "Lucía",
+            "apellidos": "Gómez Navarro",
+            "edad": 27
+        },
+        {
+            "nombre": "Miguel",
+            "apellidos": "Torres Romero",
+            "edad": 33
+        },
+        {
+            "nombre": "Sofía",
+            "apellidos": "Díaz Morales",
+            "edad": 24
+        },
+        {
+            "nombre": "Javier",
+            "apellidos": "Morales Castro",
+            "edad": 29
+        },
+        {
+            "nombre": "Elena",
+            "apellidos": "Navarro Ortiz",
+            "edad": 38
+        },
+        {
+            "nombre": "David",
+            "apellidos": "Romero Vega",
+            "edad": 21
+        },
+        {
+            "nombre": "Paula",
+            "apellidos": "Jiménez Castro",
+            "edad": 26
+        },
+        {
+            "nombre": "Sergio",
+            "apellidos": "Castro Molina",
+            "edad": 31
+        },
+        {
+            "nombre": "Andrea",
+            "apellidos": "Ortiz Delgado",
+            "edad": 23
+        },
+        {
+            "nombre": "Daniel",
+            "apellidos": "Vega Rubio",
+            "edad": 36
+        },
+        {
+            "nombre": "Cristina",
+            "apellidos": "Molina Herrera",
+            "edad": 27
+        },
+        {
+            "nombre": "Adrián",
+            "apellidos": "Delgado Cano",
+            "edad": 40
+        },
+        {
+            "nombre": "Raquel",
+            "apellidos": "Rubio León",
+            "edad": 32
+        }
+    ]
+}
