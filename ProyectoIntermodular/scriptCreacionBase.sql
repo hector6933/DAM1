@@ -11,7 +11,7 @@ CREATE TABLE usuario(
 	passwd VARCHAR(100),
 	rol VARCHAR(20),
 	CONSTRAINT ck_rol_usuario CHECK (rol IN ('empleado','gerente','admin'))
-);
+);ull
 
 CREATE TABLE departamento(
 	numDep INT AUTO_INCREMENT PRIMARY KEY,
