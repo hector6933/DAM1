@@ -16,8 +16,8 @@ INNER JOIN tarifas f ON c.tarifa=f.id_tarifa
 WHERE f.establecimiento = (SELECT MAX(establecimiento) FROM tarifas) GROUP BY c.id_cliente;
 
 -- 4:
-SELECT t.nombre FROM tarifas t INNER JOIN clientes c ON c.tarifa=t.id_tarifa
-WHERE c.id_cliente NOT IN (SELECT id_cliente FROM llamadas WHERE tipo LIKE 'I' AND tipo LIKE 'R');
+SELECT DISTINCT t.nombre FROM tarifas t INNER JOIN clientes c ON c.tarifa=t.id_tarifa
+WHERE EXISTS (SELECT * FROM llamadas l WHERE l.id_cliente = c.id_cliente ) AND c.id_cliente NOT IN (SELECT id_cliente FROM llamadas WHERE tipo LIKE 'I' AND tipo LIKE 'R');
 
 -- 5:
 SELECT DISTINCT l.* FROM 

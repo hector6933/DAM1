@@ -1,3 +1,4 @@
+import java.sql.SQLOutput
 import java.util.Scanner
 
 val leer = Scanner(System.`in`)
@@ -6,6 +7,7 @@ fun esPalindromo(frase : String): Boolean {
 
     var fraseReversed = ""
     var fraseSinEspacios = ""
+
     frase.forEach {
         if (it != ' ') {
 
@@ -15,6 +17,9 @@ fun esPalindromo(frase : String): Boolean {
         }
 
     }
+
+    val fraseReplace = frase.replace(Regex("[^A-Za-záéíóúÁÉÍÓÚ]"),"")
+    println("Frase replace: $fraseReplace")
 
     return fraseSinEspacios.equals(fraseReversed,true)
 
