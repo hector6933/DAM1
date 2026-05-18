@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -177,7 +178,6 @@ public class FrameMenu extends JFrame {
             actualizarBotonesAccion(entidadActual);
             resaltarBoton(btnUsuarios);
             mostrarTabla(obtenerModeloUsuarios());
-
         });
 
         btnLogs.addActionListener(e -> mostrarDialogoLogs());
@@ -245,11 +245,24 @@ public class FrameMenu extends JFrame {
 
             switch (entidadActual) {
 
-                case "empleado" -> mostrarTabla(obtenerModeloEmpleados());
-                case "departamento" -> mostrarTabla(obtenerModeloDepartamentos());
-                case "vehiculo" -> mostrarTabla(obtenerModeloVehiculos());
-                case "cliente" -> mostrarTabla(obtenerModeloClientes());
-                case "usuario" -> mostrarTabla(obtenerModeloUsuarios());
+                case "empleado":
+                    mostrarTabla(obtenerModeloEmpleados());
+                    tablaActual.removeColumn(tablaActual.getColumn("Nº Empleado"));
+                    break;
+                case "departamento":
+                    mostrarTabla(obtenerModeloDepartamentos());
+                    tablaActual.removeColumn(tablaActual.getColumn("Nº Departamento"));
+                    break;
+                case "vehiculo":
+                    mostrarTabla(obtenerModeloVehiculos());
+                    break;
+                case "cliente":
+                    mostrarTabla(obtenerModeloClientes());
+                    break;
+                case "usuario":
+                    mostrarTabla(obtenerModeloUsuarios());
+                    tablaActual.removeColumn(tablaActual.getColumn("ID"));
+                    break;
 
             }
         });
@@ -289,7 +302,7 @@ public class FrameMenu extends JFrame {
         }
 
         // Cojo la clave primaria que está en la primera columna de cada entidad
-        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+        Object clavePrimaria = tablaActual.getModel().getValueAt(filaSeleccionada, 0);
 
         // Panel de confirmación antes de eliminar
         // La ventana de confirmación devuelve 0 en caso de eliga Yes y 1 en caso de que eliga No
@@ -327,12 +340,21 @@ public class FrameMenu extends JFrame {
                 // Actualización de la tabla:
                 switch (entidadActual) {
 
-                    case "empleado" -> mostrarTabla(obtenerModeloEmpleados());
-                    case "departamento" -> mostrarTabla(obtenerModeloDepartamentos());
-                    case "vehiculo" -> mostrarTabla(obtenerModeloVehiculos());
-                    case "cliente" -> mostrarTabla(obtenerModeloClientes());
-                    case "usuario" -> mostrarTabla(obtenerModeloUsuarios());
-
+                    case "empleado":
+                        mostrarTabla(obtenerModeloEmpleados());
+                        break;
+                    case "departamento":
+                        mostrarTabla(obtenerModeloDepartamentos());
+                        break;
+                    case "vehiculo":
+                        mostrarTabla(obtenerModeloVehiculos());
+                        break;
+                    case "cliente":
+                        mostrarTabla(obtenerModeloClientes());
+                        break;
+                    case "usuario":
+                        mostrarTabla(obtenerModeloUsuarios());
+                        break;
                 }
 
             } else {
@@ -385,6 +407,20 @@ public class FrameMenu extends JFrame {
                     }
                 }
             });
+
+            switch (entidadActual) {
+
+                case "empleado":
+                    tablaActual.removeColumn(tablaActual.getColumn("Nº Empleado"));
+                    break;
+                case "departamento":
+                    tablaActual.removeColumn(tablaActual.getColumn("Nº Departamento"));
+                    break;
+                case "usuario":
+                    tablaActual.removeColumn(tablaActual.getColumn("ID"));
+                    break;
+
+            }
 
             JScrollPane scroll = new JScrollPane(tablaActual);
             scroll.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -2110,7 +2146,7 @@ public class FrameMenu extends JFrame {
         }
 
         // Cojo la clave primaria que está en la primera columna de cada entidad
-        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+        Object clavePrimaria = tablaActual.getModel().getValueAt(filaSeleccionada, 0);
 
         Usuario usuarioBuscar = new Usuario();
         boolean encontrado = false;
@@ -2418,7 +2454,7 @@ public class FrameMenu extends JFrame {
         }
 
         // Cojo la clave primaria que está en la primera columna de cada entidad
-        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+        Object clavePrimaria = tablaActual.getModel().getValueAt(filaSeleccionada, 0);
 
         Empleado empleadoBuscar = new Empleado();
         boolean encontrado = false;
@@ -2956,7 +2992,7 @@ public class FrameMenu extends JFrame {
         }
 
         // Cojo la clave primaria que está en la primera columna de cada entidad
-        Object clavePrimaria = tablaActual.getValueAt(filaSeleccionada, 0);
+        Object clavePrimaria = tablaActual.getModel().getValueAt(filaSeleccionada, 0);
 
         Departamento departamentoBuscar = new Departamento();
         boolean encontrado = false;

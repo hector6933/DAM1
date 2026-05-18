@@ -35,7 +35,6 @@ fun esMagica(matriz: Array<IntArray>): Boolean {
 
     }
 
-
 }
 
 fun sumaDiagonal1(matriz: Array<IntArray>) : Int {

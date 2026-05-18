@@ -74,20 +74,25 @@ CREATE TABLE reparacion (
 	precio FLOAT,
 	matriculaVehiculo CHAR(8),
 	CONSTRAINT pk_reparacion PRIMARY KEY (IdReparacion,matriculaVehiculo),
-	CONSTRAINT fk_matricula_vehiculo_reparacion FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE
+	CONSTRAINT fk_matricula_vehiculo_reparacion FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE SET NULL
 
 );
-/*
-CREATE TABLE repara (
-	IdReparacion INT,
-	matriculaVehiculo CHAR(8),
-	CONSTRAINT pk_reparacion PRIMARY KEY (IdReparacion,matriculaVehiculo),
-	CONSTRAINT fk_IdReparacion_repara FOREIGN KEY (pk_reparacion) REFERENCES reparacion (IdReparacion) ON UPDATE CASCADE ON DELETE CASCADE,
-	CONSTRAINT fk_matricula_vehiculo_repara FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE CASCADE
-);
-*/
 
--- FALTA LA ISA DE VEHICULO DE COCHE MOTO Y CAMIÓN
+CREATE TABLE piezas (
+	modelo VARCHAR(30) PRIMARY KEY,
+	nombre VARCHAR(30),
+	cantidad INT,
+	precio_venta FLOAT
+);
+
+CREATE TABLE seCompone (
+	matriculaVehiculo CHAR(8) PRIMARY KEY,
+	modelo VARCHAR(30) PRIMARY KEY,
+	CONSTRAINT fk_matricula_vehiculo_reparacion FOREIGN KEY (matriculaVehiculo) REFERENCES vehiculo (matricula) ON UPDATE CASCADE ON DELETE SET NULL
+
+);
+
+
 INSERT INTO departamento (nombre) VALUES
 ('Ventas'),
 ('Marketing'),

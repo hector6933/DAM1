@@ -7,7 +7,6 @@ fun esPalindromo(frase : String): Boolean {
 
     var fraseReversed = ""
     var fraseSinEspacios = ""
-    frase.reversed()
     frase.forEach {
         if (it != ' ') {
 
